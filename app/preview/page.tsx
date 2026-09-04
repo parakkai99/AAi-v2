@@ -12,8 +12,12 @@ import subdomainsData from '@/data/universe/subdomains.json';
 import capabilitiesData from '@/data/universe/solution-capabilities.json';
 import solutionsData from '@/data/universe/solutions.json';
 import { Domain, Subdomain, Capability, Solution } from '@/src/types';
+import { useArchitectAny } from '@/src/context/ArchitectAnyContext';
 
 export default function PreviewPage() {
+  const { theme } = useArchitectAny();
+  const isDark = theme === 'dark';
+
   const [currentTab, setCurrentTab] = useState('Universe');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSolutionId, setSelectedSolutionId] = useState<string | null>(null);
@@ -35,7 +39,13 @@ export default function PreviewPage() {
   };
 
   return (
-    <div className="bg-[#020914] text-[#eaf7ff] font-sans min-h-screen flex flex-col overflow-x-hidden selection:bg-[#00e3fd] selection:text-[#001f24]">
+    <div
+      className={`font-sans min-h-screen flex flex-col overflow-x-hidden transition-colors duration-300 ${
+        isDark
+          ? 'bg-[#020914] text-[#eaf7ff] selection:bg-[#00e3fd] selection:text-[#001f24]'
+          : 'bg-[#f1f5f9] text-slate-900 selection:bg-indigo-500 selection:text-white'
+      }`}
+    >
       {/* 1. ArchitectAny Production Header */}
       <Header
         currentTab={currentTab}

@@ -4,6 +4,7 @@ import { IntentSearch } from './IntentSearch';
 import { LocationSelector } from './LocationSelector';
 import { LanguageSelector } from './LanguageSelector';
 import { UserMenu } from './UserMenu';
+import { ThemeToggle } from '../theme/ThemeToggle';
 import { SearchResultItem } from '@/src/contracts/intent';
 
 export interface ArchitectAnyHeaderProps {
@@ -59,6 +60,9 @@ export const ArchitectAnyHeader: React.FC<ArchitectAnyHeaderProps> = ({
           <div className="hidden md:block">
             <LanguageSelector />
           </div>
+
+          {/* Theme Toggle (Dark/Light) */}
+          <ThemeToggle variant="header" />
 
           {/* User / Signature / Auth Menu */}
           <UserMenu />

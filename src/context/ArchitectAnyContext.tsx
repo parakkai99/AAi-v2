@@ -29,7 +29,14 @@ import {
 import { authService } from '../services/authService';
 import { t as translateKey, getTranslatedDomain } from '../services/translationService';
 
+export type ThemeMode = 'dark' | 'light';
+
 export interface ArchitectAnyContextValue {
+  // Theme State
+  theme: ThemeMode;
+  setTheme: (theme: ThemeMode) => void;
+  toggleTheme: () => void;
+
   // Intent State
   intent: IntentState;
   setIntent: (intent: Partial<IntentState>) => void;
@@ -91,6 +98,26 @@ export const ArchitectAnyProvider: React.FC<ArchitectAnyProviderProps> = ({
   initialLocation,
   initialLanguage,
 }) => {
+  // 0. Theme State (Default: dark)
+  const [theme, setThemeState] = useState<ThemeMode>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('aai_theme');
+      if (saved === 'light' || saved === 'dark') return saved;
+    }
+    return 'dark';
+  });
+
+  const handleSetTheme = (newTheme: ThemeMode) => {
+    setThemeState(newTheme);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('aai_theme', newTheme);
+    }
+  };
+
+  const handleToggleTheme = () => {
+    handleSetTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
   // 1. Intent State
   const [intent, setIntentState] = useState<IntentState>(() => ({
     ...intentService.getIntent(),
@@ -203,6 +230,10 @@ export const ArchitectAnyProvider: React.FC<ArchitectAnyProviderProps> = ({
   };
 
   const value: ArchitectAnyContextValue = {
+    theme,
+    setTheme: handleSetTheme,
+    toggleTheme: handleToggleTheme,
+
     intent,
     setIntent: handleSetIntent,
     clearIntent: handleClearIntent,
