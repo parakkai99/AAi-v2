@@ -1,0 +1,63 @@
+[
+  { "id": "CAP-01-01", "domainId": "D01", "name": "Unified Vendor Catalog Integration", "category": "Core" },
+  { "id": "CAP-01-02", "domainId": "D01", "name": "Escrow & Split Payment Settlement", "category": "Payments" },
+  { "id": "CAP-01-03", "domainId": "D01", "name": "Real-time Inventory Allocation", "category": "Fulfillment" },
+  { "id": "CAP-01-04", "domainId": "D01", "name": "Dynamic Commission & Fee Engine", "category": "Billing" },
+  { "id": "CAP-01-05", "domainId": "D01", "name": "Dispute Resolution & Arbitrage Flow", "category": "Trust" },
+
+  { "id": "CAP-02-01", "domainId": "D02", "name": "Sub-Meter Geo-Fencing Dispatch", "category": "Routing" },
+  { "id": "CAP-02-02", "domainId": "D02", "name": "Live Courier Tracking & ETA", "category": "Tracking" },
+  { "id": "CAP-02-03", "domainId": "D02", "name": "Instant POS Merchant Synchronization", "category": "Inventory" },
+  { "id": "CAP-02-04", "domainId": "D02", "name": "Neighborhood Demand Clustering", "category": "Analytics" },
+
+  { "id": "CAP-03-01", "domainId": "D03", "name": "High-Concurrency Ticket Booking Queue", "category": "Ticketing" },
+  { "id": "CAP-03-02", "domainId": "D03", "name": "Cryptographic QR Access Control", "category": "Security" },
+  { "id": "CAP-03-03", "domainId": "D03", "name": "Interactive 3D Venue Seat Selection", "category": "Visual" },
+  { "id": "CAP-03-04", "domainId": "D03", "name": "Catering & Talent Backstage Scheduling", "category": "Ops" },
+
+  { "id": "CAP-04-01", "domainId": "D04", "name": "Zero-Trust Infrastructure Mesh", "category": "Security" },
+  { "id": "CAP-04-02", "domainId": "D04", "name": "Automated Canary Deployment Pipeline", "category": "DevOps" },
+  { "id": "CAP-04-03", "domainId": "D04", "name": "Multi-Cloud FinOps Cost Governor", "category": "Cloud" },
+  { "id": "CAP-04-04", "domainId": "D04", "name": "Distributed Observability & APM", "category": "Monitoring" },
+
+  { "id": "CAP-05-01", "domainId": "D05", "name": "Autonomous Multi-Agent Orchestrator", "category": "AI" },
+  { "id": "CAP-05-02", "domainId": "D05", "name": "Sub-Millisecond Vector Retrieval", "category": "Data" },
+  { "id": "CAP-05-03", "domainId": "D05", "name": "LLM Guardrail & Safety Gate", "category": "Governance" },
+  { "id": "CAP-05-04", "domainId": "D05", "name": "Real-time Feature Store & Ingestion", "category": "MLOps" },
+
+  { "id": "CAP-06-01", "domainId": "D06", "name": "BIM 4D/5D Timeline Simulation", "category": "BIM" },
+  { "id": "CAP-06-02", "domainId": "D06", "name": "Field Inspection & Defect Ticketing", "category": "QA" },
+  { "id": "CAP-06-03", "domainId": "D06", "name": "Subcontractor Retention & Milestone Vault", "category": "Finance" },
+
+  { "id": "CAP-07-01", "domainId": "D07", "name": "Hyperspectral Crop Stress Analysis", "category": "Agritech" },
+  { "id": "CAP-07-02", "domainId": "D07", "name": "Automated Irrigation Micro-Dosing", "category": "IoT" },
+  { "id": "CAP-07-03", "domainId": "D07", "name": "Grain Silo Humidity & Level Telemetry", "category": "Sensors" },
+
+  { "id": "CAP-08-01", "domainId": "D08", "name": "AI Knowledge-Graph Skill Tutoring", "category": "EdTech" },
+  { "id": "CAP-08-02", "domainId": "D08", "name": "SCORM / xAPI Telemetry Gateway", "category": "Analytics" },
+  { "id": "CAP-08-03", "domainId": "D08", "name": "Verifiable W3C Digital Badges", "category": "Credentialing" },
+
+  { "id": "CAP-09-01", "domainId": "D09", "name": "HL7 FHIR Clinical Data Connector", "category": "Health" },
+  { "id": "CAP-09-02", "domainId": "D09", "name": "Encrypted Tele-Consultation Room", "category": "Telehealth" },
+  { "id": "CAP-09-03", "domainId": "D09", "name": "Continuous Vitals Anomaly Alerting", "category": "Monitoring" },
+
+  { "id": "CAP-10-01", "domainId": "D10", "name": "High-Throughput Double-Entry Engine", "category": "Ledger" },
+  { "id": "CAP-10-02", "domainId": "D10", "name": "Real-time Graph Fraud Classification", "category": "Risk" },
+  { "id": "CAP-10-03", "domainId": "D10", "name": "Automated FX Hedging & Settlement", "category": "Treasury" },
+
+  { "id": "CAP-11-01", "domainId": "D11", "name": "Digital Twin Spatial Asset Modeler", "category": "Twin" },
+  { "id": "CAP-11-02", "domainId": "D11", "name": "BACnet / Modbus BMS Hub", "category": "IoT" },
+  { "id": "CAP-11-03", "domainId": "D11", "name": "Automated Tenant Billing & Submetering", "category": "Billing" },
+
+  { "id": "CAP-12-01", "domainId": "D12", "name": "Multi-Modal Freight Dispatch Engine", "category": "Logistics" },
+  { "id": "CAP-12-02", "domainId": "D12", "name": "CAN-Bus Telematics & OBD Diagnostics", "category": "Fleet" },
+  { "id": "CAP-12-03", "domainId": "D12", "name": "Continuous Cold-Chain Temperature Audit", "category": "Quality" },
+
+  { "id": "CAP-13-01", "domainId": "D13", "name": "Battery Energy Storage System (BESS) Optimizer", "category": "Grid" },
+  { "id": "CAP-13-02", "domainId": "D13", "name": "Automated Renewable Generation Forecasting", "category": "Solar/Wind" },
+  { "id": "CAP-13-03", "domainId": "D13", "name": "Automated GHG Scope 1-3 Auditor", "category": "ESG" },
+
+  { "id": "CAP-14-01", "domainId": "D14", "name": "Adaptive 4K HLS/DASH Video Transcoder", "category": "Streaming" },
+  { "id": "CAP-14-02", "domainId": "D14", "name": "Algorithmic Royalty Multi-Splitter", "category": "Royalties" },
+  { "id": "CAP-14-03", "domainId": "D14", "name": "Interactive WebRTC Spatial Voice Hub", "category": "Audio" }
+]

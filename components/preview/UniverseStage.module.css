@@ -1,0 +1,115 @@
+.stageWrapper {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 72px - 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 45%, #0a1f38 0%, #051424 60%, #020a14 100%);
+}
+
+.threeCanvasContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.universeFieldContainer {
+  position: relative;
+  width: 100%;
+  max-width: 1320px;
+  height: 600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  perspective: 1200px;
+}
+
+@media (min-width: 1024px) {
+  .universeFieldContainer {
+    height: 700px;
+  }
+}
+
+@media (max-width: 640px) {
+  .universeFieldContainer {
+    height: 520px;
+  }
+}
+
+.glowBackdrop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 840px;
+  height: 500px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse at center, rgba(0, 227, 253, 0.15) 0%, rgba(118, 182, 255, 0.06) 45%, rgba(5, 20, 36, 0) 75%);
+  filter: blur(55px);
+  pointer-events: none;
+}
+
+.galaxyArmGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 980px;
+  height: 580px;
+  transform: translate(-50%, -50%) rotate(-12deg);
+  background: radial-gradient(ellipse at center, rgba(147, 51, 234, 0.08) 0%, rgba(0, 227, 253, 0.05) 50%, transparent 75%);
+  filter: blur(65px);
+  pointer-events: none;
+  animation: slowPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes slowPulse {
+  0% {
+    transform: translate(-50%, -50%) rotate(-12deg) scale(0.95);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-8deg) scale(1.05);
+    opacity: 1;
+  }
+}
+
+.svgGalaxyLayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.orbitRayHorizontal {
+  position: absolute;
+  top: 50%;
+  left: 3%;
+  right: 3%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 227, 253, 0.18) 25%, rgba(0, 227, 253, 0.18) 75%, transparent);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.orbitRayVertical {
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  bottom: 8%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(0, 227, 253, 0.12) 25%, rgba(0, 227, 253, 0.12) 75%, transparent);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+

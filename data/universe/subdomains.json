@@ -1,0 +1,39 @@
+[
+  { "id": "SD-01-01", "domainId": "D01", "name": "Enterprise Frameworks & EA", "description": "TOGAF, Zachman frameworks, capability mapping, and architectural blueprint repository." },
+  { "id": "SD-01-02", "domainId": "D01", "name": "Cloud Governance & FinOps", "description": "Multi-cloud compliance policy, resource tagging, cost allocation, and landing zone automation." },
+  { "id": "SD-01-03", "domainId": "D01", "name": "Security & Zero Trust Architecture", "description": "Identity-driven perimeter security, continuous audit logging, and automated threat modeling." },
+
+  { "id": "SD-02-01", "domainId": "D02", "name": "Unified Payments & UPI Rails", "description": "Real-time UPI payment gateways, QR code processing, intent links, and merchant settlement." },
+  { "id": "SD-02-02", "domainId": "D02", "name": "Multi-Party Escrow & Settlements", "description": "Conditional escrow holding, automated commission splitting, milestone payouts, and ledger audit." },
+  { "id": "SD-02-03", "domainId": "D02", "name": "Core Banking & Double-Entry Ledger", "description": "Immutable double-entry transaction ledgers, sub-accounts, currency conversion, and balance integrity." },
+  { "id": "SD-02-04", "domainId": "D02", "name": "Fraud Prevention & Risk Scoring", "description": "Behavioral anomaly detection, transaction velocity rules, KYC/AML check pipelines, and risk graphs." },
+
+  { "id": "SD-03-01", "domainId": "D03", "name": "Clinical EHR & Health Records", "description": "HL7/FHIR compliant electronic medical records, patient history, and prescription synchronization." },
+  { "id": "SD-03-02", "domainId": "D03", "name": "Telemedicine & Virtual Triage", "description": "Encrypted video consultation, triage questionnaires, doctor scheduling, and e-prescribing." },
+  { "id": "SD-03-03", "domainId": "D03", "name": "Diagnostic Labs & Pharmacy Network", "description": "Home sample collection dispatch, diagnostic report delivery, and pharmacy inventory routing." },
+
+  { "id": "SD-04-01", "domainId": "D04", "name": "Process Automation & RPA", "description": "Autonomous business workflow execution and rule-based system automation." },
+  { "id": "SD-04-02", "domainId": "D04", "name": "Robotics & Hardware Control", "description": "Embedded actuators, sensory feedback loops, and robotic control telemetry." },
+  { "id": "SD-04-03", "domainId": "D04", "name": "Semiconductor & Chip Design", "description": "ASIC layout synthesis, FPGA acceleration, and RISC-V compute architectures." },
+  { "id": "SD-04-04", "domainId": "D04", "name": "Quantum Technology", "description": "Quantum circuit simulation, qubit state registers, and post-quantum cryptographic protocols." },
+  { "id": "SD-04-05", "domainId": "D04", "name": "Advanced AI Systems", "description": "Reasoning agents, LLM tool pipelines, neural orchestration, and multimodal models." },
+  { "id": "SD-04-06", "domainId": "D04", "name": "Autonomous & Cognitive Systems", "description": "Self-healing distributed systems, cognitive telemetry, and autonomous decision nodes." },
+
+  { "id": "SD-05-01", "domainId": "D05", "name": "Multimodal Freight & Shipping", "description": "Container tracking, maritime bill of lading, air cargo customs routing, and intermodal transfers." },
+  { "id": "SD-05-02", "domainId": "D05", "name": "Warehouse Management & Automation", "description": "ASRS pallet automation, RFID bin tracking, cross-docking dispatch, and 3PL multi-client storage." },
+  { "id": "SD-05-03", "domainId": "D05", "name": "Fleet Telematics & Last-Mile Dispatch", "description": "Dynamic route optimization, OBD-II vehicle diagnostics, cold-chain temperature logs, and proof of delivery." },
+
+  { "id": "SD-06-01", "domainId": "D06", "name": "Hyperlocal Marketplace", "description": "Geospatially grounded on-demand services, local event bookings, banquet halls, caterers, and community commerce." },
+  { "id": "SD-06-02", "domainId": "D06", "name": "Multivendor Marketplace", "description": "Multi-seller orchestration architecture, split commissions, vendor onboarding, catalog management, and platform adapters (Shopify, Zoho Commerce, Magento, OpenCart)." },
+  { "id": "SD-06-03", "domainId": "D06", "name": "Service Marketplace", "description": "Professional appointment scheduling, quote-based contractor matching, and verified service reviews." },
+  { "id": "SD-06-04", "domainId": "D06", "name": "B2B Marketplace", "description": "Wholesale procurement rails, tier pricing, bulk purchase agreements, and business trade credit." },
+  { "id": "SD-06-05", "domainId": "D06", "name": "Commerce Marketplace", "description": "Omnichannel retail marketplaces with centralized cart, cross-brand inventory, and loyalty rewards." },
+
+  { "id": "SD-07-01", "domainId": "D07", "name": "Intelligent Transit & Route Mesh", "description": "Multi-modal commuter routing, real-time bus/metro telemetry, dynamic traffic signal integration." },
+  { "id": "SD-07-02", "domainId": "D07", "name": "EV Charging & Grid Telemetry", "description": "OCPP protocol charging station networks, peak-load battery scheduling, and EV driver billing." },
+  { "id": "SD-07-03", "domainId": "D07", "name": "Micro-Mobility & Urban Fleet Dispatch", "description": "Dockless e-bike/scooter geofencing, urban fleet rebalancing algorithms, and instant rental unlocks." },
+
+  { "id": "SD-08-01", "domainId": "D08", "name": "Adaptive Tutoring & Learning Paths", "description": "Personalized skill graphs, pacing engines, generative quiz modules, and spaced repetition algorithms." },
+  { "id": "SD-08-02", "domainId": "D08", "name": "Institutional Certification & Badges", "description": "Verifiable digital credentials, OpenBadges standard, proctored testing, and university transcripts." },
+  { "id": "SD-08-03", "domainId": "D08", "name": "Interactive Simulation & Cohort Labs", "description": "Virtual laboratory sandboxes, live code pair programming, and peer cohort review rooms." }
+]

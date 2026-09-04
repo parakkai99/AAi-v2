@@ -1,0 +1,64 @@
+[
+  { "id": "SOL-01-01", "domainId": "D01", "name": "Marketplace Platform", "status": "Active", "type": "Core Platform" },
+  { "id": "SOL-01-02", "domainId": "D01", "name": "Vendor Network Hub", "status": "Active", "type": "Network" },
+  { "id": "SOL-01-03", "domainId": "D01", "name": "Transaction Engine", "status": "Active", "type": "Engine" },
+  { "id": "SOL-01-04", "domainId": "D01", "name": "Procurement Gateway", "status": "Active", "type": "Gateway" },
+  { "id": "SOL-01-05", "domainId": "D01", "name": "Escrow Settlement Suite", "status": "Active", "type": "Financial" },
+  { "id": "SOL-01-06", "domainId": "D01", "name": "Dynamic Pricing Orchestrator", "status": "Active", "type": "Intelligence" },
+
+  { "id": "SOL-02-01", "domainId": "D02", "name": "Hyperlocal Express Grid", "status": "Active", "type": "Delivery" },
+  { "id": "SOL-02-02", "domainId": "D02", "name": "Neighborhood Merchant Engine", "status": "Active", "type": "Commerce" },
+  { "id": "SOL-02-03", "domainId": "D02", "name": "On-Demand Pro Booking", "status": "Active", "type": "Services" },
+  { "id": "SOL-02-04", "domainId": "D02", "name": "Local Inventory Geo-Locator", "status": "Active", "type": "Search" },
+
+  { "id": "SOL-03-01", "domainId": "D03", "name": "Smart Ticketing Gateway", "status": "Active", "type": "Ticketing" },
+  { "id": "SOL-03-02", "domainId": "D03", "name": "Venue 3D CAD Orchestrator", "status": "Active", "type": "Spatial" },
+  { "id": "SOL-03-03", "domainId": "D03", "name": "Experiential Live Sync", "status": "Active", "type": "Broadcasting" },
+  { "id": "SOL-03-04", "domainId": "D03", "name": "Festival Access & Turnstile Mesh", "status": "Active", "type": "IoT" },
+
+  { "id": "SOL-04-01", "domainId": "D04", "name": "Enterprise Cloud Fabric", "status": "Active", "type": "Infrastructure" },
+  { "id": "SOL-04-02", "domainId": "D04", "name": "DevSecOps Pipeline Engine", "status": "Active", "type": "CI/CD" },
+  { "id": "SOL-04-03", "domainId": "D04", "name": "Zero-Trust Identity Sentinel", "status": "Active", "type": "Security" },
+  { "id": "SOL-04-04", "domainId": "D04", "name": "Autonomous Infrastructure SRE", "status": "Active", "type": "Operations" },
+
+  { "id": "SOL-05-01", "domainId": "D05", "name": "Neural Agent Swarm Controller", "status": "Active", "type": "AI Platform" },
+  { "id": "SOL-05-02", "domainId": "D05", "name": "Enterprise Vector Mesh", "status": "Active", "type": "Vector DB" },
+  { "id": "SOL-05-03", "domainId": "D05", "name": "Adaptive Data Intelligence Lakehouse", "status": "Active", "type": "Analytics" },
+  { "id": "SOL-05-04", "domainId": "D05", "name": "Semantic Knowledge Synthesizer", "status": "Active", "type": "Synthesis" },
+
+  { "id": "SOL-06-01", "domainId": "D06", "name": "Capital EPC Command Center", "status": "Active", "type": "Project Management" },
+  { "id": "SOL-06-02", "domainId": "D06", "name": "BIM 4D Spatial Digital Twin", "status": "Active", "type": "Spatial Engineering" },
+  { "id": "SOL-06-03", "domainId": "D06", "name": "Autonomous Jobsite Safety AI", "status": "Active", "type": "Safety/Vision" },
+
+  { "id": "SOL-07-01", "domainId": "D07", "name": "Precision Agronomy Platform", "status": "Active", "type": "Agritech" },
+  { "id": "SOL-07-02", "domainId": "D07", "name": "Grain Commodity Supply Chain", "status": "Active", "type": "Traceability" },
+  { "id": "SOL-07-03", "domainId": "D07", "name": "Autonomous Farm Machinery Fleet", "status": "Active", "type": "Robotics" },
+
+  { "id": "SOL-08-01", "domainId": "D08", "name": "Adaptive EdTech Learning Core", "status": "Active", "type": "LMS" },
+  { "id": "SOL-08-02", "domainId": "D08", "name": "Institutional Digital Credentials", "status": "Active", "type": "Credentialing" },
+  { "id": "SOL-08-03", "domainId": "D08", "name": "Interactive Cloud Sandbox Labs", "status": "Active", "type": "Simulation" },
+
+  { "id": "SOL-09-01", "domainId": "D09", "name": "Clinical Interoperability Fabric", "status": "Active", "type": "Health Core" },
+  { "id": "SOL-09-02", "domainId": "D09", "name": "Remote Patient Telemetry Suite", "status": "Active", "type": "Telehealth" },
+  { "id": "SOL-09-03", "domainId": "D09", "name": "Preventative Biomarker Protocol", "status": "Active", "type": "Wellness" },
+
+  { "id": "SOL-10-01", "domainId": "D10", "name": "Core Banking Ledger", "status": "Active", "type": "Ledger" },
+  { "id": "SOL-10-02", "domainId": "D10", "name": "Autonomous Treasury Sentinel", "status": "Active", "type": "Treasury" },
+  { "id": "SOL-10-03", "domainId": "D10", "name": "Graph AML & Fraud Classifier", "status": "Active", "type": "Fraud" },
+
+  { "id": "SOL-11-01", "domainId": "D11", "name": "Commercial Real Estate Twin", "status": "Active", "type": "Property" },
+  { "id": "SOL-11-02", "domainId": "D11", "name": "Smart Building BMS Controller", "status": "Active", "type": "IoT" },
+  { "id": "SOL-11-03", "domainId": "D11", "name": "Civic Infrastructure Register", "status": "Active", "type": "Infrastructure" },
+
+  { "id": "SOL-12-01", "domainId": "D12", "name": "Global Multi-Modal Freight Mesh", "status": "Active", "type": "Freight" },
+  { "id": "SOL-12-02", "domainId": "D12", "name": "Autonomous Fleet Telematics", "status": "Active", "type": "Fleet" },
+  { "id": "SOL-12-03", "domainId": "D12", "name": "Cold-Chain Integrity Assurance", "status": "Active", "type": "Sensors" },
+
+  { "id": "SOL-13-01", "domainId": "D13", "name": "Smart Microgrid Dispatcher", "status": "Active", "type": "Grid" },
+  { "id": "SOL-13-02", "domainId": "D13", "name": "Solar & Wind Generation Engine", "status": "Active", "type": "Renewables" },
+  { "id": "SOL-13-03", "domainId": "D13", "name": "Carbon ESG Audit Platform", "status": "Active", "type": "ESG" },
+
+  { "id": "SOL-14-01", "domainId": "D14", "name": "Ultra-Low Latency Media Streamer", "status": "Active", "type": "Video" },
+  { "id": "SOL-14-02", "domainId": "D14", "name": "Smart Creator Royalty Engine", "status": "Active", "type": "FinTech/Media" },
+  { "id": "SOL-14-03", "domainId": "D14", "name": "Interactive Spatial Voice Hub", "status": "Active", "type": "Audio/XR" }
+]
