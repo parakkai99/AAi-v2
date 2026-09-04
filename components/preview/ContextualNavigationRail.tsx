@@ -17,6 +17,7 @@ export interface ContextualNavigationRailProps {
   domains: Domain[];
   subdomains?: Subdomain[];
   selectedSolutionId?: string | null;
+  isExecutionMode?: boolean;
   onSelectDomain: (domainId: string) => void;
   onResetRoot: () => void;
   className?: string;
@@ -26,6 +27,7 @@ export const ContextualNavigationRail: React.FC<ContextualNavigationRailProps> =
   domains,
   subdomains = [],
   selectedSolutionId = null,
+  isExecutionMode = false,
   onSelectDomain,
   onResetRoot,
   className = '',
@@ -38,7 +40,9 @@ export const ContextualNavigationRail: React.FC<ContextualNavigationRailProps> =
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   // Determine active level
-  const activeLevel = selectedSolutionId
+  const activeLevel = isExecutionMode
+    ? 'L6'
+    : selectedSolutionId
     ? 'L5'
     : intent.solutionBundleId
     ? 'L4'

@@ -29,6 +29,9 @@ import {
   Globe,
   Sliders,
   FileCheck,
+  MapPin,
+  Workflow as WorkflowIcon,
+  Compass,
 } from 'lucide-react';
 
 export interface SolutionDetailProps {
@@ -39,6 +42,7 @@ export interface SolutionDetailProps {
   capabilities: Capability[];
   onBackToUniverse: () => void;
   onSelectDomain?: (domainId: string) => void;
+  onOpenExecution?: (solutionId: string) => void;
 }
 
 export const SolutionDetail: React.FC<SolutionDetailProps> = ({
@@ -49,6 +53,7 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
   capabilities,
   onBackToUniverse,
   onSelectDomain,
+  onOpenExecution,
 }) => {
   const { getDomainName, t } = useArchitectAny();
   const [catalogItem, setCatalogItem] = useState<SolutionItem | null>(null);
@@ -124,7 +129,7 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
             <span>{t('back_to_universe')}</span>
           </button>
 
-          {/* Interactive 5-Layer Breadcrumb Trail */}
+          {/* Interactive 5-Layer to 6-Layer Breadcrumb Trail */}
           <div className="flex flex-wrap items-center gap-1.5 font-mono text-xs text-[#6e9bb3] bg-[#021120]/80 px-3 py-1.5 rounded-xl border border-[#00dfff]/15">
             <span className="text-[#00dfff] font-bold">AAi Universe</span>
             {path.map((segment, index) => (
@@ -141,6 +146,19 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
                 </span>
               </React.Fragment>
             ))}
+            {onOpenExecution && (
+              <>
+                <ChevronRight className="w-3.5 h-3.5 text-[#55798c]" />
+                <button
+                  onClick={() => onOpenExecution(activeSol.id)}
+                  className="text-[#00dfff] hover:text-[#eaf7ff] hover:bg-[#00e3fd]/20 transition-all font-bold px-2 py-0.5 rounded bg-[#00e3fd]/10 border border-[#00e3fd]/30 cursor-pointer flex items-center gap-1"
+                  title="Launch Solution Execution Control Center"
+                >
+                  <span>L6 Execution</span>
+                  <ChevronRight className="w-3 h-3" />
+                </button>
+              </>
+            )}
           </div>
         </div>
 
@@ -212,7 +230,17 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
             </div>
 
             {/* Quick Actions Panel */}
-            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0 lg:w-64">
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0 lg:w-72">
+              {onOpenExecution && (
+                <button
+                  onClick={() => onOpenExecution(activeSol.id)}
+                  className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-gradient-to-r from-[#00e3fd] via-[#2cd5ff] to-[#00aaff] text-[#020914] font-mono text-xs font-black hover:opacity-95 shadow-[0_0_25px_rgba(0,227,253,0.5)] transition-all cursor-pointer"
+                >
+                  <Sliders className="w-4 h-4" />
+                  <span>Execute Solution (L6 Workspace) →</span>
+                </button>
+              )}
+
               <button
                 onClick={handleLaunchComposition}
                 disabled={isComposing}
@@ -303,6 +331,103 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
           </div>
         )}
 
+        {/* Business/Process Model & Geospatial Location Context */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Business & Process Model */}
+          <div className="p-6 rounded-2xl bg-[#021222]/90 border border-[#00dfff]/20 backdrop-blur-xl flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#00dfff]/15">
+                <div className="flex items-center gap-2.5">
+                  <WorkflowIcon className="w-5 h-5 text-[#00dfff]" />
+                  <h3 className="text-base font-bold text-[#eaf7ff]">
+                    Business & Settlement Model
+                  </h3>
+                </div>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                  {catalogItem?.businessWorld || 'Hyperlocal Commerce'}
+                </span>
+              </div>
+              <p className="text-xs text-[#9bd5e8] leading-relaxed mb-4">
+                {catalogItem?.processModel ||
+                  'Multi-party RFQ aggregation and instant booking confirmation. Integrates UPI split settlements and dynamic stage milestones.'}
+              </p>
+            </div>
+            <div className="pt-3 border-t border-[#00dfff]/10 flex items-center justify-between text-xs font-mono text-[#6e9bb3]">
+              <span>Settlement: 2-Stage Escrow</span>
+              <span className="text-emerald-400">Verified Process Model</span>
+            </div>
+          </div>
+
+          {/* Location & Geospatial Context */}
+          <div className="p-6 rounded-2xl bg-[#021222]/90 border border-[#00dfff]/20 backdrop-blur-xl flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#00dfff]/15">
+                <div className="flex items-center gap-2.5">
+                  <MapPin className="w-5 h-5 text-[#00dfff]" />
+                  <h3 className="text-base font-bold text-[#eaf7ff]">
+                    Location & Regional Context
+                  </h3>
+                </div>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#00e3fd]/15 text-[#00e3fd] border border-[#00e3fd]/30">
+                  Radius: {catalogItem?.locationContext?.radiusKm || 35} km
+                </span>
+              </div>
+              <div className="space-y-1.5 text-xs">
+                <div className="flex items-center justify-between font-mono">
+                  <span className="text-[#82a5bb]">Primary Urban Center:</span>
+                  <span className="text-[#eaf7ff] font-bold">
+                    {catalogItem?.locationContext?.city || 'Coimbatore'}, {catalogItem?.locationContext?.state || 'Tamil Nadu'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between font-mono">
+                  <span className="text-[#82a5bb]">Regional Corridor:</span>
+                  <span className="text-[#9bd5e8]">
+                    {catalogItem?.locationContext?.region || 'Western Tamil Nadu & South India'}
+                  </span>
+                </div>
+                {catalogItem?.locationContext?.secondaryHub && (
+                  <div className="flex items-center justify-between font-mono">
+                    <span className="text-[#82a5bb]">Secondary Regional Node:</span>
+                    <span className="text-[#9bd5e8]">{catalogItem.locationContext.secondaryHub}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="pt-3 mt-3 border-t border-[#00dfff]/10 flex items-center justify-between text-xs font-mono text-[#6e9bb3]">
+              <span>Coverage: Metros & Suburbs</span>
+              <span className="text-[#00e3fd]">Geofenced Verification</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Composed Service Capabilities */}
+        {catalogItem?.serviceComposition && catalogItem.serviceComposition.length > 0 && (
+          <div className="p-6 rounded-2xl bg-[#021222]/90 border border-[#00dfff]/20 backdrop-blur-xl">
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#00dfff]/15">
+              <div className="flex items-center gap-2.5">
+                <Boxes className="w-5 h-5 text-[#00dfff]" />
+                <h3 className="text-base font-bold text-[#eaf7ff]">
+                  Composed Micro-Service Capabilities
+                </h3>
+              </div>
+              <span className="text-[10px] font-mono text-[#00dfff]">
+                Integrated Service Mesh
+              </span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {catalogItem.serviceComposition.map((svc, idx) => (
+                <div
+                  key={idx}
+                  className="p-3.5 rounded-xl bg-[#03192e]/60 border border-[#00dfff]/15 flex items-start gap-2.5"
+                >
+                  <CheckCircle2 className="w-4 h-4 text-[#00e3fd] shrink-0 mt-0.5" />
+                  <span className="text-xs text-[#eaf7ff] leading-relaxed">{svc}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Multi-Domain Architecture Flow Blueprint */}
         <div className="p-6 rounded-2xl bg-[#020f1c]/90 border border-[#00dfff]/20 backdrop-blur-xl">
           <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#00dfff]/15">
@@ -337,6 +462,34 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
             ))}
           </div>
         </div>
+
+        {/* Level 6 Execution Workspace Callout Banner */}
+        {onOpenExecution && (
+          <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-[#031e36] via-[#021526] to-[#010e1a] border border-[#00e3fd]/40 shadow-[0_0_35px_rgba(0,227,253,0.15)] flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 font-mono text-xs text-[#00e3fd]">
+                <span className="px-2 py-0.5 rounded bg-[#00e3fd]/20 border border-[#00e3fd]/40 font-bold">
+                  LAYER 6 READY
+                </span>
+                <span>Move from "Understand Solution" to "Execute Solution"</span>
+              </div>
+              <h3 className="text-xl font-bold text-[#eaf7ff]">
+                Ready to Configure and Operate {activeSol.name}?
+              </h3>
+              <p className="text-xs text-[#82a5bb] max-w-2xl leading-relaxed">
+                Open the interactive L6 Control Center to tune the {catalogItem?.locationContext?.radiusKm || 35}km geofence radius, switch platform adapters (Zoho Commerce, Shopify, Magento), inspect provider networks, and simulate the end-to-end multi-party booking and escrow workflow.
+              </p>
+            </div>
+
+            <button
+              onClick={() => onOpenExecution(activeSol.id)}
+              className="shrink-0 flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#00e3fd] via-[#2cd5ff] to-[#00aaff] text-[#020914] font-mono text-xs font-black hover:opacity-95 shadow-[0_0_25px_rgba(0,227,253,0.5)] transition-all cursor-pointer"
+            >
+              <Sliders className="w-4 h-4" />
+              <span>Launch L6 Control Center →</span>
+            </button>
+          </div>
+        )}
       </div>
     </main>
   );

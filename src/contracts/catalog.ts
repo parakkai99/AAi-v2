@@ -8,14 +8,15 @@
  * L5 — SOLUTION / SELECTION (e.g. D06.01.01.01.001)
  */
 
-export type CatalogLayer = 1 | 2 | 3 | 4 | 5;
+export type CatalogLayer = 1 | 2 | 3 | 4 | 5 | 6;
 
 export type CatalogItemType =
   | 'DOMAIN'
   | 'SUBDOMAIN'
   | 'CAPABILITY'
   | 'SOLUTION_BUNDLE'
-  | 'SOLUTION';
+  | 'SOLUTION'
+  | 'EXECUTION';
 
 export interface CatalogPathSegment {
   id: string;
@@ -44,6 +45,18 @@ export interface CatalogItem {
   accentColor?: string;
   
   // Optional Solution Extensions
+  businessWorld?: string;
+  processModel?: string;
+  locationContext?: {
+    city?: string;
+    state?: string;
+    region?: string;
+    radiusKm?: number;
+    pincodes?: string[];
+    secondaryHub?: string;
+  };
+  serviceComposition?: string[];
+  nextAction?: string;
   primaryPath?: string;
   relatedCapabilities?: string[];
   supportingDomains?: string[];

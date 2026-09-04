@@ -648,68 +648,72 @@
       "id": "D06.01.05",
       "type": "CAPABILITY",
       "layer": 3,
-      "name": "Personal Wellness & Care",
+      "name": "Personal Services",
       "parentId": "D06.01",
       "domainId": "D06",
       "subdomainId": "D06.01",
       "path": [
         { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
         { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.05", "name": "Personal Wellness & Care", "layer": 3, "type": "CAPABILITY" }
+        { "id": "D06.01.05", "name": "Personal Services", "layer": 3, "type": "CAPABILITY" }
       ],
       "description": "In-home spa, grooming, salon appointments, and personal fitness trainers.",
-      "keywords": ["salon", "spa", "wellness", "fitness", "grooming"],
+      "keywords": ["salon", "spa", "wellness", "fitness", "grooming", "personal services"],
+      "aliases": ["Personal Wellness & Care"],
       "status": "active"
     },
     {
       "id": "D06.01.06",
       "type": "CAPABILITY",
       "layer": 3,
-      "name": "Professional Local Services",
+      "name": "Professional Services",
       "parentId": "D06.01",
       "domainId": "D06",
       "subdomainId": "D06.01",
       "path": [
         { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
         { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.06", "name": "Professional Local Services", "layer": 3, "type": "CAPABILITY" }
+        { "id": "D06.01.06", "name": "Professional Services", "layer": 3, "type": "CAPABILITY" }
       ],
       "description": "Local legal notary, tax filing consultants, property surveyors, and document expeditors.",
-      "keywords": ["legal", "notary", "tax", "consultants", "surveyor"],
+      "keywords": ["legal", "notary", "tax", "consultants", "surveyor", "professional services"],
+      "aliases": ["Professional Local Services"],
       "status": "active"
     },
     {
       "id": "D06.01.07",
       "type": "CAPABILITY",
       "layer": 3,
-      "name": "Local Transport & Mobility",
+      "name": "Transport & Mobility",
       "parentId": "D06.01",
       "domainId": "D06",
       "subdomainId": "D06.01",
       "path": [
         { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
         { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.07", "name": "Local Transport & Mobility", "layer": 3, "type": "CAPABILITY" }
+        { "id": "D06.01.07", "name": "Transport & Mobility", "layer": 3, "type": "CAPABILITY" }
       ],
       "description": "Local tempo hire, auto-rickshaw fleet dispatch, event guest coaches, and intra-city logistics.",
-      "keywords": ["transport", "cab", "coach", "tempo", "van hire"],
+      "keywords": ["transport", "cab", "coach", "tempo", "van hire", "mobility"],
+      "aliases": ["Local Transport & Mobility"],
       "status": "active"
     },
     {
       "id": "D06.01.08",
       "type": "CAPABILITY",
       "layer": 3,
-      "name": "Local Retail Commerce",
+      "name": "Local Commerce",
       "parentId": "D06.01",
       "domainId": "D06",
       "subdomainId": "D06.01",
       "path": [
         { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
         { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.08", "name": "Local Retail Commerce", "layer": 3, "type": "CAPABILITY" }
+        { "id": "D06.01.08", "name": "Local Commerce", "layer": 3, "type": "CAPABILITY" }
       ],
       "description": "Boutique stores, local artisan products, and neighbourhood retailer digital cataloging.",
-      "keywords": ["retail", "local shops", "artisan", "boutique"],
+      "keywords": ["retail", "local shops", "artisan", "boutique", "local commerce"],
+      "aliases": ["Local Retail Commerce"],
       "status": "active"
     },
     {
@@ -938,6 +942,158 @@
       "status": "active"
     },
     {
+      "id": "D06.01.02.01",
+      "type": "SOLUTION_BUNDLE",
+      "layer": 4,
+      "name": "Home Maintenance & Emergency Repair Bundle",
+      "parentId": "D06.01.02",
+      "domainId": "D06",
+      "subdomainId": "D06.01",
+      "capabilityId": "D06.01.02",
+      "path": [
+        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
+        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
+        { "id": "D06.01.02", "name": "Home & Repair Services", "layer": 3, "type": "CAPABILITY" },
+        { "id": "D06.01.02.01", "name": "Home Maintenance & Emergency Repair Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
+      ],
+      "description": "Certified electrician, plumbing, appliance repair, and home renovation dispatch suite.",
+      "keywords": ["home repair", "electrician", "plumber", "renovation", "emergency repair"],
+      "status": "active"
+    },
+    {
+      "id": "D06.01.03.01",
+      "type": "SOLUTION_BUNDLE",
+      "layer": 4,
+      "name": "Local Dining & Cloud Kitchen Dispatch Bundle",
+      "parentId": "D06.01.03",
+      "domainId": "D06",
+      "subdomainId": "D06.01",
+      "capabilityId": "D06.01.03",
+      "path": [
+        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
+        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
+        { "id": "D06.01.03", "name": "Food & Dining Services", "layer": 3, "type": "CAPABILITY" },
+        { "id": "D06.01.03.01", "name": "Local Dining & Cloud Kitchen Dispatch Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
+      ],
+      "description": "Neighborhood restaurant ordering, real-time kitchen display queues, and table reservation rails.",
+      "keywords": ["restaurant ordering", "cloud kitchen", "food delivery", "dining reservations"],
+      "status": "active"
+    },
+    {
+      "id": "D06.01.04.01",
+      "type": "SOLUTION_BUNDLE",
+      "layer": 4,
+      "name": "Daily Essentials & Quick Commerce Delivery Bundle",
+      "parentId": "D06.01.04",
+      "domainId": "D06",
+      "subdomainId": "D06.01",
+      "capabilityId": "D06.01.04",
+      "path": [
+        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
+        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
+        { "id": "D06.01.04", "name": "Grocery & Daily Essentials", "layer": 3, "type": "CAPABILITY" },
+        { "id": "D06.01.04.01", "name": "Daily Essentials & Quick Commerce Delivery Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
+      ],
+      "description": "Micro-warehouse inventory synchronization, fresh farm produce sourcing, and 15-minute fulfillment routing.",
+      "keywords": ["grocery delivery", "quick commerce", "daily essentials", "fresh produce"],
+      "status": "active"
+    },
+    {
+      "id": "D06.01.05.01",
+      "type": "SOLUTION_BUNDLE",
+      "layer": 4,
+      "name": "On-Demand Personal Care & Wellness Booking Bundle",
+      "parentId": "D06.01.05",
+      "domainId": "D06",
+      "subdomainId": "D06.01",
+      "capabilityId": "D06.01.05",
+      "path": [
+        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
+        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
+        { "id": "D06.01.05", "name": "Personal Services", "layer": 3, "type": "CAPABILITY" },
+        { "id": "D06.01.05.01", "name": "On-Demand Personal Care & Wellness Booking Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
+      ],
+      "description": "In-home styling, therapy scheduling, verified certified masseurs, and salon at-home appointments.",
+      "keywords": ["personal care", "salon at home", "wellness booking", "stylist", "spa"],
+      "status": "active"
+    },
+    {
+      "id": "D06.01.06.01",
+      "type": "SOLUTION_BUNDLE",
+      "layer": 4,
+      "name": "Professional Advisory & Notary Services Bundle",
+      "parentId": "D06.01.06",
+      "domainId": "D06",
+      "subdomainId": "D06.01",
+      "capabilityId": "D06.01.06",
+      "path": [
+        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
+        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
+        { "id": "D06.01.06", "name": "Professional Services", "layer": 3, "type": "CAPABILITY" },
+        { "id": "D06.01.06.01", "name": "Professional Advisory & Notary Services Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
+      ],
+      "description": "Legal document attestation, chartered accountant tax filings, and local architectural surveyor matching.",
+      "keywords": ["notary", "legal advisor", "tax consultant", "surveyor", "professional services"],
+      "status": "active"
+    },
+    {
+      "id": "D06.01.07.01",
+      "type": "SOLUTION_BUNDLE",
+      "layer": 4,
+      "name": "Hyperlocal Fleet & Passenger Transit Bundle",
+      "parentId": "D06.01.07",
+      "domainId": "D06",
+      "subdomainId": "D06.01",
+      "capabilityId": "D06.01.07",
+      "path": [
+        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
+        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
+        { "id": "D06.01.07", "name": "Transport & Mobility", "layer": 3, "type": "CAPABILITY" },
+        { "id": "D06.01.07.01", "name": "Hyperlocal Fleet & Passenger Transit Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
+      ],
+      "description": "Event passenger shuttle dispatch, commercial tempo rentals, and verified local chauffeur networks.",
+      "keywords": ["tempo hire", "auto fleet", "shuttle booking", "local transit", "mobility"],
+      "status": "active"
+    },
+    {
+      "id": "D06.01.08.01",
+      "type": "SOLUTION_BUNDLE",
+      "layer": 4,
+      "name": "Neighborhood Retail & Artisan Storefront Bundle",
+      "parentId": "D06.01.08",
+      "domainId": "D06",
+      "subdomainId": "D06.01",
+      "capabilityId": "D06.01.08",
+      "path": [
+        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
+        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
+        { "id": "D06.01.08", "name": "Local Commerce", "layer": 3, "type": "CAPABILITY" },
+        { "id": "D06.01.08.01", "name": "Neighborhood Retail & Artisan Storefront Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
+      ],
+      "description": "Local boutique storefront digital digitizer, neighborhood inventory catalogue, and click-and-collect pickup.",
+      "keywords": ["local retail", "artisan shops", "boutique", "storefront", "neighborhood commerce"],
+      "status": "active"
+    },
+    {
+      "id": "D06.01.09.01",
+      "type": "SOLUTION_BUNDLE",
+      "layer": 4,
+      "name": "Agro-Equipment Leasing & Farm Labor Dispatch Bundle",
+      "parentId": "D06.01.09",
+      "domainId": "D06",
+      "subdomainId": "D06.01",
+      "capabilityId": "D06.01.09",
+      "path": [
+        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
+        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
+        { "id": "D06.01.09", "name": "Agriculture & Agri Services", "layer": 3, "type": "CAPABILITY" },
+        { "id": "D06.01.09.01", "name": "Agro-Equipment Leasing & Farm Labor Dispatch Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
+      ],
+      "description": "Harvester and tractor rental booking, local agrarian labor crews, and soil health consultation pipelines.",
+      "keywords": ["tractor rental", "farm labor", "agro equipment", "agriculture services"],
+      "status": "active"
+    },
+    {
       "id": "D06.02.02.01",
       "type": "SOLUTION_BUNDLE",
       "layer": 4,
@@ -1001,6 +1157,23 @@
       "rating": 4.9,
       "complexity": "Enterprise",
       "estimatedEffort": "2 - 4 Weeks",
+      "businessWorld": "D06.01 Hyperlocal Marketplace",
+      "processModel": "Geospatial Discovery → Vendor Slot Inquiry → Multi-Seller Quotation Mesh → Escrow Milestone Lock → Real-Time Delivery & Dispatch → Settlement",
+      "locationContext": {
+        "city": "Coimbatore",
+        "state": "Tamil Nadu",
+        "region": "Western Tamil Nadu & South India",
+        "radiusKm": 35,
+        "pincodes": ["641001", "641002", "641018", "641004"],
+        "secondaryHub": "Kanyakumari"
+      },
+      "serviceComposition": [
+        "Banquet Hall & Lawn Reservation Engine",
+        "Artisan Catering & Gourmet Menu Quotations",
+        "Pro Audio, Lighting & Stage Technician Dispatch",
+        "Cinematic Photography & Drone Videography Portfolio"
+      ],
+      "nextAction": "Launch Control Center & Execution Workspace (L6)",
       "platformOptions": ["Zoho Commerce", "Shopify", "Magento / Adobe Commerce", "OpenCart"],
       "relatedCapabilities": ["D06.02.02", "D06.02.07", "D06.02.08", "D06.02.09"],
       "supportingDomains": ["D02", "D05", "D07"],
@@ -1061,6 +1234,215 @@
       "complexity": "Advanced",
       "platformOptions": ["Shopify", "Zoho Commerce", "OpenCart"],
       "features": ["Per-Plate Dynamic Calculation", "Live Chef Tasting Scheduling", "Dietary & Allergen Filtering"]
+    },
+    {
+      "id": "D06.01.02.01.001",
+      "type": "SOLUTION",
+      "layer": 5,
+      "name": "On-Demand Home Repair & Technician Dispatch Mesh",
+      "parentId": "D06.01.02.01",
+      "domainId": "D06",
+      "subdomainId": "D06.01",
+      "capabilityId": "D06.01.02",
+      "solutionBundleId": "D06.01.02.01",
+      "path": [
+        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
+        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
+        { "id": "D06.01.02", "name": "Home & Repair Services", "layer": 3, "type": "CAPABILITY" },
+        { "id": "D06.01.02.01", "name": "Home Maintenance & Emergency Repair Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
+        { "id": "D06.01.02.01.001", "name": "On-Demand Home Repair & Technician Dispatch Mesh", "layer": 5, "type": "SOLUTION" }
+      ],
+      "description": "Geolocated electrician, plumber, and appliance maintenance dispatch network with background-verified trade credentials and automated slot scheduling.",
+      "keywords": ["home repair", "electrician dispatch", "plumber coimbatore", "verified technicians"],
+      "status": "active",
+      "rating": 4.85,
+      "complexity": "Advanced",
+      "businessWorld": "D06.01 Hyperlocal Marketplace",
+      "processModel": "Distress Request → Geofenced Technician Match → Upfront Tariff Lock → Live Transit → Post-Repair OTP Verification",
+      "platformOptions": ["Zoho Commerce", "Shopify"],
+      "features": ["Emergency 60-Minute Response SLAs", "Rate Card Standardization", "Digital Inspection Work Order"]
+    },
+    {
+      "id": "D06.01.03.01.001",
+      "type": "SOLUTION",
+      "layer": 5,
+      "name": "Neighborhood Kitchen & Restaurant Order Router",
+      "parentId": "D06.01.03.01",
+      "domainId": "D06",
+      "subdomainId": "D06.01",
+      "capabilityId": "D06.01.03",
+      "solutionBundleId": "D06.01.03.01",
+      "path": [
+        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
+        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
+        { "id": "D06.01.03", "name": "Food & Dining Services", "layer": 3, "type": "CAPABILITY" },
+        { "id": "D06.01.03.01", "name": "Local Dining & Cloud Kitchen Dispatch Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
+        { "id": "D06.01.03.01.001", "name": "Neighborhood Kitchen & Restaurant Order Router", "layer": 5, "type": "SOLUTION" }
+      ],
+      "description": "Hyperlocal food discovery platform connecting regional diners to authenticated local restaurants, cloud kitchens, and specialty bakers.",
+      "keywords": ["food delivery", "restaurant ordering", "cloud kitchen", "coimbatore dining"],
+      "status": "active",
+      "rating": 4.8,
+      "complexity": "Enterprise",
+      "businessWorld": "D06.01 Hyperlocal Marketplace",
+      "platformOptions": ["Shopify", "Zoho Commerce"],
+      "features": ["Kitchen Display System (KDS) Sync", "Multi-Item Split Prep", "Rider Geofence Assignment"]
+    },
+    {
+      "id": "D06.01.04.01.001",
+      "type": "SOLUTION",
+      "layer": 5,
+      "name": "Micro-Fulfillment Quick Essentials Grid",
+      "parentId": "D06.01.04.01",
+      "domainId": "D06",
+      "subdomainId": "D06.01",
+      "capabilityId": "D06.01.04",
+      "solutionBundleId": "D06.01.04.01",
+      "path": [
+        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
+        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
+        { "id": "D06.01.04", "name": "Grocery & Daily Essentials", "layer": 3, "type": "CAPABILITY" },
+        { "id": "D06.01.04.01", "name": "Daily Essentials & Quick Commerce Delivery Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
+        { "id": "D06.01.04.01.001", "name": "Micro-Fulfillment Quick Essentials Grid", "layer": 5, "type": "SOLUTION" }
+      ],
+      "description": "Ultra-fast daily grocery and pharmacy delivery infrastructure managing neighborhood dark-stores and real-time inventory buffers.",
+      "keywords": ["quick commerce", "grocery delivery", "daily essentials", "dark store"],
+      "status": "active",
+      "rating": 4.9,
+      "complexity": "Enterprise",
+      "businessWorld": "D06.01 Hyperlocal Marketplace",
+      "platformOptions": ["Zoho Commerce", "Shopify"],
+      "features": ["Dark-Store Stock Telemetry", "15-Minute Delivery Batching", "Expiry Date SKU Controls"]
+    },
+    {
+      "id": "D06.01.05.01.001",
+      "type": "SOLUTION",
+      "layer": 5,
+      "name": "In-Home Wellness & Stylist Appointment System",
+      "parentId": "D06.01.05.01",
+      "domainId": "D06",
+      "subdomainId": "D06.01",
+      "capabilityId": "D06.01.05",
+      "solutionBundleId": "D06.01.05.01",
+      "path": [
+        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
+        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
+        { "id": "D06.01.05", "name": "Personal Services", "layer": 3, "type": "CAPABILITY" },
+        { "id": "D06.01.05.01", "name": "On-Demand Personal Care & Wellness Booking Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
+        { "id": "D06.01.05.01.001", "name": "In-Home Wellness & Stylist Appointment System", "layer": 5, "type": "SOLUTION" }
+      ],
+      "description": "On-demand booking gateway for certified beauty specialists, yoga instructors, and wellness therapists with kit sanitation certifications.",
+      "keywords": ["salon at home", "wellness booking", "personal grooming", "massage booking"],
+      "status": "active",
+      "rating": 4.75,
+      "complexity": "Advanced",
+      "businessWorld": "D06.01 Hyperlocal Marketplace",
+      "platformOptions": ["Shopify", "Zoho Commerce"],
+      "features": ["Therapist Calendar Lock", "Hygiene & Kit Checklist Verification", "Safety Tracking & SOS"]
+    },
+    {
+      "id": "D06.01.06.01.001",
+      "type": "SOLUTION",
+      "layer": 5,
+      "name": "Verified Local Professional Consultation Desk",
+      "parentId": "D06.01.06.01",
+      "domainId": "D06",
+      "subdomainId": "D06.01",
+      "capabilityId": "D06.01.06",
+      "solutionBundleId": "D06.01.06.01",
+      "path": [
+        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
+        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
+        { "id": "D06.01.06", "name": "Professional Services", "layer": 3, "type": "CAPABILITY" },
+        { "id": "D06.01.06.01", "name": "Professional Advisory & Notary Services Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
+        { "id": "D06.01.06.01.001", "name": "Verified Local Professional Consultation Desk", "layer": 5, "type": "SOLUTION" }
+      ],
+      "description": "High-trust directory and appointment escrow system for local chartered accountants, legal advocates, and property valuation surveyors.",
+      "keywords": ["notary", "legal consultant", "tax chartered accountant", "property valuation"],
+      "status": "active",
+      "rating": 4.8,
+      "complexity": "Standard",
+      "businessWorld": "D06.01 Hyperlocal Marketplace",
+      "platformOptions": ["Zoho Commerce"],
+      "features": ["Digital Retainer Escrow", "Encrypted Document Vault", "Video & In-Person Slot Allocation"]
+    },
+    {
+      "id": "D06.01.07.01.001",
+      "type": "SOLUTION",
+      "layer": 5,
+      "name": "Last-Mile Auto & Intra-City Goods Shuttle",
+      "parentId": "D06.01.07.01",
+      "domainId": "D06",
+      "subdomainId": "D06.01",
+      "capabilityId": "D06.01.07",
+      "solutionBundleId": "D06.01.07.01",
+      "path": [
+        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
+        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
+        { "id": "D06.01.07", "name": "Transport & Mobility", "layer": 3, "type": "CAPABILITY" },
+        { "id": "D06.01.07.01", "name": "Hyperlocal Fleet & Passenger Transit Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
+        { "id": "D06.01.07.01.001", "name": "Last-Mile Auto & Intra-City Goods Shuttle", "layer": 5, "type": "SOLUTION" }
+      ],
+      "description": "Multi-vehicle commercial transit reservation system providing event coach hiring, goods loading tempo rentals, and passenger shuttles.",
+      "keywords": ["tempo rental", "commercial transport", "event coach hire", "logistics"],
+      "status": "active",
+      "rating": 4.7,
+      "complexity": "Advanced",
+      "businessWorld": "D06.01 Hyperlocal Marketplace",
+      "platformOptions": ["Shopify", "OpenCart"],
+      "features": ["Fleet Telematics Link", "Point-to-Point Distance Quoter", "Toll & Fuel Surcharge Ledger"]
+    },
+    {
+      "id": "D06.01.08.01.001",
+      "type": "SOLUTION",
+      "layer": 5,
+      "name": "Local Artisan & Neighbourhood Merchant Showcase",
+      "parentId": "D06.01.08.01",
+      "domainId": "D06",
+      "subdomainId": "D06.01",
+      "capabilityId": "D06.01.08",
+      "solutionBundleId": "D06.01.08.01",
+      "path": [
+        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
+        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
+        { "id": "D06.01.08", "name": "Local Commerce", "layer": 3, "type": "CAPABILITY" },
+        { "id": "D06.01.08.01", "name": "Neighborhood Retail & Artisan Storefront Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
+        { "id": "D06.01.08.01.001", "name": "Local Artisan & Neighbourhood Merchant Showcase", "layer": 5, "type": "SOLUTION" }
+      ],
+      "description": "Enables neighborhood specialty stores, textile weavers, and handicraft artisans to publish unified digital catalogs with same-day curbside pickup.",
+      "keywords": ["artisan marketplace", "neighborhood shop", "textile weaver", "local store"],
+      "status": "active",
+      "rating": 4.85,
+      "complexity": "Standard",
+      "businessWorld": "D06.01 Hyperlocal Marketplace",
+      "platformOptions": ["Zoho Commerce", "Shopify"],
+      "features": ["Barcode POS Mobile Scanner", "Curbside Pickup OTP", "Neighborhood Delivery Radius Limits"]
+    },
+    {
+      "id": "D06.01.09.01.001",
+      "type": "SOLUTION",
+      "layer": 5,
+      "name": "Farm Machinery Rental & Agronomy Network",
+      "parentId": "D06.01.09.01",
+      "domainId": "D06",
+      "subdomainId": "D06.01",
+      "capabilityId": "D06.01.09",
+      "solutionBundleId": "D06.01.09.01",
+      "path": [
+        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
+        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
+        { "id": "D06.01.09", "name": "Agriculture & Agri Services", "layer": 3, "type": "CAPABILITY" },
+        { "id": "D06.01.09.01", "name": "Agro-Equipment Leasing & Farm Labor Dispatch Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
+        { "id": "D06.01.09.01.001", "name": "Farm Machinery Rental & Agronomy Network", "layer": 5, "type": "SOLUTION" }
+      ],
+      "description": "Shared agrarian equipment marketplace connecting local cultivators to tractor owners, harvester operators, and certified soil testing labs.",
+      "keywords": ["tractor rental", "farm equipment", "agriculture leasing", "soil testing"],
+      "status": "active",
+      "rating": 4.9,
+      "complexity": "Advanced",
+      "businessWorld": "D06.01 Hyperlocal Marketplace",
+      "platformOptions": ["Zoho Commerce", "OpenCart"],
+      "features": ["Acreage-based Metering", "Equipment Breakdown Replacement SLA", "Seasonal Crop Cycle Booking"]
     },
     {
       "id": "D06.02.15.01.001",
