@@ -176,10 +176,12 @@ export const ArchitectAnyProvider: React.FC<ArchitectAnyProviderProps> = ({
       domainId: null,
       subdomainId: null,
       capabilityId: null,
+      solutionBundleId: null,
       solutionId: null,
       serviceId: null,
       providerId: null,
       category: null,
+      path: [],
     });
   };
 

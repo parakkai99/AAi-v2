@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Domain, Subdomain, Capability, Solution } from '@/src/types';
 import {
   DomainItem,
@@ -29,6 +29,9 @@ import {
   LayoutGrid,
   List,
   ChevronDown,
+  Compass,
+  Check,
+  X,
 } from 'lucide-react';
 import { CapabilityCard } from './CapabilityCard';
 import { L2BusinessWorldsStepper } from './L2BusinessWorldsStepper';
@@ -45,6 +48,7 @@ export interface SolutionRailProps {
   solutions: Solution[];
   onSelectDomain: (domainId: string) => void;
   onSelectSolution: (solutionId: string) => void;
+  onResetToRoot?: () => void;
 }
 
 export const SolutionRail: React.FC<SolutionRailProps> = ({
@@ -55,8 +59,9 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
   solutions,
   onSelectDomain,
   onSelectSolution,
+  onResetToRoot,
 }) => {
-  const { intent, setIntent, getDomainName, getDomainDesc, theme } = useArchitectAny();
+  const { intent, setIntent, clearIntent, getDomainName, getDomainDesc, theme } = useArchitectAny();
   const isDark = theme === 'dark';
 
   // 5-Layer Drill-Down State
@@ -109,6 +114,16 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
     // Load subdomains & solutions for domain
     catalogRepository.getSubdomains(selectedDomain.id).then((subs) => {
       setCatalogSubdomains(subs);
+      if (subs.length > 0) {
+        const targetSub = intent.subdomainId
+          ? subs.find((s) => s.id === intent.subdomainId)
+          : null;
+        const subToSelect = targetSub || subs[0];
+        if (subToSelect) {
+          setSelectedSubdomain(subToSelect);
+          setActiveLayer(2);
+        }
+      }
     });
     catalogRepository.getSolutions(undefined, selectedDomain.id).then((sols) => {
       setCatalogSolutions(sols);
@@ -249,6 +264,14 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
     });
   };
 
+  const handleResetToRoot = () => {
+    if (onResetToRoot) {
+      onResetToRoot();
+    } else {
+      clearIntent();
+    }
+  };
+
   const handleStepUp = () => {
     if (activeLayer === 4) {
       setSelectedBundle(null);
@@ -274,7 +297,28 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
           { id: selectedSubdomain?.id || '', name: selectedSubdomain?.name || '', layer: 2 },
         ],
       });
-    } else if (activeLayer === 2) {
+    } else if (activeLayer === 2 || activeLayer === 1) {
+      handleResetToRoot();
+    }
+  };
+
+  const handleResetToDomain = () => {
+    setSelectedCapability(null);
+    setSelectedBundle(null);
+    if (catalogSubdomains.length > 0) {
+      setSelectedSubdomain(catalogSubdomains[0]);
+      setActiveLayer(2);
+      setIntent({
+        subdomainId: catalogSubdomains[0].id,
+        capabilityId: null,
+        solutionBundleId: null,
+        solutionId: null,
+        path: [
+          { id: selectedDomain.id, name: selectedDomain.name, layer: 1 },
+          { id: catalogSubdomains[0].id, name: catalogSubdomains[0].name, layer: 2 },
+        ],
+      });
+    } else {
       setSelectedSubdomain(null);
       setActiveLayer(1);
       setIntent({
@@ -287,20 +331,6 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
     }
   };
 
-  const handleResetToDomain = () => {
-    setSelectedSubdomain(null);
-    setSelectedCapability(null);
-    setSelectedBundle(null);
-    setActiveLayer(1);
-    setIntent({
-      subdomainId: null,
-      capabilityId: null,
-      solutionBundleId: null,
-      solutionId: null,
-      path: [{ id: selectedDomain.id, name: selectedDomain.name, layer: 1 }],
-    });
-  };
-
   // Filter solutions by selected platform adapter
   const filteredSolutions = useMemo(() => {
     if (selectedPlatform === 'ALL') return catalogSolutions;
@@ -310,109 +340,125 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
   }, [catalogSolutions, selectedPlatform]);
 
   const availablePlatforms = ['ALL', 'Shopify', 'Zoho Commerce', 'Magento / Adobe Commerce', 'OpenCart'];
+  const [isPlatformMenuOpen, setIsPlatformMenuOpen] = useState(false);
+  const platformMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (platformMenuRef.current && !platformMenuRef.current.contains(e.target as Node)) {
+        setIsPlatformMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
-    <section
-      role="region"
-      aria-label="5-Layer Solution Discovery Experience"
-      className="relative z-30 w-full max-w-7xl mx-auto px-3 sm:px-5 lg:px-8 my-4 transition-colors duration-300 ease-out"
-    >
-      {/* Top Controls: Theme Switch Indicator matching L2-Ok.png */}
-      <div className="flex items-center justify-between gap-3 mb-3">
-        <div className="flex items-center gap-2">
-          <span
-            className={`font-mono text-xs uppercase tracking-wider font-bold flex items-center gap-1.5 ${
-              isDark ? 'text-[#82a5bb]' : 'text-slate-600'
-            }`}
-          >
-            <Sparkles className={`w-3.5 h-3.5 ${isDark ? 'text-[#00dfff]' : 'text-indigo-600'}`} />
-            <span>5-Layer Solution Discovery</span>
-          </span>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span
-            className={`hidden sm:inline-block text-[11px] font-mono ${
-              isDark ? 'text-[#6e9bb3]' : 'text-slate-500'
-            }`}
-          >
-            Theme switch:
-          </span>
-          <ThemeToggle variant="pill" />
-        </div>
+    <div className="w-full flex flex-col transition-colors duration-300">
+      {/* 1. Sticky Navigation Context Banner */}
+      <div className="sticky top-0 z-40 w-full">
+        <DomainContextBanner
+          domain={activeCatalogDomain}
+          subdomain={selectedSubdomain}
+          subdomains={catalogSubdomains}
+          onSelectSubdomain={handleSelectSubdomain}
+          capability={selectedCapability}
+          bundle={selectedBundle}
+          allDomains={allCatalogDomains.length > 0 ? allCatalogDomains : (domains as unknown as DomainItem[])}
+          onSelectDomain={(d) => onSelectDomain(d.id)}
+          theme={theme}
+          onUpLevel={handleStepUp}
+          onResetRoot={handleResetToRoot}
+          onSelectRootCrumb={handleResetToRoot}
+          onSelectDomainCrumb={handleResetToDomain}
+          onSelectSubdomainCrumb={() => {
+            setSelectedCapability(null);
+            setSelectedBundle(null);
+            setActiveLayer(2);
+            if (selectedSubdomain) {
+              setIntent({
+                subdomainId: selectedSubdomain.id,
+                capabilityId: null,
+                solutionBundleId: null,
+                solutionId: null,
+                path: [
+                  { id: selectedDomain.id, name: selectedDomain.name, layer: 1 },
+                  { id: selectedSubdomain.id, name: selectedSubdomain.name, layer: 2 },
+                ],
+              });
+            }
+          }}
+          onSelectCapabilityCrumb={() => {
+            setSelectedBundle(null);
+            setActiveLayer(3);
+            if (selectedSubdomain && selectedCapability) {
+              setIntent({
+                capabilityId: selectedCapability.id,
+                solutionBundleId: null,
+                solutionId: null,
+                path: [
+                  { id: selectedDomain.id, name: selectedDomain.name, layer: 1 },
+                  { id: selectedSubdomain.id, name: selectedSubdomain.name, layer: 2 },
+                  { id: selectedCapability.id, name: selectedCapability.name, layer: 3 },
+                ],
+              });
+            }
+          }}
+        />
       </div>
 
-      {/* Main Container Card */}
-      <div
-        key={selectedDomain.id}
-        className={`relative overflow-hidden rounded-3xl p-4 sm:p-6 transition-all duration-300 border ${
-          isDark
-            ? 'bg-[#020914]/95 border-[#00dfff]/30 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_40px_rgba(0,227,253,0.12)] backdrop-blur-2xl text-white'
-            : 'bg-[#f8fafc] border-slate-200 shadow-xl text-slate-900'
-        }`}
+      {/* Main Content Area: Natural, unconstrained vertical flow directly beneath sticky compass banner */}
+      <section
+        role="region"
+        aria-label="5-Layer Solution Discovery Experience"
+        className="w-full max-w-7xl mx-auto px-3 sm:px-5 lg:px-8 pt-3 pb-10 transition-colors duration-300 ease-out"
       >
-        {/* 1. L2 Business Worlds Stepper Carousel */}
-        <div className="mb-4">
-          <L2BusinessWorldsStepper
-            domains={allCatalogDomains.length > 0 ? allCatalogDomains : (domains as unknown as DomainItem[])}
-            activeDomainId={selectedDomain.id}
-            theme={theme}
-            onSelectDomain={(d) => onSelectDomain(d.id)}
-          />
-        </div>
-
-        {/* 2. Active Domain Context Card & Breadcrumbs */}
-        <div className="mb-5">
-          <DomainContextBanner
-            domain={activeCatalogDomain}
-            subdomain={selectedSubdomain}
-            capability={selectedCapability}
-            bundle={selectedBundle}
-            theme={theme}
-            onUpLevel={handleStepUp}
-            onResetRoot={handleResetToDomain}
-            onSelectDomainCrumb={handleResetToDomain}
-            onSelectSubdomainCrumb={() => {
-              setSelectedCapability(null);
-              setSelectedBundle(null);
-              setActiveLayer(2);
-            }}
-            onSelectCapabilityCrumb={() => {
-              setSelectedBundle(null);
-              setActiveLayer(3);
-            }}
-          />
-        </div>
+        {/* Main Discovery Card (Natural vertical growth, flush layout) */}
+        <div
+          key={selectedDomain.id}
+          className={`relative rounded-3xl p-4 sm:p-6 transition-all duration-300 border ${
+            isDark
+              ? 'bg-[#020914]/95 border-[#00dfff]/30 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_40px_rgba(0,227,253,0.12)] backdrop-blur-2xl text-white'
+              : 'bg-[#f8fafc] border-slate-200 shadow-xl text-slate-900'
+          }`}
+        >
 
         {/* 3. DYNAMIC LAYER EXPERIENCES */}
 
         {/* =========================================================================
-            LAYER 2: MODERN L2 → L3 CAPABILITY DISCOVERY (Matching L2-Ok.png)
+            LAYER 2: MODERN L2 → L3 CAPABILITY DISCOVERY (Responsive Vertical Flow)
            ========================================================================= */}
         {activeLayer === 2 && selectedSubdomain && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-            {/* LEFT / MAIN COLUMN: L3 Capabilities Discovery Cards */}
-            <div className="lg:col-span-8 flex flex-col">
+          <div className="flex flex-col gap-6">
+            {/* L3 Capability Cards Section (Flowing Vertically and Responsively) */}
+            <div className="flex flex-col">
               {/* Header: Title & View Controls */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-3.5">
-                <div className="flex items-center gap-2">
-                  <h3
-                    className={`font-mono text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center gap-1.5 ${
-                      isDark ? 'text-[#eaf7ff]' : 'text-slate-900'
-                    }`}
-                  >
-                    <Layers className={`w-4 h-4 ${isDark ? 'text-[#00dfff]' : 'text-indigo-600'}`} />
-                    <span>
-                      L3 CAPABILITIES IN {selectedSubdomain.id} {selectedSubdomain.name.toUpperCase()} ({catalogCapabilities.length})
-                    </span>
-                  </h3>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-4">
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center gap-2">
+                    <h3
+                      className={`font-mono text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center gap-1.5 ${
+                        isDark ? 'text-[#f8fafc]' : 'text-slate-900'
+                      }`}
+                    >
+                      <Layers className={`w-4 h-4 ${isDark ? 'text-[#00dfff]' : 'text-indigo-600'}`} />
+                      <span>
+                        L3 CAPABILITIES IN {selectedSubdomain.name.toUpperCase()} ({catalogCapabilities.length})
+                      </span>
+                    </h3>
+                  </div>
+                  {selectedSubdomain.description && (
+                    <p className={`text-xs max-w-3xl line-clamp-1 ${isDark ? 'text-[#9ec5de]' : 'text-slate-600'}`}>
+                      {selectedSubdomain.description}
+                    </p>
+                  )}
                 </div>
 
-                {/* View as controls matching reference */}
+                {/* View as controls */}
                 <div className="flex items-center gap-1 self-end sm:self-auto">
                   <span
                     className={`text-[11px] font-mono mr-1 ${
-                      isDark ? 'text-[#6e9bb3]' : 'text-slate-500'
+                      isDark ? 'text-[#9ec5de]' : 'text-slate-600'
                     }`}
                   >
                     View as:
@@ -420,7 +466,7 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
                   <div
                     className={`flex items-center p-0.5 rounded-lg border text-xs font-mono ${
                       isDark
-                        ? 'bg-[#03182b] border-[#00dfff]/20 text-[#82a5bb]'
+                        ? 'bg-[#03182b] border-[#00dfff]/20 text-[#9ec5de]'
                         : 'bg-white border-slate-200 text-slate-600'
                     }`}
                   >
@@ -457,22 +503,26 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
                 </div>
               </div>
 
-              {/* Responsive Horizontal Scroll / Multi-column Grid for L3 Cards */}
-              <div className="overflow-x-auto pb-3 pt-1 -mx-1 px-1 no-scrollbar">
-                <div className="flex flex-row gap-4 min-w-max">
-                  {catalogCapabilities.map((cap, idx) => (
-                    <CapabilityCard
-                      key={cap.id}
-                      capability={cap}
-                      theme={theme}
-                      domainColor={selectedDomain.visual?.color || '#00dfff'}
-                      index={idx}
-                      isSelected={selectedCapability?.id === cap.id}
-                      onSelect={handleSelectCapability}
-                      onHover={setHoveredCapability}
-                    />
-                  ))}
-                </div>
+              {/* Responsive Vertical Flow Grid / List for L3 Cards (No Horizontal Scroll) */}
+              <div
+                className={
+                  viewStyle === 'cards'
+                    ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full'
+                    : 'flex flex-col gap-3 w-full'
+                }
+              >
+                {catalogCapabilities.map((cap, idx) => (
+                  <CapabilityCard
+                    key={cap.id}
+                    capability={cap}
+                    theme={theme}
+                    domainColor={selectedDomain.visual?.color || '#00dfff'}
+                    index={idx}
+                    isSelected={selectedCapability?.id === cap.id}
+                    onSelect={handleSelectCapability}
+                    onHover={setHoveredCapability}
+                  />
+                ))}
               </div>
 
               {catalogCapabilities.length === 0 && (
@@ -488,34 +538,31 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
               )}
             </div>
 
-            {/* RIGHT COLUMN: Next Level L4 Bundles & About Business World */}
-            <div className="lg:col-span-4 flex flex-col gap-4">
-              {/* 1. Next Level L4 Bundles Panel */}
-              <NextLevelBundlesPanel
-                subdomain={selectedSubdomain}
-                capabilities={catalogCapabilities}
-                activeCapability={hoveredCapability || selectedCapability}
-                theme={theme}
-                onSelectBundle={handleSelectBundle}
-                onViewAll={() => {
-                  if (catalogCapabilities.length > 0) {
-                    handleSelectCapability(catalogCapabilities[0]);
-                  }
-                }}
-              />
+            {/* L4 Solution Bundle Preview Panel */}
+            <NextLevelBundlesPanel
+              subdomain={selectedSubdomain}
+              capabilities={catalogCapabilities}
+              activeCapability={hoveredCapability || selectedCapability}
+              theme={theme}
+              onSelectBundle={handleSelectBundle}
+              onViewAll={() => {
+                if (catalogCapabilities.length > 0) {
+                  handleSelectCapability(catalogCapabilities[0]);
+                }
+              }}
+            />
 
-              {/* 2. About This Business World Panel */}
-              <AboutBusinessWorldPanel
-                domain={activeCatalogDomain}
-                subdomain={selectedSubdomain}
-                theme={theme}
-                onExploreL3Details={() => {
-                  if (catalogCapabilities.length > 0) {
-                    handleSelectCapability(catalogCapabilities[0]);
-                  }
-                }}
-              />
-            </div>
+            {/* About Business World Panel */}
+            <AboutBusinessWorldPanel
+              domain={activeCatalogDomain}
+              subdomain={selectedSubdomain}
+              theme={theme}
+              onExploreL3Details={() => {
+                if (catalogCapabilities.length > 0) {
+                  handleSelectCapability(catalogCapabilities[0]);
+                }
+              }}
+            />
           </div>
         )}
 
@@ -645,32 +692,87 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
                 </span>
               </span>
 
-              {/* Platform Adapter Filter Pills */}
-              <div className="flex flex-wrap items-center gap-1 text-xs font-mono">
-                <span
-                  className={`mr-1 flex items-center gap-1 ${
-                    isDark ? 'text-[#55798c]' : 'text-slate-500'
+              {/* Contextual Platform Adapter Filter: On-demand compact popover */}
+              <div ref={platformMenuRef} className="relative inline-flex items-center text-xs font-mono">
+                <button
+                  type="button"
+                  onClick={() => setIsPlatformMenuOpen((prev) => !prev)}
+                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
+                    selectedPlatform !== 'ALL'
+                      ? isDark
+                        ? 'bg-[#00dfff]/20 text-[#00dfff] border-[#00dfff]/60 font-bold shadow-[0_0_10px_rgba(0,223,255,0.3)]'
+                        : 'bg-indigo-50 text-indigo-700 border-indigo-300 font-bold shadow-xs'
+                      : isDark
+                        ? 'bg-[#02101e] text-[#9ec5de] hover:text-[#00e3fd] border-[#00dfff]/20'
+                        : 'bg-white text-slate-700 hover:text-slate-900 border-slate-200'
                   }`}
+                  aria-expanded={isPlatformMenuOpen}
                 >
-                  <Filter className={`w-3 h-3 ${isDark ? 'text-[#00dfff]' : 'text-indigo-600'}`} /> Platform:
-                </span>
-                {availablePlatforms.map((plat) => (
+                  <Filter className="w-3 h-3 text-[#00dfff]" />
+                  <span>Platform: {selectedPlatform === 'ALL' ? 'All Adapters' : selectedPlatform}</span>
+                  <ChevronDown
+                    className={`w-3 h-3 transition-transform duration-200 ${
+                      isPlatformMenuOpen ? 'rotate-180 text-[#00dfff]' : 'opacity-70'
+                    }`}
+                  />
+                </button>
+
+                {selectedPlatform !== 'ALL' && (
                   <button
-                    key={plat}
-                    onClick={() => setSelectedPlatform(plat)}
-                    className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer text-xs font-mono ${
-                      selectedPlatform === plat
-                        ? isDark
-                          ? 'bg-[#00dfff] text-[#020914] font-bold shadow-[0_0_10px_rgba(0,227,253,0.4)]'
-                          : 'bg-indigo-600 text-white font-bold shadow-sm'
-                        : isDark
-                          ? 'bg-[#02101e] text-[#82a5bb] hover:text-[#00e3fd] border border-[#00dfff]/15'
-                          : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200'
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedPlatform('ALL');
+                    }}
+                    className={`ml-1.5 p-1 rounded-md transition-colors cursor-pointer ${
+                      isDark ? 'hover:bg-[#031d36] text-[#9ec5de] hover:text-white' : 'hover:bg-slate-200 text-slate-500'
+                    }`}
+                    title="Clear filter (Show All)"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                )}
+
+                {isPlatformMenuOpen && (
+                  <div
+                    className={`absolute right-0 top-full mt-1.5 w-56 rounded-xl p-1.5 z-50 shadow-2xl border ${
+                      isDark
+                        ? 'bg-[#031122]/98 backdrop-blur-2xl border-[#00e3fd]/30 shadow-[0_12px_40px_rgba(0,0,0,0.85)] text-[#eaf7ff]'
+                        : 'bg-white/98 backdrop-blur-2xl border-slate-200 shadow-xl text-slate-900'
                     }`}
                   >
-                    {plat}
-                  </button>
-                ))}
+                    <div className="px-2 py-1 mb-1 border-b border-inherit text-[10px] font-mono text-[#9ec5de] uppercase tracking-wider">
+                      Platform Adapter
+                    </div>
+                    <div className="space-y-0.5">
+                      {availablePlatforms.map((plat) => {
+                        const isCurrent = selectedPlatform === plat;
+                        return (
+                          <button
+                            key={plat}
+                            type="button"
+                            onClick={() => {
+                              setSelectedPlatform(plat);
+                              setIsPlatformMenuOpen(false);
+                            }}
+                            className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-left text-xs transition-all cursor-pointer ${
+                              isCurrent
+                                ? isDark
+                                  ? 'bg-[#00e3fd]/20 text-[#00e3fd] font-bold border border-[#00e3fd]/40'
+                                  : 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-200'
+                                : isDark
+                                  ? 'text-[#c3d9ea] hover:text-white hover:bg-[#05213b]'
+                                  : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                            }`}
+                          >
+                            <span>{plat === 'ALL' ? 'All Adapters' : plat}</span>
+                            {isCurrent && <Check className="w-3.5 h-3.5 text-[#00e3fd]" />}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -873,5 +975,6 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
         )}
       </div>
     </section>
+  </div>
   );
 };

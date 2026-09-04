@@ -122,7 +122,7 @@ export const NextLevelBundlesPanel: React.FC<NextLevelBundlesPanelProps> = ({
               </div>
               <p
                 className={`text-[11px] line-clamp-1 ${
-                  isDark ? 'text-[#82a5bb]' : 'text-slate-500'
+                  isDark ? 'text-[#c3d9ea]' : 'text-slate-500'
                 }`}
               >
                 {bundle.description}

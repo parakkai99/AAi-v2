@@ -9,7 +9,8 @@ import { UniversePlane } from './UniversePlane';
 import { DomainNode } from './DomainNode';
 import { IntentCore, ArchitectAnyLogo } from './IntentCore';
 import { SolutionRail } from './SolutionRail';
-import { Play, Pause, RotateCw, Compass, Eye, Sparkles } from 'lucide-react';
+import { DomainContextBanner } from './DomainContextBanner';
+import { Play, Pause, RotateCw, Compass, Eye, Sparkles, ArrowRight } from 'lucide-react';
 import styles from './UniverseStage.module.css';
 
 export interface UniverseStageProps {
@@ -25,7 +26,7 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
   onSelectSolution,
   searchQuery = '',
 }) => {
-  const { intent, setIntent } = useArchitectAny();
+  const { intent, setIntent, clearIntent, theme } = useArchitectAny();
   const allDomains: Domain[] = (domainsData as unknown as Domain[]) || [];
   const subdomains: Subdomain[] = (subdomainsData as unknown as Subdomain[]) || [];
   const capabilities: SolutionCapability[] = (capabilitiesData as unknown as SolutionCapability[]) || [];
@@ -45,19 +46,29 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
 
   // Selected & Hovered State
   const [selectedDomain, setSelectedDomain] = useState<Domain | null>(() => {
-    const targetId = intent.domainId || initialDomainId;
-    return allDomains.find((d) => d.id === targetId) || allDomains[0] || null;
+    if (intent.domainId) {
+      return allDomains.find((d) => d.id === intent.domainId) || null;
+    }
+    if (initialDomainId && intent.domainId === undefined) {
+      return allDomains.find((d) => d.id === initialDomainId) || null;
+    }
+    return null;
   });
 
-  // Synchronize domain when intent changes externally (e.g. from Global Search)
+  // Synchronize domain when intent changes externally (e.g. from Global Search, Logo Home, or Reset Root)
   useEffect(() => {
-    if (intent.domainId && selectedDomain?.id !== intent.domainId) {
-      const match = allDomains.find((d) => d.id === intent.domainId);
-      if (match) {
-        setSelectedDomain(match);
+    if (intent.domainId) {
+      if (selectedDomain?.id !== intent.domainId) {
+        const match = allDomains.find((d) => d.id === intent.domainId);
+        if (match) {
+          setSelectedDomain(match);
+        }
       }
+    } else {
+      setSelectedDomain(null);
     }
   }, [intent.domainId, allDomains]);
+
   const [hoveredDomain, setHoveredDomain] = useState<Domain | null>(null);
   const solutionRailRef = useRef<HTMLDivElement>(null);
 
@@ -94,7 +105,7 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
     };
   }, [isOrbiting, orbitSpeed]);
 
-  const handleSelectDomain = (domain: Domain, shouldScroll: boolean = true) => {
+  const handleSelectDomain = (domain: Domain) => {
     setSelectedDomain(domain);
     setIntent({
       query: '',
@@ -110,15 +121,13 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
       path: [{ id: domain.id, name: domain.name, layer: 1 }],
     });
     onDomainSelect?.(domain);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
-    if (shouldScroll) {
-      setTimeout(() => {
-        solutionRailRef.current?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-        });
-      }, 60);
-    }
+  const handleResetToRoot = () => {
+    setSelectedDomain(null);
+    clearIntent();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Mathematical Ellipse Parameters for Perfect 3D Galaxy Alignment
@@ -196,6 +205,30 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
 
   const activeColor = hoveredDomain?.visual?.color || selectedDomain?.visual?.color || '#00e3fd';
 
+  // If a Business World (Domain) is selected, render the dedicated single-scroll Business World experience
+  if (selectedDomain) {
+    return (
+      <div className="w-full bg-[#020a14] text-[#d4e4fa] flex flex-col">
+        <SolutionRail
+          domains={allDomains}
+          selectedDomain={selectedDomain}
+          subdomains={subdomains}
+          capabilities={capabilities}
+          solutions={solutions}
+          onSelectDomain={(domId) => {
+            const d = allDomains.find((dm) => dm.id === domId);
+            if (d) handleSelectDomain(d);
+          }}
+          onSelectSolution={(solId) => {
+            onSelectSolution?.(solId);
+          }}
+          onResetToRoot={handleResetToRoot}
+        />
+      </div>
+    );
+  }
+
+  // M01 Solution Universe Root View: 3D Galaxy Orbit + L1 Domain Explorer
   return (
     <div className={styles.stageWrapper}>
       {/* 3D WebGL Background Layer */}
@@ -203,67 +236,64 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
         <UniversePlane activeColor={activeColor} isOrbiting={isOrbiting} />
       </div>
 
-      {/* 1. Compact Title & Galaxy Control Strip */}
-      <div className="w-full py-2 px-4 sm:px-8 bg-[#051424]/85 backdrop-blur-md border-b border-[#45474b]/30 flex flex-wrap items-center justify-between gap-2 z-30 shrink-0">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#00e3fd] animate-ping" />
-          <p className="font-mono text-[11px] sm:text-xs text-[#c3c6cf] uppercase tracking-widest leading-none">
-            <span className="text-[#00e3fd] font-bold">ARCHITECTANY GALAXY</span>
-            <span className="mx-2 text-[#8f9095]/40">|</span>
-            <span className="text-[#d4e4fa]">Solution Universe</span>
-            <span className="hidden md:inline mx-2 text-[#8f9095]/40">|</span>
-            <span className="hidden md:inline text-[#8f9095]">Start with intent → discover → compose</span>
-          </p>
-        </div>
-
-        {/* Galaxy Interactive Controls */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          {/* Orbit Play / Pause */}
-          <button
-            onClick={() => setIsOrbiting((prev) => !prev)}
-            aria-label={isOrbiting ? 'Pause Galaxy Orbit' : 'Resume Galaxy Orbit'}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded font-mono text-[10px] sm:text-[11px] border transition-all ${
-              isOrbiting
-                ? 'bg-[#00e3fd]/10 text-[#00e3fd] border-[#00e3fd]/40 hover:bg-[#00e3fd]/20 shadow-[0_0_12px_rgba(0,227,253,0.2)]'
-                : 'bg-[#273647]/50 text-[#8f9095] border-[#45474b]/40 hover:text-[#d4e4fa]'
-            }`}
-          >
-            {isOrbiting ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
-            <span>{isOrbiting ? 'Orbiting' : 'Paused'}</span>
-          </button>
-
-          {/* Speed Presets */}
-          <div className="hidden sm:flex items-center bg-[#0d2238] rounded border border-[#45474b]/40 p-0.5">
-            {[0.5, 1, 2].map((spd) => (
+      {/* Single Unified Sticky Navigation & Galaxy HUD Banner */}
+      <div className="sticky top-0 z-40 w-full">
+        <DomainContextBanner
+          domain={null}
+          allDomains={allDomains}
+          onSelectDomain={handleSelectDomain}
+          theme={theme}
+          onResetRoot={handleResetToRoot}
+          rightExtra={
+            <div className="flex items-center gap-1.5 sm:gap-2 mr-1">
+              {/* Orbit Play / Pause */}
               <button
-                key={spd}
-                onClick={() => setOrbitSpeed(spd)}
-                className={`px-2 py-0.5 rounded text-[10px] font-mono transition-colors ${
-                  orbitSpeed === spd
-                    ? 'bg-[#00e3fd] text-[#001f24] font-bold'
-                    : 'text-[#8f9095] hover:text-[#d4e4fa]'
+                onClick={() => setIsOrbiting((prev) => !prev)}
+                aria-label={isOrbiting ? 'Pause Galaxy Orbit' : 'Resume Galaxy Orbit'}
+                className={`flex items-center gap-1 px-2 py-0.5 rounded font-mono text-[10px] sm:text-[11px] border transition-all cursor-pointer ${
+                  isOrbiting
+                    ? 'bg-[#00e3fd]/15 text-[#00e3fd] border-[#00e3fd]/40 hover:bg-[#00e3fd]/25 shadow-[0_0_8px_rgba(0,227,253,0.2)] font-bold'
+                    : 'bg-[#031d33] text-[#c3d9ea] border-[#00dfff]/20 hover:text-white hover:border-[#00e3fd]/50'
                 }`}
               >
-                {spd}x
+                {isOrbiting ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
+                <span className="hidden sm:inline">{isOrbiting ? 'Orbiting' : 'Paused'}</span>
               </button>
-            ))}
-          </div>
 
-          {/* Layout Mode (Single Oval / Dual Ring) */}
-          <button
-            onClick={() => setLayoutMode((prev) => (prev === 'single-oval' ? 'dual-ring' : 'single-oval'))}
-            aria-label="Toggle Orbit Alignment Shape"
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#0d2238] border border-[#45474b]/40 hover:border-[#00e3fd]/40 font-mono text-[10px] sm:text-[11px] text-[#c3c6cf] hover:text-[#bdf4ff] transition-all"
-            title="Toggle Galaxy Oval Shape"
-          >
-            <RotateCw className="w-3 h-3 text-[#00e3fd]" />
-            <span className="capitalize">{layoutMode === 'single-oval' ? 'Perfect Oval' : 'Dual Spiral'}</span>
-          </button>
-        </div>
+              {/* Speed Presets */}
+              <div className="hidden md:flex items-center bg-[#07192c] rounded border border-[#00dfff]/20 p-0.5">
+                {[0.5, 1, 2].map((spd) => (
+                  <button
+                    key={spd}
+                    onClick={() => setOrbitSpeed(spd)}
+                    className={`px-1.5 py-0.5 rounded text-[10px] font-mono transition-colors cursor-pointer ${
+                      orbitSpeed === spd
+                        ? 'bg-[#00e3fd] text-[#001f24] font-bold'
+                        : 'text-[#9ec5de] hover:text-white'
+                    }`}
+                  >
+                    {spd}x
+                  </button>
+                ))}
+              </div>
+
+              {/* Layout Mode (Single Oval / Dual Ring) */}
+              <button
+                onClick={() => setLayoutMode((prev) => (prev === 'single-oval' ? 'dual-ring' : 'single-oval'))}
+                aria-label="Toggle Orbit Alignment Shape"
+                className="flex items-center gap-1 px-2 py-0.5 rounded bg-[#07192c] border border-[#00dfff]/20 hover:border-[#00e3fd]/50 font-mono text-[10px] sm:text-[11px] text-[#c3d9ea] hover:text-[#00e3fd] transition-all cursor-pointer"
+                title="Toggle Galaxy Oval Shape"
+              >
+                <RotateCw className="w-3 h-3 text-[#00e3fd]" />
+                <span className="capitalize hidden sm:inline">{layoutMode === 'single-oval' ? 'Oval' : 'Spiral'}</span>
+              </button>
+            </div>
+          }
+        />
       </div>
 
-      {/* 2. Central Universe Body */}
-      <div className="relative w-full flex-grow flex items-center justify-center px-4 py-2 z-20 overflow-hidden">
+      {/* 2. Central Universe Body (Top-aligned with compact breathing space) */}
+      <div className="relative w-full flex-1 flex flex-col items-center justify-start pt-1 sm:pt-2 pb-6 px-4 z-20 overflow-hidden">
         <div
           className={styles.universeFieldContainer}
           onMouseEnter={() => {
@@ -414,22 +444,60 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
         </div>
       </div>
 
-      {/* 3. Bottom Dynamic Solution Rail */}
-      <div ref={solutionRailRef} id="solution-rail" className="w-full pb-4 sm:pb-6 z-30 shrink-0 scroll-mt-20">
-        <SolutionRail
-          domains={allDomains}
-          selectedDomain={selectedDomain}
-          subdomains={subdomains}
-          capabilities={capabilities}
-          solutions={solutions}
-          onSelectDomain={(domId) => {
-            const d = allDomains.find((dm) => dm.id === domId);
-            if (d) handleSelectDomain(d, true);
-          }}
-          onSelectSolution={(solId) => {
-            onSelectSolution?.(solId);
-          }}
-        />
+      {/* 3. L1 Domain Universe Explorer Grid */}
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 z-30">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-3 border-b border-[#00dfff]/20">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-[#00dfff]" />
+            <h2 className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-[#eaf7ff]">
+              L1 DOMAIN UNIVERSE • ALL {domains.length} BUSINESS WORLDS
+            </h2>
+          </div>
+          <span className="text-xs font-mono text-[#c3d9ea]">
+            Click any domain node in the 3D galaxy or select a card below to explore capabilities
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {domains.map((domain) => {
+            const domColor = domain.visual?.color || '#00dfff';
+            return (
+              <button
+                key={domain.id}
+                onClick={() => handleSelectDomain(domain)}
+                type="button"
+                className="group relative flex flex-col justify-between p-4 rounded-2xl text-left transition-all duration-300 cursor-pointer bg-[#020d1a]/85 hover:bg-[#031d33] border border-[#00dfff]/20 hover:border-[#00e3fd] hover:shadow-[0_0_20px_rgba(0,227,253,0.3)] hover:-translate-y-1"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span
+                      className="px-2 py-0.5 rounded-lg text-xs font-mono font-bold"
+                      style={{
+                        backgroundColor: `${domColor}20`,
+                        color: domColor,
+                        border: `1px solid ${domColor}40`,
+                      }}
+                    >
+                      {domain.id}
+                    </span>
+                    <span className="text-[10px] font-mono text-[#9ec5de] uppercase">L1 Domain</span>
+                  </div>
+                  <h3 className="font-semibold text-sm text-[#eaf7ff] group-hover:text-[#00e3fd] transition-colors mb-1.5">
+                    {domain.name}
+                  </h3>
+                  <p className="text-xs text-[#c3d9ea] line-clamp-2 leading-relaxed">
+                    {domain.description}
+                  </p>
+                </div>
+
+                <div className="mt-4 pt-3 border-t border-[#00dfff]/15 flex items-center justify-between text-xs font-mono font-semibold text-[#00e3fd]">
+                  <span>Explore Capabilities</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

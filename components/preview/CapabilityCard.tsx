@@ -57,7 +57,7 @@ export const CapabilityCard: React.FC<CapabilityCardProps> = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={() => onSelect(capability)}
-      className={`group relative flex flex-col justify-between rounded-2xl transition-all duration-300 cursor-pointer overflow-hidden border ${
+      className={`group relative flex flex-col justify-between rounded-2xl transition-all duration-300 cursor-pointer overflow-hidden border w-full ${
         isDark
           ? isSelected || isHovered
             ? 'bg-[#041a30] border-[#00e3fd] shadow-[0_0_24px_rgba(0,227,253,0.35)] -translate-y-1'
@@ -66,10 +66,6 @@ export const CapabilityCard: React.FC<CapabilityCardProps> = ({
             ? 'bg-white border-indigo-400 shadow-xl shadow-indigo-100 -translate-y-1 ring-2 ring-indigo-200'
             : 'bg-white hover:bg-slate-50 border-slate-200 hover:border-indigo-300 shadow-sm hover:shadow-md hover:-translate-y-0.5'
       } ${className}`}
-      style={{
-        minWidth: '260px',
-        maxWidth: '320px',
-      }}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
@@ -94,7 +90,7 @@ export const CapabilityCard: React.FC<CapabilityCardProps> = ({
           </span>
           <span
             className={`text-[10px] font-mono flex items-center gap-1 uppercase tracking-wider ${
-              isDark ? 'text-[#6e9bb3]' : 'text-slate-500 font-medium'
+              isDark ? 'text-[#8dc0df]' : 'text-slate-500 font-medium'
             }`}
           >
             <Layers className="w-3 h-3" />
@@ -117,7 +113,7 @@ export const CapabilityCard: React.FC<CapabilityCardProps> = ({
           <h3
             className={`text-sm sm:text-base font-bold transition-colors line-clamp-1 mb-1.5 ${
               isDark
-                ? 'text-[#eaf7ff] group-hover:text-[#00e3fd]'
+                ? 'text-[#f8fafc] group-hover:text-[#00e3fd]'
                 : 'text-slate-900 group-hover:text-indigo-600'
             }`}
           >
@@ -125,7 +121,7 @@ export const CapabilityCard: React.FC<CapabilityCardProps> = ({
           </h3>
           <p
             className={`text-xs line-clamp-2 leading-relaxed ${
-              isDark ? 'text-[#82a5bb]' : 'text-slate-600'
+              isDark ? 'text-[#c3d9ea]' : 'text-slate-600'
             }`}
           >
             {capability.description}
@@ -136,11 +132,11 @@ export const CapabilityCard: React.FC<CapabilityCardProps> = ({
         <div
           className={`mt-4 pt-3 border-t flex items-center justify-between text-xs font-medium transition-colors ${
             isDark
-              ? 'border-[#00dfff]/15 text-[#00e3fd] group-hover:text-white'
+              ? 'border-[#00dfff]/20 text-[#00e3fd] group-hover:text-white'
               : 'border-slate-100 text-indigo-600 group-hover:text-indigo-800'
           }`}
         >
-          <span className="font-mono text-[11px]">
+          <span className="font-mono text-[11px] text-[#9ec5de]">
             {bundles.length > 0 ? `${bundles.length} Solution Bundle${bundles.length > 1 ? 's' : ''}` : 'Explore L3'}
           </span>
           <span className="flex items-center gap-1 font-bold group-hover:translate-x-1 transition-transform">
@@ -174,7 +170,7 @@ export const CapabilityCard: React.FC<CapabilityCardProps> = ({
             >
               WHAT&apos;S NEXT?
             </span>
-            <span className="font-mono text-[10px] text-[#82a5bb]">
+            <span className="font-mono text-[10px] text-[#9ec5de]">
               {capability.id}
             </span>
           </div>

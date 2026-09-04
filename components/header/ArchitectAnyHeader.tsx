@@ -10,6 +10,7 @@ import { SearchResultItem } from '@/src/contracts/intent';
 export interface ArchitectAnyHeaderProps {
   currentTab?: string;
   onTabChange?: (tab: string) => void;
+  onHome?: () => void;
   searchQuery?: string;
   onSearchChange?: (query: string) => void;
   onSelectSolution?: (solutionId: string) => void;
@@ -20,6 +21,7 @@ export interface ArchitectAnyHeaderProps {
 export const ArchitectAnyHeader: React.FC<ArchitectAnyHeaderProps> = ({
   currentTab = 'Universe',
   onTabChange,
+  onHome,
   searchQuery = '',
   onSearchChange,
   onSelectSolution,
@@ -34,14 +36,20 @@ export const ArchitectAnyHeader: React.FC<ArchitectAnyHeaderProps> = ({
 
   return (
     <header
-      className={`bg-[#020914]/90 backdrop-blur-2xl fixed top-0 left-0 right-0 h-[72px] sm:h-[74px] z-50 border-b border-[#00e3fd]/20 shadow-[0_4px_30px_rgba(0,0,0,0.6)] ${className}`}
+      className={`bg-[#020914]/90 backdrop-blur-2xl sticky top-0 left-0 right-0 h-[72px] sm:h-[74px] z-50 border-b border-[#00e3fd]/20 shadow-[0_4px_30px_rgba(0,0,0,0.6)] ${className}`}
       role="banner"
     >
       <div className="flex justify-between items-center px-3 sm:px-5 lg:px-8 h-full max-w-7xl mx-auto gap-2 sm:gap-4">
         {/* 1. ArchitectAny Logo */}
         <HeaderLogo
           animated={true}
-          onClick={() => onTabChange?.('Universe')}
+          onClick={() => {
+            if (onHome) {
+              onHome();
+            } else {
+              onTabChange?.('Universe');
+            }
+          }}
         />
 
         {/* 2. Intent Search (Most Prominent Interactive Control) */}

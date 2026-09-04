@@ -15,7 +15,7 @@ import { Domain, Subdomain, Capability, Solution } from '@/src/types';
 import { useArchitectAny } from '@/src/context/ArchitectAnyContext';
 
 export default function PreviewPage() {
-  const { theme } = useArchitectAny();
+  const { theme, clearIntent } = useArchitectAny();
   const isDark = theme === 'dark';
 
   const [currentTab, setCurrentTab] = useState('Universe');
@@ -38,6 +38,13 @@ export default function PreviewPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleGoHome = () => {
+    setSelectedSolutionId(null);
+    clearIntent();
+    setCurrentTab('Universe');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div
       className={`font-sans min-h-screen flex flex-col overflow-x-hidden transition-colors duration-300 ${
@@ -52,10 +59,10 @@ export default function PreviewPage() {
         onTabChange={(tab) => {
           setCurrentTab(tab);
           if (tab === 'Universe') {
-            setSelectedSolutionId(null);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            handleGoHome();
           }
         }}
+        onHome={handleGoHome}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         onSelectSolution={handleSelectSolution}
@@ -66,7 +73,7 @@ export default function PreviewPage() {
       />
 
       {/* 2. Main Solution Universe & Navigation Body */}
-      <main className="flex-grow flex flex-col pt-[74px] relative z-10 w-full overflow-hidden">
+      <main className="flex-grow flex flex-col relative z-10 w-full overflow-x-hidden">
         {selectedSolutionId ? (
           <SolutionDetail
             solutionId={selectedSolutionId}

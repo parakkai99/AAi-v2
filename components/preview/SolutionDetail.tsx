@@ -68,7 +68,7 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
 
   if (!activeSol) {
     return (
-      <main className="min-h-[calc(100vh-74px)] bg-[#020914] text-[#eaf7ff] pt-24 px-4 flex flex-col items-center justify-center">
+      <main className="min-h-[calc(100vh-74px)] bg-[#020914] text-[#eaf7ff] pt-12 px-4 flex flex-col items-center justify-center">
         <div className="p-8 rounded-2xl bg-[#031526] border border-[#00dfff]/30 text-center max-w-md shadow-2xl">
           <span className="text-xs font-mono text-[#00dfff] uppercase tracking-widest block mb-2">
             ArchitectAny AAi
@@ -112,7 +112,7 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
   };
 
   return (
-    <main className="min-h-[calc(100vh-74px)] bg-gradient-to-b from-[#020914] via-[#010b17] to-[#020914] text-[#eaf7ff] pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-[calc(100vh-74px)] bg-gradient-to-b from-[#020914] via-[#010b17] to-[#020914] text-[#eaf7ff] pt-8 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Navigation Breadcrumb & Back Action */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">

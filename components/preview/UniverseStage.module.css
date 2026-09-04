@@ -1,12 +1,11 @@
 .stageWrapper {
   position: relative;
   width: 100%;
-  min-height: calc(100vh - 72px - 80px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   background: radial-gradient(circle at 50% 45%, #0a1f38 0%, #051424 60%, #020a14 100%);
 }
 
@@ -24,8 +23,8 @@
 .universeFieldContainer {
   position: relative;
   width: 100%;
-  max-width: 1320px;
-  height: 600px;
+  max-width: 1200px;
+  height: 440px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -36,13 +35,13 @@
 
 @media (min-width: 1024px) {
   .universeFieldContainer {
-    height: 700px;
+    height: 480px;
   }
 }
 
 @media (max-width: 640px) {
   .universeFieldContainer {
-    height: 520px;
+    height: 380px;
   }
 }
 

@@ -83,7 +83,7 @@ export const AboutBusinessWorldPanel: React.FC<AboutBusinessWorldPanelProps> = (
       {/* Description */}
       <p
         className={`text-xs leading-relaxed mb-4 ${
-          isDark ? 'text-[#82a5bb]' : 'text-slate-600'
+          isDark ? 'text-[#c3d9ea]' : 'text-slate-600'
         }`}
       >
         {domain.description}
@@ -95,11 +95,11 @@ export const AboutBusinessWorldPanel: React.FC<AboutBusinessWorldPanelProps> = (
         <div
           className={`p-2.5 rounded-xl border ${
             isDark
-              ? 'bg-[#020e1a]/80 border-[#00dfff]/15'
+              ? 'bg-[#020e1a]/80 border-[#00dfff]/20'
               : 'bg-slate-50 border-slate-200'
           }`}
         >
-          <div className="text-[10px] font-mono text-[#82a5bb] uppercase tracking-wider mb-0.5">
+          <div className="text-[10px] font-mono text-[#9ec5de] uppercase tracking-wider mb-0.5">
             Subdomains
           </div>
           <div
@@ -115,11 +115,11 @@ export const AboutBusinessWorldPanel: React.FC<AboutBusinessWorldPanelProps> = (
         <div
           className={`p-2.5 rounded-xl border ${
             isDark
-              ? 'bg-[#020e1a]/80 border-[#00dfff]/15'
+              ? 'bg-[#020e1a]/80 border-[#00dfff]/20'
               : 'bg-slate-50 border-slate-200'
           }`}
         >
-          <div className="text-[10px] font-mono text-[#82a5bb] uppercase tracking-wider mb-0.5">
+          <div className="text-[10px] font-mono text-[#9ec5de] uppercase tracking-wider mb-0.5">
             Capabilities
           </div>
           <div
@@ -135,11 +135,11 @@ export const AboutBusinessWorldPanel: React.FC<AboutBusinessWorldPanelProps> = (
         <div
           className={`p-2.5 rounded-xl border ${
             isDark
-              ? 'bg-[#020e1a]/80 border-[#00dfff]/15'
+              ? 'bg-[#020e1a]/80 border-[#00dfff]/20'
               : 'bg-slate-50 border-slate-200'
           }`}
         >
-          <div className="text-[10px] font-mono text-[#82a5bb] uppercase tracking-wider mb-0.5">
+          <div className="text-[10px] font-mono text-[#9ec5de] uppercase tracking-wider mb-0.5">
             Bundles (L4)
           </div>
           <div
@@ -155,11 +155,11 @@ export const AboutBusinessWorldPanel: React.FC<AboutBusinessWorldPanelProps> = (
         <div
           className={`p-2.5 rounded-xl border ${
             isDark
-              ? 'bg-[#020e1a]/80 border-[#00dfff]/15'
+              ? 'bg-[#020e1a]/80 border-[#00dfff]/20'
               : 'bg-slate-50 border-slate-200'
           }`}
         >
-          <div className="text-[10px] font-mono text-[#82a5bb] uppercase tracking-wider mb-0.5">
+          <div className="text-[10px] font-mono text-[#9ec5de] uppercase tracking-wider mb-0.5">
             Solutions (L5)
           </div>
           <div
