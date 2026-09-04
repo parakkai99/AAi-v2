@@ -13,9 +13,11 @@ import capabilitiesData from '@/data/universe/solution-capabilities.json';
 import solutionsData from '@/data/universe/solutions.json';
 import { Domain, Subdomain, Capability, Solution } from '@/src/types';
 import { useArchitectAny } from '@/src/context/ArchitectAnyContext';
+import { ContextualNavigationRail } from '@/components/preview/ContextualNavigationRail';
+import { ContextualIntelligenceRail } from '@/components/preview/ContextualIntelligenceRail';
 
 export default function PreviewPage() {
-  const { theme, clearIntent } = useArchitectAny();
+  const { theme, clearIntent, setIntent } = useArchitectAny();
   const isDark = theme === 'dark';
 
   const [currentTab, setCurrentTab] = useState('Universe');
@@ -35,6 +37,11 @@ export default function PreviewPage() {
 
   const handleSelectSolution = (solId: string) => {
     setSelectedSolutionId(solId);
+    const sol = solutions.find((s) => s.id === solId);
+    setIntent({
+      solutionId: solId,
+      ...(sol?.domainId ? { domainId: sol.domainId } : {}),
+    });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -42,6 +49,20 @@ export default function PreviewPage() {
     setSelectedSolutionId(null);
     clearIntent();
     setCurrentTab('Universe');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSelectDomainFromRail = (domainId: string) => {
+    setSelectedSolutionId(null);
+    const dom = domains.find((d) => d.id === domainId);
+    setIntent({
+      domainId,
+      subdomainId: null,
+      capabilityId: null,
+      solutionBundleId: null,
+      solutionId: null,
+      path: [{ id: domainId, name: dom?.name || domainId, layer: 1 }],
+    });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -83,6 +104,7 @@ export default function PreviewPage() {
             capabilities={capabilities}
             onBackToUniverse={() => {
               setSelectedSolutionId(null);
+              setIntent({ solutionId: null });
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           />
@@ -94,17 +116,38 @@ export default function PreviewPage() {
         )}
       </main>
 
-      {/* 3. ArchitectAny Platform Footer */}
+      {/* 3. Left Contextual Navigation Rail (Compact Floating Tool) */}
+      <ContextualNavigationRail
+        domains={domains}
+        subdomains={subdomains}
+        selectedSolutionId={selectedSolutionId}
+        onSelectDomain={handleSelectDomainFromRail}
+        onResetRoot={handleGoHome}
+      />
+
+      {/* 4. Right Contextual Intelligence Rail (Compact Floating Tool) */}
+      <ContextualIntelligenceRail
+        domains={domains}
+        subdomains={subdomains}
+        capabilities={capabilities}
+        solutions={solutions}
+        selectedSolutionId={selectedSolutionId}
+        activeSolution={activeSolution}
+        onSelectDomain={handleSelectDomainFromRail}
+        onSelectSolution={handleSelectSolution}
+      />
+
+      {/* 5. ArchitectAny Platform Footer */}
       <Footer />
 
-      {/* 4. Spatial GIS & Indian Service Map Modal */}
+      {/* 6. Spatial GIS & Indian Service Map Modal */}
       <SpatialMapModal
         isOpen={isMapModalOpen}
         initialQuery={mapModalPrefill}
         onClose={() => setIsMapModalOpen(false)}
       />
 
-      {/* 5. First-Interaction Location Intelligence Dialog */}
+      {/* 7. First-Interaction Location Intelligence Dialog */}
       <LocationPromptModal />
     </div>
   );

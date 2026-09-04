@@ -122,6 +122,16 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
         if (subToSelect) {
           setSelectedSubdomain(subToSelect);
           setActiveLayer(2);
+          if (!intent.subdomainId) {
+            setIntent({
+              domainId: selectedDomain.id,
+              subdomainId: subToSelect.id,
+              path: [
+                { id: selectedDomain.id, name: selectedDomain.name, layer: 1 },
+                { id: subToSelect.id, name: subToSelect.name, layer: 2 },
+              ],
+            });
+          }
         }
       }
     });
