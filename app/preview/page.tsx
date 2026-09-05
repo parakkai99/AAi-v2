@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Header } from '@/components/preview/Header';
 import { UniverseStage } from '@/components/preview/UniverseStage';
+import { IntentCoreHome } from '@/components/preview/IntentCoreHome';
 import { SolutionDetail } from '@/components/preview/SolutionDetail';
 import { Footer } from '@/components/preview/Footer';
 import { SpatialMapModal } from '@/components/map/SpatialMapModal';
@@ -15,14 +16,23 @@ import { Domain, Subdomain, Capability, Solution } from '@/src/types';
 import { useArchitectAny } from '@/src/context/ArchitectAnyContext';
 import { ContextualNavigationRail } from '@/components/preview/ContextualNavigationRail';
 import { ContextualIntelligenceRail } from '@/components/preview/ContextualIntelligenceRail';
+import { CinematicJourneyOverlay } from '@/components/cinematic/CinematicJourneyOverlay';
+import { useUniversalNavigation } from '@/src/context/UniversalNavigationContext';
 
 export default function PreviewPage() {
-  const { theme, clearIntent, setIntent } = useArchitectAny();
+  const { theme } = useArchitectAny();
+  const {
+    isIntentCoreActive,
+    selectedSolutionId,
+    intentCoreQuery,
+    setIntentCoreQuery,
+    navigateTo,
+  } = useUniversalNavigation();
+
   const isDark = theme === 'dark';
 
   const [currentTab, setCurrentTab] = useState('Universe');
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedSolutionId, setSelectedSolutionId] = useState<string | null>(null);
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [mapModalPrefill, setMapModalPrefill] = useState<string | undefined>();
 
@@ -34,37 +44,6 @@ export default function PreviewPage() {
   const activeSolution = selectedSolutionId
     ? solutions.find((s) => s.id === selectedSolutionId) || null
     : null;
-
-  const handleSelectSolution = (solId: string) => {
-    setSelectedSolutionId(solId);
-    const sol = solutions.find((s) => s.id === solId);
-    setIntent({
-      solutionId: solId,
-      ...(sol?.domainId ? { domainId: sol.domainId } : {}),
-    });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleGoHome = () => {
-    setSelectedSolutionId(null);
-    clearIntent();
-    setCurrentTab('Universe');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleSelectDomainFromRail = (domainId: string) => {
-    setSelectedSolutionId(null);
-    const dom = domains.find((d) => d.id === domainId);
-    setIntent({
-      domainId,
-      subdomainId: null,
-      capabilityId: null,
-      solutionBundleId: null,
-      solutionId: null,
-      path: [{ id: domainId, name: dom?.name || domainId, layer: 1 }],
-    });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   return (
     <div
@@ -80,13 +59,14 @@ export default function PreviewPage() {
         onTabChange={(tab) => {
           setCurrentTab(tab);
           if (tab === 'Universe') {
-            handleGoHome();
+            navigateTo({ layer: 1 });
           }
         }}
-        onHome={handleGoHome}
+        onHome={() => navigateTo({ layer: 1 })}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
-        onSelectSolution={handleSelectSolution}
+        onSelectSolution={(solId) => navigateTo({ layer: 5, solutionId: solId })}
+        onSelectSearchResult={(res) => navigateTo({ type: 'search-result', result: res })}
         onOpenMapModal={(prefill) => {
           setMapModalPrefill(prefill);
           setIsMapModalOpen(true);
@@ -102,16 +82,27 @@ export default function PreviewPage() {
             domains={domains}
             subdomains={subdomains}
             capabilities={capabilities}
-            onBackToUniverse={() => {
-              setSelectedSolutionId(null);
-              setIntent({ solutionId: null });
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onBackToUniverse={() => navigateTo({ type: 'up-level' })}
+          />
+        ) : isIntentCoreActive ? (
+          <IntentCoreHome
+            domains={domains}
+            subdomains={subdomains}
+            capabilities={capabilities}
+            solutions={solutions}
+            initialQuery={intentCoreQuery}
+            onReturnToUniverse={() => navigateTo({ layer: 1 })}
+            onNavigateToDomain={(domainId) => navigateTo({ layer: 2, domainId })}
+            onNavigateToSolution={(solId) => navigateTo({ layer: 5, solutionId: solId })}
           />
         ) : (
           <UniverseStage
             searchQuery={searchQuery}
-            onSelectSolution={handleSelectSolution}
+            onSelectSolution={(solId) => navigateTo({ layer: 5, solutionId: solId })}
+            onOpenIntentCore={(query) => {
+              if (query) setIntentCoreQuery(query);
+              navigateTo({ layer: 0, query });
+            }}
           />
         )}
       </main>
@@ -121,8 +112,9 @@ export default function PreviewPage() {
         domains={domains}
         subdomains={subdomains}
         selectedSolutionId={selectedSolutionId}
-        onSelectDomain={handleSelectDomainFromRail}
-        onResetRoot={handleGoHome}
+        onSelectDomain={(domainId) => navigateTo({ layer: 2, domainId })}
+        onResetRoot={() => navigateTo({ layer: 1 })}
+        onOpenIntentCore={() => navigateTo({ layer: 0 })}
       />
 
       {/* 4. Right Contextual Intelligence Rail (Compact Floating Tool) */}
@@ -133,8 +125,8 @@ export default function PreviewPage() {
         solutions={solutions}
         selectedSolutionId={selectedSolutionId}
         activeSolution={activeSolution}
-        onSelectDomain={handleSelectDomainFromRail}
-        onSelectSolution={handleSelectSolution}
+        onSelectDomain={(domainId) => navigateTo({ layer: 2, domainId })}
+        onSelectSolution={(solId) => navigateTo({ layer: 5, solutionId: solId })}
       />
 
       {/* 5. ArchitectAny Platform Footer */}
@@ -149,6 +141,9 @@ export default function PreviewPage() {
 
       {/* 7. First-Interaction Location Intelligence Dialog */}
       <LocationPromptModal />
+
+      {/* 8. AAi Cinematic Navigation Journey Spatial Overlay */}
+      <CinematicJourneyOverlay />
     </div>
   );
 }

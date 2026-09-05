@@ -39,6 +39,8 @@ import { DomainContextBanner } from './DomainContextBanner';
 import { NextLevelBundlesPanel } from './NextLevelBundlesPanel';
 import { AboutBusinessWorldPanel } from './AboutBusinessWorldPanel';
 import { ThemeToggle } from '../theme/ThemeToggle';
+import { useCinematicNavigation } from '@/src/context/CinematicNavigationContext';
+import { CinematicWaypoint } from '@/src/contracts/cinematic';
 
 export interface SolutionRailProps {
   domains: Domain[];
@@ -63,6 +65,7 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
 }) => {
   const { intent, setIntent, clearIntent, getDomainName, getDomainDesc, theme } = useArchitectAny();
   const isDark = theme === 'dark';
+  const { startJourney, config: cinematicConfig } = useCinematicNavigation();
 
   // 5-Layer Drill-Down State
   const [activeLayer, setActiveLayer] = useState<1 | 2 | 3 | 4 | 5>(1);
@@ -226,7 +229,7 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
     };
 
   // Drill-down handlers
-  const handleSelectSubdomain = (sub: SubdomainItem) => {
+  const executeSelectSubdomain = (sub: SubdomainItem) => {
     setSelectedSubdomain(sub);
     setSelectedCapability(null);
     setSelectedBundle(null);
@@ -243,7 +246,36 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
     });
   };
 
-  const handleSelectCapability = (cap: CapabilityItem) => {
+  const handleSelectSubdomain = (sub: SubdomainItem) => {
+    if (cinematicConfig.enabled) {
+      startJourney(
+        {
+          layer: 1,
+          layerLabel: 'L1 Business Domain',
+          id: selectedDomain.id,
+          name: selectedDomain.name,
+          code: selectedDomain.id,
+          color: selectedDomain.visual?.color || '#00e3fd',
+          coordinates: { x: 50, y: 50, z: -400, sector: `SEC-${selectedDomain.id}` },
+        },
+        {
+          layer: 2,
+          layerLabel: 'L2 Business Subdomain',
+          id: sub.id,
+          name: sub.name,
+          code: sub.id,
+          color: selectedDomain.visual?.color || '#38bdf8',
+          coordinates: { x: 65, y: 70, z: -1000, sector: `SEC-${sub.id}` },
+          description: sub.description,
+        },
+        () => executeSelectSubdomain(sub)
+      );
+    } else {
+      executeSelectSubdomain(sub);
+    }
+  };
+
+  const executeSelectCapability = (cap: CapabilityItem) => {
     setSelectedCapability(cap);
     setSelectedBundle(null);
     setActiveLayer(3);
@@ -259,7 +291,36 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
     });
   };
 
-  const handleSelectBundle = (bundle: SolutionBundleItem) => {
+  const handleSelectCapability = (cap: CapabilityItem) => {
+    if (cinematicConfig.enabled) {
+      startJourney(
+        {
+          layer: 2,
+          layerLabel: 'L2 Subdomain',
+          id: selectedSubdomain?.id || selectedDomain.id,
+          name: selectedSubdomain?.name || selectedDomain.name,
+          code: selectedSubdomain?.id || selectedDomain.id,
+          color: selectedDomain.visual?.color || '#38bdf8',
+          coordinates: { x: 65, y: 70, z: -1000, sector: `SEC-${selectedSubdomain?.id || 'SUB'}` },
+        },
+        {
+          layer: 3,
+          layerLabel: 'L3 Solution Capability',
+          id: cap.id,
+          name: cap.name,
+          code: cap.id,
+          color: '#38bdf8',
+          coordinates: { x: 80, y: 85, z: -1600, sector: `SEC-${cap.id}` },
+          description: cap.description,
+        },
+        () => executeSelectCapability(cap)
+      );
+    } else {
+      executeSelectCapability(cap);
+    }
+  };
+
+  const executeSelectBundle = (bundle: SolutionBundleItem) => {
     setSelectedBundle(bundle);
     setActiveLayer(4);
     setIntent({
@@ -274,39 +335,171 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
     });
   };
 
-  const handleResetToRoot = () => {
-    if (onResetToRoot) {
-      onResetToRoot();
+  const handleSelectBundle = (bundle: SolutionBundleItem) => {
+    if (cinematicConfig.enabled) {
+      startJourney(
+        {
+          layer: 3,
+          layerLabel: 'L3 Solution Capability',
+          id: selectedCapability?.id || 'CAP',
+          name: selectedCapability?.name || 'Capability',
+          code: selectedCapability?.id || 'CAP',
+          color: '#38bdf8',
+          coordinates: { x: 80, y: 85, z: -1600, sector: `SEC-${selectedCapability?.id}` },
+        },
+        {
+          layer: 4,
+          layerLabel: 'L4 Solution Architecture Bundle',
+          id: bundle.id,
+          name: bundle.name,
+          code: bundle.id,
+          color: '#818cf8',
+          coordinates: { x: 90, y: 95, z: -2200, sector: `SEC-${bundle.id}` },
+          description: bundle.description,
+        },
+        () => executeSelectBundle(bundle)
+      );
     } else {
-      clearIntent();
+      executeSelectBundle(bundle);
+    }
+  };
+
+  const handleResetToRoot = () => {
+    if (cinematicConfig.enabled && selectedDomain) {
+      startJourney(
+        {
+          layer: 2,
+          layerLabel: 'L2 Business World',
+          id: selectedDomain.id,
+          name: selectedDomain.name,
+          code: selectedDomain.id,
+          color: selectedDomain.visual?.color || '#00e3fd',
+          coordinates: { x: 50, y: 50, z: -800, sector: `SEC-${selectedDomain.id}` },
+        },
+        {
+          layer: 1,
+          layerLabel: 'L1 Domain Universe',
+          id: 'L1-UNIVERSE-CORE',
+          name: 'ArchitectAny Solution Universe',
+          code: 'L1',
+          color: '#00e3fd',
+          coordinates: { x: 50, y: 50, z: 0, sector: 'SEC-CORE-001' },
+          description: 'Ascending to 3D Orbit Galaxy',
+        },
+        () => {
+          if (onResetToRoot) {
+            onResetToRoot();
+          } else {
+            clearIntent();
+          }
+        }
+      );
+    } else {
+      if (onResetToRoot) {
+        onResetToRoot();
+      } else {
+        clearIntent();
+      }
     }
   };
 
   const handleStepUp = () => {
     if (activeLayer === 4) {
-      setSelectedBundle(null);
-      setActiveLayer(3);
-      setIntent({
-        solutionBundleId: null,
-        solutionId: null,
-        path: [
-          { id: selectedDomain.id, name: selectedDomain.name, layer: 1 },
-          { id: selectedSubdomain?.id || '', name: selectedSubdomain?.name || '', layer: 2 },
-          { id: selectedCapability?.id || '', name: selectedCapability?.name || '', layer: 3 },
-        ],
-      });
+      if (cinematicConfig.enabled && selectedBundle) {
+        startJourney(
+          {
+            layer: 4,
+            layerLabel: 'L4 Solution Architecture Bundle',
+            id: selectedBundle.id,
+            name: selectedBundle.name,
+            code: selectedBundle.id,
+            color: '#818cf8',
+            coordinates: { x: 90, y: 95, z: -2200, sector: `SEC-${selectedBundle.id}` },
+          },
+          {
+            layer: 3,
+            layerLabel: 'L3 Solution Capability',
+            id: selectedCapability?.id || 'CAP',
+            name: selectedCapability?.name || 'Capability',
+            code: selectedCapability?.id || 'CAP',
+            color: '#38bdf8',
+            coordinates: { x: 80, y: 85, z: -1600, sector: `SEC-${selectedCapability?.id || 'CAP'}` },
+          },
+          () => {
+            setSelectedBundle(null);
+            setActiveLayer(3);
+            setIntent({
+              solutionBundleId: null,
+              solutionId: null,
+              path: [
+                { id: selectedDomain.id, name: selectedDomain.name, layer: 1 },
+                { id: selectedSubdomain?.id || '', name: selectedSubdomain?.name || '', layer: 2 },
+                { id: selectedCapability?.id || '', name: selectedCapability?.name || '', layer: 3 },
+              ],
+            });
+          }
+        );
+      } else {
+        setSelectedBundle(null);
+        setActiveLayer(3);
+        setIntent({
+          solutionBundleId: null,
+          solutionId: null,
+          path: [
+            { id: selectedDomain.id, name: selectedDomain.name, layer: 1 },
+            { id: selectedSubdomain?.id || '', name: selectedSubdomain?.name || '', layer: 2 },
+            { id: selectedCapability?.id || '', name: selectedCapability?.name || '', layer: 3 },
+          ],
+        });
+      }
     } else if (activeLayer === 3) {
-      setSelectedCapability(null);
-      setActiveLayer(2);
-      setIntent({
-        capabilityId: null,
-        solutionBundleId: null,
-        solutionId: null,
-        path: [
-          { id: selectedDomain.id, name: selectedDomain.name, layer: 1 },
-          { id: selectedSubdomain?.id || '', name: selectedSubdomain?.name || '', layer: 2 },
-        ],
-      });
+      if (cinematicConfig.enabled && selectedCapability) {
+        startJourney(
+          {
+            layer: 3,
+            layerLabel: 'L3 Solution Capability',
+            id: selectedCapability.id,
+            name: selectedCapability.name,
+            code: selectedCapability.id,
+            color: '#38bdf8',
+            coordinates: { x: 80, y: 85, z: -1600, sector: `SEC-${selectedCapability.id}` },
+          },
+          {
+            layer: 2,
+            layerLabel: 'L2 Business Subdomain',
+            id: selectedSubdomain?.id || selectedDomain.id,
+            name: selectedSubdomain?.name || selectedDomain.name,
+            code: selectedSubdomain?.id || selectedDomain.id,
+            color: selectedDomain.visual?.color || '#38bdf8',
+            coordinates: { x: 65, y: 70, z: -1000, sector: `SEC-${selectedSubdomain?.id || 'SUB'}` },
+          },
+          () => {
+            setSelectedCapability(null);
+            setActiveLayer(2);
+            setIntent({
+              capabilityId: null,
+              solutionBundleId: null,
+              solutionId: null,
+              path: [
+                { id: selectedDomain.id, name: selectedDomain.name, layer: 1 },
+                { id: selectedSubdomain?.id || '', name: selectedSubdomain?.name || '', layer: 2 },
+              ],
+            });
+          }
+        );
+      } else {
+        setSelectedCapability(null);
+        setActiveLayer(2);
+        setIntent({
+          capabilityId: null,
+          solutionBundleId: null,
+          solutionId: null,
+          path: [
+            { id: selectedDomain.id, name: selectedDomain.name, layer: 1 },
+            { id: selectedSubdomain?.id || '', name: selectedSubdomain?.name || '', layer: 2 },
+          ],
+        });
+      }
     } else if (activeLayer === 2 || activeLayer === 1) {
       handleResetToRoot();
     }
@@ -382,36 +575,128 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
           onSelectRootCrumb={handleResetToRoot}
           onSelectDomainCrumb={handleResetToDomain}
           onSelectSubdomainCrumb={() => {
-            setSelectedCapability(null);
-            setSelectedBundle(null);
-            setActiveLayer(2);
-            if (selectedSubdomain) {
-              setIntent({
-                subdomainId: selectedSubdomain.id,
-                capabilityId: null,
-                solutionBundleId: null,
-                solutionId: null,
-                path: [
-                  { id: selectedDomain.id, name: selectedDomain.name, layer: 1 },
-                  { id: selectedSubdomain.id, name: selectedSubdomain.name, layer: 2 },
-                ],
-              });
+            if (activeLayer > 2 && cinematicConfig.enabled) {
+              const currentOrigin: CinematicWaypoint =
+                activeLayer === 4 && selectedBundle
+                  ? {
+                      layer: 4,
+                      layerLabel: 'L4 Solution Architecture Bundle',
+                      id: selectedBundle.id,
+                      name: selectedBundle.name,
+                      code: selectedBundle.id,
+                      color: '#818cf8',
+                      coordinates: { x: 90, y: 95, z: -2200, sector: `SEC-${selectedBundle.id}` },
+                    }
+                  : {
+                      layer: 3,
+                      layerLabel: 'L3 Solution Capability',
+                      id: selectedCapability?.id || 'CAP',
+                      name: selectedCapability?.name || 'Capability',
+                      code: selectedCapability?.id || 'CAP',
+                      color: '#38bdf8',
+                      coordinates: { x: 80, y: 85, z: -1600, sector: 'SEC-CAP' },
+                    };
+
+              startJourney(
+                currentOrigin,
+                {
+                  layer: 2,
+                  layerLabel: 'L2 Business Subdomain',
+                  id: selectedSubdomain?.id || selectedDomain.id,
+                  name: selectedSubdomain?.name || selectedDomain.name,
+                  code: selectedSubdomain?.id || selectedDomain.id,
+                  color: selectedDomain.visual?.color || '#38bdf8',
+                  coordinates: { x: 65, y: 70, z: -1000, sector: 'SEC-SUB' },
+                },
+                () => {
+                  setSelectedCapability(null);
+                  setSelectedBundle(null);
+                  setActiveLayer(2);
+                  if (selectedSubdomain) {
+                    setIntent({
+                      subdomainId: selectedSubdomain.id,
+                      capabilityId: null,
+                      solutionBundleId: null,
+                      solutionId: null,
+                      path: [
+                        { id: selectedDomain.id, name: selectedDomain.name, layer: 1 },
+                        { id: selectedSubdomain.id, name: selectedSubdomain.name, layer: 2 },
+                      ],
+                    });
+                  }
+                }
+              );
+            } else {
+              setSelectedCapability(null);
+              setSelectedBundle(null);
+              setActiveLayer(2);
+              if (selectedSubdomain) {
+                setIntent({
+                  subdomainId: selectedSubdomain.id,
+                  capabilityId: null,
+                  solutionBundleId: null,
+                  solutionId: null,
+                  path: [
+                    { id: selectedDomain.id, name: selectedDomain.name, layer: 1 },
+                    { id: selectedSubdomain.id, name: selectedSubdomain.name, layer: 2 },
+                  ],
+                });
+              }
             }
           }}
           onSelectCapabilityCrumb={() => {
-            setSelectedBundle(null);
-            setActiveLayer(3);
-            if (selectedSubdomain && selectedCapability) {
-              setIntent({
-                capabilityId: selectedCapability.id,
-                solutionBundleId: null,
-                solutionId: null,
-                path: [
-                  { id: selectedDomain.id, name: selectedDomain.name, layer: 1 },
-                  { id: selectedSubdomain.id, name: selectedSubdomain.name, layer: 2 },
-                  { id: selectedCapability.id, name: selectedCapability.name, layer: 3 },
-                ],
-              });
+            if (activeLayer === 4 && cinematicConfig.enabled && selectedBundle) {
+              startJourney(
+                {
+                  layer: 4,
+                  layerLabel: 'L4 Solution Architecture Bundle',
+                  id: selectedBundle.id,
+                  name: selectedBundle.name,
+                  code: selectedBundle.id,
+                  color: '#818cf8',
+                  coordinates: { x: 90, y: 95, z: -2200, sector: `SEC-${selectedBundle.id}` },
+                },
+                {
+                  layer: 3,
+                  layerLabel: 'L3 Solution Capability',
+                  id: selectedCapability?.id || 'CAP',
+                  name: selectedCapability?.name || 'Capability',
+                  code: selectedCapability?.id || 'CAP',
+                  color: '#38bdf8',
+                  coordinates: { x: 80, y: 85, z: -1600, sector: 'SEC-CAP' },
+                },
+                () => {
+                  setSelectedBundle(null);
+                  setActiveLayer(3);
+                  if (selectedSubdomain && selectedCapability) {
+                    setIntent({
+                      capabilityId: selectedCapability.id,
+                      solutionBundleId: null,
+                      solutionId: null,
+                      path: [
+                        { id: selectedDomain.id, name: selectedDomain.name, layer: 1 },
+                        { id: selectedSubdomain.id, name: selectedSubdomain.name, layer: 2 },
+                        { id: selectedCapability.id, name: selectedCapability.name, layer: 3 },
+                      ],
+                    });
+                  }
+                }
+              );
+            } else {
+              setSelectedBundle(null);
+              setActiveLayer(3);
+              if (selectedSubdomain && selectedCapability) {
+                setIntent({
+                  capabilityId: selectedCapability.id,
+                  solutionBundleId: null,
+                  solutionId: null,
+                  path: [
+                    { id: selectedDomain.id, name: selectedDomain.name, layer: 1 },
+                    { id: selectedSubdomain.id, name: selectedSubdomain.name, layer: 2 },
+                    { id: selectedCapability.id, name: selectedCapability.name, layer: 3 },
+                  ],
+                });
+              }
             }
           }}
         />
@@ -791,7 +1076,34 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
               {filteredSolutions.map((sol) => (
                 <button
                   key={sol.id}
-                  onClick={() => onSelectSolution(sol.id)}
+                  onClick={() => {
+                    if (cinematicConfig.enabled) {
+                      startJourney(
+                        {
+                          layer: 4,
+                          layerLabel: 'L4 Solution Architecture',
+                          id: selectedBundle?.id || selectedDomain.id,
+                          name: selectedBundle?.name || selectedDomain.name,
+                          code: selectedBundle?.id || selectedDomain.id,
+                          color: selectedDomain.visual?.color || '#00e3fd',
+                          coordinates: { x: 50, y: 50, z: -1800, sector: 'SEC-BUNDLE' },
+                        },
+                        {
+                          layer: 5,
+                          layerLabel: 'L5 Solution Workspace',
+                          id: sol.id,
+                          name: sol.name,
+                          code: sol.id,
+                          color: '#34d399',
+                          coordinates: { x: 50, y: 50, z: -2500, sector: `SEC-SOL-${sol.id}` },
+                          description: sol.description,
+                        },
+                        () => onSelectSolution(sol.id)
+                      );
+                    } else {
+                      onSelectSolution(sol.id);
+                    }
+                  }}
                   className={`group flex flex-col justify-between p-4 rounded-2xl text-left transition-all cursor-pointer border ${
                     isDark
                       ? 'bg-[#03182b]/85 hover:bg-[#042542] border-[#00dfff]/20 hover:border-[#00e3fd] shadow-sm hover:shadow-[0_0_20px_rgba(0,227,253,0.3)] hover:scale-[1.01]'

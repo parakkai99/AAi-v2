@@ -1,6 +1,6 @@
 {
   "name": "ArchitectAny M01 Solution Universe",
-  "description": "Interactive, cinematic 3D elliptical Solution Universe for the ArchitectAny platform.",
+  "description": "Interactive, cinematic 3D elliptical Solution Universe with spatial navigation journey across L1 to L6 layers.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

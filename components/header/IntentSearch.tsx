@@ -97,8 +97,8 @@ export const IntentSearch: React.FC<IntentSearchProps> = ({
   };
 
   const handleSelectResult = (res: SearchResultItem) => {
-    const layer = res.meta?.layer;
-    const path = res.meta?.path || [];
+    const layer = res.meta?.layer as number | undefined;
+    const path = (Array.isArray(res.meta?.path) ? res.meta.path : []) as any[];
 
     // Extract exact 5-layer hierarchy IDs
     const domainId = res.domainId || (layer === 1 ? res.id : path.find((p: any) => p.layer === 1)?.id || null);
@@ -108,7 +108,7 @@ export const IntentSearch: React.FC<IntentSearchProps> = ({
     const solutionId = (res.type === 'solution' || layer === 5) ? res.id : null;
 
     setIntent({
-      query: res.meta?.rawName || res.name,
+      query: (res.meta?.rawName as string) || res.name,
       domainId,
       subdomainId,
       capabilityId,

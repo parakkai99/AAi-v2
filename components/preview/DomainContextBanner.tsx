@@ -7,6 +7,7 @@ import {
   SolutionBundleItem,
   SolutionItem,
 } from '@/src/contracts/catalog';
+import { CinematicHUDControl } from '@/components/cinematic/CinematicHUDControl';
 
 export interface DomainContextBannerProps {
   domain: DomainItem | null;
@@ -351,6 +352,7 @@ export const DomainContextBanner: React.FC<DomainContextBannerProps> = ({
 
         {/* Right Section: Up 1 Level + Quick Business Worlds Mouseover Dropdown */}
         <div className="flex items-center gap-2 shrink-0">
+          <CinematicHUDControl />
           {rightExtra}
           {!isRoot && onUpLevel && (
             <button

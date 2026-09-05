@@ -20,6 +20,7 @@ export interface ContextualNavigationRailProps {
   isExecutionMode?: boolean;
   onSelectDomain: (domainId: string) => void;
   onResetRoot: () => void;
+  onOpenIntentCore?: () => void;
   className?: string;
 }
 
@@ -30,6 +31,7 @@ export const ContextualNavigationRail: React.FC<ContextualNavigationRailProps> =
   isExecutionMode = false,
   onSelectDomain,
   onResetRoot,
+  onOpenIntentCore,
   className = '',
 }) => {
   const { intent, theme } = useArchitectAny();
@@ -226,8 +228,8 @@ export const ContextualNavigationRail: React.FC<ContextualNavigationRailProps> =
             </button>
           </div>
 
-          {/* Quick Universe Jump Action */}
-          <div className="p-3 border-b border-white/5 shrink-0">
+          {/* Quick Universe & Intent Core Jump Actions */}
+          <div className="p-3 border-b border-white/5 shrink-0 space-y-1.5">
             <button
               onClick={() => {
                 onResetRoot();
@@ -249,6 +251,26 @@ export const ContextualNavigationRail: React.FC<ContextualNavigationRailProps> =
               </span>
               <span className="text-[10px] opacity-70">L1 Orbit</span>
             </button>
+
+            {onOpenIntentCore && (
+              <button
+                onClick={() => {
+                  onOpenIntentCore();
+                  setIsExpanded(false);
+                }}
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer border ${
+                  isDark
+                    ? 'bg-[#031526] text-[#7dd3fc] border-[#00e3fd]/25 hover:text-white hover:border-[#00e3fd]'
+                    : 'bg-slate-100 text-slate-700 border-slate-200 hover:text-indigo-600'
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  <Compass className="w-3.5 h-3.5 text-[#00e3fd]" />
+                  <span>AAi Intent Core</span>
+                </span>
+                <span className="text-[10px] text-[#00e3fd] font-bold">Center</span>
+              </button>
+            )}
           </div>
 
           {/* Business Worlds (14) List */}

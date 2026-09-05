@@ -7,6 +7,9 @@ import {
   IntentState,
   SearchResultItem,
   IIntentService,
+  IntentResolveRequest,
+  IntentSearchRequest,
+  IntentSearchResult,
 } from '../contracts/intent';
 import { LocationContextState } from '../contracts/location';
 import { catalogRepository } from '../repositories/catalogRepository';
@@ -32,6 +35,7 @@ class IntentService implements IIntentService {
     domainId: null,
     subdomainId: null,
     capabilityId: null,
+    solutionBundleId: null,
     solutionId: null,
     serviceId: null,
     providerId: null,
@@ -212,6 +216,22 @@ class IntentService implements IIntentService {
     });
 
     return results.slice(0, 8);
+  }
+
+  async resolveIntent(request: IntentResolveRequest): Promise<IntentState> {
+    return this.parseIntent(request.query);
+  }
+
+  async searchWithContext(request: IntentSearchRequest): Promise<IntentSearchResult> {
+    const results = await this.search(request.query, request.location);
+    return {
+      query: request.query,
+      total: results.length,
+      results,
+      intent: this.currentIntent,
+      location: request.location,
+      searchedAt: new Date().toISOString(),
+    };
   }
 
   subscribe(listener: (intent: IntentState) => void): () => void {

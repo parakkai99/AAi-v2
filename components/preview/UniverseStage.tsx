@@ -10,13 +10,17 @@ import { DomainNode } from './DomainNode';
 import { IntentCore, ArchitectAnyLogo } from './IntentCore';
 import { SolutionRail } from './SolutionRail';
 import { DomainContextBanner } from './DomainContextBanner';
+import { CinematicJourneyShowcase } from '../cinematic/CinematicJourneyShowcase';
 import { Play, Pause, RotateCw, Compass, Eye, Sparkles, ArrowRight } from 'lucide-react';
 import styles from './UniverseStage.module.css';
+import { useCinematicNavigation } from '@/src/context/CinematicNavigationContext';
+import { CinematicWaypoint } from '@/src/contracts/cinematic';
 
 export interface UniverseStageProps {
   initialDomainId?: string;
   onDomainSelect?: (domain: Domain) => void;
   onSelectSolution?: (solutionId: string) => void;
+  onOpenIntentCore?: (initialQuery?: string) => void;
   searchQuery?: string;
 }
 
@@ -24,6 +28,7 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
   initialDomainId = 'D06',
   onDomainSelect,
   onSelectSolution,
+  onOpenIntentCore,
   searchQuery = '',
 }) => {
   const { intent, setIntent, clearIntent, theme } = useArchitectAny();
@@ -105,7 +110,9 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
     };
   }, [isOrbiting, orbitSpeed]);
 
-  const handleSelectDomain = (domain: Domain) => {
+  const { startJourney, config: cinematicConfig } = useCinematicNavigation();
+
+  const executeDomainSelection = (domain: Domain) => {
     setSelectedDomain(domain);
     setIntent({
       query: '',
@@ -124,10 +131,79 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleSelectDomain = (domain: Domain) => {
+    if (!cinematicConfig.enabled) {
+      executeDomainSelection(domain);
+      return;
+    }
+
+    const matchedNode = nodePositions.find((n) => n.domain.id === domain.id);
+    const originWaypoint: CinematicWaypoint = {
+      layer: 1,
+      layerLabel: 'L1 Domain Universe',
+      id: 'L1-UNIVERSE-CORE',
+      name: 'ArchitectAny Solution Universe',
+      code: 'L1',
+      color: '#00e3fd',
+      coordinates: { x: 50, y: 50, z: 0, sector: 'SEC-SOL-001' },
+      description: 'Central Intent Core of the AAi Solution Universe',
+    };
+
+    const destinationWaypoint: CinematicWaypoint = {
+      layer: 2,
+      layerLabel: 'L2 Business Sub-World',
+      id: domain.id,
+      name: domain.name,
+      code: domain.id,
+      color: domain.visual?.color || '#00e3fd',
+      coordinates: {
+        x: Math.round(matchedNode?.xPercent || 50),
+        y: Math.round(matchedNode?.yPercent || 50),
+        z: -800,
+        sector: `SEC-${domain.id}-CORE`,
+      },
+      description: domain.description,
+    };
+
+    startJourney(originWaypoint, destinationWaypoint, () => {
+      executeDomainSelection(domain);
+    });
+  };
+
   const handleResetToRoot = () => {
-    setSelectedDomain(null);
-    clearIntent();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (selectedDomain && cinematicConfig.enabled) {
+      const originWaypoint: CinematicWaypoint = {
+        layer: 2,
+        layerLabel: 'L2 Business World',
+        id: selectedDomain.id,
+        name: selectedDomain.name,
+        code: selectedDomain.id,
+        color: selectedDomain.visual?.color || '#00e3fd',
+        coordinates: { x: 50, y: 50, z: -800, sector: `SEC-${selectedDomain.id}` },
+        description: selectedDomain.description,
+      };
+
+      const destinationWaypoint: CinematicWaypoint = {
+        layer: 1,
+        layerLabel: 'L1 Domain Universe',
+        id: 'L1-UNIVERSE-CORE',
+        name: 'ArchitectAny Solution Universe',
+        code: 'L1',
+        color: '#00e3fd',
+        coordinates: { x: 50, y: 50, z: 0, sector: 'SEC-SOL-001' },
+        description: 'Returning to 3D Orbit Galaxy',
+      };
+
+      startJourney(originWaypoint, destinationWaypoint, () => {
+        setSelectedDomain(null);
+        clearIntent();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    } else {
+      setSelectedDomain(null);
+      clearIntent();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   // Mathematical Ellipse Parameters for Perfect 3D Galaxy Alignment
@@ -227,6 +303,38 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
       </div>
     );
   }
+
+  const handleOpenIntentCore = (query?: string) => {
+    if (!cinematicConfig.enabled) {
+      onOpenIntentCore?.(query);
+      return;
+    }
+
+    startJourney(
+      {
+        layer: 1,
+        layerLabel: 'L1 Domain Universe',
+        id: 'L1-UNIVERSE',
+        name: 'ArchitectAny Solution Universe',
+        code: 'M01',
+        color: '#00e3fd',
+        coordinates: { x: 50, y: 50, z: 0, sector: 'SEC-UNIVERSE-CORE' },
+      },
+      {
+        layer: 0,
+        layerLabel: 'AAi Intent Core',
+        id: 'INTENT-CORE',
+        name: 'AAi Intelligence Core',
+        code: 'INTENT',
+        color: '#00e3fd',
+        coordinates: { x: 50, y: 50, z: 0, sector: 'SEC-INTENT-CORE' },
+        description: 'Entering the intelligence center of the Universe',
+      },
+      () => {
+        onOpenIntentCore?.(query);
+      }
+    );
+  };
 
   // M01 Solution Universe Root View: 3D Galaxy Orbit + L1 Domain Explorer
   return (
@@ -414,11 +522,9 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
           {/* Center: Intent Core Component with 3D Depth Pinning */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-25 pointer-events-auto">
             <IntentCore
-              logoSlot={<ArchitectAnyLogo />}
               activeDomainColor={activeColor}
-              onClick={() => {
-                if (domains[0]) handleSelectDomain(domains[0]);
-              }}
+              onClick={() => handleOpenIntentCore()}
+              onSubmitIntent={(query) => handleOpenIntentCore(query)}
             />
           </div>
 
@@ -443,6 +549,9 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Interactive Cinematic Navigation Showcase (L1 → L6 Distinct Spatial Journeys) */}
+      <CinematicJourneyShowcase />
 
       {/* 3. L1 Domain Universe Explorer Grid */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 z-30">
