@@ -22,11 +22,10 @@ import { useCinematicNavigation } from './CinematicNavigationContext';
 import {
   CatalogLayerNumber,
   CinematicWaypoint,
-  SpatialCoordinates,
 } from '../contracts/cinematic';
 import { SearchResultItem } from '../contracts/intent';
 import { catalogRepository } from '../repositories/catalogRepository';
-import domainsData from '@/data/universe/domains.json';
+import type { DomainItem } from '../contracts/catalog';
 
 export type UniversalNavigationTarget =
   | {
@@ -91,15 +90,21 @@ export interface UniversalNavigationContextValue {
 
 const UniversalNavigationContext = createContext<UniversalNavigationContextValue | null>(null);
 
-function getDomainColor(domainId?: string | null): string {
+function getDomainColor(
+  domains: DomainItem[],
+  domainId?: string | null,
+): string {
   if (!domainId) return '#00e3fd';
-  const found = (domainsData as any[]).find((d) => d.id === domainId);
-  return found?.visual?.color || '#00e3fd';
+  const found = domains.find((domain) => domain.id === domainId);
+  return found?.color || found?.accentColor || '#00e3fd';
 }
 
-function getDomainName(domainId?: string | null): string {
+function getDomainName(
+  domains: DomainItem[],
+  domainId?: string | null,
+): string {
   if (!domainId) return 'Domain';
-  const found = (domainsData as any[]).find((d) => d.id === domainId);
+  const found = domains.find((domain) => domain.id === domainId);
   return found?.name || domainId;
 }
 
@@ -110,6 +115,31 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
   const [isIntentCoreActive, setIsIntentCoreActive] = useState<boolean>(false);
   const [selectedSolutionId, setSelectedSolutionId] = useState<string | null>(null);
   const [intentCoreQuery, setIntentCoreQuery] = useState<string>('');
+
+  // Canonical domain metadata is resolved from the catalog repository.
+  // This keeps universal navigation independent from legacy domains.json data.
+  const [catalogDomains, setCatalogDomains] = useState<DomainItem[]>([]);
+
+  React.useEffect(() => {
+    let mounted = true;
+
+    catalogRepository
+      .getDomains()
+      .then((domains) => {
+        if (mounted) {
+          setCatalogDomains(domains);
+        }
+      })
+      .catch(() => {
+        if (mounted) {
+          setCatalogDomains([]);
+        }
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   // 1. Derive Current Waypoint (Origin) dynamically from application state
   const currentWaypoint = useMemo<CinematicWaypoint>(() => {
@@ -163,7 +193,7 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
     }
 
     if (intent.subdomainId) {
-      const domColor = getDomainColor(intent.domainId);
+      const domColor = getDomainColor(catalogDomains, intent.domainId);
       return {
         layer: 2,
         layerLabel: 'L2 Business Subdomain',
@@ -176,8 +206,8 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
     }
 
     if (intent.domainId) {
-      const domColor = getDomainColor(intent.domainId);
-      const domName = getDomainName(intent.domainId);
+      const domColor = getDomainColor(catalogDomains, intent.domainId);
+      const domName = getDomainName(catalogDomains, intent.domainId);
       return {
         layer: 2,
         layerLabel: 'L2 Business World',
@@ -217,14 +247,14 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
           if (selectedSolutionId) {
             // L5 -> L4 or L2
             const targetDomainId = intent.domainId || 'D06';
-            const domName = getDomainName(targetDomainId);
+            const domName = getDomainName(catalogDomains, targetDomainId);
             destWaypoint = {
               layer: 2,
               layerLabel: 'L2 Business World',
               id: targetDomainId,
               name: domName,
               code: targetDomainId,
-              color: getDomainColor(targetDomainId),
+              color: getDomainColor(catalogDomains, targetDomainId),
               coordinates: { x: 50, y: 50, z: -800, sector: `SEC-${targetDomainId}` },
               description: `Ascending to Business World: ${domName}`,
             };
@@ -260,7 +290,7 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
               id: intent.subdomainId || intent.domainId || 'SUB',
               name: 'Sub-World',
               code: intent.subdomainId || intent.domainId || 'SUB',
-              color: getDomainColor(intent.domainId),
+              color: getDomainColor(catalogDomains, intent.domainId),
               coordinates: { x: 65, y: 70, z: -1000, sector: 'SEC-SUB' },
               description: 'Ascending to Sub-World View',
             };
@@ -319,9 +349,9 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
               layer: 2,
               layerLabel: 'L2 Business World',
               id: domId,
-              name: getDomainName(domId),
+              name: getDomainName(catalogDomains, domId),
               code: domId,
-              color: getDomainColor(domId),
+              color: getDomainColor(catalogDomains, domId),
               coordinates: { x: 50, y: 50, z: -800, sector: `SEC-${domId}` },
             };
             applyState = () => {
@@ -381,7 +411,7 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
             id: domainId,
             name: domName,
             code: domainId,
-            color: getDomainColor(domainId),
+            color: getDomainColor(catalogDomains, domainId),
             coordinates: { x: 50, y: 50, z: -800, sector: `SEC-${domainId}` },
             description: item.description,
           };
@@ -408,7 +438,7 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
             id: subId,
             name: item.name,
             code: subId,
-            color: getDomainColor(domainId),
+            color: getDomainColor(catalogDomains, domainId),
             coordinates: { x: 65, y: 70, z: -1000, sector: `SEC-${subId}` },
             description: item.description,
           };
@@ -422,7 +452,7 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
               solutionBundleId: null,
               solutionId: null,
               path: path.length > 0 ? path : [
-                { id: domainId, name: getDomainName(domainId), layer: 1 },
+                { id: domainId, name: getDomainName(catalogDomains, domainId), layer: 1 },
                 { id: subId, name: item.name, layer: 2 },
               ],
             });
@@ -550,14 +580,14 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
         } else if (target.layer === 2) {
           // Domain
           const domId = target.domainId;
-          const domName = target.name || getDomainName(domId);
+          const domName = target.name || getDomainName(catalogDomains, domId);
           destWaypoint = {
             layer: 2,
             layerLabel: 'L2 Business World',
             id: domId,
             name: domName,
             code: domId,
-            color: getDomainColor(domId),
+            color: getDomainColor(catalogDomains, domId),
             coordinates: { x: 50, y: 50, z: -800, sector: `SEC-${domId}` },
           };
           applyState = () => {
@@ -679,6 +709,7 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
       setIntent,
       clearIntent,
       setLocation,
+      catalogDomains,
     ]
   );
 

@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Solution,
-  Domain,
-  Subdomain,
-  Capability,
-} from '@/src/types';
-import { SolutionItem } from '@/src/contracts/catalog';
-import { catalogRepository } from '@/src/repositories/catalogRepository';
-import { useArchitectAny } from '@/src/context/ArchitectAnyContext';
+/**
+ * Architect: Vijay Kumar K.
+ * Platform: ArchitectAny (AAi)
+ *
+ * Context: L5 Solution Detail
+ * Catalog Source: Canonical Capability Catalog
+ * Status: ACTIVE
+ * Version: 1.0.0
+ */
+
+import React, { useEffect, useState } from "react";
+import { Solution, Domain, Subdomain, Capability } from "@/src/types";
+import { SolutionItem } from "@/src/contracts/catalog";
+import { catalogRepository } from "@/src/repositories/catalogRepository";
+import { useArchitectAny } from "@/src/context/ArchitectAnyContext";
 import {
   ArrowLeft,
   Sparkles,
@@ -32,7 +37,7 @@ import {
   MapPin,
   Workflow as WorkflowIcon,
   Compass,
-} from 'lucide-react';
+} from "lucide-react";
 
 export interface SolutionDetailProps {
   solutionId: string;
@@ -61,9 +66,9 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
   const [compositionSuccess, setCompositionSuccess] = useState(false);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
     catalogRepository.getItemById(solutionId).then((item) => {
-      if (item && item.type === 'SOLUTION') {
+      if (item && item.type === "SOLUTION") {
         setCatalogItem(item as SolutionItem);
       }
     });
@@ -78,33 +83,52 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
           <span className="text-xs font-mono text-[#00dfff] uppercase tracking-widest block mb-2">
             ArchitectAny AAi
           </span>
-          <h2 className="text-xl font-bold mb-2">{t('solution_not_found')}</h2>
+          <h2 className="text-xl font-bold mb-2">{t("solution_not_found")}</h2>
           <p className="text-xs text-[#82a5bb] mb-6">
-            The requested solution ID ({solutionId}) could not be resolved in the AAi canonical catalog.
+            The requested solution ID ({solutionId}) could not be resolved in
+            the AAi canonical catalog.
           </p>
           <button
             onClick={onBackToUniverse}
             className="px-5 py-2.5 rounded-xl bg-[#00e3fd] text-[#020914] font-mono text-xs font-bold hover:bg-[#51dfff] transition-all cursor-pointer"
           >
-            ← {t('back_to_universe')}
+            ← {t("back_to_universe")}
           </button>
         </div>
       </main>
     );
   }
 
-  const primaryDomainId = catalogItem?.domainId || (solution?.domainIds && solution.domainIds[0]) || 'D06';
-  const primaryDomain = domains.find((d) => d.id === primaryDomainId) || domains[0];
-  const color = primaryDomain?.visual?.color || '#00e3fd';
-  const primaryDomainName = primaryDomain ? getDomainName(primaryDomain.id, primaryDomain.name) : 'Marketplace & Commerce';
+  const primaryDomainId = catalogItem?.domainId || solution?.domainId || "D06";
+  const primaryDomain =
+    domains.find((d) => d.id === primaryDomainId) || domains[0];
+  const color = primaryDomain?.visual?.color || "#00e3fd";
+  const primaryDomainName = primaryDomain
+    ? getDomainName(primaryDomain.id, primaryDomain.name)
+    : "Marketplace & Commerce";
 
   // 5-Layer Hierarchical Path
   const path = catalogItem?.path || [
-    { id: 'D06', name: 'Marketplace & Commerce', layer: 1, type: 'DOMAIN' },
-    { id: 'D06.01', name: 'Hyperlocal Marketplace', layer: 2, type: 'SUBDOMAIN' },
-    { id: 'D06.01.01', name: 'Event & Media Services', layer: 3, type: 'CAPABILITY' },
-    { id: 'D06.01.01.01', name: 'Event Management & Booking Bundle', layer: 4, type: 'SOLUTION_BUNDLE' },
-    { id: activeSol.id, name: activeSol.name, layer: 5, type: 'SOLUTION' },
+    { id: "D06", name: "Marketplace & Commerce", layer: 1, type: "DOMAIN" },
+    {
+      id: "D06.01",
+      name: "Hyperlocal Marketplace",
+      layer: 2,
+      type: "SUBDOMAIN",
+    },
+    {
+      id: "D06.01.01",
+      name: "Event & Media Services",
+      layer: 3,
+      type: "CAPABILITY",
+    },
+    {
+      id: "D06.01.01.01",
+      name: "Event Management & Booking Bundle",
+      layer: 4,
+      type: "SOLUTION_BUNDLE",
+    },
+    { id: activeSol.id, name: activeSol.name, layer: 5, type: "SOLUTION" },
   ];
 
   const handleLaunchComposition = () => {
@@ -126,7 +150,7 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
             className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#031526]/80 hover:bg-[#04243f] border border-[#00dfff]/30 text-xs font-mono text-[#00dfff] hover:text-[#eaf7ff] transition-all group cursor-pointer w-fit"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-            <span>{t('back_to_universe')}</span>
+            <span>{t("back_to_universe")}</span>
           </button>
 
           {/* Interactive 5-Layer to 6-Layer Breadcrumb Trail */}
@@ -138,8 +162,8 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
                 <span
                   className={
                     index === path.length - 1
-                      ? 'text-[#00e3fd] font-bold px-1.5 py-0.5 rounded bg-[#00e3fd]/10 border border-[#00e3fd]/25'
-                      : 'text-[#82a5bb]'
+                      ? "text-[#00e3fd] font-bold px-1.5 py-0.5 rounded bg-[#00e3fd]/10 border border-[#00e3fd]/25"
+                      : "text-[#82a5bb]"
                   }
                 >
                   {segment.id}
@@ -205,13 +229,13 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
 
               <p className="text-sm sm:text-base text-[#9bd5e8] leading-relaxed mb-6 max-w-2xl">
                 {activeSol.description ||
-                  'Architected enterprise solution composition mapping business domains, verified service meshes, and autonomous integration pipelines.'}
+                  "Architected enterprise solution composition mapping business domains, verified service meshes, and autonomous integration pipelines."}
               </p>
 
               {/* Connected Domain Pills */}
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-xs font-mono text-[#6e9bb3] uppercase tracking-wider mr-1">
-                  {t('bound_domains')}:
+                  {t("bound_domains")}:
                 </span>
                 <button
                   onClick={() => {
@@ -224,7 +248,9 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
                     className="w-2 h-2 rounded-full"
                     style={{ backgroundColor: color }}
                   />
-                  <span>{primaryDomainName} ({primaryDomainId})</span>
+                  <span>
+                    {primaryDomainName} ({primaryDomainId})
+                  </span>
                 </button>
               </div>
             </div>
@@ -247,14 +273,22 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
                 className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#00d9ff] to-[#2c9dff] text-[#020914] font-mono text-xs font-black hover:opacity-95 shadow-[0_0_20px_rgba(0,227,253,0.4)] transition-all cursor-pointer disabled:opacity-50"
               >
                 <Zap className="w-4 h-4" />
-                <span>{isComposing ? 'Assembling Graph...' : t('launch_composition')}</span>
+                <span>
+                  {isComposing
+                    ? "Assembling Graph..."
+                    : t("launch_composition")}
+                </span>
               </button>
               <button
-                onClick={() => alert(`Architectural Blueprint for ${activeSol.id} generated successfully.`)}
+                onClick={() =>
+                  alert(
+                    `Architectural Blueprint for ${activeSol.id} generated successfully.`,
+                  )
+                }
                 className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#02101e] hover:bg-[#031d33] border border-[#00dfff]/30 text-xs font-mono text-[#eaf7ff] transition-all cursor-pointer"
               >
                 <Workflow className="w-4 h-4 text-[#00dfff]" />
-                <span>{t('view_architecture_mesh')}</span>
+                <span>{t("view_architecture_mesh")}</span>
               </button>
 
               {compositionSuccess && (
@@ -267,46 +301,52 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
         </div>
 
         {/* Platform Interoperability Adapters (Shopify, Zoho, Magento, OpenCart) */}
-        {catalogItem?.platformOptions && catalogItem.platformOptions.length > 0 && (
-          <div className="p-6 rounded-2xl bg-[#021222]/90 border border-[#00dfff]/20 backdrop-blur-xl">
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#00dfff]/15">
-              <div className="flex items-center gap-2.5">
-                <Globe className="w-5 h-5 text-[#00dfff]" />
-                <h3 className="text-base font-bold text-[#eaf7ff]">
-                  Platform Interoperability Adapters
-                </h3>
+        {catalogItem?.platformOptions &&
+          catalogItem.platformOptions.length > 0 && (
+            <div className="p-6 rounded-2xl bg-[#021222]/90 border border-[#00dfff]/20 backdrop-blur-xl">
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#00dfff]/15">
+                <div className="flex items-center gap-2.5">
+                  <Globe className="w-5 h-5 text-[#00dfff]" />
+                  <h3 className="text-base font-bold text-[#eaf7ff]">
+                    Platform Interoperability Adapters
+                  </h3>
+                </div>
+                <span className="text-[10px] font-mono text-[#00dfff]">
+                  Multi-Vendor Connector Layer
+                </span>
               </div>
-              <span className="text-[10px] font-mono text-[#00dfff]">
-                Multi-Vendor Connector Layer
-              </span>
-            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {catalogItem.platformOptions.map((plat) => (
-                <div
-                  key={plat}
-                  className="p-3.5 rounded-xl bg-[#03192e]/70 border border-[#00dfff]/20 flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-bold text-[#eaf7ff]">{plat}</span>
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                        Compatible
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {catalogItem.platformOptions.map((plat) => (
+                  <div
+                    key={plat}
+                    className="p-3.5 rounded-xl bg-[#03192e]/70 border border-[#00dfff]/20 flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-xs font-bold text-[#eaf7ff]">
+                          {plat}
+                        </span>
+                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                          Compatible
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-[#82a5bb] leading-relaxed">
+                        Native bi-directional multi-seller sync, catalog
+                        bridging & automated settlement.
+                      </p>
+                    </div>
+                    <div className="mt-3 pt-2 border-t border-[#00dfff]/10 flex items-center justify-between text-[10px] font-mono text-[#00dfff]">
+                      <span>Adapter v1.1x</span>
+                      <span className="underline cursor-pointer">
+                        Configure →
                       </span>
                     </div>
-                    <p className="text-[11px] text-[#82a5bb] leading-relaxed">
-                      Native bi-directional multi-seller sync, catalog bridging & automated settlement.
-                    </p>
                   </div>
-                  <div className="mt-3 pt-2 border-t border-[#00dfff]/10 flex items-center justify-between text-[10px] font-mono text-[#00dfff]">
-                    <span>Adapter v1.1x</span>
-                    <span className="underline cursor-pointer">Configure →</span>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
         {/* Key Solution Features */}
         {catalogItem?.features && catalogItem.features.length > 0 && (
@@ -324,7 +364,9 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
                   className="flex items-start gap-2.5 p-3 rounded-xl bg-[#03192e]/60 border border-[#00dfff]/15"
                 >
                   <CheckCircle2 className="w-4 h-4 text-[#00e3fd] shrink-0 mt-0.5" />
-                  <span className="text-xs text-[#eaf7ff] leading-relaxed">{feat}</span>
+                  <span className="text-xs text-[#eaf7ff] leading-relaxed">
+                    {feat}
+                  </span>
                 </div>
               ))}
             </div>
@@ -344,12 +386,12 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
                   </h3>
                 </div>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                  {catalogItem?.businessWorld || 'Hyperlocal Commerce'}
+                  {catalogItem?.businessWorld || "Hyperlocal Commerce"}
                 </span>
               </div>
               <p className="text-xs text-[#9bd5e8] leading-relaxed mb-4">
                 {catalogItem?.processModel ||
-                  'Multi-party RFQ aggregation and instant booking confirmation. Integrates UPI split settlements and dynamic stage milestones.'}
+                  "Multi-party RFQ aggregation and instant booking confirmation. Integrates UPI split settlements and dynamic stage milestones."}
               </p>
             </div>
             <div className="pt-3 border-t border-[#00dfff]/10 flex items-center justify-between text-xs font-mono text-[#6e9bb3]">
@@ -376,19 +418,25 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
                 <div className="flex items-center justify-between font-mono">
                   <span className="text-[#82a5bb]">Primary Urban Center:</span>
                   <span className="text-[#eaf7ff] font-bold">
-                    {catalogItem?.locationContext?.city || 'Coimbatore'}, {catalogItem?.locationContext?.state || 'Tamil Nadu'}
+                    {catalogItem?.locationContext?.city || "Coimbatore"},{" "}
+                    {catalogItem?.locationContext?.state || "Tamil Nadu"}
                   </span>
                 </div>
                 <div className="flex items-center justify-between font-mono">
                   <span className="text-[#82a5bb]">Regional Corridor:</span>
                   <span className="text-[#9bd5e8]">
-                    {catalogItem?.locationContext?.region || 'Western Tamil Nadu & South India'}
+                    {catalogItem?.locationContext?.region ||
+                      "Western Tamil Nadu & South India"}
                   </span>
                 </div>
                 {catalogItem?.locationContext?.secondaryHub && (
                   <div className="flex items-center justify-between font-mono">
-                    <span className="text-[#82a5bb]">Secondary Regional Node:</span>
-                    <span className="text-[#9bd5e8]">{catalogItem.locationContext.secondaryHub}</span>
+                    <span className="text-[#82a5bb]">
+                      Secondary Regional Node:
+                    </span>
+                    <span className="text-[#9bd5e8]">
+                      {catalogItem.locationContext.secondaryHub}
+                    </span>
                   </div>
                 )}
               </div>
@@ -401,32 +449,35 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
         </div>
 
         {/* Composed Service Capabilities */}
-        {catalogItem?.serviceComposition && catalogItem.serviceComposition.length > 0 && (
-          <div className="p-6 rounded-2xl bg-[#021222]/90 border border-[#00dfff]/20 backdrop-blur-xl">
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#00dfff]/15">
-              <div className="flex items-center gap-2.5">
-                <Boxes className="w-5 h-5 text-[#00dfff]" />
-                <h3 className="text-base font-bold text-[#eaf7ff]">
-                  Composed Micro-Service Capabilities
-                </h3>
-              </div>
-              <span className="text-[10px] font-mono text-[#00dfff]">
-                Integrated Service Mesh
-              </span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {catalogItem.serviceComposition.map((svc, idx) => (
-                <div
-                  key={idx}
-                  className="p-3.5 rounded-xl bg-[#03192e]/60 border border-[#00dfff]/15 flex items-start gap-2.5"
-                >
-                  <CheckCircle2 className="w-4 h-4 text-[#00e3fd] shrink-0 mt-0.5" />
-                  <span className="text-xs text-[#eaf7ff] leading-relaxed">{svc}</span>
+        {catalogItem?.serviceComposition &&
+          catalogItem.serviceComposition.length > 0 && (
+            <div className="p-6 rounded-2xl bg-[#021222]/90 border border-[#00dfff]/20 backdrop-blur-xl">
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#00dfff]/15">
+                <div className="flex items-center gap-2.5">
+                  <Boxes className="w-5 h-5 text-[#00dfff]" />
+                  <h3 className="text-base font-bold text-[#eaf7ff]">
+                    Composed Micro-Service Capabilities
+                  </h3>
                 </div>
-              ))}
+                <span className="text-[10px] font-mono text-[#00dfff]">
+                  Integrated Service Mesh
+                </span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {catalogItem.serviceComposition.map((svc, idx) => (
+                  <div
+                    key={idx}
+                    className="p-3.5 rounded-xl bg-[#03192e]/60 border border-[#00dfff]/15 flex items-start gap-2.5"
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-[#00e3fd] shrink-0 mt-0.5" />
+                    <span className="text-xs text-[#eaf7ff] leading-relaxed">
+                      {svc}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
         {/* Multi-Domain Architecture Flow Blueprint */}
         <div className="p-6 rounded-2xl bg-[#020f1c]/90 border border-[#00dfff]/20 backdrop-blur-xl">
@@ -434,7 +485,7 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
             <div className="flex items-center gap-2.5">
               <Server className="w-5 h-5 text-[#00dfff]" />
               <h3 className="text-base font-bold text-[#eaf7ff]">
-                {t('pipeline_flow')}
+                {t("pipeline_flow")}
               </h3>
             </div>
             <span className="text-[10px] font-mono text-[#00dfff]">
@@ -444,20 +495,46 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-center">
             {[
-              { step: '01', title: 'Intent Match', desc: 'Natural Language & Domain' },
-              { step: '02', title: 'Capability Bind', desc: 'API & Service Mesh' },
-              { step: '03', title: 'Configuration', desc: 'Multi-Tenant Specs' },
-              { step: '04', title: 'Platform Adapters', desc: 'Shopify / Zoho / Magento' },
-              { step: '05', title: 'PostgreSQL DB', desc: 'Isolated Repo Boundary' },
-              { step: '06', title: 'Delivery', desc: 'Cloud Run & Edge Node' },
+              {
+                step: "01",
+                title: "Intent Match",
+                desc: "Natural Language & Domain",
+              },
+              {
+                step: "02",
+                title: "Capability Bind",
+                desc: "API & Service Mesh",
+              },
+              {
+                step: "03",
+                title: "Configuration",
+                desc: "Multi-Tenant Specs",
+              },
+              {
+                step: "04",
+                title: "Platform Adapters",
+                desc: "Shopify / Zoho / Magento",
+              },
+              {
+                step: "05",
+                title: "PostgreSQL DB",
+                desc: "Isolated Repo Boundary",
+              },
+              { step: "06", title: "Delivery", desc: "Cloud Run & Edge Node" },
             ].map((f) => (
               <div
                 key={f.step}
                 className="p-3 rounded-xl bg-[#03182b]/60 border border-[#00dfff]/15 flex flex-col items-center justify-center"
               >
-                <span className="text-xs font-mono font-bold text-[#00dfff]">{f.step}</span>
-                <strong className="text-xs text-[#eaf7ff] mt-1">{f.title}</strong>
-                <span className="text-[10px] text-[#6e9bb3] mt-0.5">{f.desc}</span>
+                <span className="text-xs font-mono font-bold text-[#00dfff]">
+                  {f.step}
+                </span>
+                <strong className="text-xs text-[#eaf7ff] mt-1">
+                  {f.title}
+                </strong>
+                <span className="text-[10px] text-[#6e9bb3] mt-0.5">
+                  {f.desc}
+                </span>
               </div>
             ))}
           </div>
@@ -471,13 +548,19 @@ export const SolutionDetail: React.FC<SolutionDetailProps> = ({
                 <span className="px-2 py-0.5 rounded bg-[#00e3fd]/20 border border-[#00e3fd]/40 font-bold">
                   LAYER 6 READY
                 </span>
-                <span>Move from "Understand Solution" to "Execute Solution"</span>
+                <span>
+                  Move from "Understand Solution" to "Execute Solution"
+                </span>
               </div>
               <h3 className="text-xl font-bold text-[#eaf7ff]">
                 Ready to Configure and Operate {activeSol.name}?
               </h3>
               <p className="text-xs text-[#82a5bb] max-w-2xl leading-relaxed">
-                Open the interactive L6 Control Center to tune the {catalogItem?.locationContext?.radiusKm || 35}km geofence radius, switch platform adapters (Zoho Commerce, Shopify, Magento), inspect provider networks, and simulate the end-to-end multi-party booking and escrow workflow.
+                Open the interactive L6 Control Center to tune the{" "}
+                {catalogItem?.locationContext?.radiusKm || 35}km geofence
+                radius, switch platform adapters (Zoho Commerce, Shopify,
+                Magento), inspect provider networks, and simulate the end-to-end
+                multi-party booking and escrow workflow.
               </p>
             </div>
 

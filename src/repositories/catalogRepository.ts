@@ -1,8 +1,22 @@
 /**
- * Repository interface and JSON implementation for the Canonical 5-Layer Capability Catalog
+ * Architect: Vijay Kumar K.
+ * Platform: ArchitectAny (AAi)
+ *
+ * Contract: Canonical Catalog Repository
+ * Status: ACTIVE
+ * Version: 2.0.0
+ *
+ * Purpose:
+ * - Single repository boundary for the canonical AAi catalog.
+ * - Reads only from capability-catalog.json.
+ * - Keeps UI and application services independent of the catalog storage format.
+ * - Supports L1 Domain → L2 Subdomain → L3 Capability →
+ *   L4 Solution Bundle → L5 Solution.
+ * - L6 remains execution/workspace context and is not stored here as
+ *   a business catalog entity.
  */
 
-import {
+import type {
   CatalogItem,
   DomainItem,
   SubdomainItem,
@@ -10,57 +24,120 @@ import {
   SolutionBundleItem,
   SolutionItem,
   CapabilityCatalogData,
-} from '../contracts/catalog';
-import catalogDataRaw from '../../data/universe/capability-catalog.json';
+} from "../contracts/catalog";
+
+import catalogDataRaw from "../../data/universe/capability-catalog.json";
 
 export interface ICapabilityCatalogRepository {
   getDomains(): Promise<DomainItem[]>;
   getSubdomains(domainId?: string): Promise<SubdomainItem[]>;
   getCapabilities(subdomainId?: string): Promise<CapabilityItem[]>;
   getSolutionBundles(capabilityId?: string): Promise<SolutionBundleItem[]>;
-  getSolutions(solutionBundleId?: string, domainId?: string): Promise<SolutionItem[]>;
+  getSolutions(
+    solutionBundleId?: string,
+    domainId?: string,
+  ): Promise<SolutionItem[]>;
   getItemById(id: string): Promise<CatalogItem | null>;
   searchItems(query: string): Promise<CatalogItem[]>;
 }
 
-export class JsonCapabilityCatalogRepository implements ICapabilityCatalogRepository {
-  private data: CapabilityCatalogData;
+export class JsonCapabilityCatalogRepository
+  implements ICapabilityCatalogRepository
+{
+  private readonly data: CapabilityCatalogData;
 
   constructor(customData?: CapabilityCatalogData) {
-    this.data = (customData || catalogDataRaw) as unknown as CapabilityCatalogData;
+    this.data = (customData ?? catalogDataRaw) as CapabilityCatalogData;
   }
+
+  /* ------------------------------------------------------------------------ */
+  /* L1 — Domains                                                             */
+  /* ------------------------------------------------------------------------ */
 
   async getDomains(): Promise<DomainItem[]> {
     return this.data.domains;
   }
 
+  /* ------------------------------------------------------------------------ */
+  /* L2 — Subdomains / Business Worlds                                        */
+  /* ------------------------------------------------------------------------ */
+
   async getSubdomains(domainId?: string): Promise<SubdomainItem[]> {
-    if (!domainId) return this.data.subdomains;
-    return this.data.subdomains.filter((s) => s.domainId === domainId || s.parentId === domainId);
+    if (!domainId) {
+      return this.data.subdomains;
+    }
+
+    return this.data.subdomains.filter(
+      (subdomain) => subdomain.domainId === domainId,
+    );
   }
+
+  /* ------------------------------------------------------------------------ */
+  /* L3 — Capabilities                                                        */
+  /* ------------------------------------------------------------------------ */
 
   async getCapabilities(subdomainId?: string): Promise<CapabilityItem[]> {
-    if (!subdomainId) return this.data.capabilities;
-    return this.data.capabilities.filter((c) => c.subdomainId === subdomainId || c.parentId === subdomainId);
+    if (!subdomainId) {
+      return this.data.capabilities;
+    }
+
+    return this.data.capabilities.filter(
+      (capability) => capability.subdomainId === subdomainId,
+    );
   }
 
-  async getSolutionBundles(capabilityId?: string): Promise<SolutionBundleItem[]> {
-    if (!capabilityId) return this.data.solutionBundles;
-    return this.data.solutionBundles.filter((b) => b.capabilityId === capabilityId || b.parentId === capabilityId);
+  /* ------------------------------------------------------------------------ */
+  /* L4 — Solution Bundles                                                    */
+  /* ------------------------------------------------------------------------ */
+
+  async getSolutionBundles(
+    capabilityId?: string,
+  ): Promise<SolutionBundleItem[]> {
+    if (!capabilityId) {
+      return this.data.solutionBundles;
+    }
+
+    return this.data.solutionBundles.filter(
+      (bundle) => bundle.capabilityId === capabilityId,
+    );
   }
 
-  async getSolutions(solutionBundleId?: string, domainId?: string): Promise<SolutionItem[]> {
-    let list = this.data.solutions;
+  /* ------------------------------------------------------------------------ */
+  /* L5 — Solutions                                                           */
+  /* ------------------------------------------------------------------------ */
+
+  async getSolutions(
+    solutionBundleId?: string,
+    domainId?: string,
+  ): Promise<SolutionItem[]> {
+    let solutions = this.data.solutions;
+
     if (solutionBundleId) {
-      list = list.filter((s) => s.solutionBundleId === solutionBundleId || s.parentId === solutionBundleId);
+      solutions = solutions.filter(
+        (solution) => solution.solutionBundleId === solutionBundleId,
+      );
     }
+
     if (domainId) {
-      list = list.filter((s) => s.domainId === domainId);
+      solutions = solutions.filter(
+        (solution) => solution.domainId === domainId,
+      );
     }
-    return list;
+
+    return solutions;
   }
+
+  /* ------------------------------------------------------------------------ */
+  /* Direct Catalog Lookup                                                    */
+  /* ------------------------------------------------------------------------ */
 
   async getItemById(id: string): Promise<CatalogItem | null> {
+    const normalizedId = id.trim().toLowerCase();
+
+    if (!normalizedId) {
+      return null;
+    }
+
     const allItems: CatalogItem[] = [
       ...this.data.domains,
       ...this.data.subdomains,
@@ -68,12 +145,24 @@ export class JsonCapabilityCatalogRepository implements ICapabilityCatalogReposi
       ...this.data.solutionBundles,
       ...this.data.solutions,
     ];
-    return allItems.find((item) => item.id.toLowerCase() === id.toLowerCase()) || null;
+
+    return (
+      allItems.find(
+        (item) => item.id.toLowerCase() === normalizedId,
+      ) ?? null
+    );
   }
 
+  /* ------------------------------------------------------------------------ */
+  /* Global Intent Search                                                     */
+  /* ------------------------------------------------------------------------ */
+
   async searchItems(query: string): Promise<CatalogItem[]> {
-    const q = query.trim().toLowerCase();
-    if (!q) return [];
+    const normalizedQuery = query.trim().toLowerCase();
+
+    if (!normalizedQuery) {
+      return [];
+    }
 
     const allItems: CatalogItem[] = [
       ...this.data.domains,
@@ -83,93 +172,248 @@ export class JsonCapabilityCatalogRepository implements ICapabilityCatalogReposi
       ...this.data.solutions,
     ];
 
-    const tokens = q.split(/\s+/).filter(Boolean);
+    const tokens = normalizedQuery
+      .split(/\s+/)
+      .map((token) => token.trim())
+      .filter(Boolean);
 
-    const scoredItems: Array<{ item: CatalogItem; score: number }> = [];
+    const scoredItems: Array<{
+      item: CatalogItem;
+      score: number;
+    }> = [];
 
     for (const item of allItems) {
-      let score = 0;
-      const idLower = item.id.toLowerCase();
-      const nameLower = item.name.toLowerCase();
-      const descLower = (item.description || '').toLowerCase();
-      const keywords = (item.keywords || []).map((k) => k.toLowerCase());
-      const aliases = (item.aliases || []).map((a) => a.toLowerCase());
-      const platforms = ((item as SolutionItem).platformOptions || []).map((p) => p.toLowerCase());
-      const pathNames = (item.path || []).map((p) => p.name.toLowerCase());
+      const name = item.name.toLowerCase();
+      const description = item.description.toLowerCase();
+      const id = item.id.toLowerCase();
 
-      // 1. Exact ID match
-      if (idLower === q) {
+      const keywords = (item.keywords ?? []).map((value) =>
+        value.toLowerCase(),
+      );
+
+      const aliases = (item.aliases ?? []).map((value) =>
+        value.toLowerCase(),
+      );
+
+      const pathNames = (item.path ?? []).map((segment) =>
+        segment.name.toLowerCase(),
+      );
+
+      const businessWorld = item.businessWorld?.toLowerCase() ?? "";
+      const processModel = item.processModel?.toLowerCase() ?? "";
+      const nextAction = item.nextAction?.toLowerCase() ?? "";
+
+      const platformOptions = (
+        item.platformOptions ??
+        []
+      ).map((value) => value.toLowerCase());
+
+      const implementationOptions = (
+        item.implementationOptions ??
+        []
+      ).map((value) => value.toLowerCase());
+
+      const serviceComposition = (
+        item.serviceComposition ??
+        []
+      ).map((value) => value.toLowerCase());
+
+      const relatedCapabilities = (
+        item.relatedCapabilities ??
+        []
+      ).map((value) => value.toLowerCase());
+
+      const supportingDomains = (
+        item.supportingDomains ??
+        []
+      ).map((value) => value.toLowerCase());
+
+      let score = 0;
+
+      /* Exact identity */
+      if (id === normalizedQuery) {
+        score += 120;
+      } else if (id.includes(normalizedQuery)) {
+        score += 45;
+      }
+
+      /* Name */
+      if (name === normalizedQuery) {
         score += 100;
-      } else if (idLower.includes(q)) {
+      } else if (name.includes(normalizedQuery)) {
+        score += 60;
+      }
+
+      /* Keywords */
+      if (keywords.includes(normalizedQuery)) {
+        score += 70;
+      } else if (
+        keywords.some((keyword) => keyword.includes(normalizedQuery))
+      ) {
         score += 40;
       }
 
-      // 2. Exact phrase matches in Name, Keywords, Aliases, Platforms
-      if (nameLower === q) {
-        score += 80;
-      } else if (nameLower.includes(q)) {
-        score += 50;
+      /* Aliases */
+      if (aliases.includes(normalizedQuery)) {
+        score += 70;
+      } else if (
+        aliases.some((alias) => alias.includes(normalizedQuery))
+      ) {
+        score += 40;
       }
 
-      if (keywords.includes(q)) {
-        score += 60;
-      } else if (keywords.some((k) => k.includes(q))) {
-        score += 35;
-      }
-
-      if (aliases.includes(q)) {
-        score += 60;
-      } else if (aliases.some((a) => a.includes(q))) {
-        score += 35;
-      }
-
-      if (platforms.includes(q)) {
-        score += 55;
-      } else if (platforms.some((p) => p.includes(q))) {
+      /* Hierarchical path */
+      if (
+        pathNames.some((pathName) =>
+          pathName.includes(normalizedQuery),
+        )
+      ) {
         score += 30;
       }
 
-      if (descLower.includes(q)) {
+      /* Business context */
+      if (businessWorld.includes(normalizedQuery)) {
+        score += 35;
+      }
+
+      if (processModel.includes(normalizedQuery)) {
         score += 20;
       }
 
-      // 3. Multi-token coverage across all attributes
+      if (nextAction.includes(normalizedQuery)) {
+        score += 15;
+      }
+
+      /* Platform / implementation */
+      if (platformOptions.includes(normalizedQuery)) {
+        score += 60;
+      } else if (
+        platformOptions.some((platform) =>
+          platform.includes(normalizedQuery),
+        )
+      ) {
+        score += 35;
+      }
+
+      if (implementationOptions.includes(normalizedQuery)) {
+        score += 55;
+      } else if (
+        implementationOptions.some((implementation) =>
+          implementation.includes(normalizedQuery),
+        )
+      ) {
+        score += 30;
+      }
+
+      /* Solution composition */
+      if (
+        serviceComposition.some((service) =>
+          service.includes(normalizedQuery),
+        )
+      ) {
+        score += 30;
+      }
+
+      /* Cross-domain / capability references */
+      if (
+        relatedCapabilities.some((capabilityId) =>
+          capabilityId.includes(normalizedQuery),
+        )
+      ) {
+        score += 20;
+      }
+
+      if (
+        supportingDomains.some((domainId) =>
+          domainId.includes(normalizedQuery),
+        )
+      ) {
+        score += 20;
+      }
+
+      /* Description */
+      if (description.includes(normalizedQuery)) {
+        score += 25;
+      }
+
+      /* Multi-token intent matching */
       if (tokens.length > 1) {
-        let allTokensMatched = true;
-        let tokenMatchCount = 0;
+        let matchedTokens = 0;
 
         for (const token of tokens) {
-          const inName = nameLower.includes(token);
-          const inDesc = descLower.includes(token);
-          const inKeywords = keywords.some((k) => k.includes(token));
-          const inAliases = aliases.some((a) => a.includes(token));
-          const inPlatforms = platforms.some((p) => p.includes(token));
-          const inPath = pathNames.some((pn) => pn.includes(token));
+          const matched =
+            name.includes(token) ||
+            description.includes(token) ||
+            id.includes(token) ||
+            keywords.some((keyword) => keyword.includes(token)) ||
+            aliases.some((alias) => alias.includes(token)) ||
+            pathNames.some((pathName) => pathName.includes(token)) ||
+            businessWorld.includes(token) ||
+            processModel.includes(token) ||
+            nextAction.includes(token) ||
+            platformOptions.some((platform) =>
+              platform.includes(token),
+            ) ||
+            implementationOptions.some((implementation) =>
+              implementation.includes(token),
+            ) ||
+            serviceComposition.some((service) =>
+              service.includes(token),
+            );
 
-          if (inName || inDesc || inKeywords || inAliases || inPlatforms || inPath) {
-            tokenMatchCount++;
-          } else {
-            allTokensMatched = false;
+          if (matched) {
+            matchedTokens += 1;
           }
         }
 
-        if (allTokensMatched) {
-          score += 45 + tokenMatchCount * 5;
-        } else if (tokenMatchCount > 0) {
-          score += tokenMatchCount * 8;
+        if (matchedTokens === tokens.length) {
+          score += 55 + matchedTokens * 8;
+        } else if (matchedTokens > 0) {
+          score += matchedTokens * 10;
         }
       }
 
+      /* Prefer concrete solutions when the query is sufficiently specific. */
+      if (item.layer === 5 && score >= 30) {
+        score += 10;
+      }
+
+      /* Prefer capabilities/bundles over broad domains for specific queries. */
+      if (item.layer === 3 && score >= 40) {
+        score += 4;
+      }
+
+      if (item.layer === 4 && score >= 40) {
+        score += 6;
+      }
+
       if (score > 0) {
-        // Boost deeper specific layers slightly if query is specific
-        if (item.layer === 5 && score >= 30) score += 5;
-        scoredItems.push({ item, score });
+        scoredItems.push({
+          item,
+          score,
+        });
       }
     }
 
-    scoredItems.sort((a, b) => b.score - a.score);
-    return scoredItems.map((s) => s.item);
+    scoredItems.sort((a, b) => {
+      if (b.score !== a.score) {
+        return b.score - a.score;
+      }
+
+      if (a.item.layer !== b.item.layer) {
+        return b.item.layer - a.item.layer;
+      }
+
+      return a.item.name.localeCompare(b.item.name);
+    });
+
+    return scoredItems.map(({ item }) => item);
   }
 }
 
-export const catalogRepository = new JsonCapabilityCatalogRepository();
+/* -------------------------------------------------------------------------- */
+/* Canonical Shared Repository Instance                                       */
+/* -------------------------------------------------------------------------- */
+
+export const catalogRepository =
+  new JsonCapabilityCatalogRepository();

@@ -1,6 +1,9 @@
 {
-  "version": "AAi-1.1x+",
-  "updatedAt": "2026-09-01",
+  "version": "2.0.0",
+  "updatedAt": "2026-09-06",
+  "architect": "Vijay Kumar K.",
+  "platform": "ArchitectAny (AAi)",
+  "status": "ACTIVE",
   "domains": [
     {
       "id": "D01",
@@ -9,13 +12,27 @@
       "name": "Enterprise Architecture & Governance",
       "parentId": null,
       "domainId": "D01",
-      "path": [{ "id": "D01", "name": "Enterprise Architecture & Governance", "layer": 1, "type": "DOMAIN" }],
-      "description": "Foundational enterprise frameworks, cloud governance, and architectural blueprint management.",
-      "keywords": ["enterprise", "architecture", "governance", "cloud", "security", "framework"],
-      "aliases": ["EA", "Enterprise Systems"],
-      "status": "active",
-      "icon": "Layers",
-      "color": "#00dfff"
+      "path": [
+        {
+          "id": "D01",
+          "name": "Enterprise Architecture & Governance",
+          "layer": 1,
+          "type": "DOMAIN"
+        }
+      ],
+      "description": "Enterprise architecture, governance, operating models, transformation and strategic technology planning.",
+      "keywords": [
+        "enterprise architecture",
+        "governance",
+        "transformation",
+        "operating model",
+        "technology strategy"
+      ],
+      "aliases": [
+        "EA",
+        "Enterprise Architecture"
+      ],
+      "status": "active"
     },
     {
       "id": "D02",
@@ -24,13 +41,26 @@
       "name": "FinTech & Digital Payments",
       "parentId": null,
       "domainId": "D02",
-      "path": [{ "id": "D02", "name": "FinTech & Digital Payments", "layer": 1, "type": "DOMAIN" }],
-      "description": "Unified payments, UPI settlement rails, escrow protocols, and automated financial accounting.",
-      "keywords": ["fintech", "payments", "settlement", "banking", "escrow", "upi"],
-      "aliases": ["Payment Gateway", "Settlements"],
-      "status": "active",
-      "icon": "CreditCard",
-      "color": "#10b981"
+      "path": [
+        {
+          "id": "D02",
+          "name": "FinTech & Digital Payments",
+          "layer": 1,
+          "type": "DOMAIN"
+        }
+      ],
+      "description": "Digital financial services, payment platforms, transaction systems and financial technology solutions.",
+      "keywords": [
+        "fintech",
+        "payments",
+        "digital payments",
+        "financial technology",
+        "transactions"
+      ],
+      "aliases": [
+        "FinTech"
+      ],
+      "status": "active"
     },
     {
       "id": "D03",
@@ -39,13 +69,25 @@
       "name": "HealthTech & Telemedicine",
       "parentId": null,
       "domainId": "D03",
-      "path": [{ "id": "D03", "name": "HealthTech & Telemedicine", "layer": 1, "type": "DOMAIN" }],
-      "description": "Digital health records, clinical triage systems, diagnostic labs, and doctor booking rails.",
-      "keywords": ["health", "telemedicine", "clinical", "pharmacy", "doctor"],
-      "aliases": ["Healthcare", "Medical"],
-      "status": "active",
-      "icon": "Activity",
-      "color": "#ec4899"
+      "path": [
+        {
+          "id": "D03",
+          "name": "HealthTech & Telemedicine",
+          "layer": 1,
+          "type": "DOMAIN"
+        }
+      ],
+      "description": "Healthcare technology, telemedicine, digital health services and connected care experiences.",
+      "keywords": [
+        "healthtech",
+        "telemedicine",
+        "digital health",
+        "healthcare"
+      ],
+      "aliases": [
+        "Digital Health"
+      ],
+      "status": "active"
     },
     {
       "id": "D04",
@@ -54,13 +96,29 @@
       "name": "Emerging Technology & Intelligent Systems",
       "parentId": null,
       "domainId": "D04",
-      "path": [{ "id": "D04", "name": "Emerging Technology & Intelligent Systems", "layer": 1, "type": "DOMAIN" }],
-      "description": "Process automation, robotics, semiconductor chip design, quantum tech, and advanced AI systems.",
-      "keywords": ["emerging tech", "ai", "robotics", "automation", "quantum", "semiconductor"],
-      "aliases": ["DeepTech", "Intelligent Systems", "AI"],
-      "status": "active",
-      "icon": "Cpu",
-      "color": "#8b5cf6"
+      "path": [
+        {
+          "id": "D04",
+          "name": "Emerging Technology & Intelligent Systems",
+          "layer": 1,
+          "type": "DOMAIN"
+        }
+      ],
+      "description": "Emerging technologies and intelligent systems including automation, robotics, advanced AI, autonomous systems, semiconductor and quantum technologies.",
+      "keywords": [
+        "AI",
+        "artificial intelligence",
+        "automation",
+        "robotics",
+        "quantum",
+        "semiconductor",
+        "autonomous systems"
+      ],
+      "aliases": [
+        "Emerging Technology",
+        "Intelligent Systems"
+      ],
+      "status": "active"
     },
     {
       "id": "D05",
@@ -69,13 +127,27 @@
       "name": "Supply Chain & Logistics",
       "parentId": null,
       "domainId": "D05",
-      "path": [{ "id": "D05", "name": "Supply Chain & Logistics", "layer": 1, "type": "DOMAIN" }],
-      "description": "Multimodal freight logistics, warehouse management, fleet telematics, and last-mile dispatch.",
-      "keywords": ["supply chain", "logistics", "freight", "fleet", "warehouse", "tracking"],
-      "aliases": ["Logistics", "Delivery"],
-      "status": "active",
-      "icon": "Truck",
-      "color": "#f59e0b"
+      "path": [
+        {
+          "id": "D05",
+          "name": "Supply Chain & Logistics",
+          "layer": 1,
+          "type": "DOMAIN"
+        }
+      ],
+      "description": "Supply chain, logistics, fulfilment, warehousing, transportation and operational coordination.",
+      "keywords": [
+        "supply chain",
+        "logistics",
+        "fulfilment",
+        "warehouse",
+        "transportation"
+      ],
+      "aliases": [
+        "SCM",
+        "Logistics"
+      ],
+      "status": "active"
     },
     {
       "id": "D06",
@@ -84,13 +156,26 @@
       "name": "Marketplace & Commerce",
       "parentId": null,
       "domainId": "D06",
-      "path": [{ "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" }],
-      "description": "Hyperlocal service discovery, multivendor marketplace operating models, B2B networks, and platform adapters.",
-      "keywords": ["marketplace", "hyperlocal", "multivendor", "event booking", "services", "ecommerce", "vendors", "shopify", "zoho", "magento", "opencart"],
-      "aliases": ["Marketplace Platform", "Commerce Universe"],
-      "status": "active",
-      "icon": "ShoppingBag",
-      "color": "#00e3fd"
+      "path": [
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        }
+      ],
+      "description": "Marketplace, commerce, multivendor, hyperlocal and service-based business experiences.",
+      "keywords": [
+        "marketplace",
+        "commerce",
+        "multivendor",
+        "hyperlocal",
+        "services"
+      ],
+      "aliases": [
+        "Marketplace"
+      ],
+      "status": "active"
     },
     {
       "id": "D07",
@@ -99,13 +184,25 @@
       "name": "Smart Mobility & Transport",
       "parentId": null,
       "domainId": "D07",
-      "path": [{ "id": "D07", "name": "Smart Mobility & Transport", "layer": 1, "type": "DOMAIN" }],
-      "description": "Intelligent transit routing, EV charging networks, micro-mobility, and urban fleet dispatch.",
-      "keywords": ["mobility", "transport", "ev", "transit", "fleet"],
-      "aliases": ["Transport", "Mobility"],
-      "status": "active",
-      "icon": "Compass",
-      "color": "#06b6d4"
+      "path": [
+        {
+          "id": "D07",
+          "name": "Smart Mobility & Transport",
+          "layer": 1,
+          "type": "DOMAIN"
+        }
+      ],
+      "description": "Mobility, transportation, connected transport and intelligent movement systems.",
+      "keywords": [
+        "mobility",
+        "transport",
+        "smart transport",
+        "connected mobility"
+      ],
+      "aliases": [
+        "Smart Mobility"
+      ],
+      "status": "active"
     },
     {
       "id": "D08",
@@ -114,13 +211,193 @@
       "name": "EdTech & Learning Networks",
       "parentId": null,
       "domainId": "D08",
-      "path": [{ "id": "D08", "name": "EdTech & Learning Networks", "layer": 1, "type": "DOMAIN" }],
-      "description": "Adaptive tutoring engines, micro-credentialing verification, and interactive cohort spaces.",
-      "keywords": ["edtech", "learning", "education", "courses", "skills"],
-      "aliases": ["Education", "Learning"],
-      "status": "active",
-      "icon": "BookOpen",
-      "color": "#3b82f6"
+      "path": [
+        {
+          "id": "D08",
+          "name": "EdTech & Learning Networks",
+          "layer": 1,
+          "type": "DOMAIN"
+        }
+      ],
+      "description": "Learning platforms, education technology, training networks and intelligent learning experiences.",
+      "keywords": [
+        "edtech",
+        "education",
+        "learning",
+        "training",
+        "learning network"
+      ],
+      "aliases": [
+        "EdTech"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "D09",
+      "type": "DOMAIN",
+      "layer": 1,
+      "name": "Media, Community & Creative Arts",
+      "parentId": null,
+      "domainId": "D09",
+      "path": [
+        {
+          "id": "D09",
+          "name": "Media, Community & Creative Arts",
+          "layer": 1,
+          "type": "DOMAIN"
+        }
+      ],
+      "description": "Media, communities, creative production and arts-oriented digital experiences.",
+      "keywords": [
+        "media",
+        "community",
+        "creative arts",
+        "content",
+        "creative"
+      ],
+      "aliases": [
+        "Media & Creative"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "D10",
+      "type": "DOMAIN",
+      "layer": 1,
+      "name": "Travel, Hospitality & Leisure",
+      "parentId": null,
+      "domainId": "D10",
+      "path": [
+        {
+          "id": "D10",
+          "name": "Travel, Hospitality & Leisure",
+          "layer": 1,
+          "type": "DOMAIN"
+        }
+      ],
+      "description": "Travel, hospitality, tourism, leisure and experience-oriented solutions.",
+      "keywords": [
+        "travel",
+        "hospitality",
+        "tourism",
+        "leisure",
+        "experiences"
+      ],
+      "aliases": [
+        "Travel & Hospitality"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "D11",
+      "type": "DOMAIN",
+      "layer": 1,
+      "name": "Smart Energy & CleanTech",
+      "parentId": null,
+      "domainId": "D11",
+      "path": [
+        {
+          "id": "D11",
+          "name": "Smart Energy & CleanTech",
+          "layer": 1,
+          "type": "DOMAIN"
+        }
+      ],
+      "description": "Smart energy, sustainability, clean technology and environmental solutions.",
+      "keywords": [
+        "energy",
+        "cleantech",
+        "sustainability",
+        "renewable energy",
+        "environment"
+      ],
+      "aliases": [
+        "CleanTech"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "D12",
+      "type": "DOMAIN",
+      "layer": 1,
+      "name": "Real Estate & Smart Infrastructure",
+      "parentId": null,
+      "domainId": "D12",
+      "path": [
+        {
+          "id": "D12",
+          "name": "Real Estate & Smart Infrastructure",
+          "layer": 1,
+          "type": "DOMAIN"
+        }
+      ],
+      "description": "Real estate, property technology, infrastructure and intelligent built environments.",
+      "keywords": [
+        "real estate",
+        "property",
+        "infrastructure",
+        "smart infrastructure",
+        "proptech"
+      ],
+      "aliases": [
+        "PropTech"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "D13",
+      "type": "DOMAIN",
+      "layer": 1,
+      "name": "Public Governance & Citizen Services",
+      "parentId": null,
+      "domainId": "D13",
+      "path": [
+        {
+          "id": "D13",
+          "name": "Public Governance & Citizen Services",
+          "layer": 1,
+          "type": "DOMAIN"
+        }
+      ],
+      "description": "Public-sector governance, citizen services and digital government experiences.",
+      "keywords": [
+        "government",
+        "governance",
+        "citizen services",
+        "digital government",
+        "public services"
+      ],
+      "aliases": [
+        "GovTech"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "D14",
+      "type": "DOMAIN",
+      "layer": 1,
+      "name": "BioTech & Life Sciences",
+      "parentId": null,
+      "domainId": "D14",
+      "path": [
+        {
+          "id": "D14",
+          "name": "BioTech & Life Sciences",
+          "layer": 1,
+          "type": "DOMAIN"
+        }
+      ],
+      "description": "Biotechnology, life sciences and technology-enabled biological systems.",
+      "keywords": [
+        "biotech",
+        "life sciences",
+        "biotechnology",
+        "biological systems"
+      ],
+      "aliases": [
+        "Biotechnology"
+      ],
+      "status": "active"
     }
   ],
   "subdomains": [
@@ -128,180 +405,203 @@
       "id": "D01.01",
       "type": "SUBDOMAIN",
       "layer": 2,
-      "name": "Enterprise Frameworks & EA",
+      "name": "Enterprise Strategy",
       "parentId": "D01",
       "domainId": "D01",
       "path": [
-        { "id": "D01", "name": "Enterprise Architecture & Governance", "layer": 1, "type": "DOMAIN" },
-        { "id": "D01.01", "name": "Enterprise Frameworks & EA", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D01",
+          "name": "Enterprise Architecture & Governance",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D01.01",
+          "name": "Enterprise Strategy",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "TOGAF, Zachman frameworks, capability mapping, and architectural blueprint repository.",
-      "keywords": ["enterprise", "togaf", "ea", "blueprint", "governance"],
+      "description": "Enterprise strategy and technology alignment.",
+      "keywords": [
+        "strategy",
+        "enterprise strategy",
+        "technology strategy"
+      ],
       "status": "active"
     },
     {
       "id": "D01.02",
       "type": "SUBDOMAIN",
       "layer": 2,
-      "name": "Cloud Governance & FinOps",
+      "name": "Architecture Governance",
       "parentId": "D01",
       "domainId": "D01",
       "path": [
-        { "id": "D01", "name": "Enterprise Architecture & Governance", "layer": 1, "type": "DOMAIN" },
-        { "id": "D01.02", "name": "Cloud Governance & FinOps", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D01",
+          "name": "Enterprise Architecture & Governance",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D01.02",
+          "name": "Architecture Governance",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "Multi-cloud compliance policy, resource tagging, cost allocation, and landing zone automation.",
-      "keywords": ["cloud", "finops", "governance", "cost", "compliance"],
+      "description": "Architecture governance and standards.",
+      "keywords": [
+        "governance",
+        "architecture governance",
+        "standards"
+      ],
       "status": "active"
     },
     {
       "id": "D01.03",
       "type": "SUBDOMAIN",
       "layer": 2,
-      "name": "Security & Zero Trust Architecture",
+      "name": "Digital Transformation",
       "parentId": "D01",
       "domainId": "D01",
       "path": [
-        { "id": "D01", "name": "Enterprise Architecture & Governance", "layer": 1, "type": "DOMAIN" },
-        { "id": "D01.03", "name": "Security & Zero Trust Architecture", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D01",
+          "name": "Enterprise Architecture & Governance",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D01.03",
+          "name": "Digital Transformation",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "Identity-driven perimeter security, continuous audit logging, and automated threat modeling.",
-      "keywords": ["security", "zero trust", "iam", "compliance", "audit"],
+      "description": "Digital transformation and enterprise modernization.",
+      "keywords": [
+        "digital transformation",
+        "modernization",
+        "transformation"
+      ],
       "status": "active"
     },
     {
       "id": "D02.01",
       "type": "SUBDOMAIN",
       "layer": 2,
-      "name": "Unified Payments & UPI Rails",
+      "name": "Digital Payments",
       "parentId": "D02",
       "domainId": "D02",
       "path": [
-        { "id": "D02", "name": "FinTech & Digital Payments", "layer": 1, "type": "DOMAIN" },
-        { "id": "D02.01", "name": "Unified Payments & UPI Rails", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D02",
+          "name": "FinTech & Digital Payments",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D02.01",
+          "name": "Digital Payments",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "Real-time UPI payment gateways, QR code processing, intent links, and merchant settlement.",
-      "keywords": ["upi", "payments", "gateway", "qr code", "instant settlement"],
-      "status": "active"
-    },
-    {
-      "id": "D02.02",
-      "type": "SUBDOMAIN",
-      "layer": 2,
-      "name": "Multi-Party Escrow & Settlements",
-      "parentId": "D02",
-      "domainId": "D02",
-      "path": [
-        { "id": "D02", "name": "FinTech & Digital Payments", "layer": 1, "type": "DOMAIN" },
-        { "id": "D02.02", "name": "Multi-Party Escrow & Settlements", "layer": 2, "type": "SUBDOMAIN" }
+      "description": "Digital payment and transaction experiences.",
+      "keywords": [
+        "payments",
+        "digital payments",
+        "transactions"
       ],
-      "description": "Conditional escrow holding, automated commission splitting, milestone payouts, and ledger audit.",
-      "keywords": ["escrow", "split payments", "commission", "settlement", "payouts"],
-      "status": "active"
-    },
-    {
-      "id": "D02.03",
-      "type": "SUBDOMAIN",
-      "layer": 2,
-      "name": "Core Banking & Double-Entry Ledger",
-      "parentId": "D02",
-      "domainId": "D02",
-      "path": [
-        { "id": "D02", "name": "FinTech & Digital Payments", "layer": 1, "type": "DOMAIN" },
-        { "id": "D02.03", "name": "Core Banking & Double-Entry Ledger", "layer": 2, "type": "SUBDOMAIN" }
-      ],
-      "description": "Immutable double-entry transaction ledgers, sub-accounts, currency conversion, and balance integrity.",
-      "keywords": ["ledger", "banking", "double entry", "accounting", "multi currency"],
-      "status": "active"
-    },
-    {
-      "id": "D02.04",
-      "type": "SUBDOMAIN",
-      "layer": 2,
-      "name": "Fraud Prevention & Risk Scoring",
-      "parentId": "D02",
-      "domainId": "D02",
-      "path": [
-        { "id": "D02", "name": "FinTech & Digital Payments", "layer": 1, "type": "DOMAIN" },
-        { "id": "D02.04", "name": "Fraud Prevention & Risk Scoring", "layer": 2, "type": "SUBDOMAIN" }
-      ],
-      "description": "Behavioral anomaly detection, transaction velocity rules, KYC/AML check pipelines, and risk graphs.",
-      "keywords": ["fraud", "aml", "kyc", "risk", "anomaly detection"],
       "status": "active"
     },
     {
       "id": "D03.01",
       "type": "SUBDOMAIN",
       "layer": 2,
-      "name": "Clinical EHR & Health Records",
+      "name": "Digital Health",
       "parentId": "D03",
       "domainId": "D03",
       "path": [
-        { "id": "D03", "name": "HealthTech & Telemedicine", "layer": 1, "type": "DOMAIN" },
-        { "id": "D03.01", "name": "Clinical EHR & Health Records", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D03",
+          "name": "HealthTech & Telemedicine",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D03.01",
+          "name": "Digital Health",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "HL7/FHIR compliant electronic medical records, patient history, and prescription synchronization.",
-      "keywords": ["ehr", "fhir", "medical records", "clinical", "prescriptions"],
-      "status": "active"
-    },
-    {
-      "id": "D03.02",
-      "type": "SUBDOMAIN",
-      "layer": 2,
-      "name": "Telemedicine & Virtual Triage",
-      "parentId": "D03",
-      "domainId": "D03",
-      "path": [
-        { "id": "D03", "name": "HealthTech & Telemedicine", "layer": 1, "type": "DOMAIN" },
-        { "id": "D03.02", "name": "Telemedicine & Virtual Triage", "layer": 2, "type": "SUBDOMAIN" }
+      "description": "Digital healthcare experiences and services.",
+      "keywords": [
+        "digital health",
+        "healthcare",
+        "healthtech"
       ],
-      "description": "Encrypted video consultation, triage questionnaires, doctor scheduling, and e-prescribing.",
-      "keywords": ["telemedicine", "video consult", "doctor booking", "triage"],
-      "status": "active"
-    },
-    {
-      "id": "D03.03",
-      "type": "SUBDOMAIN",
-      "layer": 2,
-      "name": "Diagnostic Labs & Pharmacy Network",
-      "parentId": "D03",
-      "domainId": "D03",
-      "path": [
-        { "id": "D03", "name": "HealthTech & Telemedicine", "layer": 1, "type": "DOMAIN" },
-        { "id": "D03.03", "name": "Diagnostic Labs & Pharmacy Network", "layer": 2, "type": "SUBDOMAIN" }
-      ],
-      "description": "Home sample collection dispatch, diagnostic report delivery, and pharmacy inventory routing.",
-      "keywords": ["diagnostic labs", "pharmacy", "medicine delivery", "blood test"],
       "status": "active"
     },
     {
       "id": "D04.01",
       "type": "SUBDOMAIN",
       "layer": 2,
-      "name": "Process Automation & RPA",
+      "name": "Process Automation",
       "parentId": "D04",
       "domainId": "D04",
       "path": [
-        { "id": "D04", "name": "Emerging Technology & Intelligent Systems", "layer": 1, "type": "DOMAIN" },
-        { "id": "D04.01", "name": "Process Automation & RPA", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D04",
+          "name": "Emerging Technology & Intelligent Systems",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D04.01",
+          "name": "Process Automation",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "Autonomous business workflow execution and rule-based system automation.",
-      "keywords": ["automation", "rpa", "workflows"],
+      "description": "Intelligent and automated business process execution.",
+      "keywords": [
+        "automation",
+        "process automation",
+        "workflow"
+      ],
       "status": "active"
     },
     {
       "id": "D04.02",
       "type": "SUBDOMAIN",
       "layer": 2,
-      "name": "Robotics & Hardware Control",
+      "name": "Robotics",
       "parentId": "D04",
       "domainId": "D04",
       "path": [
-        { "id": "D04", "name": "Emerging Technology & Intelligent Systems", "layer": 1, "type": "DOMAIN" },
-        { "id": "D04.02", "name": "Robotics & Hardware Control", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D04",
+          "name": "Emerging Technology & Intelligent Systems",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D04.02",
+          "name": "Robotics",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "Embedded actuators, sensory feedback loops, and robotic control telemetry.",
-      "keywords": ["robotics", "hardware", "iot", "actuators"],
+      "description": "Robotic systems and intelligent machine interaction.",
+      "keywords": [
+        "robotics",
+        "robots",
+        "intelligent machines"
+      ],
       "status": "active"
     },
     {
@@ -312,11 +612,25 @@
       "parentId": "D04",
       "domainId": "D04",
       "path": [
-        { "id": "D04", "name": "Emerging Technology & Intelligent Systems", "layer": 1, "type": "DOMAIN" },
-        { "id": "D04.03", "name": "Semiconductor & Chip Design", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D04",
+          "name": "Emerging Technology & Intelligent Systems",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D04.03",
+          "name": "Semiconductor & Chip Design",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "ASIC layout synthesis, FPGA acceleration, and RISC-V compute architectures.",
-      "keywords": ["semiconductor", "chip", "fpga", "risc-v", "asic"],
+      "description": "Semiconductor and chip design technologies.",
+      "keywords": [
+        "semiconductor",
+        "chip design",
+        "chips"
+      ],
       "status": "active"
     },
     {
@@ -327,11 +641,25 @@
       "parentId": "D04",
       "domainId": "D04",
       "path": [
-        { "id": "D04", "name": "Emerging Technology & Intelligent Systems", "layer": 1, "type": "DOMAIN" },
-        { "id": "D04.04", "name": "Quantum Technology", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D04",
+          "name": "Emerging Technology & Intelligent Systems",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D04.04",
+          "name": "Quantum Technology",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "Quantum circuit simulation, qubit state registers, and post-quantum cryptographic protocols.",
-      "keywords": ["quantum", "qubit", "cryptography", "simulation"],
+      "description": "Quantum computing and emerging quantum technologies.",
+      "keywords": [
+        "quantum",
+        "quantum technology",
+        "quantum computing"
+      ],
       "status": "active"
     },
     {
@@ -342,11 +670,26 @@
       "parentId": "D04",
       "domainId": "D04",
       "path": [
-        { "id": "D04", "name": "Emerging Technology & Intelligent Systems", "layer": 1, "type": "DOMAIN" },
-        { "id": "D04.05", "name": "Advanced AI Systems", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D04",
+          "name": "Emerging Technology & Intelligent Systems",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D04.05",
+          "name": "Advanced AI Systems",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "Reasoning agents, LLM tool pipelines, neural orchestration, and multimodal models.",
-      "keywords": ["ai", "agents", "llm", "neural"],
+      "description": "Advanced artificial intelligence systems and intelligent applications.",
+      "keywords": [
+        "AI",
+        "artificial intelligence",
+        "advanced AI",
+        "intelligent systems"
+      ],
       "status": "active"
     },
     {
@@ -357,11 +700,83 @@
       "parentId": "D04",
       "domainId": "D04",
       "path": [
-        { "id": "D04", "name": "Emerging Technology & Intelligent Systems", "layer": 1, "type": "DOMAIN" },
-        { "id": "D04.06", "name": "Autonomous & Cognitive Systems", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D04",
+          "name": "Emerging Technology & Intelligent Systems",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D04.06",
+          "name": "Autonomous & Cognitive Systems",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "Self-healing distributed systems, cognitive telemetry, and autonomous decision nodes.",
-      "keywords": ["autonomous", "cognitive", "self-healing"],
+      "description": "Autonomous and cognitive computing systems.",
+      "keywords": [
+        "autonomous",
+        "cognitive",
+        "autonomous systems"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "D05.01",
+      "type": "SUBDOMAIN",
+      "layer": 2,
+      "name": "Supply Chain Management",
+      "parentId": "D05",
+      "domainId": "D05",
+      "path": [
+        {
+          "id": "D05",
+          "name": "Supply Chain & Logistics",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D05.01",
+          "name": "Supply Chain Management",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
+      ],
+      "description": "Supply chain planning and coordination.",
+      "keywords": [
+        "supply chain",
+        "SCM",
+        "planning"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "D05.02",
+      "type": "SUBDOMAIN",
+      "layer": 2,
+      "name": "Logistics & Fulfilment",
+      "parentId": "D05",
+      "domainId": "D05",
+      "path": [
+        {
+          "id": "D05",
+          "name": "Supply Chain & Logistics",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D05.02",
+          "name": "Logistics & Fulfilment",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
+      ],
+      "description": "Logistics, fulfilment and delivery operations.",
+      "keywords": [
+        "logistics",
+        "fulfilment",
+        "delivery"
+      ],
       "status": "active"
     },
     {
@@ -372,11 +787,29 @@
       "parentId": "D06",
       "domainId": "D06",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.01",
+          "name": "Hyperlocal Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "Geospatially grounded on-demand services, local event bookings, banquet halls, caterers, and community commerce.",
-      "keywords": ["hyperlocal", "event booking", "local services", "venues", "catering", "coimbatore", "kanyakumari"],
+      "description": "Location-aware marketplace experiences connecting customers with local services, providers, businesses and products.",
+      "keywords": [
+        "hyperlocal",
+        "local marketplace",
+        "services marketplace",
+        "local services"
+      ],
+      "aliases": [
+        "Hyperlocal"
+      ],
       "status": "active"
     },
     {
@@ -387,11 +820,30 @@
       "parentId": "D06",
       "domainId": "D06",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "Multi-seller orchestration architecture, split commissions, vendor onboarding, catalog management, and platform adapters (Shopify, Zoho Commerce, Magento, OpenCart).",
-      "keywords": ["multivendor", "multi seller", "vendor management", "commission", "rfq", "shopify", "zoho commerce", "magento", "opencart"],
+      "description": "Marketplace operating architecture for multiple sellers, providers and service businesses.",
+      "keywords": [
+        "multivendor",
+        "marketplace",
+        "seller marketplace",
+        "provider marketplace"
+      ],
+      "aliases": [
+        "Multi Vendor",
+        "Multi-Seller"
+      ],
       "status": "active"
     },
     {
@@ -402,11 +854,25 @@
       "parentId": "D06",
       "domainId": "D06",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.03", "name": "Service Marketplace", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.03",
+          "name": "Service Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "Professional appointment scheduling, quote-based contractor matching, and verified service reviews.",
-      "keywords": ["services", "booking", "consultants", "contractors"],
+      "description": "Marketplace experiences centered on service discovery, provider matching and service fulfilment.",
+      "keywords": [
+        "service marketplace",
+        "service providers",
+        "service booking"
+      ],
       "status": "active"
     },
     {
@@ -417,11 +883,26 @@
       "parentId": "D06",
       "domainId": "D06",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.04", "name": "B2B Marketplace", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.04",
+          "name": "B2B Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "Wholesale procurement rails, tier pricing, bulk purchase agreements, and business trade credit.",
-      "keywords": ["b2b", "wholesale", "bulk order", "procurement"],
+      "description": "Business-to-business marketplace and procurement experiences.",
+      "keywords": [
+        "B2B",
+        "business marketplace",
+        "procurement",
+        "supplier marketplace"
+      ],
       "status": "active"
     },
     {
@@ -432,146 +913,83 @@
       "parentId": "D06",
       "domainId": "D06",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.05", "name": "Commerce Marketplace", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.05",
+          "name": "Commerce Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "Omnichannel retail marketplaces with centralized cart, cross-brand inventory, and loyalty rewards.",
-      "keywords": ["commerce", "retail", "omnichannel", "shopping"],
-      "status": "active"
-    },
-    {
-      "id": "D05.01",
-      "type": "SUBDOMAIN",
-      "layer": 2,
-      "name": "Multimodal Freight & Shipping",
-      "parentId": "D05",
-      "domainId": "D05",
-      "path": [
-        { "id": "D05", "name": "Supply Chain & Logistics", "layer": 1, "type": "DOMAIN" },
-        { "id": "D05.01", "name": "Multimodal Freight & Shipping", "layer": 2, "type": "SUBDOMAIN" }
+      "description": "Commerce-oriented marketplace experiences for products and transactions.",
+      "keywords": [
+        "commerce",
+        "product marketplace",
+        "online marketplace"
       ],
-      "description": "Container tracking, maritime bill of lading, air cargo customs routing, and intermodal transfers.",
-      "keywords": ["freight", "shipping", "cargo", "customs", "multimodal"],
-      "status": "active"
-    },
-    {
-      "id": "D05.02",
-      "type": "SUBDOMAIN",
-      "layer": 2,
-      "name": "Warehouse Management & Automation",
-      "parentId": "D05",
-      "domainId": "D05",
-      "path": [
-        { "id": "D05", "name": "Supply Chain & Logistics", "layer": 1, "type": "DOMAIN" },
-        { "id": "D05.02", "name": "Warehouse Management & Automation", "layer": 2, "type": "SUBDOMAIN" }
-      ],
-      "description": "ASRS pallet automation, RFID bin tracking, cross-docking dispatch, and 3PL multi-client storage.",
-      "keywords": ["warehouse", "wms", "rfid", "inventory", "fulfillment"],
-      "status": "active"
-    },
-    {
-      "id": "D05.03",
-      "type": "SUBDOMAIN",
-      "layer": 2,
-      "name": "Fleet Telematics & Last-Mile Dispatch",
-      "parentId": "D05",
-      "domainId": "D05",
-      "path": [
-        { "id": "D05", "name": "Supply Chain & Logistics", "layer": 1, "type": "DOMAIN" },
-        { "id": "D05.03", "name": "Fleet Telematics & Last-Mile Dispatch", "layer": 2, "type": "SUBDOMAIN" }
-      ],
-      "description": "Dynamic route optimization, OBD-II vehicle diagnostics, cold-chain temperature logs, and proof of delivery.",
-      "keywords": ["fleet", "telematics", "last mile", "delivery", "route optimization"],
       "status": "active"
     },
     {
       "id": "D07.01",
       "type": "SUBDOMAIN",
       "layer": 2,
-      "name": "Intelligent Transit & Route Mesh",
+      "name": "Smart Transportation",
       "parentId": "D07",
       "domainId": "D07",
       "path": [
-        { "id": "D07", "name": "Smart Mobility & Transport", "layer": 1, "type": "DOMAIN" },
-        { "id": "D07.01", "name": "Intelligent Transit & Route Mesh", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D07",
+          "name": "Smart Mobility & Transport",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D07.01",
+          "name": "Smart Transportation",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "Multi-modal commuter routing, real-time bus/metro telemetry, dynamic traffic signal integration.",
-      "keywords": ["transit", "traffic", "commuter", "metro", "bus"],
-      "status": "active"
-    },
-    {
-      "id": "D07.02",
-      "type": "SUBDOMAIN",
-      "layer": 2,
-      "name": "EV Charging & Grid Telemetry",
-      "parentId": "D07",
-      "domainId": "D07",
-      "path": [
-        { "id": "D07", "name": "Smart Mobility & Transport", "layer": 1, "type": "DOMAIN" },
-        { "id": "D07.02", "name": "EV Charging & Grid Telemetry", "layer": 2, "type": "SUBDOMAIN" }
+      "description": "Intelligent transportation and mobility systems.",
+      "keywords": [
+        "transport",
+        "smart transportation",
+        "mobility"
       ],
-      "description": "OCPP protocol charging station networks, peak-load battery scheduling, and EV driver billing.",
-      "keywords": ["ev", "charging", "battery", "ocpp", "energy"],
-      "status": "active"
-    },
-    {
-      "id": "D07.03",
-      "type": "SUBDOMAIN",
-      "layer": 2,
-      "name": "Micro-Mobility & Urban Fleet Dispatch",
-      "parentId": "D07",
-      "domainId": "D07",
-      "path": [
-        { "id": "D07", "name": "Smart Mobility & Transport", "layer": 1, "type": "DOMAIN" },
-        { "id": "D07.03", "name": "Micro-Mobility & Urban Fleet Dispatch", "layer": 2, "type": "SUBDOMAIN" }
-      ],
-      "description": "Dockless e-bike/scooter geofencing, urban fleet rebalancing algorithms, and instant rental unlocks.",
-      "keywords": ["scooter", "e-bike", "mobility", "geofencing", "fleet"],
       "status": "active"
     },
     {
       "id": "D08.01",
       "type": "SUBDOMAIN",
       "layer": 2,
-      "name": "Adaptive Tutoring & Learning Paths",
+      "name": "Learning Platforms",
       "parentId": "D08",
       "domainId": "D08",
       "path": [
-        { "id": "D08", "name": "EdTech & Learning Networks", "layer": 1, "type": "DOMAIN" },
-        { "id": "D08.01", "name": "Adaptive Tutoring & Learning Paths", "layer": 2, "type": "SUBDOMAIN" }
+        {
+          "id": "D08",
+          "name": "EdTech & Learning Networks",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D08.01",
+          "name": "Learning Platforms",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        }
       ],
-      "description": "Personalized skill graphs, pacing engines, generative quiz modules, and spaced repetition algorithms.",
-      "keywords": ["learning", "tutoring", "adaptive", "curriculum", "quiz"],
-      "status": "active"
-    },
-    {
-      "id": "D08.02",
-      "type": "SUBDOMAIN",
-      "layer": 2,
-      "name": "Institutional Certification & Badges",
-      "parentId": "D08",
-      "domainId": "D08",
-      "path": [
-        { "id": "D08", "name": "EdTech & Learning Networks", "layer": 1, "type": "DOMAIN" },
-        { "id": "D08.02", "name": "Institutional Certification & Badges", "layer": 2, "type": "SUBDOMAIN" }
+      "description": "Digital learning and education platforms.",
+      "keywords": [
+        "learning platform",
+        "education platform",
+        "LMS"
       ],
-      "description": "Verifiable digital credentials, OpenBadges standard, proctored testing, and university transcripts.",
-      "keywords": ["certification", "credentials", "badges", "degrees", "proctoring"],
-      "status": "active"
-    },
-    {
-      "id": "D08.03",
-      "type": "SUBDOMAIN",
-      "layer": 2,
-      "name": "Interactive Simulation & Cohort Labs",
-      "parentId": "D08",
-      "domainId": "D08",
-      "path": [
-        { "id": "D08", "name": "EdTech & Learning Networks", "layer": 1, "type": "DOMAIN" },
-        { "id": "D08.03", "name": "Interactive Simulation & Cohort Labs", "layer": 2, "type": "SUBDOMAIN" }
-      ],
-      "description": "Virtual laboratory sandboxes, live code pair programming, and peer cohort review rooms.",
-      "keywords": ["simulation", "lab", "coding sandbox", "cohort", "virtual classroom"],
       "status": "active"
     }
   ],
@@ -585,12 +1003,33 @@
       "domainId": "D06",
       "subdomainId": "D06.01",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.01", "name": "Event & Media Services", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.01",
+          "name": "Hyperlocal Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.01.01",
+          "name": "Event & Media Services",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Event management, venue reservations, catering bookings, photography/videography, and stage production.",
-      "keywords": ["event booking", "event services", "event management", "venue", "catering", "photography", "decoration", "media"],
+      "description": "Local event, celebration, entertainment and media service discovery and booking.",
+      "keywords": [
+        "events",
+        "celebrations",
+        "event services",
+        "media services",
+        "booking"
+      ],
       "status": "active"
     },
     {
@@ -602,12 +1041,32 @@
       "domainId": "D06",
       "subdomainId": "D06.01",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.02", "name": "Home & Repair Services", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.01",
+          "name": "Hyperlocal Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.01.02",
+          "name": "Home & Repair Services",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Electrical, plumbing, appliance repair, cleaning, and handyman services with radius dispatch.",
-      "keywords": ["home repair", "electrician", "plumber", "cleaning", "maintenance"],
+      "description": "Local home maintenance, repair and installation services.",
+      "keywords": [
+        "home services",
+        "repair",
+        "maintenance",
+        "installation"
+      ],
       "status": "active"
     },
     {
@@ -619,12 +1078,33 @@
       "domainId": "D06",
       "subdomainId": "D06.01",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.03", "name": "Food & Dining Services", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.01",
+          "name": "Hyperlocal Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.01.03",
+          "name": "Food & Dining Services",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Hyperlocal restaurant delivery, cloud kitchen aggregation, and live dining table bookings.",
-      "keywords": ["food delivery", "restaurants", "cloud kitchen", "dining"],
+      "description": "Local food, catering, dining and culinary services.",
+      "keywords": [
+        "food",
+        "dining",
+        "catering",
+        "cooks",
+        "restaurants"
+      ],
       "status": "active"
     },
     {
@@ -636,12 +1116,31 @@
       "domainId": "D06",
       "subdomainId": "D06.01",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.04", "name": "Grocery & Daily Essentials", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.01",
+          "name": "Hyperlocal Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.01.04",
+          "name": "Grocery & Daily Essentials",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Quick-commerce local inventory matching, fresh produce sourcing, and instant 15-min delivery.",
-      "keywords": ["grocery", "quick commerce", "supermarket", "fresh produce"],
+      "description": "Local grocery and daily-needs commerce.",
+      "keywords": [
+        "grocery",
+        "daily essentials",
+        "local commerce"
+      ],
       "status": "active"
     },
     {
@@ -653,13 +1152,31 @@
       "domainId": "D06",
       "subdomainId": "D06.01",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.05", "name": "Personal Services", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.01",
+          "name": "Hyperlocal Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.01.05",
+          "name": "Personal Services",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "In-home spa, grooming, salon appointments, and personal fitness trainers.",
-      "keywords": ["salon", "spa", "wellness", "fitness", "grooming", "personal services"],
-      "aliases": ["Personal Wellness & Care"],
+      "description": "Personal and lifestyle-oriented local services.",
+      "keywords": [
+        "personal services",
+        "lifestyle",
+        "local services"
+      ],
       "status": "active"
     },
     {
@@ -671,13 +1188,31 @@
       "domainId": "D06",
       "subdomainId": "D06.01",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.06", "name": "Professional Services", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.01",
+          "name": "Hyperlocal Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.01.06",
+          "name": "Professional Services",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Local legal notary, tax filing consultants, property surveyors, and document expeditors.",
-      "keywords": ["legal", "notary", "tax", "consultants", "surveyor", "professional services"],
-      "aliases": ["Professional Local Services"],
+      "description": "Local professional, consulting and specialist services.",
+      "keywords": [
+        "professional services",
+        "consulting",
+        "specialists"
+      ],
       "status": "active"
     },
     {
@@ -689,13 +1224,31 @@
       "domainId": "D06",
       "subdomainId": "D06.01",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.07", "name": "Transport & Mobility", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.01",
+          "name": "Hyperlocal Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.01.07",
+          "name": "Transport & Mobility",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Local tempo hire, auto-rickshaw fleet dispatch, event guest coaches, and intra-city logistics.",
-      "keywords": ["transport", "cab", "coach", "tempo", "van hire", "mobility"],
-      "aliases": ["Local Transport & Mobility"],
+      "description": "Local transportation, mobility and vehicle-related services.",
+      "keywords": [
+        "transport",
+        "mobility",
+        "vehicle services"
+      ],
       "status": "active"
     },
     {
@@ -707,13 +1260,32 @@
       "domainId": "D06",
       "subdomainId": "D06.01",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.08", "name": "Local Commerce", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.01",
+          "name": "Hyperlocal Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.01.08",
+          "name": "Local Commerce",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Boutique stores, local artisan products, and neighbourhood retailer digital cataloging.",
-      "keywords": ["retail", "local shops", "artisan", "boutique", "local commerce"],
-      "aliases": ["Local Retail Commerce"],
+      "description": "Local merchants and location-based commerce experiences.",
+      "keywords": [
+        "local commerce",
+        "merchants",
+        "shops",
+        "local business"
+      ],
       "status": "active"
     },
     {
@@ -725,12 +1297,37 @@
       "domainId": "D06",
       "subdomainId": "D06.01",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.09", "name": "Agriculture & Agri Services", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.01",
+          "name": "Hyperlocal Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.01.09",
+          "name": "Agriculture & Agri Services",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Local agro-equipment leasing, farm labor matching, soil testing, greenhouse structures, and harvest transport.",
-      "keywords": ["agriculture", "farming", "polyhouse", "tractor", "soil test", "agro equipment"],
+      "description": "Agriculture products, agricultural services and agri-business marketplace experiences.",
+      "keywords": [
+        "agriculture",
+        "agri",
+        "agri services",
+        "farming",
+        "farm services"
+      ],
+      "aliases": [
+        "Agri",
+        "Agriculture"
+      ],
       "status": "active"
     },
     {
@@ -742,12 +1339,31 @@
       "domainId": "D06",
       "subdomainId": "D06.02",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.01", "name": "Marketplace Architecture", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.01",
+          "name": "Marketplace Architecture",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Multi-tenant tenant isolation, domain mapping, scalable edge routing, and unified identity.",
-      "keywords": ["multivendor architecture", "multi tenant", "platform core"],
+      "description": "Core architecture for multi-seller and multi-provider marketplace platforms.",
+      "keywords": [
+        "marketplace architecture",
+        "multivendor architecture",
+        "platform architecture"
+      ],
       "status": "active"
     },
     {
@@ -759,12 +1375,32 @@
       "domainId": "D06",
       "subdomainId": "D06.02",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.02", "name": "Vendor & Seller Management", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.02",
+          "name": "Vendor & Seller Management",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Vendor KYC onboarding, verification workflows, profile dashboards, tiered reputation scoring, and service radius limits.",
-      "keywords": ["seller management", "vendor onboarding", "kyc", "seller portal", "vendor approval"],
+      "description": "Seller onboarding, profiles, verification and marketplace participation.",
+      "keywords": [
+        "vendors",
+        "sellers",
+        "seller management",
+        "vendor onboarding"
+      ],
       "status": "active"
     },
     {
@@ -776,12 +1412,32 @@
       "domainId": "D06",
       "subdomainId": "D06.02",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.03", "name": "Catalog & Product Management", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.03",
+          "name": "Catalog & Product Management",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Multi-seller catalog moderation, product variants, bulk Excel/API import, global attribute taxonomy, and media asset buckets.",
-      "keywords": ["catalog management", "product variants", "bulk import", "seller catalog", "attributes"],
+      "description": "Product, service and catalog management across marketplace participants.",
+      "keywords": [
+        "catalog",
+        "products",
+        "services",
+        "product management"
+      ],
       "status": "active"
     },
     {
@@ -793,12 +1449,32 @@
       "domainId": "D06",
       "subdomainId": "D06.02",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.04", "name": "Inventory & Availability Management", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.04",
+          "name": "Inventory & Availability Management",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Real-time stock reservation, slot calendar locks, multi-warehouse sync, and low-inventory alerts.",
-      "keywords": ["inventory", "availability", "slot lock", "warehouse"],
+      "description": "Inventory, capacity, provider availability and stock management.",
+      "keywords": [
+        "inventory",
+        "availability",
+        "capacity",
+        "stock"
+      ],
       "status": "active"
     },
     {
@@ -810,12 +1486,32 @@
       "domainId": "D06",
       "subdomainId": "D06.02",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.05", "name": "Dynamic Pricing & Offers", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.05",
+          "name": "Dynamic Pricing & Offers",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Surge pricing rules, multi-seller bundled discounts, seasonal promotion coupons, and flash sales.",
-      "keywords": ["pricing", "offers", "discounts", "surge pricing", "coupons"],
+      "description": "Pricing, offers, promotions and dynamic marketplace pricing.",
+      "keywords": [
+        "pricing",
+        "offers",
+        "promotions",
+        "dynamic pricing"
+      ],
       "status": "active"
     },
     {
@@ -827,12 +1523,31 @@
       "domainId": "D06",
       "subdomainId": "D06.02",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.06", "name": "Order Management & Splitting", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.06",
+          "name": "Order Management & Splitting",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Cart-level multi-vendor order decomposition, unified invoice generation, and seller-specific sub-orders.",
-      "keywords": ["order management", "split order", "invoicing", "sub-order"],
+      "description": "Marketplace order lifecycle and multi-seller order splitting.",
+      "keywords": [
+        "orders",
+        "order management",
+        "order splitting"
+      ],
       "status": "active"
     },
     {
@@ -844,12 +1559,31 @@
       "domainId": "D06",
       "subdomainId": "D06.02",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.07", "name": "Commission Management", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.07",
+          "name": "Commission Management",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Dynamic commission percentage calculation, flat fee overrides, category-specific split rates, and marketplace earnings ledgers.",
-      "keywords": ["commission", "platform fee", "revenue split", "category commission", "settlement rule"],
+      "description": "Marketplace commissions and commercial settlement rules.",
+      "keywords": [
+        "commission",
+        "marketplace commission",
+        "seller commission"
+      ],
       "status": "active"
     },
     {
@@ -861,12 +1595,32 @@
       "domainId": "D06",
       "subdomainId": "D06.02",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.08", "name": "Payment & Settlement Rails", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.08",
+          "name": "Payment & Settlement Rails",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Escrow account handling, multi-seller split payouts, UPI auto-settlement, customer refunds, and seller wallet balances.",
-      "keywords": ["payment settlement", "seller wallet", "escrow", "split payment", "refund", "payout"],
+      "description": "Marketplace payment processing, seller wallets and settlement mechanisms.",
+      "keywords": [
+        "payments",
+        "settlement",
+        "seller wallet",
+        "payment rails"
+      ],
       "status": "active"
     },
     {
@@ -878,12 +1632,32 @@
       "domainId": "D06",
       "subdomainId": "D06.02",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.09", "name": "RFQ & Quote Management", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.09",
+          "name": "RFQ & Quote Management",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Custom project RFQ creation, vendor matching algorithms, bid comparison tables, counter-negotiations, and quote-to-order conversion.",
-      "keywords": ["rfq", "quotes", "bidding", "vendor matching", "negotiation", "quote comparison"],
+      "description": "Request-for-quote, quotation and negotiation workflows.",
+      "keywords": [
+        "RFQ",
+        "quote",
+        "quotation",
+        "negotiation"
+      ],
       "status": "active"
     },
     {
@@ -895,12 +1669,179 @@
       "domainId": "D06",
       "subdomainId": "D06.02",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.10", "name": "Fulfilment & Delivery Logistics", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.10",
+          "name": "Fulfilment & Delivery Logistics",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Seller self-shipment routing, platform-managed 3PL dispatch, live delivery tracking, and proof-of-delivery OTPs.",
-      "keywords": ["fulfilment", "delivery", "dispatch", "tracking", "3pl"],
+      "description": "Marketplace fulfilment, delivery and logistics coordination.",
+      "keywords": [
+        "fulfilment",
+        "delivery",
+        "logistics",
+        "last mile"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "D06.02.11",
+      "type": "CAPABILITY",
+      "layer": 3,
+      "name": "Contract & Lifecycle Management",
+      "parentId": "D06.02",
+      "domainId": "D06",
+      "subdomainId": "D06.02",
+      "path": [
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.11",
+          "name": "Contract & Lifecycle Management",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
+      ],
+      "description": "Contract-driven provider participation, lifecycle management and contractual business rules.",
+      "keywords": [
+        "contracts",
+        "contract lifecycle",
+        "provider contracts",
+        "cancellation"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "D06.02.12",
+      "type": "CAPABILITY",
+      "layer": 3,
+      "name": "Provider & Seller Operations",
+      "parentId": "D06.02",
+      "domainId": "D06",
+      "subdomainId": "D06.02",
+      "path": [
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.12",
+          "name": "Provider & Seller Operations",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
+      ],
+      "description": "Operational management of marketplace providers and sellers.",
+      "keywords": [
+        "provider operations",
+        "seller operations",
+        "vendor operations"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "D06.02.13",
+      "type": "CAPABILITY",
+      "layer": 3,
+      "name": "Ratings & Reviews",
+      "parentId": "D06.02",
+      "domainId": "D06",
+      "subdomainId": "D06.02",
+      "path": [
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.13",
+          "name": "Ratings & Reviews",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
+      ],
+      "description": "Customer feedback, ratings, reviews and marketplace reputation signals.",
+      "keywords": [
+        "ratings",
+        "reviews",
+        "reputation",
+        "feedback"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "D06.02.14",
+      "type": "CAPABILITY",
+      "layer": 3,
+      "name": "Marketplace Analytics",
+      "parentId": "D06.02",
+      "domainId": "D06",
+      "subdomainId": "D06.02",
+      "path": [
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.14",
+          "name": "Marketplace Analytics",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
+      ],
+      "description": "Marketplace performance, demand, provider and commercial analytics.",
+      "keywords": [
+        "analytics",
+        "marketplace analytics",
+        "demand analytics",
+        "performance"
+      ],
       "status": "active"
     },
     {
@@ -912,12 +1853,44 @@
       "domainId": "D06",
       "subdomainId": "D06.02",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.15", "name": "Platform Integration Adapters", "layer": 3, "type": "CAPABILITY" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.15",
+          "name": "Platform Integration Adapters",
+          "layer": 3,
+          "type": "CAPABILITY"
+        }
       ],
-      "description": "Interoperable connector layer to empower external commerce engines with multivendor capabilities (Shopify, Zoho Commerce, Magento/Adobe Commerce, OpenCart).",
-      "keywords": ["platform adapter", "shopify", "zoho commerce", "magento", "adobe commerce", "opencart", "integration"],
+      "description": "Adapters that connect marketplace capabilities to external commerce and platform systems.",
+      "keywords": [
+        "platform integration",
+        "adapters",
+        "commerce platforms",
+        "integration"
+      ],
+      "platformOptions": [
+        "Shopify",
+        "Zoho Commerce",
+        "Magento / Adobe Commerce",
+        "OpenCart"
+      ],
+      "implementationOptions": [
+        "Shopify",
+        "Zoho Commerce",
+        "Magento / Adobe Commerce",
+        "OpenCart"
+      ],
       "status": "active"
     }
   ],
@@ -932,204 +1905,99 @@
       "subdomainId": "D06.01",
       "capabilityId": "D06.01.01",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.01", "name": "Event & Media Services", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.01.01", "name": "Event Management & Booking Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.01",
+          "name": "Hyperlocal Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.01.01",
+          "name": "Event & Media Services",
+          "layer": 3,
+          "type": "CAPABILITY"
+        },
+        {
+          "id": "D06.01.01.01",
+          "name": "Event Management & Booking Bundle",
+          "layer": 4,
+          "type": "SOLUTION_BUNDLE"
+        }
       ],
-      "description": "Complete turnkey event discovery, venue reservation, multi-caterer quotation, and live production booking suite.",
-      "keywords": ["event booking", "event management", "event marketplace", "venue reservation", "catering quotes", "wedding planning", "coimbatore events"],
-      "status": "active"
+      "description": "Composable event discovery, provider selection, availability, booking and fulfilment capabilities.",
+      "keywords": [
+        "event management",
+        "event booking",
+        "event marketplace",
+        "celebration"
+      ],
+      "status": "active",
+      "businessWorld": "Hyperlocal Events",
+      "processModel": "Discover → Compose → Check Availability → Select → Book → Fulfil",
+      "locationContext": {
+        "region": "Local / Hyperlocal"
+      },
+      "serviceComposition": [
+        "Venue",
+        "Catering",
+        "Decoration",
+        "Photography",
+        "Music",
+        "Transport",
+        "Event Support"
+      ],
+      "nextAction": "Select Solution"
     },
     {
-      "id": "D06.01.02.01",
+      "id": "D06.02.01.01",
       "type": "SOLUTION_BUNDLE",
       "layer": 4,
-      "name": "Home Maintenance & Emergency Repair Bundle",
-      "parentId": "D06.01.02",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.02",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.02", "name": "Home & Repair Services", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.02.01", "name": "Home Maintenance & Emergency Repair Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
-      ],
-      "description": "Certified electrician, plumbing, appliance repair, and home renovation dispatch suite.",
-      "keywords": ["home repair", "electrician", "plumber", "renovation", "emergency repair"],
-      "status": "active"
-    },
-    {
-      "id": "D06.01.03.01",
-      "type": "SOLUTION_BUNDLE",
-      "layer": 4,
-      "name": "Local Dining & Cloud Kitchen Dispatch Bundle",
-      "parentId": "D06.01.03",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.03",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.03", "name": "Food & Dining Services", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.03.01", "name": "Local Dining & Cloud Kitchen Dispatch Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
-      ],
-      "description": "Neighborhood restaurant ordering, real-time kitchen display queues, and table reservation rails.",
-      "keywords": ["restaurant ordering", "cloud kitchen", "food delivery", "dining reservations"],
-      "status": "active"
-    },
-    {
-      "id": "D06.01.04.01",
-      "type": "SOLUTION_BUNDLE",
-      "layer": 4,
-      "name": "Daily Essentials & Quick Commerce Delivery Bundle",
-      "parentId": "D06.01.04",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.04",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.04", "name": "Grocery & Daily Essentials", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.04.01", "name": "Daily Essentials & Quick Commerce Delivery Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
-      ],
-      "description": "Micro-warehouse inventory synchronization, fresh farm produce sourcing, and 15-minute fulfillment routing.",
-      "keywords": ["grocery delivery", "quick commerce", "daily essentials", "fresh produce"],
-      "status": "active"
-    },
-    {
-      "id": "D06.01.05.01",
-      "type": "SOLUTION_BUNDLE",
-      "layer": 4,
-      "name": "On-Demand Personal Care & Wellness Booking Bundle",
-      "parentId": "D06.01.05",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.05",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.05", "name": "Personal Services", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.05.01", "name": "On-Demand Personal Care & Wellness Booking Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
-      ],
-      "description": "In-home styling, therapy scheduling, verified certified masseurs, and salon at-home appointments.",
-      "keywords": ["personal care", "salon at home", "wellness booking", "stylist", "spa"],
-      "status": "active"
-    },
-    {
-      "id": "D06.01.06.01",
-      "type": "SOLUTION_BUNDLE",
-      "layer": 4,
-      "name": "Professional Advisory & Notary Services Bundle",
-      "parentId": "D06.01.06",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.06",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.06", "name": "Professional Services", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.06.01", "name": "Professional Advisory & Notary Services Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
-      ],
-      "description": "Legal document attestation, chartered accountant tax filings, and local architectural surveyor matching.",
-      "keywords": ["notary", "legal advisor", "tax consultant", "surveyor", "professional services"],
-      "status": "active"
-    },
-    {
-      "id": "D06.01.07.01",
-      "type": "SOLUTION_BUNDLE",
-      "layer": 4,
-      "name": "Hyperlocal Fleet & Passenger Transit Bundle",
-      "parentId": "D06.01.07",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.07",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.07", "name": "Transport & Mobility", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.07.01", "name": "Hyperlocal Fleet & Passenger Transit Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
-      ],
-      "description": "Event passenger shuttle dispatch, commercial tempo rentals, and verified local chauffeur networks.",
-      "keywords": ["tempo hire", "auto fleet", "shuttle booking", "local transit", "mobility"],
-      "status": "active"
-    },
-    {
-      "id": "D06.01.08.01",
-      "type": "SOLUTION_BUNDLE",
-      "layer": 4,
-      "name": "Neighborhood Retail & Artisan Storefront Bundle",
-      "parentId": "D06.01.08",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.08",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.08", "name": "Local Commerce", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.08.01", "name": "Neighborhood Retail & Artisan Storefront Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
-      ],
-      "description": "Local boutique storefront digital digitizer, neighborhood inventory catalogue, and click-and-collect pickup.",
-      "keywords": ["local retail", "artisan shops", "boutique", "storefront", "neighborhood commerce"],
-      "status": "active"
-    },
-    {
-      "id": "D06.01.09.01",
-      "type": "SOLUTION_BUNDLE",
-      "layer": 4,
-      "name": "Agro-Equipment Leasing & Farm Labor Dispatch Bundle",
-      "parentId": "D06.01.09",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.09",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.09", "name": "Agriculture & Agri Services", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.09.01", "name": "Agro-Equipment Leasing & Farm Labor Dispatch Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
-      ],
-      "description": "Harvester and tractor rental booking, local agrarian labor crews, and soil health consultation pipelines.",
-      "keywords": ["tractor rental", "farm labor", "agro equipment", "agriculture services"],
-      "status": "active"
-    },
-    {
-      "id": "D06.02.02.01",
-      "type": "SOLUTION_BUNDLE",
-      "layer": 4,
-      "name": "Seller Lifecycle & Onboarding Bundle",
-      "parentId": "D06.02.02",
+      "name": "Multivendor Marketplace Core Bundle",
+      "parentId": "D06.02.01",
       "domainId": "D06",
       "subdomainId": "D06.02",
-      "capabilityId": "D06.02.02",
+      "capabilityId": "D06.02.01",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.02", "name": "Vendor & Seller Management", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.02.02.01", "name": "Seller Lifecycle & Onboarding Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.01",
+          "name": "Marketplace Architecture",
+          "layer": 3,
+          "type": "CAPABILITY"
+        },
+        {
+          "id": "D06.02.01.01",
+          "name": "Multivendor Marketplace Core Bundle",
+          "layer": 4,
+          "type": "SOLUTION_BUNDLE"
+        }
       ],
-      "description": "Automated merchant verification, GST validation, bank account validation, and seller self-service portal.",
-      "keywords": ["seller onboarding", "vendor verification", "seller portal", "gst validation"],
-      "status": "active"
-    },
-    {
-      "id": "D06.02.15.01",
-      "type": "SOLUTION_BUNDLE",
-      "layer": 4,
-      "name": "Multivendor Platform Expansion Adapters",
-      "parentId": "D06.02.15",
-      "domainId": "D06",
-      "subdomainId": "D06.02",
-      "capabilityId": "D06.02.15",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.15", "name": "Platform Integration Adapters", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.02.15.01", "name": "Multivendor Platform Expansion Adapters", "layer": 4, "type": "SOLUTION_BUNDLE" }
+      "description": "Core operating architecture for a multivendor marketplace.",
+      "keywords": [
+        "multivendor",
+        "marketplace core",
+        "seller marketplace"
       ],
-      "description": "Ready-to-deploy adapters allowing Shopify, Zoho Commerce, Magento, and OpenCart stores to operate as multi-seller marketplaces.",
-      "keywords": ["shopify marketplace", "zoho marketplace", "magento marketplace", "opencart multivendor"],
-      "status": "active"
+      "status": "active",
+      "processModel": "Onboard → Configure → Publish → Transact → Settle → Operate",
+      "nextAction": "Select Solution"
     }
   ],
   "solutions": [
@@ -1144,409 +2012,212 @@
       "capabilityId": "D06.01.01",
       "solutionBundleId": "D06.01.01.01",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.01", "name": "Event & Media Services", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.01.01", "name": "Event Management & Booking Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
-        { "id": "D06.01.01.01.001", "name": "Hyperlocal Event & Celebration Marketplace", "layer": 5, "type": "SOLUTION" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.01",
+          "name": "Hyperlocal Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.01.01",
+          "name": "Event & Media Services",
+          "layer": 3,
+          "type": "CAPABILITY"
+        },
+        {
+          "id": "D06.01.01.01",
+          "name": "Event Management & Booking Bundle",
+          "layer": 4,
+          "type": "SOLUTION_BUNDLE"
+        },
+        {
+          "id": "D06.01.01.01.001",
+          "name": "Hyperlocal Event & Celebration Marketplace",
+          "layer": 5,
+          "type": "SOLUTION"
+        }
       ],
-      "description": "Full-stack event marketplace enabling customers to discover local banquet halls, caterers, photographers, and audio-visual technicians with real-time availability and multi-seller bookings.",
-      "keywords": ["event booking", "event services near coimbatore", "wedding marketplace", "venue reservation", "catering", "photographer", "sound systems"],
-      "aliases": ["Event Booking Platform", "Coimbatore Event Hub"],
+      "description": "A hyperlocal marketplace that enables customers to discover, compose, compare, select and book event-related services from local providers.",
+      "keywords": [
+        "event marketplace",
+        "celebration marketplace",
+        "hyperlocal events",
+        "event services",
+        "local providers"
+      ],
+      "aliases": [
+        "Event Marketplace",
+        "Hyperlocal Event Marketplace"
+      ],
       "status": "active",
-      "rating": 4.9,
-      "complexity": "Enterprise",
-      "estimatedEffort": "2 - 4 Weeks",
-      "businessWorld": "D06.01 Hyperlocal Marketplace",
-      "processModel": "Geospatial Discovery → Vendor Slot Inquiry → Multi-Seller Quotation Mesh → Escrow Milestone Lock → Real-Time Delivery & Dispatch → Settlement",
+      "businessWorld": "Hyperlocal Events",
+      "processModel": "Intent → Discover → Compose → Match → Availability → Select → Book → Fulfil",
       "locationContext": {
-        "city": "Coimbatore",
-        "state": "Tamil Nadu",
-        "region": "Western Tamil Nadu & South India",
-        "radiusKm": 35,
-        "pincodes": ["641001", "641002", "641018", "641004"],
-        "secondaryHub": "Kanyakumari"
+        "region": "Hyperlocal"
       },
       "serviceComposition": [
-        "Banquet Hall & Lawn Reservation Engine",
-        "Artisan Catering & Gourmet Menu Quotations",
-        "Pro Audio, Lighting & Stage Technician Dispatch",
-        "Cinematic Photography & Drone Videography Portfolio"
+        "Venue",
+        "Catering",
+        "Decoration",
+        "Photography",
+        "Music",
+        "Transport",
+        "Event Support"
       ],
-      "nextAction": "Launch Control Center & Execution Workspace (L6)",
-      "platformOptions": ["Zoho Commerce", "Shopify", "Magento / Adobe Commerce", "OpenCart"],
-      "relatedCapabilities": ["D06.02.02", "D06.02.07", "D06.02.08", "D06.02.09"],
-      "supportingDomains": ["D02", "D05", "D07"],
+      "relatedCapabilities": [
+        "D06.01.01",
+        "D06.02.02",
+        "D06.02.04",
+        "D06.02.08",
+        "D06.02.11",
+        "D06.02.13"
+      ],
+      "supportingDomains": [
+        "D06"
+      ],
+      "platformOptions": [
+        "Shopify",
+        "Zoho Commerce",
+        "Magento / Adobe Commerce",
+        "OpenCart"
+      ],
+      "implementationOptions": [
+        "ArchitectAny Catalyst Platform",
+        "Zoho Commerce",
+        "Shopify",
+        "Magento / Adobe Commerce",
+        "OpenCart"
+      ],
+      "complexity": "Enterprise",
+      "estimatedEffort": "Context dependent",
       "features": [
-        "Interactive Venue Hall Floorplan & Date Slot Booking",
-        "Multi-vendor Custom Catering Menu Builder & Quotations",
-        "High-definition Photography & Videography Portfolio Showcases",
-        "Geospatial Provider Matching by City & Pincode Radius",
-        "Escrow-protected Split Payments & Deposit Milestone Milestones"
-      ]
-    },
-    {
-      "id": "D06.01.01.01.002",
-      "type": "SOLUTION",
-      "layer": 5,
-      "name": "Concert & Corporate Venue Booking Engine",
-      "parentId": "D06.01.01.01",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.01",
-      "solutionBundleId": "D06.01.01.01",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.01", "name": "Event & Media Services", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.01.01", "name": "Event Management & Booking Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
-        { "id": "D06.01.01.01.002", "name": "Concert & Corporate Venue Booking Engine", "layer": 5, "type": "SOLUTION" }
+        "Location-aware discovery",
+        "Service composition",
+        "Provider discovery",
+        "Availability-aware selection",
+        "Marketplace transaction lifecycle",
+        "Multivendor participation",
+        "Contract-driven lifecycle",
+        "Ratings and reviews",
+        "Payment and settlement integration"
       ],
-      "description": "Automated convention center, auditorium, and banquet space scheduler with live attendee capacity management and stage lighting rental options.",
-      "keywords": ["venue booking", "auditorium booking", "convention hall", "corporate events"],
-      "status": "active",
-      "rating": 4.8,
-      "complexity": "Advanced",
-      "platformOptions": ["Zoho Commerce", "Shopify"],
-      "features": ["3D Virtual Hall Walkthrough", "Hourly & Multi-Day Slot Lock", "Security Deposit Handling"]
+      "nextAction": "Add to My Solution"
     },
     {
-      "id": "D06.01.01.01.003",
+      "id": "D06.02.01.01.001",
       "type": "SOLUTION",
       "layer": 5,
-      "name": "Artisan Catering & Gourmet Chef Quotation Engine",
-      "parentId": "D06.01.01.01",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.01",
-      "solutionBundleId": "D06.01.01.01",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.01", "name": "Event & Media Services", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.01.01", "name": "Event Management & Booking Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
-        { "id": "D06.01.01.01.003", "name": "Artisan Catering & Gourmet Chef Quotation Engine", "layer": 5, "type": "SOLUTION" }
-      ],
-      "description": "Multi-caterer quotation comparison system matching guest counts, regional dietary cuisines, live cooking counters, and serving staff ratios.",
-      "keywords": ["catering", "event food", "chef booking", "wedding catering quotes"],
-      "status": "active",
-      "rating": 4.9,
-      "complexity": "Advanced",
-      "platformOptions": ["Shopify", "Zoho Commerce", "OpenCart"],
-      "features": ["Per-Plate Dynamic Calculation", "Live Chef Tasting Scheduling", "Dietary & Allergen Filtering"]
-    },
-    {
-      "id": "D06.01.02.01.001",
-      "type": "SOLUTION",
-      "layer": 5,
-      "name": "On-Demand Home Repair & Technician Dispatch Mesh",
-      "parentId": "D06.01.02.01",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.02",
-      "solutionBundleId": "D06.01.02.01",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.02", "name": "Home & Repair Services", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.02.01", "name": "Home Maintenance & Emergency Repair Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
-        { "id": "D06.01.02.01.001", "name": "On-Demand Home Repair & Technician Dispatch Mesh", "layer": 5, "type": "SOLUTION" }
-      ],
-      "description": "Geolocated electrician, plumber, and appliance maintenance dispatch network with background-verified trade credentials and automated slot scheduling.",
-      "keywords": ["home repair", "electrician dispatch", "plumber coimbatore", "verified technicians"],
-      "status": "active",
-      "rating": 4.85,
-      "complexity": "Advanced",
-      "businessWorld": "D06.01 Hyperlocal Marketplace",
-      "processModel": "Distress Request → Geofenced Technician Match → Upfront Tariff Lock → Live Transit → Post-Repair OTP Verification",
-      "platformOptions": ["Zoho Commerce", "Shopify"],
-      "features": ["Emergency 60-Minute Response SLAs", "Rate Card Standardization", "Digital Inspection Work Order"]
-    },
-    {
-      "id": "D06.01.03.01.001",
-      "type": "SOLUTION",
-      "layer": 5,
-      "name": "Neighborhood Kitchen & Restaurant Order Router",
-      "parentId": "D06.01.03.01",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.03",
-      "solutionBundleId": "D06.01.03.01",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.03", "name": "Food & Dining Services", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.03.01", "name": "Local Dining & Cloud Kitchen Dispatch Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
-        { "id": "D06.01.03.01.001", "name": "Neighborhood Kitchen & Restaurant Order Router", "layer": 5, "type": "SOLUTION" }
-      ],
-      "description": "Hyperlocal food discovery platform connecting regional diners to authenticated local restaurants, cloud kitchens, and specialty bakers.",
-      "keywords": ["food delivery", "restaurant ordering", "cloud kitchen", "coimbatore dining"],
-      "status": "active",
-      "rating": 4.8,
-      "complexity": "Enterprise",
-      "businessWorld": "D06.01 Hyperlocal Marketplace",
-      "platformOptions": ["Shopify", "Zoho Commerce"],
-      "features": ["Kitchen Display System (KDS) Sync", "Multi-Item Split Prep", "Rider Geofence Assignment"]
-    },
-    {
-      "id": "D06.01.04.01.001",
-      "type": "SOLUTION",
-      "layer": 5,
-      "name": "Micro-Fulfillment Quick Essentials Grid",
-      "parentId": "D06.01.04.01",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.04",
-      "solutionBundleId": "D06.01.04.01",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.04", "name": "Grocery & Daily Essentials", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.04.01", "name": "Daily Essentials & Quick Commerce Delivery Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
-        { "id": "D06.01.04.01.001", "name": "Micro-Fulfillment Quick Essentials Grid", "layer": 5, "type": "SOLUTION" }
-      ],
-      "description": "Ultra-fast daily grocery and pharmacy delivery infrastructure managing neighborhood dark-stores and real-time inventory buffers.",
-      "keywords": ["quick commerce", "grocery delivery", "daily essentials", "dark store"],
-      "status": "active",
-      "rating": 4.9,
-      "complexity": "Enterprise",
-      "businessWorld": "D06.01 Hyperlocal Marketplace",
-      "platformOptions": ["Zoho Commerce", "Shopify"],
-      "features": ["Dark-Store Stock Telemetry", "15-Minute Delivery Batching", "Expiry Date SKU Controls"]
-    },
-    {
-      "id": "D06.01.05.01.001",
-      "type": "SOLUTION",
-      "layer": 5,
-      "name": "In-Home Wellness & Stylist Appointment System",
-      "parentId": "D06.01.05.01",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.05",
-      "solutionBundleId": "D06.01.05.01",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.05", "name": "Personal Services", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.05.01", "name": "On-Demand Personal Care & Wellness Booking Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
-        { "id": "D06.01.05.01.001", "name": "In-Home Wellness & Stylist Appointment System", "layer": 5, "type": "SOLUTION" }
-      ],
-      "description": "On-demand booking gateway for certified beauty specialists, yoga instructors, and wellness therapists with kit sanitation certifications.",
-      "keywords": ["salon at home", "wellness booking", "personal grooming", "massage booking"],
-      "status": "active",
-      "rating": 4.75,
-      "complexity": "Advanced",
-      "businessWorld": "D06.01 Hyperlocal Marketplace",
-      "platformOptions": ["Shopify", "Zoho Commerce"],
-      "features": ["Therapist Calendar Lock", "Hygiene & Kit Checklist Verification", "Safety Tracking & SOS"]
-    },
-    {
-      "id": "D06.01.06.01.001",
-      "type": "SOLUTION",
-      "layer": 5,
-      "name": "Verified Local Professional Consultation Desk",
-      "parentId": "D06.01.06.01",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.06",
-      "solutionBundleId": "D06.01.06.01",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.06", "name": "Professional Services", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.06.01", "name": "Professional Advisory & Notary Services Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
-        { "id": "D06.01.06.01.001", "name": "Verified Local Professional Consultation Desk", "layer": 5, "type": "SOLUTION" }
-      ],
-      "description": "High-trust directory and appointment escrow system for local chartered accountants, legal advocates, and property valuation surveyors.",
-      "keywords": ["notary", "legal consultant", "tax chartered accountant", "property valuation"],
-      "status": "active",
-      "rating": 4.8,
-      "complexity": "Standard",
-      "businessWorld": "D06.01 Hyperlocal Marketplace",
-      "platformOptions": ["Zoho Commerce"],
-      "features": ["Digital Retainer Escrow", "Encrypted Document Vault", "Video & In-Person Slot Allocation"]
-    },
-    {
-      "id": "D06.01.07.01.001",
-      "type": "SOLUTION",
-      "layer": 5,
-      "name": "Last-Mile Auto & Intra-City Goods Shuttle",
-      "parentId": "D06.01.07.01",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.07",
-      "solutionBundleId": "D06.01.07.01",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.07", "name": "Transport & Mobility", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.07.01", "name": "Hyperlocal Fleet & Passenger Transit Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
-        { "id": "D06.01.07.01.001", "name": "Last-Mile Auto & Intra-City Goods Shuttle", "layer": 5, "type": "SOLUTION" }
-      ],
-      "description": "Multi-vehicle commercial transit reservation system providing event coach hiring, goods loading tempo rentals, and passenger shuttles.",
-      "keywords": ["tempo rental", "commercial transport", "event coach hire", "logistics"],
-      "status": "active",
-      "rating": 4.7,
-      "complexity": "Advanced",
-      "businessWorld": "D06.01 Hyperlocal Marketplace",
-      "platformOptions": ["Shopify", "OpenCart"],
-      "features": ["Fleet Telematics Link", "Point-to-Point Distance Quoter", "Toll & Fuel Surcharge Ledger"]
-    },
-    {
-      "id": "D06.01.08.01.001",
-      "type": "SOLUTION",
-      "layer": 5,
-      "name": "Local Artisan & Neighbourhood Merchant Showcase",
-      "parentId": "D06.01.08.01",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.08",
-      "solutionBundleId": "D06.01.08.01",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.08", "name": "Local Commerce", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.08.01", "name": "Neighborhood Retail & Artisan Storefront Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
-        { "id": "D06.01.08.01.001", "name": "Local Artisan & Neighbourhood Merchant Showcase", "layer": 5, "type": "SOLUTION" }
-      ],
-      "description": "Enables neighborhood specialty stores, textile weavers, and handicraft artisans to publish unified digital catalogs with same-day curbside pickup.",
-      "keywords": ["artisan marketplace", "neighborhood shop", "textile weaver", "local store"],
-      "status": "active",
-      "rating": 4.85,
-      "complexity": "Standard",
-      "businessWorld": "D06.01 Hyperlocal Marketplace",
-      "platformOptions": ["Zoho Commerce", "Shopify"],
-      "features": ["Barcode POS Mobile Scanner", "Curbside Pickup OTP", "Neighborhood Delivery Radius Limits"]
-    },
-    {
-      "id": "D06.01.09.01.001",
-      "type": "SOLUTION",
-      "layer": 5,
-      "name": "Farm Machinery Rental & Agronomy Network",
-      "parentId": "D06.01.09.01",
-      "domainId": "D06",
-      "subdomainId": "D06.01",
-      "capabilityId": "D06.01.09",
-      "solutionBundleId": "D06.01.09.01",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.01", "name": "Hyperlocal Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.01.09", "name": "Agriculture & Agri Services", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.01.09.01", "name": "Agro-Equipment Leasing & Farm Labor Dispatch Bundle", "layer": 4, "type": "SOLUTION_BUNDLE" },
-        { "id": "D06.01.09.01.001", "name": "Farm Machinery Rental & Agronomy Network", "layer": 5, "type": "SOLUTION" }
-      ],
-      "description": "Shared agrarian equipment marketplace connecting local cultivators to tractor owners, harvester operators, and certified soil testing labs.",
-      "keywords": ["tractor rental", "farm equipment", "agriculture leasing", "soil testing"],
-      "status": "active",
-      "rating": 4.9,
-      "complexity": "Advanced",
-      "businessWorld": "D06.01 Hyperlocal Marketplace",
-      "platformOptions": ["Zoho Commerce", "OpenCart"],
-      "features": ["Acreage-based Metering", "Equipment Breakdown Replacement SLA", "Seasonal Crop Cycle Booking"]
-    },
-    {
-      "id": "D06.02.15.01.001",
-      "type": "SOLUTION",
-      "layer": 5,
-      "name": "Shopify Multivendor Marketplace Bridge",
-      "parentId": "D06.02.15.01",
+      "name": "Multivendor Marketplace Platform",
+      "parentId": "D06.02.01.01",
       "domainId": "D06",
       "subdomainId": "D06.02",
-      "capabilityId": "D06.02.15",
-      "solutionBundleId": "D06.02.15.01",
+      "capabilityId": "D06.02.01",
+      "solutionBundleId": "D06.02.01.01",
       "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.15", "name": "Platform Integration Adapters", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.02.15.01", "name": "Multivendor Platform Expansion Adapters", "layer": 4, "type": "SOLUTION_BUNDLE" },
-        { "id": "D06.02.15.01.001", "name": "Shopify Multivendor Marketplace Bridge", "layer": 5, "type": "SOLUTION" }
+        {
+          "id": "D06",
+          "name": "Marketplace & Commerce",
+          "layer": 1,
+          "type": "DOMAIN"
+        },
+        {
+          "id": "D06.02",
+          "name": "Multivendor Marketplace",
+          "layer": 2,
+          "type": "SUBDOMAIN"
+        },
+        {
+          "id": "D06.02.01",
+          "name": "Marketplace Architecture",
+          "layer": 3,
+          "type": "CAPABILITY"
+        },
+        {
+          "id": "D06.02.01.01",
+          "name": "Multivendor Marketplace Core Bundle",
+          "layer": 4,
+          "type": "SOLUTION_BUNDLE"
+        },
+        {
+          "id": "D06.02.01.01.001",
+          "name": "Multivendor Marketplace Platform",
+          "layer": 5,
+          "type": "SOLUTION"
+        }
       ],
-      "description": "Converts any standard Shopify store into an enterprise multi-seller marketplace with standalone vendor portals, product approval workflows, and automated commission payouts.",
-      "keywords": ["shopify multivendor", "shopify marketplace", "multivendor marketplace using shopify"],
+      "description": "A reusable multivendor marketplace operating architecture supporting sellers, providers, catalog, orders, commissions, payments, fulfilment and platform integrations.",
+      "keywords": [
+        "multivendor marketplace",
+        "seller marketplace",
+        "marketplace platform",
+        "vendor marketplace"
+      ],
+      "aliases": [
+        "Multivendor Platform",
+        "Marketplace Platform"
+      ],
       "status": "active",
-      "rating": 4.95,
+      "businessWorld": "Multivendor Marketplace",
+      "processModel": "Onboard → Configure → Publish → Discover → Order → Split → Settle → Fulfil",
+      "relatedCapabilities": [
+        "D06.02.01",
+        "D06.02.02",
+        "D06.02.03",
+        "D06.02.04",
+        "D06.02.05",
+        "D06.02.06",
+        "D06.02.07",
+        "D06.02.08",
+        "D06.02.09",
+        "D06.02.10",
+        "D06.02.11",
+        "D06.02.12",
+        "D06.02.13",
+        "D06.02.14",
+        "D06.02.15"
+      ],
+      "supportingDomains": [
+        "D06"
+      ],
+      "platformOptions": [
+        "Shopify",
+        "Zoho Commerce",
+        "Magento / Adobe Commerce",
+        "OpenCart"
+      ],
+      "implementationOptions": [
+        "ArchitectAny Catalyst Platform",
+        "Zoho Commerce",
+        "Shopify",
+        "Magento / Adobe Commerce",
+        "OpenCart"
+      ],
       "complexity": "Enterprise",
-      "platformOptions": ["Shopify"],
-      "relatedCapabilities": ["D06.02.02", "D06.02.03", "D06.02.07", "D06.02.08"],
-      "features": ["Shopify App Bridge GraphQL Integration", "Independent Seller Portals", "Automated PayPal/Stripe Connect Split Payouts"]
-    },
-    {
-      "id": "D06.02.15.01.002",
-      "type": "SOLUTION",
-      "layer": 5,
-      "name": "Zoho Commerce Multivendor Hub & ERP Integration",
-      "parentId": "D06.02.15.01",
-      "domainId": "D06",
-      "subdomainId": "D06.02",
-      "capabilityId": "D06.02.15",
-      "solutionBundleId": "D06.02.15.01",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.15", "name": "Platform Integration Adapters", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.02.15.01", "name": "Multivendor Platform Expansion Adapters", "layer": 4, "type": "SOLUTION_BUNDLE" },
-        { "id": "D06.02.15.01.002", "name": "Zoho Commerce Multivendor Hub & ERP Integration", "layer": 5, "type": "SOLUTION" }
+      "estimatedEffort": "Context dependent",
+      "features": [
+        "Vendor onboarding",
+        "Seller management",
+        "Catalog management",
+        "Inventory and availability",
+        "Pricing and offers",
+        "Order management",
+        "Commission management",
+        "Payment and settlement",
+        "RFQ and quotes",
+        "Fulfilment and delivery",
+        "Contract lifecycle",
+        "Provider operations",
+        "Ratings and reviews",
+        "Marketplace analytics",
+        "Platform adapters"
       ],
-      "description": "Transforms Zoho Commerce into a multi-seller operating environment integrated seamlessly with Zoho Books, Zoho Inventory, and Zoho Creator vendor applications.",
-      "keywords": ["zoho marketplace", "zoho commerce multivendor", "multivendor marketplace using zoho commerce"],
-      "status": "active",
-      "rating": 4.9,
-      "complexity": "Enterprise",
-      "platformOptions": ["Zoho Commerce"],
-      "relatedCapabilities": ["D06.02.02", "D06.02.03", "D06.02.07", "D06.02.08"],
-      "features": ["Zoho Books Automated Vendor Invoicing", "Zoho Inventory Multi-Warehouse Sync", "Zoho Creator Seller Onboarding Workflows"]
-    },
-    {
-      "id": "D06.02.15.01.003",
-      "type": "SOLUTION",
-      "layer": 5,
-      "name": "Magento / Adobe Commerce Enterprise Multi-Seller Suite",
-      "parentId": "D06.02.15.01",
-      "domainId": "D06",
-      "subdomainId": "D06.02",
-      "capabilityId": "D06.02.15",
-      "solutionBundleId": "D06.02.15.01",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.15", "name": "Platform Integration Adapters", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.02.15.01", "name": "Multivendor Platform Expansion Adapters", "layer": 4, "type": "SOLUTION_BUNDLE" },
-        { "id": "D06.02.15.01.003", "name": "Magento / Adobe Commerce Enterprise Multi-Seller Suite", "layer": 5, "type": "SOLUTION" }
-      ],
-      "description": "High-throughput B2B & B2C marketplace module for Magento 2 / Adobe Commerce with multi-source inventory and custom seller attribute sets.",
-      "keywords": ["magento multivendor", "adobe commerce marketplace", "marketplace using magento"],
-      "status": "active",
-      "rating": 4.85,
-      "complexity": "Enterprise",
-      "platformOptions": ["Magento / Adobe Commerce"],
-      "relatedCapabilities": ["D06.02.02", "D06.02.03", "D06.02.07"],
-      "features": ["Multi-Source Inventory (MSI) Isolation", "Tiered B2B Quote Negotiations", "Custom GraphQL & REST Seller Endpoints"]
-    },
-    {
-      "id": "D06.02.15.01.004",
-      "type": "SOLUTION",
-      "layer": 5,
-      "name": "OpenCart Lightweight Multivendor Engine",
-      "parentId": "D06.02.15.01",
-      "domainId": "D06",
-      "subdomainId": "D06.02",
-      "capabilityId": "D06.02.15",
-      "solutionBundleId": "D06.02.15.01",
-      "path": [
-        { "id": "D06", "name": "Marketplace & Commerce", "layer": 1, "type": "DOMAIN" },
-        { "id": "D06.02", "name": "Multivendor Marketplace", "layer": 2, "type": "SUBDOMAIN" },
-        { "id": "D06.02.15", "name": "Platform Integration Adapters", "layer": 3, "type": "CAPABILITY" },
-        { "id": "D06.02.15.01", "name": "Multivendor Platform Expansion Adapters", "layer": 4, "type": "SOLUTION_BUNDLE" },
-        { "id": "D06.02.15.01.004", "name": "OpenCart Lightweight Multivendor Engine", "layer": 5, "type": "SOLUTION" }
-      ],
-      "description": "Cost-effective and fast multi-vendor marketplace extension for OpenCart 3/4 with simplified seller fee rules and direct vendor messaging.",
-      "keywords": ["opencart multivendor", "marketplace using opencart", "opencart multi seller"],
-      "status": "active",
-      "rating": 4.7,
-      "complexity": "Standard",
-      "platformOptions": ["OpenCart"],
-      "relatedCapabilities": ["D06.02.02", "D06.02.07"],
-      "features": ["Fast Setup & Low Hosting Footprint", "Direct Customer-Seller Inquiry System", "Custom Commission Per Vendor"]
+      "nextAction": "Add to My Solution"
     }
   ]
 }

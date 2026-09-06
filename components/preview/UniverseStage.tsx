@@ -1,20 +1,34 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
-import domainsData from '@/data/universe/domains.json';
-import subdomainsData from '@/data/universe/subdomains.json';
-import capabilitiesData from '@/data/universe/solution-capabilities.json';
-import solutionsData from '@/data/universe/solutions.json';
-import { Domain, Subdomain, SolutionCapability, Solution } from '@/src/types';
-import { useArchitectAny } from '@/src/context/ArchitectAnyContext';
-import { UniversePlane } from './UniversePlane';
-import { DomainNode } from './DomainNode';
-import { IntentCore, ArchitectAnyLogo } from './IntentCore';
-import { SolutionRail } from './SolutionRail';
-import { DomainContextBanner } from './DomainContextBanner';
-import { CinematicJourneyShowcase } from '../cinematic/CinematicJourneyShowcase';
-import { Play, Pause, RotateCw, Compass, Eye, Sparkles, ArrowRight } from 'lucide-react';
-import styles from './UniverseStage.module.css';
-import { useCinematicNavigation } from '@/src/context/CinematicNavigationContext';
-import { CinematicWaypoint } from '@/src/contracts/cinematic';
+/**
+ * Architect: Vijay Kumar K.
+ * Platform: ArchitectAny (AAi)
+ * Context: P1.3 — M01 Solution Universe
+ * Status: ACTIVE
+ * Version: 1.0.1
+ */
+
+import React, { useState, useMemo, useEffect, useRef } from "react";
+import domainsData from "@/data/universe/domains.json";
+import subdomainsData from "@/data/universe/subdomains.json";
+import capabilitiesData from "@/data/universe/solution-capabilities.json";
+import solutionsData from "@/data/universe/solutions.json";
+import { Domain, Subdomain, SolutionCapability, Solution } from "@/src/types";
+import type { DomainItem } from "@/src/contracts/catalog";
+import { useArchitectAny } from "@/src/context/ArchitectAnyContext";
+import { UniversePlane } from "./UniversePlane";
+import { DomainNode } from "./DomainNode";
+import { IntentCore } from "./IntentCore";
+import { SolutionRail } from "./SolutionRail";
+import { DomainContextBanner } from "./DomainContextBanner";
+import {
+  Play,
+  Pause,
+  RotateCw,
+  Compass,
+  Eye,
+  Sparkles,
+  ArrowRight,
+} from "lucide-react";
+import styles from "./UniverseStage.module.css";
 
 export interface UniverseStageProps {
   initialDomainId?: string;
@@ -25,17 +39,45 @@ export interface UniverseStageProps {
 }
 
 export const UniverseStage: React.FC<UniverseStageProps> = ({
-  initialDomainId = 'D06',
+  initialDomainId = "D06",
   onDomainSelect,
   onSelectSolution,
   onOpenIntentCore,
-  searchQuery = '',
+  searchQuery = "",
 }) => {
   const { intent, setIntent, clearIntent, theme } = useArchitectAny();
   const allDomains: Domain[] = (domainsData as unknown as Domain[]) || [];
-  const subdomains: Subdomain[] = (subdomainsData as unknown as Subdomain[]) || [];
-  const capabilities: SolutionCapability[] = (capabilitiesData as unknown as SolutionCapability[]) || [];
+  const subdomains: Subdomain[] =
+    (subdomainsData as unknown as Subdomain[]) || [];
+  const capabilities: SolutionCapability[] =
+    (capabilitiesData as unknown as SolutionCapability[]) || [];
   const solutions: Solution[] = (solutionsData as unknown as Solution[]) || [];
+
+  // Compatibility bridge: DomainContextBanner consumes canonical DomainItem shape,
+  // while this legacy UniverseStage still exposes the legacy Domain shape to its
+  // existing galaxy/rail components. Keep the visual/domain behavior unchanged.
+  const bannerDomains = useMemo<DomainItem[]>(
+    () =>
+      allDomains.map((domain) => ({
+        ...domain,
+        type: "DOMAIN",
+        layer: 1,
+        parentId: null,
+        domainId: domain.id,
+        path: [
+          {
+            id: domain.id,
+            name: domain.name,
+            layer: 1,
+            type: "DOMAIN",
+          },
+        ],
+        keywords: [],
+        aliases: [],
+        status: "active",
+      })),
+    [allDomains],
+  );
 
   const domains = useMemo(() => {
     if (!searchQuery.trim()) return allDomains;
@@ -81,7 +123,9 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
   const [isOrbiting, setIsOrbiting] = useState<boolean>(true);
   const [orbitSpeed, setOrbitSpeed] = useState<number>(1); // 0.5x, 1x, 2x
   const [rotationAngle, setRotationAngle] = useState<number>(0);
-  const [layoutMode, setLayoutMode] = useState<'single-oval' | 'dual-ring'>('single-oval');
+  const [layoutMode, setLayoutMode] = useState<"single-oval" | "dual-ring">(
+    "single-oval",
+  );
 
   const animationFrameRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number | null>(null);
@@ -95,7 +139,9 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
         // Slow gentle cosmic rotation: ~0.04 rad/s at 1x
         if (isOrbiting && !isHoveredStageRef.current) {
           const speedMultiplier = orbitSpeed * 0.045;
-          setRotationAngle((prev) => (prev + delta * speedMultiplier) % (Math.PI * 2));
+          setRotationAngle(
+            (prev) => (prev + delta * speedMultiplier) % (Math.PI * 2),
+          );
         }
       }
       lastTimeRef.current = time;
@@ -110,13 +156,11 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
     };
   }, [isOrbiting, orbitSpeed]);
 
-  const { startJourney, config: cinematicConfig } = useCinematicNavigation();
-
-  const executeDomainSelection = (domain: Domain) => {
+  const handleSelectDomain = (domain: Domain) => {
     setSelectedDomain(domain);
     setIntent({
-      query: '',
-      rawQuery: '',
+      query: "",
+      rawQuery: "",
       domainId: domain.id,
       subdomainId: null,
       capabilityId: null,
@@ -128,88 +172,19 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
       path: [{ id: domain.id, name: domain.name, layer: 1 }],
     });
     onDomainSelect?.(domain);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleSelectDomain = (domain: Domain) => {
-    if (!cinematicConfig.enabled) {
-      executeDomainSelection(domain);
-      return;
-    }
-
-    const matchedNode = nodePositions.find((n) => n.domain.id === domain.id);
-    const originWaypoint: CinematicWaypoint = {
-      layer: 1,
-      layerLabel: 'L1 Domain Universe',
-      id: 'L1-UNIVERSE-CORE',
-      name: 'ArchitectAny Solution Universe',
-      code: 'L1',
-      color: '#00e3fd',
-      coordinates: { x: 50, y: 50, z: 0, sector: 'SEC-SOL-001' },
-      description: 'Central Intent Core of the AAi Solution Universe',
-    };
-
-    const destinationWaypoint: CinematicWaypoint = {
-      layer: 2,
-      layerLabel: 'L2 Business Sub-World',
-      id: domain.id,
-      name: domain.name,
-      code: domain.id,
-      color: domain.visual?.color || '#00e3fd',
-      coordinates: {
-        x: Math.round(matchedNode?.xPercent || 50),
-        y: Math.round(matchedNode?.yPercent || 50),
-        z: -800,
-        sector: `SEC-${domain.id}-CORE`,
-      },
-      description: domain.description,
-    };
-
-    startJourney(originWaypoint, destinationWaypoint, () => {
-      executeDomainSelection(domain);
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleResetToRoot = () => {
-    if (selectedDomain && cinematicConfig.enabled) {
-      const originWaypoint: CinematicWaypoint = {
-        layer: 2,
-        layerLabel: 'L2 Business World',
-        id: selectedDomain.id,
-        name: selectedDomain.name,
-        code: selectedDomain.id,
-        color: selectedDomain.visual?.color || '#00e3fd',
-        coordinates: { x: 50, y: 50, z: -800, sector: `SEC-${selectedDomain.id}` },
-        description: selectedDomain.description,
-      };
-
-      const destinationWaypoint: CinematicWaypoint = {
-        layer: 1,
-        layerLabel: 'L1 Domain Universe',
-        id: 'L1-UNIVERSE-CORE',
-        name: 'ArchitectAny Solution Universe',
-        code: 'L1',
-        color: '#00e3fd',
-        coordinates: { x: 50, y: 50, z: 0, sector: 'SEC-SOL-001' },
-        description: 'Returning to 3D Orbit Galaxy',
-      };
-
-      startJourney(originWaypoint, destinationWaypoint, () => {
-        setSelectedDomain(null);
-        clearIntent();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    } else {
-      setSelectedDomain(null);
-      clearIntent();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    setSelectedDomain(null);
+    clearIntent();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // Mathematical Ellipse Parameters for Perfect 3D Galaxy Alignment
   // Center is exactly (50%, 50%)
   const orbitGeometry = useMemo(() => {
-    if (layoutMode === 'single-oval') {
+    if (layoutMode === "single-oval") {
       return {
         outerRx: 45.0, // 45.0% of container width (broad horizontal coverage)
         outerRy: 33.5, // 33.5% of container height (expanded vertical gap from center Intent Core)
@@ -239,8 +214,9 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
       const currentAngle = baseAngle + rotationAngle;
 
       const isInner =
-        layoutMode === 'dual-ring' &&
-        (domain.visual?.orbit === 'inner' || (domain.visual?.orbit === undefined && index % 2 !== 0));
+        layoutMode === "dual-ring" &&
+        (domain.visual?.orbit === "inner" ||
+          (domain.visual?.orbit === undefined && index % 2 !== 0));
       const rx = isInner ? innerRx : outerRx;
       const ry = isInner ? innerRy : outerRy;
 
@@ -250,7 +226,7 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
       // 3D Perspective Depth Factor based on sin(currentAngle)
       // sin = -1 (top / deep background) -> sin = +1 (bottom / closest foreground)
       const depthZ = Math.sin(currentAngle);
-      
+
       // Scale: 0.86 (back) to 1.14 (front)
       const depthScale = 0.86 + (depthZ + 1) * 0.14;
       // Opacity: 0.72 (back) to 1.0 (front)
@@ -279,7 +255,8 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
     return nodePositions.find((n) => n.domain.id === target.id) || null;
   }, [nodePositions, hoveredDomain, selectedDomain]);
 
-  const activeColor = hoveredDomain?.visual?.color || selectedDomain?.visual?.color || '#00e3fd';
+  const activeColor =
+    hoveredDomain?.visual?.color || selectedDomain?.visual?.color || "#00e3fd";
 
   // If a Business World (Domain) is selected, render the dedicated single-scroll Business World experience
   if (selectedDomain) {
@@ -304,38 +281,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
     );
   }
 
-  const handleOpenIntentCore = (query?: string) => {
-    if (!cinematicConfig.enabled) {
-      onOpenIntentCore?.(query);
-      return;
-    }
-
-    startJourney(
-      {
-        layer: 1,
-        layerLabel: 'L1 Domain Universe',
-        id: 'L1-UNIVERSE',
-        name: 'ArchitectAny Solution Universe',
-        code: 'M01',
-        color: '#00e3fd',
-        coordinates: { x: 50, y: 50, z: 0, sector: 'SEC-UNIVERSE-CORE' },
-      },
-      {
-        layer: 0,
-        layerLabel: 'AAi Intent Core',
-        id: 'INTENT-CORE',
-        name: 'AAi Intelligence Core',
-        code: 'INTENT',
-        color: '#00e3fd',
-        coordinates: { x: 50, y: 50, z: 0, sector: 'SEC-INTENT-CORE' },
-        description: 'Entering the intelligence center of the Universe',
-      },
-      () => {
-        onOpenIntentCore?.(query);
-      }
-    );
-  };
-
   // M01 Solution Universe Root View: 3D Galaxy Orbit + L1 Domain Explorer
   return (
     <div className={styles.stageWrapper}>
@@ -348,8 +293,11 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
       <div className="sticky top-0 z-40 w-full">
         <DomainContextBanner
           domain={null}
-          allDomains={allDomains}
-          onSelectDomain={handleSelectDomain}
+          allDomains={bannerDomains}
+          onSelectDomain={(domainItem) => {
+            const domain = allDomains.find((item) => item.id === domainItem.id);
+            if (domain) handleSelectDomain(domain);
+          }}
           theme={theme}
           onResetRoot={handleResetToRoot}
           rightExtra={
@@ -357,15 +305,23 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
               {/* Orbit Play / Pause */}
               <button
                 onClick={() => setIsOrbiting((prev) => !prev)}
-                aria-label={isOrbiting ? 'Pause Galaxy Orbit' : 'Resume Galaxy Orbit'}
+                aria-label={
+                  isOrbiting ? "Pause Galaxy Orbit" : "Resume Galaxy Orbit"
+                }
                 className={`flex items-center gap-1 px-2 py-0.5 rounded font-mono text-[10px] sm:text-[11px] border transition-all cursor-pointer ${
                   isOrbiting
-                    ? 'bg-[#00e3fd]/15 text-[#00e3fd] border-[#00e3fd]/40 hover:bg-[#00e3fd]/25 shadow-[0_0_8px_rgba(0,227,253,0.2)] font-bold'
-                    : 'bg-[#031d33] text-[#c3d9ea] border-[#00dfff]/20 hover:text-white hover:border-[#00e3fd]/50'
+                    ? "bg-[#00e3fd]/15 text-[#00e3fd] border-[#00e3fd]/40 hover:bg-[#00e3fd]/25 shadow-[0_0_8px_rgba(0,227,253,0.2)] font-bold"
+                    : "bg-[#031d33] text-[#c3d9ea] border-[#00dfff]/20 hover:text-white hover:border-[#00e3fd]/50"
                 }`}
               >
-                {isOrbiting ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
-                <span className="hidden sm:inline">{isOrbiting ? 'Orbiting' : 'Paused'}</span>
+                {isOrbiting ? (
+                  <Pause className="w-3 h-3" />
+                ) : (
+                  <Play className="w-3 h-3" />
+                )}
+                <span className="hidden sm:inline">
+                  {isOrbiting ? "Orbiting" : "Paused"}
+                </span>
               </button>
 
               {/* Speed Presets */}
@@ -376,8 +332,8 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
                     onClick={() => setOrbitSpeed(spd)}
                     className={`px-1.5 py-0.5 rounded text-[10px] font-mono transition-colors cursor-pointer ${
                       orbitSpeed === spd
-                        ? 'bg-[#00e3fd] text-[#001f24] font-bold'
-                        : 'text-[#9ec5de] hover:text-white'
+                        ? "bg-[#00e3fd] text-[#001f24] font-bold"
+                        : "text-[#9ec5de] hover:text-white"
                     }`}
                   >
                     {spd}x
@@ -387,13 +343,19 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
 
               {/* Layout Mode (Single Oval / Dual Ring) */}
               <button
-                onClick={() => setLayoutMode((prev) => (prev === 'single-oval' ? 'dual-ring' : 'single-oval'))}
+                onClick={() =>
+                  setLayoutMode((prev) =>
+                    prev === "single-oval" ? "dual-ring" : "single-oval",
+                  )
+                }
                 aria-label="Toggle Orbit Alignment Shape"
                 className="flex items-center gap-1 px-2 py-0.5 rounded bg-[#07192c] border border-[#00dfff]/20 hover:border-[#00e3fd]/50 font-mono text-[10px] sm:text-[11px] text-[#c3d9ea] hover:text-[#00e3fd] transition-all cursor-pointer"
                 title="Toggle Galaxy Oval Shape"
               >
                 <RotateCw className="w-3 h-3 text-[#00e3fd]" />
-                <span className="capitalize hidden sm:inline">{layoutMode === 'single-oval' ? 'Oval' : 'Spiral'}</span>
+                <span className="capitalize hidden sm:inline">
+                  {layoutMode === "single-oval" ? "Oval" : "Spiral"}
+                </span>
               </button>
             </div>
           }
@@ -416,15 +378,31 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
           <div className={styles.galaxyArmGlow} />
 
           {/* Precision SVG Galaxy Orbits & Laser Synapses */}
-          <svg className={styles.svgGalaxyLayer} viewBox="0 0 100 100" preserveAspectRatio="none">
+          <svg
+            className={styles.svgGalaxyLayer}
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+          >
             <defs>
-              <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient
+                id="orbitGrad"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
                 <stop offset="0%" stopColor="#00e3fd" stopOpacity="0.35" />
                 <stop offset="50%" stopColor="#76b6ff" stopOpacity="0.15" />
                 <stop offset="100%" stopColor="#ddb7ff" stopOpacity="0.3" />
               </linearGradient>
 
-              <linearGradient id="innerOrbitGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <linearGradient
+                id="innerOrbitGrad"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="0%"
+              >
                 <stop offset="0%" stopColor="#00e3fd" stopOpacity="0.25" />
                 <stop offset="100%" stopColor="#bdf4ff" stopOpacity="0.1" />
               </linearGradient>
@@ -434,7 +412,13 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
                 <stop offset="100%" stopColor="#00e3fd" stopOpacity="0.2" />
               </radialGradient>
 
-              <filter id="laserGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <filter
+                id="laserGlow"
+                x="-20%"
+                y="-20%"
+                width="140%"
+                height="140%"
+              >
                 <feGaussianBlur stdDeviation="1.5" result="blur" />
                 <feMerge>
                   <feMergeNode in="blur" />
@@ -444,10 +428,38 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
             </defs>
 
             {/* Galaxy Coordinate Radial Guides */}
-            <line x1="50" y1="50" x2="4" y2="50" stroke="rgba(0, 227, 253, 0.1)" strokeDasharray="1,2" />
-            <line x1="50" y1="50" x2="96" y2="50" stroke="rgba(0, 227, 253, 0.1)" strokeDasharray="1,2" />
-            <line x1="50" y1="50" x2="50" y2="9" stroke="rgba(0, 227, 253, 0.08)" strokeDasharray="1,2" />
-            <line x1="50" y1="50" x2="50" y2="91" stroke="rgba(0, 227, 253, 0.08)" strokeDasharray="1,2" />
+            <line
+              x1="50"
+              y1="50"
+              x2="4"
+              y2="50"
+              stroke="rgba(0, 227, 253, 0.1)"
+              strokeDasharray="1,2"
+            />
+            <line
+              x1="50"
+              y1="50"
+              x2="96"
+              y2="50"
+              stroke="rgba(0, 227, 253, 0.1)"
+              strokeDasharray="1,2"
+            />
+            <line
+              x1="50"
+              y1="50"
+              x2="50"
+              y2="9"
+              stroke="rgba(0, 227, 253, 0.08)"
+              strokeDasharray="1,2"
+            />
+            <line
+              x1="50"
+              y1="50"
+              x2="50"
+              y2="91"
+              stroke="rgba(0, 227, 253, 0.08)"
+              strokeDasharray="1,2"
+            />
 
             {/* Primary Galaxy Outer Orbit Ellipse (Exact Mathematical Alignment) */}
             <ellipse
@@ -458,7 +470,7 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
               fill="none"
               stroke="url(#orbitGrad)"
               strokeWidth="0.35"
-              strokeDasharray={layoutMode === 'single-oval' ? 'none' : '1.5, 1'}
+              strokeDasharray={layoutMode === "single-oval" ? "none" : "1.5, 1"}
               className="transition-all duration-700"
             />
 
@@ -476,7 +488,7 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
             />
 
             {/* Secondary Inner Orbit Ellipse if in dual-ring mode */}
-            {layoutMode === 'dual-ring' && (
+            {layoutMode === "dual-ring" && (
               <ellipse
                 cx="50"
                 cy="50"
@@ -506,7 +518,13 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
                   strokeDashoffset={-rotationAngle * 20}
                 />
                 {/* Core connection pulse point */}
-                <circle cx="50" cy="50" r="1.5" fill={activeColor} opacity="0.8" />
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="1.5"
+                  fill={activeColor}
+                  opacity="0.8"
+                />
                 {/* Node connection target point */}
                 <circle
                   cx={activeNodePos.xPercent}
@@ -523,35 +541,41 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-25 pointer-events-auto">
             <IntentCore
               activeDomainColor={activeColor}
-              onClick={() => handleOpenIntentCore()}
-              onSubmitIntent={(query) => handleOpenIntentCore(query)}
+              onClick={() => onOpenIntentCore?.()}
+              onSubmitIntent={(query) => onOpenIntentCore?.(query)}
             />
           </div>
 
           {/* Dynamically Placed Domain Worlds Aligned in Perfect 3D Galaxy Oval */}
           <div className="absolute inset-0 w-full h-full pointer-events-none">
-            {nodePositions.map(({ domain, xPercent, yPercent, depthScale, depthOpacity, zIndex }) => (
-              <DomainNode
-                key={domain.id}
-                domain={domain}
-                isSelected={selectedDomain?.id === domain.id}
-                isHovered={hoveredDomain?.id === domain.id}
-                isAnyHovered={hoveredDomain !== null}
-                xPercent={xPercent}
-                yPercent={yPercent}
-                depthScale={depthScale}
-                depthOpacity={depthOpacity}
-                zIndex={zIndex}
-                onSelect={handleSelectDomain}
-                onHover={setHoveredDomain}
-              />
-            ))}
+            {nodePositions.map(
+              ({
+                domain,
+                xPercent,
+                yPercent,
+                depthScale,
+                depthOpacity,
+                zIndex,
+              }) => (
+                <DomainNode
+                  key={domain.id}
+                  domain={domain}
+                  isSelected={selectedDomain?.id === domain.id}
+                  isHovered={hoveredDomain?.id === domain.id}
+                  isAnyHovered={hoveredDomain !== null}
+                  xPercent={xPercent}
+                  yPercent={yPercent}
+                  depthScale={depthScale}
+                  depthOpacity={depthOpacity}
+                  zIndex={zIndex}
+                  onSelect={handleSelectDomain}
+                  onHover={setHoveredDomain}
+                />
+              ),
+            )}
           </div>
         </div>
       </div>
-
-      {/* Interactive Cinematic Navigation Showcase (L1 → L6 Distinct Spatial Journeys) */}
-      <CinematicJourneyShowcase />
 
       {/* 3. L1 Domain Universe Explorer Grid */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 z-30">
@@ -563,13 +587,14 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
             </h2>
           </div>
           <span className="text-xs font-mono text-[#c3d9ea]">
-            Click any domain node in the 3D galaxy or select a card below to explore capabilities
+            Click any domain node in the 3D galaxy or select a card below to
+            explore capabilities
           </span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {domains.map((domain) => {
-            const domColor = domain.visual?.color || '#00dfff';
+            const domColor = domain.visual?.color || "#00dfff";
             return (
               <button
                 key={domain.id}
@@ -589,7 +614,9 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
                     >
                       {domain.id}
                     </span>
-                    <span className="text-[10px] font-mono text-[#9ec5de] uppercase">L1 Domain</span>
+                    <span className="text-[10px] font-mono text-[#9ec5de] uppercase">
+                      L1 Domain
+                    </span>
                   </div>
                   <h3 className="font-semibold text-sm text-[#eaf7ff] group-hover:text-[#00e3fd] transition-colors mb-1.5">
                     {domain.name}
@@ -611,4 +638,3 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
     </div>
   );
 };
-

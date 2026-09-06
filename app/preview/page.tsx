@@ -1,26 +1,40 @@
-'use client';
+/**
+ * Architect: Vijay Kumar K.
+ * Platform: ArchitectAny (AAi)
+ *
+ * Context: M01 Solution Universe
+ * Catalog Source: Canonical Capability Catalog
+ * Status: ACTIVE
+ * Version: 1.0.0
+ */
 
-import React, { useState } from 'react';
-import { Header } from '@/components/preview/Header';
-import { UniverseStage } from '@/components/preview/UniverseStage';
-import { IntentCoreHome } from '@/components/preview/IntentCoreHome';
-import { SolutionDetail } from '@/components/preview/SolutionDetail';
-import { Footer } from '@/components/preview/Footer';
-import { SpatialMapModal } from '@/components/map/SpatialMapModal';
-import { LocationPromptModal } from '@/components/location/LocationPromptModal';
-import domainsData from '@/data/universe/domains.json';
-import subdomainsData from '@/data/universe/subdomains.json';
-import capabilitiesData from '@/data/universe/solution-capabilities.json';
-import solutionsData from '@/data/universe/solutions.json';
-import { Domain, Subdomain, Capability, Solution } from '@/src/types';
-import { useArchitectAny } from '@/src/context/ArchitectAnyContext';
-import { ContextualNavigationRail } from '@/components/preview/ContextualNavigationRail';
-import { ContextualIntelligenceRail } from '@/components/preview/ContextualIntelligenceRail';
-import { CinematicJourneyOverlay } from '@/components/cinematic/CinematicJourneyOverlay';
-import { useUniversalNavigation } from '@/src/context/UniversalNavigationContext';
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { Header } from "@/components/preview/Header";
+import { UniverseStage } from "@/components/preview/UniverseStage";
+import { IntentCoreHome } from "@/components/preview/IntentCoreHome";
+import { SolutionDetail } from "@/components/preview/SolutionDetail";
+import { Footer } from "@/components/preview/Footer";
+import { SpatialMapModal } from "@/components/map/SpatialMapModal";
+import { LocationPromptModal } from "@/components/location/LocationPromptModal";
+import { ContextualNavigationRail } from "@/components/preview/ContextualNavigationRail";
+import { ContextualIntelligenceRail } from "@/components/preview/ContextualIntelligenceRail";
+import { CinematicJourneyOverlay } from "@/components/cinematic/CinematicJourneyOverlay";
+import { useArchitectAny } from "@/src/context/ArchitectAnyContext";
+import { useUniversalNavigation } from "@/src/context/UniversalNavigationContext";
+import { catalogRepository } from "@/src/repositories/catalogRepository";
+import type {
+  DomainItem,
+  SubdomainItem,
+  CapabilityItem,
+  SolutionItem,
+} from "@/src/contracts/catalog";
+import type { Domain, Subdomain, Capability, Solution } from "@/src/types";
 
 export default function PreviewPage() {
   const { theme } = useArchitectAny();
+
   const {
     isIntentCoreActive,
     selectedSolutionId,
@@ -29,51 +43,136 @@ export default function PreviewPage() {
     navigateTo,
   } = useUniversalNavigation();
 
-  const isDark = theme === 'dark';
+  const isDark = theme === "dark";
 
-  const [currentTab, setCurrentTab] = useState('Universe');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [currentTab, setCurrentTab] = useState("Universe");
+  const [searchQuery, setSearchQuery] = useState("");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [mapModalPrefill, setMapModalPrefill] = useState<string | undefined>();
 
-  const domains: Domain[] = (domainsData as unknown as Domain[]) || [];
-  const subdomains: Subdomain[] = (subdomainsData as unknown as Subdomain[]) || [];
-  const capabilities: Capability[] = (capabilitiesData as unknown as Capability[]) || [];
-  const solutions: Solution[] = (solutionsData as unknown as Solution[]) || [];
+  const [domains, setDomains] = useState<Domain[]>([]);
+  const [subdomains, setSubdomains] = useState<Subdomain[]>([]);
+  const [capabilities, setCapabilities] = useState<Capability[]>([]);
+  const [solutions, setSolutions] = useState<Solution[]>([]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    Promise.all([
+      catalogRepository.getDomains(),
+      catalogRepository.getSubdomains(),
+      catalogRepository.getCapabilities(),
+      catalogRepository.getSolutions(),
+    ])
+      .then(([domainItems, subdomainItems, capabilityItems, solutionItems]) => {
+        if (!mounted) return;
+
+        setDomains(
+          domainItems.map(
+            (item: DomainItem): Domain => ({
+              id: item.id,
+              key: item.id,
+              name: item.name,
+              description: item.description,
+              color: item.color,
+              visual: {
+                color: item.color || item.accentColor,
+              },
+            }),
+          ),
+        );
+
+        setSubdomains(
+          subdomainItems.map(
+            (item: SubdomainItem): Subdomain => ({
+              id: item.id,
+              domainId: item.domainId,
+              name: item.name,
+              description: item.description,
+              capabilityCount: item.capabilityCount,
+              solutionCount: item.solutionCount,
+            }),
+          ),
+        );
+
+        setCapabilities(
+          capabilityItems.map(
+            (item: CapabilityItem): Capability => ({
+              id: item.id,
+              domainId: item.domainId,
+              subdomainId: item.subdomainId || undefined,
+              name: item.name,
+              description: item.description,
+            }),
+          ),
+        );
+
+        setSolutions(
+          solutionItems.map(
+            (item: SolutionItem): Solution => ({
+              id: item.id,
+              domainId: item.domainId,
+              subdomainId: item.subdomainId || undefined,
+              capabilityId: item.capabilityId || undefined,
+              solutionBundleId: item.solutionBundleId || undefined,
+              name: item.name,
+              description: item.description,
+              rating: item.rating,
+              complexity: item.complexity,
+              estimatedEffort: item.estimatedEffort,
+              features: item.features,
+              platformOptions: item.platformOptions,
+              supportingDomains: item.supportingDomains,
+              status: item.status,
+            }),
+          ),
+        );
+      })
+      .catch(() => {
+        if (!mounted) return;
+
+        setDomains([]);
+        setSubdomains([]);
+        setCapabilities([]);
+        setSolutions([]);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const activeSolution = selectedSolutionId
-    ? solutions.find((s) => s.id === selectedSolutionId) || null
+    ? solutions.find((solution) => solution.id === selectedSolutionId) || null
     : null;
 
   return (
     <div
       className={`font-sans min-h-screen flex flex-col overflow-x-hidden transition-colors duration-300 ${
         isDark
-          ? 'bg-[#020914] text-[#eaf7ff] selection:bg-[#00e3fd] selection:text-[#001f24]'
-          : 'bg-[#f1f5f9] text-slate-900 selection:bg-indigo-500 selection:text-white'
+          ? "bg-[#020914] text-[#eaf7ff] selection:bg-[#00e3fd] selection:text-[#001f24]"
+          : "bg-[#f1f5f9] text-slate-900 selection:bg-indigo-500 selection:text-white"
       }`}
     >
-      {/* 1. ArchitectAny Production Header */}
       <Header
         currentTab={currentTab}
         onTabChange={(tab) => {
           setCurrentTab(tab);
-          if (tab === 'Universe') {
+
+          if (tab === "Universe") {
             navigateTo({ layer: 1 });
           }
         }}
         onHome={() => navigateTo({ layer: 1 })}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
-        onSelectSolution={(solId) => navigateTo({ layer: 5, solutionId: solId })}
-        onSelectSearchResult={(res) => navigateTo({ type: 'search-result', result: res })}
+        onSelectSolution={(solutionId) => navigateTo({ layer: 5, solutionId })}
         onOpenMapModal={(prefill) => {
           setMapModalPrefill(prefill);
           setIsMapModalOpen(true);
         }}
       />
 
-      {/* 2. Main Solution Universe & Navigation Body */}
       <main className="flex-grow flex flex-col relative z-10 w-full overflow-x-hidden">
         {selectedSolutionId ? (
           <SolutionDetail
@@ -82,7 +181,7 @@ export default function PreviewPage() {
             domains={domains}
             subdomains={subdomains}
             capabilities={capabilities}
-            onBackToUniverse={() => navigateTo({ type: 'up-level' })}
+            onBackToUniverse={() => navigateTo({ type: "up-level" })}
           />
         ) : isIntentCoreActive ? (
           <IntentCoreHome
@@ -92,32 +191,38 @@ export default function PreviewPage() {
             solutions={solutions}
             initialQuery={intentCoreQuery}
             onReturnToUniverse={() => navigateTo({ layer: 1 })}
-            onNavigateToDomain={(domainId) => navigateTo({ layer: 2, domainId })}
-            onNavigateToSolution={(solId) => navigateTo({ layer: 5, solutionId: solId })}
+            onNavigateToDomain={(domainId) =>
+              navigateTo({ layer: 2, domainId })
+            }
+            onNavigateToSolution={(solutionId) =>
+              navigateTo({ layer: 5, solutionId })
+            }
           />
         ) : (
           <UniverseStage
             searchQuery={searchQuery}
-            onSelectSolution={(solId) => navigateTo({ layer: 5, solutionId: solId })}
+            onSelectSolution={(solutionId) =>
+              navigateTo({ layer: 5, solutionId })
+            }
             onOpenIntentCore={(query) => {
-              if (query) setIntentCoreQuery(query);
+              if (query) {
+                setIntentCoreQuery(query);
+              }
+
               navigateTo({ layer: 0, query });
             }}
           />
         )}
       </main>
 
-      {/* 3. Left Contextual Navigation Rail (Compact Floating Tool) */}
       <ContextualNavigationRail
         domains={domains}
         subdomains={subdomains}
         selectedSolutionId={selectedSolutionId}
         onSelectDomain={(domainId) => navigateTo({ layer: 2, domainId })}
         onResetRoot={() => navigateTo({ layer: 1 })}
-        onOpenIntentCore={() => navigateTo({ layer: 0 })}
       />
 
-      {/* 4. Right Contextual Intelligence Rail (Compact Floating Tool) */}
       <ContextualIntelligenceRail
         domains={domains}
         subdomains={subdomains}
@@ -126,23 +231,19 @@ export default function PreviewPage() {
         selectedSolutionId={selectedSolutionId}
         activeSolution={activeSolution}
         onSelectDomain={(domainId) => navigateTo({ layer: 2, domainId })}
-        onSelectSolution={(solId) => navigateTo({ layer: 5, solutionId: solId })}
+        onSelectSolution={(solutionId) => navigateTo({ layer: 5, solutionId })}
       />
 
-      {/* 5. ArchitectAny Platform Footer */}
       <Footer />
 
-      {/* 6. Spatial GIS & Indian Service Map Modal */}
       <SpatialMapModal
         isOpen={isMapModalOpen}
         initialQuery={mapModalPrefill}
         onClose={() => setIsMapModalOpen(false)}
       />
 
-      {/* 7. First-Interaction Location Intelligence Dialog */}
       <LocationPromptModal />
 
-      {/* 8. AAi Cinematic Navigation Journey Spatial Overlay */}
       <CinematicJourneyOverlay />
     </div>
   );
