@@ -1,0 +1,74 @@
+{
+  "headerLinks": [
+    { "id": "home", "label": "Home", "tamilLabel": "முகப்பு", "iconName": "Home", "targetView": "home" },
+    { "id": "darshan", "label": "Darshan", "tamilLabel": "தரிசனம்", "iconName": "Sparkles", "targetView": "darshan" },
+    { "id": "today", "label": "Today", "tamilLabel": "இன்று", "iconName": "Calendar", "targetView": "today", "badge": "6:30 AM" },
+    { "id": "events", "label": "Events & Festival", "tamilLabel": "திருவிழா", "iconName": "Flame", "targetView": "events" },
+    { "id": "media", "label": "Videos / Media", "tamilLabel": "காணொளிகள்", "iconName": "PlaySquare", "targetView": "media" },
+    { "id": "nearby", "label": "Nearby & Services", "tamilLabel": "சேவைகள்", "iconName": "Store", "targetView": "nearby" },
+    { "id": "marketplace", "label": "Hypermarket", "tamilLabel": "சந்தை", "iconName": "ShoppingBag", "targetView": "marketplace" },
+    { "id": "community", "label": "Community", "tamilLabel": "சமூகம்", "iconName": "Users", "targetView": "community" },
+    { "id": "map", "label": "Temple Map", "tamilLabel": "வரைபடம்", "iconName": "MapPin", "targetView": "map" }
+  ],
+  "leftRailItems": [
+    { "id": "rail-temple", "label": "Temple Sanctum", "tamilLabel": "திருக்கோவில்", "iconName": "Landmark", "targetView": "darshan", "description": "Madhusoodhana Perumal & Gopuram" },
+    { "id": "rail-darshan", "label": "Sacred Darshan", "tamilLabel": "தரிசனம்", "iconName": "Sparkles", "targetView": "darshan", "description": "Timings & Moolavar Alankaram" },
+    { "id": "rail-today", "label": "Today at Parakkai", "tamilLabel": "இன்றைய நிகழ்வு", "iconName": "Sun", "targetView": "today", "badge": "6:30 AM", "description": "Sunlight Miracle on Lord's Feet" },
+    { "id": "rail-events", "label": "Festival & Events", "tamilLabel": "திருவிழாக்கள்", "iconName": "Flame", "targetView": "events", "description": "Panguni Brahmotsavam & Calendar" },
+    { "id": "rail-media", "label": "Devotional Media", "tamilLabel": "பக்தி கானங்கள்", "iconName": "Video", "targetView": "media", "description": "YouTube-style slokas & darshan" },
+    { "id": "rail-blog", "label": "Temple Stories", "tamilLabel": "வரலாறு", "iconName": "BookOpen", "targetView": "blog", "description": "Legends, Architecture & Heritage" },
+    { "id": "rail-nature", "label": "Parakkai Nature", "tamilLabel": "இயற்கை & ஏரி", "iconName": "Trees", "targetView": "home", "description": "Sacred Lake, Banyan & Village" },
+    { "id": "rail-map", "label": "Sacred Map", "tamilLabel": "புனித வரைபடம்", "iconName": "Compass", "targetView": "map", "description": "Parakkai to Kanyakumari" }
+  ],
+  "rightRailItems": [
+    { "id": "act-book-darshan", "label": "Book Darshan", "tamilLabel": "தரிசன முன்பதிவு", "iconName": "Ticket", "targetView": "darshan", "badge": "Open" },
+    { "id": "act-book-pooja", "label": "Book Pooja", "tamilLabel": "பூஜை முன்பதிவு", "iconName": "Sparkles", "targetView": "darshan" },
+    { "id": "act-book-event", "label": "Book Event", "tamilLabel": "விழா முன்பதிவு", "iconName": "Calendar", "targetView": "events" },
+    { "id": "act-watch-live", "label": "Watch Live", "tamilLabel": "நேரலை / காணொளி", "iconName": "PlaySquare", "targetView": "media" },
+    { "id": "act-concern", "label": "Concern", "tamilLabel": "குறைதீர்ப்பு", "iconName": "AlertCircle", "targetView": "community" },
+    { "id": "act-idea", "label": "Idea", "tamilLabel": "யோசனை", "iconName": "Lightbulb", "targetView": "community" },
+    { "id": "act-feedback", "label": "Feedback", "tamilLabel": "கருத்துகள்", "iconName": "HeartHandshake", "targetView": "community" },
+    { "id": "act-nearby", "label": "Nearby", "tamilLabel": "அருகிலுள்ள சேவைகள்", "iconName": "Store", "targetView": "nearby" },
+    { "id": "act-whatsapp", "label": "WhatsApp", "tamilLabel": "வாட்ஸ்அப் சேவை", "iconName": "MessageCircle", "targetView": "contact", "isExternal": true }
+  ],
+  "footerSections": [
+    {
+      "title": "Temple & Darshan",
+      "tamilTitle": "திருக்கோவில் & தரிசனம்",
+      "items": [
+        { "id": "f-moolavar", "label": "Madhusoodhana Perumal", "iconName": "Sparkles", "targetView": "darshan" },
+        { "id": "f-kodimaram", "label": "Golden Kodimaram & 6:30 AM Sunlight", "iconName": "Sun", "targetView": "today" },
+        { "id": "f-pooja", "label": "Pooja Offerings & Archanai", "iconName": "Sparkles", "targetView": "darshan" },
+        { "id": "f-gopuram", "label": "Dasavataram Gopuram Arch", "iconName": "Landmark", "targetView": "home" }
+      ]
+    },
+    {
+      "title": "Events & Media",
+      "tamilTitle": "நிகழ்வுகள் & ஊடகம்",
+      "items": [
+        { "id": "f-festivals", "label": "Panguni Brahmotsavam", "iconName": "Flame", "targetView": "events" },
+        { "id": "f-videos", "label": "Devotional Slokas & Bhajan", "iconName": "Video", "targetView": "media" },
+        { "id": "f-stories", "label": "Sacred Legends of Parakkai", "iconName": "BookOpen", "targetView": "blog" }
+      ]
+    },
+    {
+      "title": "Community & Ecosystem",
+      "tamilTitle": "சமூகம் & உள்ளூர் வாழ்வு",
+      "items": [
+        { "id": "f-concerns", "label": "Civic & Temple Grievance Portal", "iconName": "AlertCircle", "targetView": "community" },
+        { "id": "f-volunteer", "label": "Annadhanam & Temple Seva", "iconName": "HeartHandshake", "targetView": "community" },
+        { "id": "f-shops", "label": "Nearby Shops & Transport", "iconName": "Store", "targetView": "nearby" },
+        { "id": "f-market", "label": "Parakkai Hypermarket", "iconName": "ShoppingBag", "targetView": "marketplace" }
+      ]
+    },
+    {
+      "title": "Sacred Geography",
+      "tamilTitle": "புனித பூகோளம்",
+      "items": [
+        { "id": "f-lake", "label": "Parakkai Sacred Teertham Lake", "iconName": "Trees", "targetView": "map" },
+        { "id": "f-vinayakar", "label": "Arasamotu Sakthi Vinayakar", "iconName": "MapPin", "targetView": "map" },
+        { "id": "f-kanyakumari", "label": "Kanyakumari Pilgrimage Circuit", "iconName": "Compass", "targetView": "map" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "activeThemeId": "parakkai-twilight-deepam",
+  "scheduleMode": "weekly",
+  "availableThemes": [
+    {
+      "id": "parakkai-twilight-deepam",
+      "name": "ArchitectAny Dark (Sayaratchai Twilight)",
+      "tamilName": "சாயரட்சை தீப அந்தி (இருள் களம்)",
+      "description": "ArchitectAny deep dark blue/near-black canvas, natural blue, subtle gold accents, natural green, and warm sunrise morning highlights.",
+      "character": "ArchitectAny Dark & Sacred Deepam Glow",
+      "lightingEffect": "golden-deepam",
+      "colors": {
+        "primarySkyBlue": "#38bdf8",
+        "skyBlueHover": "#0284c7",
+        "sacredGold": "#f59e0b",
+        "goldAccent": "#fbbf24",
+        "deepTempleNavy": "#020914",
+        "sacredIvoryStone": "#f1f5f9",
+        "templeGreen": "#10b981",
+        "templeCrimson": "#ef4444",
+        "surfaceCanvas": "#020914",
+        "surfaceElevated": "#03162b",
+        "surfaceCard": "#05223e",
+        "borderSubtle": "rgba(0, 227, 253, 0.2)",
+        "borderGold": "rgba(245, 158, 11, 0.45)",
+        "textPrimary": "#f8fafc",
+        "textSecondary": "#94a3b8",
+        "textGold": "#fbbf24",
+        "sunlightGlow": "rgba(245, 158, 11, 0.55)"
+      },
+      "typography": {
+        "displayFont": "Playfair Display, serif",
+        "bodyFont": "Plus Jakarta Sans, sans-serif",
+        "tamilFont": "'Noto Sans Tamil', 'Mukta Malar', sans-serif"
+      }
+    },
+    {
+      "id": "parakkai-sky",
+      "name": "Parakkai Daylight Sky (Canonical Light)",
+      "tamilName": "பறக்கை பகல் வானம் (இயற்கை ஒளி)",
+      "description": "Natural daylight azure sky, lush green coconut nature, sacred ivory temple stone, illuminated by gentle morning sunlight and subtle temple gold.",
+      "character": "Sky, Water, Nature, Temple, Sunlight",
+      "lightingEffect": "morning-sunlight",
+      "colors": {
+        "primarySkyBlue": "#0284c7",
+        "skyBlueHover": "#0369a1",
+        "sacredGold": "#d97706",
+        "goldAccent": "#f59e0b",
+        "deepTempleNavy": "#0c4a6e",
+        "sacredIvoryStone": "#fdfbf7",
+        "templeGreen": "#15803d",
+        "templeCrimson": "#b91c1c",
+        "surfaceCanvas": "#f0f7ff",
+        "surfaceElevated": "#ffffff",
+        "surfaceCard": "#f8fafc",
+        "borderSubtle": "rgba(2, 132, 199, 0.18)",
+        "borderGold": "rgba(217, 119, 6, 0.32)",
+        "textPrimary": "#0f172a",
+        "textSecondary": "#475569",
+        "textGold": "#b45309",
+        "sunlightGlow": "rgba(245, 158, 11, 0.4)"
+      },
+      "typography": {
+        "displayFont": "Playfair Display, serif",
+        "bodyFont": "Plus Jakarta Sans, sans-serif",
+        "tamilFont": "'Noto Sans Tamil', 'Mukta Malar', sans-serif"
+      }
+    },
+    {
+      "id": "parakkai-morning-gold",
+      "name": "6:30 AM Sunlight Glow",
+      "tamilName": "காலை 6.30 சூரிய ஒளி",
+      "description": "Warm dawn golden hues celebrating the moment sunlight penetrates the sanctum to touch the Lord's lotus feet.",
+      "character": "Morning Dawn & Divine Rays",
+      "lightingEffect": "morning-sunlight",
+      "colors": {
+        "primarySkyBlue": "#0284c7",
+        "skyBlueHover": "#0369a1",
+        "sacredGold": "#d97706",
+        "goldAccent": "#f59e0b",
+        "deepTempleNavy": "#1e293b",
+        "sacredIvoryStone": "#fffdf5",
+        "templeGreen": "#166534",
+        "templeCrimson": "#991b1b",
+        "surfaceCanvas": "#fffbeb",
+        "surfaceElevated": "#ffffff",
+        "surfaceCard": "#fef3c7",
+        "borderSubtle": "rgba(245, 158, 11, 0.25)",
+        "borderGold": "rgba(217, 119, 6, 0.5)",
+        "textPrimary": "#1c1917",
+        "textSecondary": "#78350f",
+        "textGold": "#b45309",
+        "sunlightGlow": "rgba(245, 158, 11, 0.5)"
+      },
+      "typography": {
+        "displayFont": "Playfair Display, serif",
+        "bodyFont": "Plus Jakarta Sans, sans-serif",
+        "tamilFont": "'Noto Sans Tamil', 'Mukta Malar', sans-serif"
+      }
+    },
+    {
+      "id": "parakkai-twilight-deepam",
+      "name": "Sayaratchai Deepam Twilight",
+      "tamilName": "சாயரட்சை தீப அந்தி",
+      "description": "Deep evening indigo sky with hundreds of oil lamps glowing across the granite stone corridors.",
+      "character": "Twilight & Sacred Oil Lamps",
+      "lightingEffect": "golden-deepam",
+      "colors": {
+        "primarySkyBlue": "#38bdf8",
+        "skyBlueHover": "#0284c7",
+        "sacredGold": "#fbbf24",
+        "goldAccent": "#f59e0b",
+        "deepTempleNavy": "#020712",
+        "sacredIvoryStone": "#f1f5f9",
+        "templeGreen": "#15803d",
+        "templeCrimson": "#ef4444",
+        "surfaceCanvas": "#020712",
+        "surfaceElevated": "#041026",
+        "surfaceCard": "#071b3e",
+        "borderSubtle": "rgba(56, 189, 248, 0.2)",
+        "borderGold": "rgba(251, 191, 36, 0.45)",
+        "textPrimary": "#f8fafc",
+        "textSecondary": "#cbd5e1",
+        "textGold": "#fde047",
+        "sunlightGlow": "rgba(251, 191, 36, 0.4)"
+      },
+      "typography": {
+        "displayFont": "Playfair Display, serif",
+        "bodyFont": "Plus Jakarta Sans, sans-serif",
+        "tamilFont": "'Noto Sans Tamil', 'Mukta Malar', sans-serif"
+      }
+    }
+  ]
+}

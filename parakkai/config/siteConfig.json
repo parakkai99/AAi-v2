@@ -1,0 +1,30 @@
+{
+  "name": "Parakkai",
+  "displayName": "Arulmigu Sri Devi Bhoodevi Sametha Madhusoodhana Perumal Temple",
+  "tamilDisplayName": "அருள்மிகு ஸ்ரீதேவி பூதேவி சமேத மதுசூதன பெருமாள் திருக்கோவில் - பறக்கை",
+  "tagline": "Devotion • Heritage • Community • A Brighter Tomorrow",
+  "subTagline": "A Living Temple • A Living Village • A Timeless Heritage",
+  "symbol": "🪷",
+  "language": "both",
+  "locationName": "Parakkai",
+  "region": "Kanyakumari District",
+  "district": "Kanyakumari",
+  "state": "Tamil Nadu, India",
+  "coordinates": {
+    "latitude": 8.1472,
+    "longitude": 77.4522
+  },
+  "contact": {
+    "phone": "+91 4652 240 108",
+    "whatsappNumber": "919443000000",
+    "email": "seva@parakkai.temple.org",
+    "officeHours": "5:30 AM – 12:30 PM & 4:30 PM – 8:30 PM IST",
+    "address": "Sannadhi Street, Parakkai, Kanyakumari District, Tamil Nadu 629601"
+  },
+  "socialLinks": {
+    "youtube": "https://youtube.com/@parakkai-perumal-temple",
+    "whatsappChannel": "https://whatsapp.com/channel/parakkai-temple",
+    "facebook": "https://facebook.com/parakkai.perumal",
+    "instagram": "https://instagram.com/parakkai_temple"
+  }
+}

@@ -8,15 +8,18 @@ import PreviewPage from '@/app/preview/page';
 import { ArchitectAnyProvider } from '@/src/context/ArchitectAnyContext';
 import { CinematicNavigationProvider } from '@/src/context/CinematicNavigationContext';
 import { UniversalNavigationProvider } from '@/src/context/UniversalNavigationContext';
+import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 
 export default function App() {
   return (
-    <ArchitectAnyProvider>
-      <CinematicNavigationProvider>
-        <UniversalNavigationProvider>
-          <PreviewPage />
-        </UniversalNavigationProvider>
-      </CinematicNavigationProvider>
-    </ArchitectAnyProvider>
+    <ErrorBoundary fallbackTitle="ArchitectAny Experience Protected">
+      <ArchitectAnyProvider>
+        <CinematicNavigationProvider>
+          <UniversalNavigationProvider>
+            <PreviewPage />
+          </UniversalNavigationProvider>
+        </CinematicNavigationProvider>
+      </ArchitectAnyProvider>
+    </ErrorBoundary>
   );
 }

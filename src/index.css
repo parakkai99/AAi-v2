@@ -1,1 +1,140 @@
 @import "tailwindcss";
+
+/* =========================================================================
+   P-PARAKKAI-002 — Media-First Devotional & Environmental Animations
+   Architect: Vijay Kumar K. | Platform: ArchitectAny (AAi)
+   ========================================================================= */
+
+@keyframes parakkaiSunbeam {
+  0% {
+    opacity: 0.15;
+    transform: rotate(-15deg) translateY(-2%) scale(0.98);
+  }
+  50% {
+    opacity: 0.45;
+    transform: rotate(-12deg) translateY(0%) scale(1.02);
+  }
+  100% {
+    opacity: 0.15;
+    transform: rotate(-15deg) translateY(-2%) scale(0.98);
+  }
+}
+
+@keyframes parakkaiDeepamFlicker {
+  0%, 100% {
+    opacity: 0.9;
+    transform: scale(1) translateY(0);
+    filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.7));
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-1px);
+    filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.9));
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(0.98) translateY(0.5px);
+    filter: drop-shadow(0 0 5px rgba(217, 119, 6, 0.6));
+  }
+  75% {
+    opacity: 0.95;
+    transform: scale(1.02) translateY(-0.5px);
+    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.8));
+  }
+}
+
+@keyframes parakkaiPalmBreeze {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(1.2deg) skewX(0.8deg);
+  }
+}
+
+@keyframes parakkaiWaterShimmer {
+  0%, 100% {
+    opacity: 0.6;
+    background-position: 0% 50%;
+  }
+  50% {
+    opacity: 0.85;
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes parakkaiDoorSwingLeft {
+  0% {
+    transform: perspective(1000px) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(1000px) rotateY(-75deg);
+  }
+}
+
+@keyframes parakkaiDoorSwingRight {
+  0% {
+    transform: perspective(1000px) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(1000px) rotateY(75deg);
+  }
+}
+
+@keyframes parakkaiPulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.3), inset 0 0 10px rgba(245, 158, 11, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.6), inset 0 0 20px rgba(245, 158, 11, 0.25);
+  }
+}
+
+@keyframes parakkaiFloatMote {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-80px) translateX(25px);
+    opacity: 0;
+  }
+}
+
+.animate-sunbeam {
+  animation: parakkaiSunbeam 8s ease-in-out infinite;
+}
+
+.animate-deepam {
+  animation: parakkaiDeepamFlicker 3s ease-in-out infinite;
+}
+
+.animate-palm-breeze {
+  animation: parakkaiPalmBreeze 6s ease-in-out infinite;
+}
+
+.animate-water-shimmer {
+  animation: parakkaiWaterShimmer 7s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: parakkaiPulseGlow 4s ease-in-out infinite;
+}
+
+.parakkai-gold-gradient {
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 50%, #92400e 100%);
+}
+
+.parakkai-sky-gradient {
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 50%, #0369a1 100%);
+}
+
+.parakkai-terracotta-gradient {
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 60%, #7c2d12 100%);
+}
