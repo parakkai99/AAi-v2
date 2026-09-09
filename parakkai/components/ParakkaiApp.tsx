@@ -4,26 +4,25 @@
  * Platform: ArchitectAny (AAi)
  * IP Owner: ArchitectAny / Vijay Kumar K.
  * Status: ACTIVE
- * Version: v0.1.3
+ * Version: v0.1.4
  *
  * CORE CONTRACT:
  * - HOME route is a SINGLE-VIEW, FULL-VIEWPORT, ZERO-SCROLL cinematic experience.
  * - Home cinematic mode bypasses the normal Parakkai website chrome.
+ * - Cinematic mode provides minimal in-scene navigation into the full Parakkai experience.
  * - SpatialActivityRail remains inside the spatial scene for development/testing.
  * - Other routes (Temple, Darshan, Journey, Today, Events, Media, Nature, Map, Nearby, Shop)
  *   are separate full-page experiences with normal scrolling and the rich ParakkaiFooter.
  */
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ParakkaiHeader } from "./layout/ParakkaiHeader";
 import { ParakkaiLeftRail } from "./layout/ParakkaiLeftRail";
 import { ParakkaiRightRail } from "./layout/ParakkaiRightRail";
 import { ParakkaiFooter } from "./layout/ParakkaiFooter";
-import { ParakkaiHomeBottomBar } from "./layout/ParakkaiHomeBottomBar";
 import SpatialJourneyStage from "./home/spatial/SpatialJourneyStage";
 
 // Views
-import { ParakkaiHomeStage } from "./home/ParakkaiHomeStage";
 import { TempleExperienceView } from "./temple/TempleExperienceView";
 import { JourneyExperienceView } from "./journey/JourneyExperienceView";
 import { ParakkaiNatureView } from "./nature/ParakkaiNatureView";
@@ -62,14 +61,6 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
   const [activeTheme, setActiveTheme] = useState<ParakkaiThemeDefinition>(() =>
     parakkaiService.getActiveTheme(),
   );
-
-  // Cinematic Scene Mode for Home
-  const [sceneMode, setSceneMode] = useState<"facade" | "aerial" | "lake">(
-    "facade",
-  );
-
-  // Ambient sound state (Default: MUTED as required by contract)
-  const [isSoundMuted, setIsSoundMuted] = useState(true);
 
   // Cart State
   const [cart, setCart] = useState<CartItem[]>(() => parakkaiService.getCart());
@@ -117,45 +108,20 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
     setIsPoojaModalOpen(true);
   };
 
-  // Sound chime toggle
-  const handleToggleSound = () => {
-    const nextState = !isSoundMuted;
-    setIsSoundMuted(nextState);
-    if (!nextState) {
-      try {
-        const ctx = new (
-          window.AudioContext || (window as any).webkitAudioContext
-        )();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(528, ctx.currentTime);
-        gain.gain.setValueAtTime(0.2, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + 1.5);
-      } catch (e) {
-        // Safe Web Audio fallback
-      }
-    }
-  };
-
   const isHomeView = activeView === "home";
 
   // HOME CINEMATIC SHELL ISOLATION
   // The spatial journey owns the complete viewport in Home mode.
   // Do not wrap Scene 01 with the normal header, left rail, right rail,
-  // or bottom bar. SpatialActivityRail remains inside SpatialJourneyStage
-  // as the development/mass-production animation test surface.
+  // or bottom bar. Cinematic navigation is intentionally minimal and
+  // lives inside SpatialJourneyStage.
   if (isHomeView) {
     return (
       <div
         id="parakkai-cinematic-home"
         className="fixed inset-0 h-screen w-screen overflow-hidden bg-black"
       >
-        <SpatialJourneyStage />
+        <SpatialJourneyStage onNavigate={setActiveView} />
       </div>
     );
   }
@@ -333,3 +299,20 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
     </div>
   );
 };
+
+/*
+ * CONTRACT
+ * ID: P-PARAKKAI-003
+ * NAME: Parakkai Master Architecture & Router
+ * STATUS: ACTIVE
+ * VERSION: 0.1.4
+ *
+ * Architect: Vijay Kumar K.
+ * Platform: ArchitectAny (AAi)
+ * Project: PARAKKAI
+ *
+ * Change:
+ * - Cinematic Home remains full-screen and chrome-free.
+ * - Minimal Explore Parakkai navigation now exits the cinematic Home into existing route views.
+ * - Normal header/left rail/right rail/footer remain available on all secondary routes.
+ */
