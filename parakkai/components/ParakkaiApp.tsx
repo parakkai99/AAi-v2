@@ -4,25 +4,25 @@
  * Platform: ArchitectAny (AAi)
  * IP Owner: ArchitectAny / Vijay Kumar K.
  * Status: ACTIVE
- * Version: v0.1.4
+ * Version: v0.1.2
  *
  * CORE CONTRACT:
  * - HOME route is a SINGLE-VIEW, FULL-VIEWPORT, ZERO-SCROLL cinematic experience.
- * - Home cinematic mode bypasses the normal Parakkai website chrome.
- * - Cinematic mode provides minimal in-scene navigation into the full Parakkai experience.
- * - SpatialActivityRail remains inside the spatial scene for development/testing.
+ * - Fits within 100vh without vertical page scrolling.
  * - Other routes (Temple, Darshan, Journey, Today, Events, Media, Nature, Map, Nearby, Shop)
  *   are separate full-page experiences with normal scrolling and the rich ParakkaiFooter.
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ParakkaiHeader } from "./layout/ParakkaiHeader";
 import { ParakkaiLeftRail } from "./layout/ParakkaiLeftRail";
 import { ParakkaiRightRail } from "./layout/ParakkaiRightRail";
 import { ParakkaiFooter } from "./layout/ParakkaiFooter";
+import { ParakkaiHomeBottomBar } from "./layout/ParakkaiHomeBottomBar";
 import SpatialJourneyStage from "./home/spatial/SpatialJourneyStage";
 
 // Views
+import { ParakkaiHomeStage } from "./home/ParakkaiHomeStage";
 import { TempleExperienceView } from "./temple/TempleExperienceView";
 import { JourneyExperienceView } from "./journey/JourneyExperienceView";
 import { ParakkaiNatureView } from "./nature/ParakkaiNatureView";
@@ -62,15 +62,21 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
     parakkaiService.getActiveTheme(),
   );
 
+  // Cinematic Scene Mode for Home
+  const [sceneMode, setSceneMode] = useState<"facade" | "aerial" | "lake">(
+    "facade",
+  );
+
+  // Ambient sound state (Default: MUTED as required by contract)
+  const [isSoundMuted, setIsSoundMuted] = useState(true);
+
   // Cart State
   const [cart, setCart] = useState<CartItem[]>(() => parakkaiService.getCart());
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   // Pooja Modal State
   const [isPoojaModalOpen, setIsPoojaModalOpen] = useState(false);
-  const [selectedOfferingId, setSelectedOfferingId] = useState<
-    string | undefined
-  >(undefined);
+  const [selectedOfferingId, setSelectedOfferingId] = useState<string | undefined>(undefined);
 
   // User state
   const [currentUser] = useState(() => parakkaiService.getCurrentUser());
@@ -108,28 +114,39 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
     setIsPoojaModalOpen(true);
   };
 
-  const isHomeView = activeView === "home";
+  // Sound chime toggle
+  const handleToggleSound = () => {
+    const nextState = !isSoundMuted;
+    setIsSoundMuted(nextState);
+    if (!nextState) {
+      try {
+        const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(528, ctx.currentTime);
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 1.5);
+      } catch (e) {
+        // Safe Web Audio fallback
+      }
+    }
+  };
 
-  // HOME CINEMATIC SHELL ISOLATION
-  // The spatial journey owns the complete viewport in Home mode.
-  // Do not wrap Scene 01 with the normal header, left rail, right rail,
-  // or bottom bar. Cinematic navigation is intentionally minimal and
-  // lives inside SpatialJourneyStage.
-  if (isHomeView) {
-    return (
-      <div
-        id="parakkai-cinematic-home"
-        className="fixed inset-0 h-screen w-screen overflow-hidden bg-black"
-      >
-        <SpatialJourneyStage onNavigate={setActiveView} />
-      </div>
-    );
-  }
+  const isHomeView = activeView === "home";
 
   return (
     <div
       id="parakkai-app-root"
-      className="font-sans min-h-screen flex flex-col transition-colors duration-300"
+      className={`font-sans transition-colors duration-300 ${
+        isHomeView
+          ? "h-screen max-h-screen overflow-hidden flex flex-col"
+          : "min-h-screen flex flex-col"
+      }`}
       style={{
         backgroundColor: activeTheme.colors.surfaceCanvas,
         color: activeTheme.colors.textPrimary,
@@ -150,6 +167,7 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
         onOpenAuth={() => {}}
         onOpenAdmin={() => {}}
         onOpenThemeModal={() => {
+          // Cycle canonical Parakkai themes
           const next =
             activeTheme.id === "parakkai-sky"
               ? "parakkai-morning-gold"
@@ -162,7 +180,14 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
       />
 
       {/* 2. Main 3-Column / Stage Area */}
-      <div className="flex-1 w-full mx-auto flex gap-3 sm:gap-4 relative max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+      <div
+        className={`flex-1 w-full mx-auto flex gap-3 sm:gap-4 relative ${
+          isHomeView
+            ? "min-h-0 max-w-[1760px] px-2 sm:px-4 py-2 overflow-hidden"
+            : "max-w-7xl px-4 sm:px-6 lg:px-8 py-6"
+        }`}
+      >
+        {/* Left Discovery Rail (Desktop) */}
         <ParakkaiLeftRail
           currentView={activeView}
           activeTheme={activeTheme}
@@ -172,10 +197,21 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
           }}
         />
 
+        {/* Center Stage Container */}
         <main
           id="parakkai-main-stage"
-          className="flex-1 min-w-0 min-h-0 flex flex-col overflow-hidden focus:outline-none"
+          className={`flex-1 min-w-0 min-h-0 flex flex-col overflow-hidden focus:outline-none ${
+            isHomeView ? "h-full w-full" : ""
+          }`}
         >
+          {/* HOME SINGLE-VIEW CINEMATIC EXPERIENCE */}
+          {activeView === "home" && (
+            <div className="h-full w-full min-h-0 min-w-0 flex-1 overflow-hidden">
+              <SpatialJourneyStage />
+            </div>
+          )}
+
+          {/* TEMPLE SANCTUM EXPERIENCE */}
           {activeView === "temple" && (
             <TempleExperienceView
               activeTheme={activeTheme}
@@ -187,6 +223,7 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
             />
           )}
 
+          {/* 7 STATIONS PILGRIM WALKWAY (Image 1) */}
           {activeView === "journey" && (
             <JourneyExperienceView
               activeTheme={activeTheme}
@@ -198,6 +235,7 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
             />
           )}
 
+          {/* SACRED DARSHAN EXPERIENCE */}
           {activeView === "darshan" && (
             <DarshanView
               activeTheme={activeTheme}
@@ -206,6 +244,7 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
             />
           )}
 
+          {/* TODAY AT PARAKKAI */}
           {activeView === "today" && (
             <TodayScheduleView
               activeTheme={activeTheme}
@@ -213,12 +252,15 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
             />
           )}
 
+          {/* FESTIVALS & EVENTS */}
           {activeView === "events" && <EventsView activeTheme={activeTheme} />}
 
+          {/* DEVOTIONAL MEDIA & CHANTS */}
           {activeView === "media" && (
             <MediaDiscoveryView activeTheme={activeTheme} />
           )}
 
+          {/* PARAKKAI NATURE & LAKE */}
           {activeView === "nature" && (
             <ParakkaiNatureView
               activeTheme={activeTheme}
@@ -229,18 +271,22 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
             />
           )}
 
+          {/* TEMPLE STORIES & BLOG */}
           {activeView === "blog" && (
             <BlogStoriesView activeTheme={activeTheme} />
           )}
 
+          {/* COMMUNITY SEVA */}
           {activeView === "community" && (
             <CommunityView activeTheme={activeTheme} />
           )}
 
+          {/* HYPERLOCAL DIRECTORY */}
           {activeView === "nearby" && (
             <HyperlocalDirectoryView activeTheme={activeTheme} />
           )}
 
+          {/* HYPERMARKET */}
           {activeView === "hypermarket" && (
             <HypermarketView
               activeTheme={activeTheme}
@@ -249,6 +295,7 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
             />
           )}
 
+          {/* SACRED MAP */}
           {activeView === "map" && (
             <SacredMapView
               activeTheme={activeTheme}
@@ -257,6 +304,7 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
           )}
         </main>
 
+        {/* Right Participation Rail (Desktop) */}
         <ParakkaiRightRail
           currentView={activeView}
           activeTheme={activeTheme}
@@ -270,15 +318,32 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
         />
       </div>
 
-      <ParakkaiFooter
-        activeTheme={activeTheme}
-        onNavigate={(viewId) => {
-          setActiveView(viewId);
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}
-        onOpenAdmin={() => {}}
-      />
+      {/* 3. Footer: Compact Bottom Bar on HOME, Rich ParakkaiFooter on Secondary Pages */}
+      {isHomeView ? (
+        <ParakkaiHomeBottomBar
+          activeTheme={activeTheme}
+          sceneMode={sceneMode}
+          onSceneChange={setSceneMode}
+          onNavigate={(viewId) => {
+            setActiveView(viewId);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          isSoundMuted={isSoundMuted}
+          onToggleSound={handleToggleSound}
+          onOpenQuickInfo={() => setActiveView("temple")}
+        />
+      ) : (
+        <ParakkaiFooter
+          activeTheme={activeTheme}
+          onNavigate={(viewId) => {
+            setActiveView(viewId);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          onOpenAdmin={() => {}}
+        />
+      )}
 
+      {/* 4. Modals & Drawers */}
       {isPoojaModalOpen && (
         <PoojaBookingModal
           activeTheme={activeTheme}
@@ -299,20 +364,3 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
     </div>
   );
 };
-
-/*
- * CONTRACT
- * ID: P-PARAKKAI-003
- * NAME: Parakkai Master Architecture & Router
- * STATUS: ACTIVE
- * VERSION: 0.1.4
- *
- * Architect: Vijay Kumar K.
- * Platform: ArchitectAny (AAi)
- * Project: PARAKKAI
- *
- * Change:
- * - Cinematic Home remains full-screen and chrome-free.
- * - Minimal Explore Parakkai navigation now exits the cinematic Home into existing route views.
- * - Normal header/left rail/right rail/footer remain available on all secondary routes.
- */
