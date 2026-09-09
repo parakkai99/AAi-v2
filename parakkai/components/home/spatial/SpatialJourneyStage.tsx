@@ -13,10 +13,32 @@ import {
 
 const AUTOPLAY_MS = 122000;
 
-export default function SpatialJourneyStage() {
+interface SpatialJourneyStageProps {
+  onNavigate?: (viewId: string) => void;
+}
+
+const CINEMATIC_NAVIGATION = [
+  { id: "temple", label: "Temple" },
+  { id: "darshan", label: "Darshan" },
+  { id: "journey", label: "Journey" },
+  { id: "today", label: "Today" },
+  { id: "events", label: "Events" },
+  { id: "media", label: "Media" },
+  { id: "nature", label: "Nature" },
+  { id: "map", label: "Sacred Map" },
+  { id: "nearby", label: "Nearby" },
+  { id: "hypermarket", label: "Marketplace" },
+  { id: "blog", label: "Stories" },
+  { id: "community", label: "Community" },
+] as const;
+
+export default function SpatialJourneyStage({
+  onNavigate,
+}: SpatialJourneyStageProps) {
   const [sceneIndex, setSceneIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isImmersive, setIsImmersive] = useState(false);
+  const [isNavigationOpen, setIsNavigationOpen] = useState(false);
 
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -140,6 +162,7 @@ export default function SpatialJourneyStage() {
 
         case "Escape":
           setIsImmersive(false);
+          setIsNavigationOpen(false);
           break;
 
         default:
@@ -218,6 +241,15 @@ export default function SpatialJourneyStage() {
       if (index >= 0) selectScene(index);
     },
     [selectScene],
+  );
+
+  const handleNavigate = useCallback(
+    (viewId: string) => {
+      setIsNavigationOpen(false);
+      setIsPlaying(false);
+      onNavigate?.(viewId);
+    },
+    [onNavigate],
   );
 
   useEffect(() => {
@@ -360,6 +392,45 @@ export default function SpatialJourneyStage() {
         onSceneSelect={handleSceneSelect}
       />
 
+      {/* Minimal cinematic navigation — preserves the full-screen scene without restoring the old website chrome. */}
+      {onNavigate ? (
+        <div className="absolute left-5 top-5 z-40">
+          <button
+            type="button"
+            onClick={() => setIsNavigationOpen((current) => !current)}
+            className="rounded-full border border-white/20 bg-black/35 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.24em] text-white/90 shadow-lg backdrop-blur-md transition hover:bg-black/55"
+            aria-expanded={isNavigationOpen}
+            aria-controls="parakkai-cinematic-navigation"
+          >
+            Explore Parakkai
+          </button>
+
+          {isNavigationOpen ? (
+            <nav
+              id="parakkai-cinematic-navigation"
+              aria-label="Parakkai navigation"
+              className="mt-2 w-56 rounded-2xl border border-white/15 bg-black/65 p-2 shadow-2xl backdrop-blur-xl"
+            >
+              <div className="px-3 pb-2 pt-1 text-[9px] uppercase tracking-[0.28em] text-white/45">
+                Sacred Experience
+              </div>
+              <div className="grid grid-cols-2 gap-1">
+                {CINEMATIC_NAVIGATION.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => handleNavigate(item.id)}
+                    className="rounded-xl px-3 py-2 text-left text-[11px] text-white/80 transition hover:bg-white/10 hover:text-white"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </nav>
+          ) : null}
+        </div>
+      ) : null}
+
       <div className="pointer-events-none absolute right-6 top-6 z-30 text-right">
         <div className="font-mono text-[11px] tracking-[0.25em] text-white/55">
           {String(scene.number).padStart(2, "0")}
@@ -388,7 +459,7 @@ export default function SpatialJourneyStage() {
  * ID: P1.20-SPATIAL-JOURNEY-TRANSITION-ENGINE
  * NAME: Parakkai Spatial Journey Transition Engine
  * STATUS: ACTIVE
- * VERSION: 1.2.0
+ * VERSION: 1.3.0
  *
  * Architect: Vijay Kumar K.
  * Platform: ArchitectAny (AAi)
@@ -402,6 +473,7 @@ export default function SpatialJourneyStage() {
  * - Coordinate renderer
  * - Coordinate scene transition
  * - Coordinate journey controls
+ * - Provide minimal cinematic navigation into the full Parakkai experience
  * - Host the P1.27 internal animation playground
  *
  * Important:
@@ -409,4 +481,5 @@ export default function SpatialJourneyStage() {
  * - Animation layers are lightweight independent targets.
  * - No network/API animation boundary is used.
  * - The photograph is not modified by the animation runtime.
+ * - Cinematic navigation does not restore the old header/rail/footer chrome.
  */
