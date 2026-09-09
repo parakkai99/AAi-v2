@@ -11,7 +11,7 @@ import {
   getSpatialScene,
 } from "./spatialJourneyConfig";
 
-const AUTOPLAY_MS = 122000;
+const AUTOPLAY_MS = 12000;
 
 interface SpatialJourneyStageProps {
   onNavigate?: (viewId: string) => void;
@@ -182,18 +182,40 @@ export default function SpatialJourneyStage({
   const startScene01Animations = useCallback((runtime: AnimationRuntime) => {
     runtime.startMany([
       {
-        objectId: "OBJ-06", motionId: "RADIATE", triggerId: "loop",
-        motionParameters: { fromScale: 0.98, toScale: 1.04, intensity: 1, pulse: true },
+        objectId: "OBJ-06",
+        motionId: "RADIATE",
+        triggerId: "loop",
+        motionParameters: {
+          fromScale: 0.98,
+          toScale: 1.04,
+          intensity: 1,
+          pulse: true,
+        },
         triggerParameters: { infinite: true, count: 0, delayMs: 2200 },
       },
       {
-        objectId: "OBJ-03", motionId: "FLIGHT", triggerId: "loop",
-        motionParameters: { distanceX: 260, distanceY: -18, arc: 26, rotation: 3, speed: 0.85 },
+        objectId: "OBJ-03",
+        motionId: "FLIGHT",
+        triggerId: "loop",
+        motionParameters: {
+          distanceX: 260,
+          distanceY: -18,
+          arc: 26,
+          rotation: 3,
+          speed: 0.85,
+        },
         triggerParameters: { infinite: true, count: 0, delayMs: 5000 },
       },
       {
-        objectId: "OBJ-01", motionId: "SWAY", triggerId: "loop",
-        motionParameters: { angle: 3, distance: 2, axis: "rotation", cycles: 2 },
+        objectId: "OBJ-01",
+        motionId: "SWAY",
+        triggerId: "loop",
+        motionParameters: {
+          angle: 3,
+          distance: 2,
+          axis: "rotation",
+          cycles: 2,
+        },
         triggerParameters: { infinite: true, count: 0, delayMs: 2600 },
       },
     ]);
@@ -212,18 +234,40 @@ export default function SpatialJourneyStage({
 
       const requests = {
         flight: {
-          objectId: "OBJ-03" as const, motionId: "FLIGHT" as const, triggerId: "loop" as const,
-          motionParameters: { distanceX: 260, distanceY: -18, arc: 26, rotation: 3, speed: 0.85 },
+          objectId: "OBJ-03" as const,
+          motionId: "FLIGHT" as const,
+          triggerId: "loop" as const,
+          motionParameters: {
+            distanceX: 260,
+            distanceY: -18,
+            arc: 26,
+            rotation: 3,
+            speed: 0.85,
+          },
           triggerParameters: { infinite: true, count: 0, delayMs: 5000 },
         },
         sway: {
-          objectId: "OBJ-01" as const, motionId: "SWAY" as const, triggerId: "loop" as const,
-          motionParameters: { angle: 3, distance: 2, axis: "rotation" as const, cycles: 2 },
+          objectId: "OBJ-01" as const,
+          motionId: "SWAY" as const,
+          triggerId: "loop" as const,
+          motionParameters: {
+            angle: 3,
+            distance: 2,
+            axis: "rotation" as const,
+            cycles: 2,
+          },
           triggerParameters: { infinite: true, count: 0, delayMs: 2600 },
         },
         radiate: {
-          objectId: "OBJ-06" as const, motionId: "RADIATE" as const, triggerId: "loop" as const,
-          motionParameters: { fromScale: 0.98, toScale: 1.04, intensity: 1, pulse: true },
+          objectId: "OBJ-06" as const,
+          motionId: "RADIATE" as const,
+          triggerId: "loop" as const,
+          motionParameters: {
+            fromScale: 0.98,
+            toScale: 1.04,
+            intensity: 1,
+            pulse: true,
+          },
           triggerParameters: { infinite: true, count: 0, delayMs: 2200 },
         },
       } as const;
