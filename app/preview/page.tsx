@@ -5,7 +5,7 @@
  * Context: M01 Solution Universe
  * Catalog Source: Canonical Capability Catalog
  * Status: ACTIVE
- * Version: 1.0.0
+ * Version: 1.1.0
  */
 
 "use client";
@@ -53,9 +53,13 @@ export default function PreviewPage() {
   const [currentTab, setCurrentTab] = useState(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
-      if (params.get("tab")?.toLowerCase() === "universe") return "Universe";
-      if (params.get("tab")?.toLowerCase() === "agentos") return "AgentOS";
-      if (params.get("tab")?.toLowerCase() === "parakkai" || params.get("project") === "P-PARAKKAI-001") return "Parakkai";
+      const app = params.get("app")?.toLowerCase();
+      const tab = params.get("tab")?.toLowerCase();
+
+      if (app === "ngliving" || tab === "ngliving") return "NGLiving";
+      if (tab === "universe") return "Universe";
+      if (tab === "agentos") return "AgentOS";
+      if (tab === "parakkai" || params.get("project") === "P-PARAKKAI-001") return "Parakkai";
     }
     return "Parakkai";
   });
@@ -65,7 +69,6 @@ export default function PreviewPage() {
   const [isInspectorOpen, setIsInspectorOpen] = useState(false);
   const [pendingIntentRef, setPendingIntentRef] = useState<string | null>(null);
 
-  // Global listeners for AAi JSON / Data Map Inspector & Agent OS Bridge & Parakkai Project
   useEffect(() => {
     const handleToggleInspector = () => setIsInspectorOpen((prev) => !prev);
     const handleOpenInspector = () => setIsInspectorOpen(true);
@@ -80,23 +83,19 @@ export default function PreviewPage() {
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.shiftKey && (e.key === 'O' || e.key === 'o')) {
+      if (e.shiftKey && (e.key === "O" || e.key === "o")) {
         const target = e.target as HTMLElement;
-        if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) {
-          return;
-        }
+        if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA")) return;
         e.preventDefault();
-        setCurrentTab((prev) => (prev === 'AgentOS' ? 'Universe' : 'AgentOS'));
+        setCurrentTab((prev) => (prev === "AgentOS" ? "Universe" : "AgentOS"));
       }
-      if (e.shiftKey && (e.key === 'P' || e.key === 'p')) {
+      if (e.shiftKey && (e.key === "P" || e.key === "p")) {
         const target = e.target as HTMLElement;
-        if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) {
-          return;
-        }
+        if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA")) return;
         e.preventDefault();
-        setCurrentTab((prev) => (prev === 'Parakkai' ? 'Universe' : 'Parakkai'));
+        setCurrentTab((prev) => (prev === "Parakkai" ? "Universe" : "Parakkai"));
       }
-      if ((e.ctrlKey || e.metaKey) && (e.key === 'j' || e.key === 'J')) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === "j" || e.key === "J")) {
         e.preventDefault();
         setIsInspectorOpen((prev) => !prev);
       }
@@ -112,7 +111,7 @@ export default function PreviewPage() {
     window.addEventListener("aai:open-parakkai", handleOpenParakkai);
     window.addEventListener("aai:send-to-agent-os", handleSendToAgentOS);
     window.addEventListener("aai:open-workspace-drawer", handleOpenWorkspaceDrawer);
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       window.removeEventListener("aai:toggle-json-inspector", handleToggleInspector);
@@ -121,7 +120,7 @@ export default function PreviewPage() {
       window.removeEventListener("aai:open-parakkai", handleOpenParakkai);
       window.removeEventListener("aai:send-to-agent-os", handleSendToAgentOS);
       window.removeEventListener("aai:open-workspace-drawer", handleOpenWorkspaceDrawer);
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
@@ -150,9 +149,7 @@ export default function PreviewPage() {
               name: item.name,
               description: item.description,
               color: item.color,
-              visual: {
-                color: item.color || item.accentColor,
-              },
+              visual: { color: item.color || item.accentColor },
             }),
           ),
         );
@@ -205,7 +202,6 @@ export default function PreviewPage() {
       })
       .catch(() => {
         if (!mounted) return;
-
         setDomains([]);
         setSubdomains([]);
         setCapabilities([]);
@@ -237,10 +233,10 @@ export default function PreviewPage() {
             onClearInitialIntentRef={() => setPendingIntentRef(null)}
           />
         </ErrorBoundary>
-      ) : currentTab === "Parakkai" ? (
+      ) : currentTab === "Parakkai" || currentTab === "NGLiving" ? (
         <ErrorBoundary fallbackTitle="Application Experience">
           <ApplicationRuntime
-            applicationId="parakkai"
+            applicationId={currentTab === "NGLiving" ? "ngliving" : "parakkai"}
             onExitToAAi={() => setCurrentTab("Universe")}
           />
         </ErrorBoundary>
@@ -250,10 +246,7 @@ export default function PreviewPage() {
             currentTab={currentTab}
             onTabChange={(tab) => {
               setCurrentTab(tab);
-
-              if (tab === "Universe") {
-                navigateTo({ layer: 1 });
-              }
+              if (tab === "Universe") navigateTo({ layer: 1 });
             }}
             onHome={() => navigateTo({ layer: 1 })}
             searchQuery={searchQuery}
@@ -283,24 +276,15 @@ export default function PreviewPage() {
                 solutions={solutions}
                 initialQuery={intentCoreQuery}
                 onReturnToUniverse={() => navigateTo({ layer: 1 })}
-                onNavigateToDomain={(domainId) =>
-                  navigateTo({ layer: 2, domainId })
-                }
-                onNavigateToSolution={(solutionId) =>
-                  navigateTo({ layer: 5, solutionId })
-                }
+                onNavigateToDomain={(domainId) => navigateTo({ layer: 2, domainId })}
+                onNavigateToSolution={(solutionId) => navigateTo({ layer: 5, solutionId })}
               />
             ) : (
               <UniverseStage
                 searchQuery={searchQuery}
-                onSelectSolution={(solutionId) =>
-                  navigateTo({ layer: 5, solutionId })
-                }
+                onSelectSolution={(solutionId) => navigateTo({ layer: 5, solutionId })}
                 onOpenIntentCore={(query) => {
-                  if (query) {
-                    setIntentCoreQuery(query);
-                  }
-
+                  if (query) setIntentCoreQuery(query);
                   navigateTo({ layer: 0, query });
                 }}
               />
@@ -337,10 +321,8 @@ export default function PreviewPage() {
       />
 
       <LocationPromptModal />
-
       <CinematicJourneyOverlay />
 
-      {/* Global AAi JSON & Data Map Inspector (Persistent across Universe & Agent OS) */}
       <CatalogInspector
         isOpen={isInspectorOpen}
         onClose={() => setIsInspectorOpen(false)}
@@ -351,7 +333,6 @@ export default function PreviewPage() {
         }}
       />
 
-      {/* Global Sticky Floating Trigger Symbol (Accessible on All Screens) */}
       <AAiJsonStickyTrigger
         isInspectorOpen={isInspectorOpen}
         onToggle={() => setIsInspectorOpen((prev) => !prev)}
