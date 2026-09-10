@@ -4,19 +4,24 @@
  * Platform: ArchitectAny (AAi)
  * Contract: APP-RUNTIME-002 — Application Registry
  * Status: ACTIVE
- * Version: 1.0.0
+ * Version: 1.1.0
  *
  * This is the controlled application-identity boundary.
  * Shared runtime code does not assume a domain.
  */
 
 import type { ApplicationDefinition } from "./ApplicationDefinition";
+import { NGLivingApp } from "@/ngliving/components/NGLivingApp";
 import { ParakkaiApp } from "@/parakkai/components/ParakkaiApp";
 
 const APPLICATIONS: Record<string, ApplicationDefinition> = {
   parakkai: {
     id: "parakkai",
     component: ParakkaiApp,
+  },
+  ngliving: {
+    id: "ngliving",
+    component: NGLivingApp,
   },
 };
 
