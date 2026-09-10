@@ -4,12 +4,12 @@
  * Platform: ArchitectAny (AAi)
  * Contract: LICENSE-AUTHORITY-001
  * Status: ACTIVE
- * Version: 2.0.0
+ * Version: 2.1.0
  *
  * Client-side reference authority for the Admin Console. This models the
- * management workflow and persistence boundary. Production issuance/signing
- * must move to the protected AAi License Authority; private keys never live
- * in this browser bundle.
+ * complete license issuance, registration, certification and lifecycle
+ * workflow. Production signing must move to the protected AAi License
+ * Authority; private keys never live in this browser bundle.
  */
 
 import type {
@@ -18,7 +18,6 @@ import type {
   LicenseCapacity,
   LicenseClass,
   LicenseEvent,
-  LicenseRecipient,
 } from '@/src/contracts/license';
 
 const STORAGE_KEY = 'aai-license-authority-v2';
@@ -117,7 +116,7 @@ export const licenseService = {
   },
 
   getIssuedLicenses(): AAILicenseRecord[] {
-    return clone(loadState().licenses);
+    return clone(loadState().licenses).sort((a, b) => b.issuedAt.localeCompare(a.issuedAt));
   },
 
   getLicense(id: string): AAILicenseRecord | undefined {
@@ -179,6 +178,18 @@ export const licenseService = {
     return clone(license);
   },
 
+  registerLicense(id: string, environmentId: string): AAILicenseRecord | undefined {
+    const state = loadState();
+    const license = state.licenses.find((item) => item.id === id);
+    if (!license || license.status === 'revoked') return undefined;
+    const now = new Date().toISOString();
+    license.registeredEnvironment = environmentId;
+    license.status = 'registered';
+    state.events.push({ id: `EVT-${license.id}-${state.events.length + 1}`, licenseId: license.id, type: 'registered', at: now, actor: ISSUER_ID, note: `Registered to ${environmentId}.` });
+    saveState(state);
+    return clone(license);
+  },
+
   certifyLicense(id: string): AAILicenseRecord | undefined {
     const state = loadState();
     const license = state.licenses.find((item) => item.id === id);
@@ -202,8 +213,8 @@ export const licenseService = {
     if (!license) return undefined;
     const now = new Date().toISOString();
     license.status = status;
-    const type = status === 'suspended' ? 'suspended' : status === 'active' ? 'reactivated' : status === 'revoked' ? 'revoked' : 'capacity-updated';
-    state.events.push({ id: `EVT-${license.id}-${state.events.length + 1}`, licenseId: license.id, type, at: now, actor: ISSUER_ID });
+    const type = status === 'suspended' ? 'suspended' : status === 'active' ? 'reactivated' : status === 'revoked' ? 'revoked' : status === 'issued' ? 'issued' : status === 'registered' ? 'registered' : status === 'expired' ? 'renewed' : 'created';
+    state.events.push({ id: `EVT-${license.id}-${state.events.length + 1}`, licenseId: license.id, type, at: now, actor: ISSUER_ID, note: `Status changed to ${status}.` });
     saveState(state);
     return clone(license);
   },
@@ -214,7 +225,7 @@ export const licenseService = {
     if (!license) return undefined;
     const now = new Date().toISOString();
     license.capacity = clone(capacity);
-    state.events.push({ id: `EVT-${license.id}-${state.events.length + 1}`, licenseId: license.id, type: 'capacity-updated', at: now, actor: ISSUER_ID });
+    state.events.push({ id: `EVT-${license.id}-${state.events.length + 1}`, licenseId: license.id, type: 'capacity-updated', at: now, actor: ISSUER_ID, note: 'License entitlement capacity updated.' });
     saveState(state);
     return clone(license);
   },
