@@ -25,7 +25,7 @@ import { AgentOSCommandCenter } from "@/components/agent-os/AgentOSCommandCenter
 import { CatalogInspector } from "@/components/preview/CatalogInspector";
 import { AAiJsonStickyTrigger } from "@/components/common/AAiJsonStickyTrigger";
 import { ErrorBoundary } from "@/components/common/ErrorBoundary";
-import { ParakkaiApp } from "@/parakkai/components/ParakkaiApp";
+import { ApplicationRuntime } from "@/src/applications/ApplicationRuntime";
 import { useArchitectAny } from "@/src/context/ArchitectAnyContext";
 import { useUniversalNavigation } from "@/src/context/UniversalNavigationContext";
 import { catalogRepository } from "@/src/repositories/catalogRepository";
@@ -238,8 +238,11 @@ export default function PreviewPage() {
           />
         </ErrorBoundary>
       ) : currentTab === "Parakkai" ? (
-        <ErrorBoundary fallbackTitle="Parakkai Temple Digital Experience">
-          <ParakkaiApp onExitToAAi={() => setCurrentTab("Universe")} />
+        <ErrorBoundary fallbackTitle="Application Experience">
+          <ApplicationRuntime
+            applicationId="parakkai"
+            onExitToAAi={() => setCurrentTab("Universe")}
+          />
         </ErrorBoundary>
       ) : (
         <>
