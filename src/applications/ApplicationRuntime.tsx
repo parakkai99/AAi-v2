@@ -2,19 +2,21 @@
  * AAi Application Runtime
  * Architect: Vijay Kumar K.
  * Platform: ArchitectAny (AAi)
- * Contract: APP-RUNTIME-003 — Application Runtime
+ * Contract: APP-RUNTIME-004 — Application Runtime + Experience Runtime
  * Status: ACTIVE
- * Version: 1.0.0
+ * Version: 1.1.0
  *
- * The runtime renders an application selected by identity.
- * It contains no domain-specific component names or business assumptions.
+ * The runtime renders an application selected by identity and wraps it with
+ * the reusable Experience Runtime. Theme/layout remain framework capability;
+ * application content and business identity remain application-owned.
  */
 
-import React from "react";
+import React from 'react';
 import {
   getApplicationDefinition,
   getDefaultApplicationDefinition,
-} from "./ApplicationRegistry";
+} from './ApplicationRegistry';
+import { ExperienceRuntime } from '@/src/experience/ExperienceRuntime';
 
 export interface ApplicationRuntimeProps {
   applicationId?: string;
@@ -25,11 +27,16 @@ export const ApplicationRuntime: React.FC<ApplicationRuntimeProps> = ({
   applicationId,
   onExitToAAi,
 }) => {
+  const resolvedApplicationId = applicationId ?? 'aai-reference';
   const definition = applicationId
     ? getApplicationDefinition(applicationId) ?? getDefaultApplicationDefinition()
     : getDefaultApplicationDefinition();
 
   const Experience = definition.component;
 
-  return <Experience onExitToAAi={onExitToAAi} />;
+  return (
+    <ExperienceRuntime applicationId={resolvedApplicationId}>
+      <Experience onExitToAAi={onExitToAAi} />
+    </ExperienceRuntime>
+  );
 };
