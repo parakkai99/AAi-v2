@@ -1,0 +1,43 @@
+# AAi Application Reference Template
+# Architect: Vijay Kumar K.
+# Platform: ArchitectAny (AAi)
+# Contract: APP-REFERENCE-TEMPLATE-001
+# Status: ACTIVE
+# Version: 1.0.0
+# Use this template when starting the next application.
+
+application:
+  id: <application-id>
+  name: <application-name>
+  source_reference: <reference-application>
+  runtime: ApplicationRuntime
+
+required:
+  - config/site.yaml
+  - config/capabilities.yaml
+  - config/navigation.yaml
+  - components/<ApplicationName>App.tsx
+  - docs/PORTABILITY-REVIEW.md
+
+workflow:
+  - define_identity
+  - map_capabilities
+  - define_navigation
+  - separate_content_and_assets
+  - wire_application_registry
+  - expose_application_through_runtime
+  - lint
+  - build
+  - run
+  - verify
+  - commit
+  - push
+
+rules:
+  reusable_code_describes_capability: true
+  application_code_describes_identity: true
+  do_not_copy_reference_application_wholesale: true
+  do_not_move_application_identity_into_shared_runtime: true
+  application_owns_content: true
+  application_owns_assets: true
+  application_owns_business_rules: true
