@@ -2,12 +2,12 @@
  * AAi Admin Console
  * Architect: Vijay Kumar K.
  * Platform: ArchitectAny (AAi)
- * Contract: ADMIN-CONSOLE-003 — License Issuance & Certification Management
+ * Contract: ADMIN-CONSOLE-004 — License + Experience Management
  * Status: ACTIVE
- * Version: 2.0.0
+ * Version: 2.1.0
  *
- * Full AAi license authority management surface. The browser models the
- * workflow; production signing remains inside the protected AAi authority.
+ * Full AAi license authority management surface plus framework Experience
+ * Builder entry point. Production signing remains inside the protected AAi authority.
  */
 
 import React, { useMemo, useState } from 'react';
@@ -23,6 +23,8 @@ export interface AAiAdminConsoleProps { onReturnToUniverse?: () => void; }
 type AdminSection = 'Dashboard' | 'Applications' | 'Licenses' | 'Signing Keys' | 'Runtime' | 'Data' | 'AI' | 'Intelligence Exchange' | 'Identity & Access' | 'Experience Builder' | 'Lifecycle & Audit';
 const sections: AdminSection[] = ['Dashboard','Applications','Licenses','Signing Keys','Runtime','Data','AI','Intelligence Exchange','Identity & Access','Experience Builder','Lifecycle & Audit'];
 type LicenseTab = 'overview' | 'issue' | 'register' | 'issued' | 'certification' | 'audit';
+
+const ExperienceBuilderPanel = React.lazy(() => import('./ExperienceBuilder').then(module => ({ default: module.ExperienceBuilder })));
 
 const emptyForm: IssueLicenseInput = {
   organizationName: '', organizationId: '', contactName: '', contactEmail: '', country: 'India',
@@ -79,12 +81,12 @@ export const AAiAdminConsole: React.FC<AAiAdminConsoleProps> = ({ onReturnToUniv
 
   return (
     <div className="min-h-screen bg-[#020914] text-[#eaf7ff] p-4 sm:p-6 lg:p-8">
-      <div className="max-w-[1500px] mx-auto space-y-5">
+      <div className="max-w-[1600px] mx-auto space-y-5">
         <header className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
           <div>
             <div className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#00dfff]">AAi Platform Administration</div>
             <h1 className="mt-1 text-2xl sm:text-3xl font-bold">Admin Console</h1>
-            <p className="mt-1 text-sm text-[#82a5bb]">Framework, licensing, certification, runtime and intelligence administration.</p>
+            <p className="mt-1 text-sm text-[#82a5bb]">Framework, licensing, certification, runtime, experience and intelligence administration.</p>
           </div>
           <div className="flex items-center gap-2">
             {notice && <span className="text-[10px] font-mono text-emerald-300 max-w-xs text-right">{notice}</span>}
@@ -116,6 +118,10 @@ export const AAiAdminConsole: React.FC<AAiAdminConsoleProps> = ({ onReturnToUniv
               {licenseTab === 'audit' && <AuditPanel selected={selected} events={events}/>} 
             </div>
           </>
+        ) : activeSection === 'Experience Builder' ? (
+          <React.Suspense fallback={<div className="rounded-2xl border border-[#00dfff]/20 bg-[#061525]/80 p-8 text-center text-sm text-[#82a5bb]">Loading Experience Builder…</div>}>
+            <ExperienceBuilder applicationId="aai-reference" />
+          </React.Suspense>
         ) : (
           <EditablePlaceholder section={activeSection}/>
         )}
@@ -123,7 +129,7 @@ export const AAiAdminConsole: React.FC<AAiAdminConsoleProps> = ({ onReturnToUniv
         <section className="rounded-2xl border border-[#00dfff]/20 bg-[#061525]/80 p-5">
           <div className="flex items-center gap-2 mb-4"><SlidersHorizontal className="w-5 h-5 text-[#00dfff]"/><h2 className="font-semibold">Security Policy</h2></div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3"><Info label="Digital Signature" value="Ed25519"/><Info label="Payload Integrity" value="SHA-256"/><Info label="Certificate Authority" value="Not required for license signing"/></div>
-          <div className="mt-4 flex items-center gap-2 text-xs text-emerald-300 font-mono"><CheckCircle2 className="w-4 h-4"/> AAi license authority baseline is configured for Framework v1.2.</div>
+          <div className="mt-4 flex items-center gap-2 text-xs text-emerald-300 font-mono"><CheckCircle2 className="w-4 h-4"/> AAi license authority and Experience framework baseline are configured for Framework v1.2.</div>
         </section>
       </div>
     </div>
