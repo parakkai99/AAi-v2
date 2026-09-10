@@ -1,0 +1,41 @@
+# NGLiving Navigation Contract
+# Architect: Vijay Kumar K.
+# Platform: ArchitectAny (AAi)
+# Contract: NGLIVING-NAV-001
+# Status: ACTIVE
+# Version: 1.0.0
+
+navigation:
+  home:
+    label: Home
+    route: home
+  today:
+    label: Today
+    route: today
+  events:
+    label: Events
+    route: events
+  media:
+    label: Media
+    route: media
+  stories:
+    label: Stories
+    route: stories
+  community:
+    label: Community
+    route: community
+  nearby:
+    label: Nearby
+    route: nearby
+  marketplace:
+    label: Marketplace
+    route: marketplace
+  map:
+    label: Map
+    route: map
+
+navigation_rules:
+  home_is_primary: true
+  application_owns_labels: true
+  framework_owns_navigation_capability: true
+  domain_specific_routes_must_not_be_promoted_to_shared_framework: true
