@@ -1,0 +1,116 @@
+# NGLiving Capability Portability Map
+# Architect: Vijay Kumar K.
+# Platform: ArchitectAny (AAi)
+# Contract: NGLIVING-CAPABILITY-MAP-001
+# Status: ACTIVE
+# Version: 1.0.0
+# This file records the first-pass carry/keep/adapt decision from Parakkai.
+
+capabilities:
+  - id: home
+    source: parakkai
+    decision: carry
+    target: home
+    note: Core application entry experience.
+
+  - id: spatial-experience
+    source: parakkai
+    decision: carry
+    target: experience
+    note: Carry the spatial/cinematic capability, not Parakkai scene identity.
+
+  - id: scene-animation
+    source: parakkai
+    decision: carry
+    target: scene
+    note: Use shared AAi animation objects, motions, triggers and runtime.
+
+  - id: theme
+    source: parakkai
+    decision: carry
+    target: theme
+    note: Carry theme capability; NGLiving owns values and identity.
+
+  - id: today
+    source: parakkai
+    decision: carry
+    target: today
+    note: General daily information capability.
+
+  - id: events
+    source: parakkai
+    decision: carry
+    target: events
+    note: General event discovery capability.
+
+  - id: media
+    source: parakkai
+    decision: carry
+    target: media
+    note: General media/content discovery capability.
+
+  - id: stories
+    source: parakkai
+    decision: carry
+    target: stories
+    note: General article/story capability.
+
+  - id: community
+    source: parakkai
+    decision: carry
+    target: community
+    note: Participation layer; exact business meaning remains application-owned.
+
+  - id: nearby
+    source: parakkai
+    decision: carry
+    target: nearby
+    note: Local discovery capability.
+
+  - id: marketplace
+    source: parakkai
+    decision: carry
+    target: marketplace
+    note: Commerce capability; products and rules remain application-owned.
+
+  - id: map
+    source: parakkai
+    decision: carry
+    target: map
+    note: Spatial/location capability.
+
+  - id: booking
+    source: parakkai
+    decision: adapt
+    target: transactions
+    note: Keep the interaction pattern, replace temple/pooja semantics.
+
+  - id: cart
+    source: parakkai
+    decision: adapt
+    target: cart
+    note: Keep reusable commerce behavior, replace product model.
+
+  - id: temple
+    source: parakkai
+    decision: do-not-copy
+    target: null
+    note: Domain-specific application identity.
+
+  - id: darshan
+    source: parakkai
+    decision: adapt-or-drop
+    target: null
+    note: Do not place the Parakkai meaning into shared framework code.
+
+  - id: pooja
+    source: parakkai
+    decision: do-not-copy
+    target: null
+    note: Temple-specific business capability.
+
+  - id: sacred-map
+    source: parakkai
+    decision: adapt
+    target: map
+    note: Keep map capability; remove sacred-domain assumptions.
