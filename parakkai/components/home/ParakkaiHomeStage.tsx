@@ -28,7 +28,6 @@
 import { createAnimationRuntime } from "../../../src/animation/runtime";
 import React, { useEffect, useState } from "react";
 
-import { AnimationDeveloperPanel } from "../../../src/animation/dev";
 import { registeredMotionDefinitions } from "../../../src/animation/motion/MotionDefinitions";
 
 import {
