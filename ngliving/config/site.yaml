@@ -1,0 +1,39 @@
+# NGLiving Application Definition
+# Architect: Vijay Kumar K.
+# Platform: ArchitectAny (AAi)
+# Contract: NGLIVING-SITE-001
+# Status: ACTIVE
+# Version: 1.0.0
+# Purpose: Reference application used to validate what Parakkai functionality
+# can be carried into a second application without carrying Parakkai identity.
+
+application:
+  id: ngliving
+  name: NGLiving
+  runtime: ApplicationRuntime
+  source_reference: parakkai
+  identity_boundary: application
+
+principle:
+  reusable_code: capability
+  application_code: identity
+  content: application_owned
+  assets: application_owned
+  business_rules: application_owned
+
+experience:
+  initial_route: home
+  viewport_mode: full_viewport
+  navigation: application_defined
+  theme: application_defined
+  animation: shared_aa_i_animation_runtime
+
+portability:
+  mode: reference_copy
+  purpose: inspect_carry_keep_adapt_document
+  do_not_copy:
+    - parakkai_identity
+    - parakkai_content
+    - parakkai_assets
+    - parakkai_business_rules
+    - parakkai_named_components
