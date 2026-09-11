@@ -113,12 +113,12 @@ export const ParakkaiRightRail: React.FC<ParakkaiRightRailProps> = ({
     >
       {/* Rail Header with Toggle */}
       <div
-        className="px-3 py-2 border-b flex items-center justify-between shrink-0 border-[#00e3fd]/20"
+        className="px-3 py-2 border-b flex items-center justify-between shrink-0" style={{ borderColor: activeTheme.colors.borderSubtle }}
       >
         <button
           type="button"
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="p-1 rounded-md text-slate-400 hover:text-white hover:bg-[#052b4f] transition-colors cursor-pointer"
+          className="p-1 rounded-md transition-colors cursor-pointer" style={{ color: activeTheme.colors.textSecondary }}
           title={isCollapsed ? 'Expand Action Rail' : 'Collapse Action Rail'}
         >
           {isCollapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
@@ -127,7 +127,7 @@ export const ParakkaiRightRail: React.FC<ParakkaiRightRailProps> = ({
         {!isCollapsed && (
           <div className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-wider font-mono text-amber-300">
+            <span className="text-[10px] font-bold uppercase tracking-wider font-mono" style={{ color: activeTheme.colors.textGold }}>
               ACTION DESK
             </span>
           </div>
@@ -144,21 +144,10 @@ export const ParakkaiRightRail: React.FC<ParakkaiRightRailProps> = ({
                 key={item.id}
                 type="button"
                 onClick={() => handleActionClick(item)}
-                className={`w-full px-2 py-1 rounded-xl text-left transition-all flex items-center gap-2 cursor-pointer group border text-xs ${
-                  isSelected
-                    ? 'border-amber-400/60 bg-amber-500/20 text-amber-200 font-semibold shadow-[0_0_10px_rgba(245,158,11,0.2)]'
-                    : 'border-transparent hover:border-[#00e3fd]/30 hover:bg-[#052b4f]/70 text-slate-300 hover:text-white'
-                }`}
-                title={item.label}
+                className={`w-full px-2 py-1 rounded-xl text-left transition-all flex items-center gap-2 cursor-pointer group border text-xs ${isSelected ? "font-semibold" : ""}`} style={isSelected ? { color: activeTheme.colors.textPrimary, backgroundColor: activeTheme.colors.surfaceAlt, borderColor: activeTheme.colors.borderGold } : { color: activeTheme.colors.textSecondary }} title={item.label}
               >
                 <div
-                  className={`p-1 rounded-lg flex items-center justify-center transition-colors shrink-0 ${
-                    (item.id || '').includes('book')
-                      ? 'bg-amber-500/20 text-amber-300 group-hover:bg-amber-500 group-hover:text-black'
-                      : item.id === 'act-whatsapp'
-                      ? 'bg-emerald-500/20 text-emerald-300 group-hover:bg-emerald-500 group-hover:text-black'
-                      : 'bg-[#020914] text-slate-400 group-hover:text-[#00e3fd]'
-                  }`}
+                  className="p-1 rounded-lg flex items-center justify-center transition-colors shrink-0" style={{ backgroundColor: activeTheme.colors.surfaceCard, color: activeTheme.colors.textSecondary }}
                 >
                   {getActionIcon(item.iconName)}
                 </div>
@@ -166,14 +155,14 @@ export const ParakkaiRightRail: React.FC<ParakkaiRightRailProps> = ({
                 {!isCollapsed && (
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
-                      <span className="text-[11.5px] font-medium truncate group-hover:text-amber-300 transition-colors">
+                      <span className="text-[11.5px] font-medium truncate transition-colors">
                         {item.label}
                       </span>
                       {item.isExternal ? (
                         <ExternalLink className="w-3 h-3 text-slate-400 shrink-0" />
                       ) : (
                         item.badge && (
-                          <span className="text-[8.5px] px-1.5 py-0.2 rounded-full font-mono bg-amber-500/20 text-amber-300 font-bold border border-amber-400/30 shrink-0">
+                          <span className="text-[8.5px] px-1.5 py-0.2 rounded-full font-mono font-bold border shrink-0" style={{ backgroundColor: activeTheme.colors.surfaceAlt, color: activeTheme.colors.textGold, borderColor: activeTheme.colors.borderGold }}>
                             {item.badge}
                           </span>
                         )
@@ -188,15 +177,15 @@ export const ParakkaiRightRail: React.FC<ParakkaiRightRailProps> = ({
 
         {/* Official WhatsApp Seva Quick CTA */}
         {!isCollapsed && (
-          <div className="p-2 mt-1 rounded-xl border border-emerald-500/30 bg-[#020914]/90 text-left space-y-1 shrink-0">
-            <div className="flex items-center justify-between text-[11px] font-bold text-emerald-300">
+          <div className="p-2 mt-1 rounded-xl border text-left space-y-1 shrink-0" style={{ backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderSubtle }}>
+            <div className="flex items-center justify-between text-[11px] font-bold" style={{ color: activeTheme.colors.textPrimary }}>
               <div className="flex items-center gap-1.5">
                 <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Temple WhatsApp</span>
               </div>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
             </div>
-            <p className="text-[9px] text-slate-400 font-sans leading-snug">
+            <p className="text-[9px] font-sans leading-snug" style={{ color: activeTheme.colors.textSecondary }}>
               Direct Archana sankalpam & inquiries
             </p>
             <a
