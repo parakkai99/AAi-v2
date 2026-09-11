@@ -109,11 +109,14 @@ export default function PreviewPage() {
   const { isIntentCoreActive, selectedSolutionId, intentCoreQuery, setIntentCoreQuery, navigateTo } = useUniversalNavigation();
   const isDark = theme === "dark";
 
+  const [previewDraft, setPreviewDraft] = useState(false);
+
   const [currentTab, setCurrentTab] = useState(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       const app = params.get("app")?.toLowerCase();
       const tab = params.get("tab")?.toLowerCase();
+      setPreviewDraft(params.get("preview") === "1");
       if (app === "ngliving" || tab === "ngliving") return "NGLiving";
       if (app === "parakkai" || tab === "parakkai" || params.get("project") === "P-PARAKKAI-001") return "Parakkai";
       if (tab === "universe") return "Universe";
@@ -189,7 +192,7 @@ export default function PreviewPage() {
 
   const applicationView = (
     <ErrorBoundary fallbackTitle="Application Experience">
-      <ApplicationRuntime applicationId={currentTab === "NGLiving" ? "ngliving" : "parakkai"} onExitToAAi={() => setCurrentTab("Universe")} />
+      <ApplicationRuntime applicationId={currentTab === "NGLiving" ? "ngliving" : "parakkai"} previewDraft={previewDraft} onExitToAAi={() => setCurrentTab("Universe")} />
     </ErrorBoundary>
   );
 
