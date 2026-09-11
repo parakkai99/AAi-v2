@@ -199,7 +199,7 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
         }`}
       >
         {/* Left Discovery Rail (Desktop) */}
-        {experienceLayout.navigation !== "top" && experienceLayout.navigation !== "cards" && (
+        {experienceLayout.railPolicy !== "none" && (
         <ParakkaiLeftRail
           currentView={activeView}
           activeTheme={activeTheme}
@@ -318,7 +318,7 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
         </main>
 
         {/* Right Participation Rail (Desktop) */}
-        {experienceLayout.navigation === "hybrid" && (
+        {experienceLayout.railPolicy === "both" && (
         <ParakkaiRightRail
           currentView={activeView}
           activeTheme={activeTheme}
