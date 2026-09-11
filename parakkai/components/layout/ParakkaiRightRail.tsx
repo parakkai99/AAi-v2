@@ -144,7 +144,7 @@ export const ParakkaiRightRail: React.FC<ParakkaiRightRailProps> = ({
                 key={item.id}
                 type="button"
                 onClick={() => handleActionClick(item)}
-                className={`w-full px-2 py-1 rounded-xl text-left transition-all flex items-center gap-2 cursor-pointer group border text-xs ${isSelected ? "font-semibold" : ""}`} style={isSelected ? { color: activeTheme.colors.textPrimary, backgroundColor: activeTheme.colors.surfaceAlt, borderColor: activeTheme.colors.borderGold } : { color: activeTheme.colors.textSecondary }} title={item.label}
+                className={`w-full px-2 py-1 rounded-xl text-left transition-all flex items-center gap-2 cursor-pointer group border text-xs ${isSelected ? "font-semibold" : ""}`} style={isSelected ? { color: activeTheme.colors.textPrimary, backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderGold } : { color: activeTheme.colors.textSecondary }} title={item.label}
               >
                 <div
                   className="p-1 rounded-lg flex items-center justify-center transition-colors shrink-0" style={{ backgroundColor: activeTheme.colors.surfaceCard, color: activeTheme.colors.textSecondary }}
@@ -162,7 +162,7 @@ export const ParakkaiRightRail: React.FC<ParakkaiRightRailProps> = ({
                         <ExternalLink className="w-3 h-3 text-slate-400 shrink-0" />
                       ) : (
                         item.badge && (
-                          <span className="text-[8.5px] px-1.5 py-0.2 rounded-full font-mono font-bold border shrink-0" style={{ backgroundColor: activeTheme.colors.surfaceAlt, color: activeTheme.colors.textGold, borderColor: activeTheme.colors.borderGold }}>
+                          <span className="text-[8.5px] px-1.5 py-0.2 rounded-full font-mono font-bold border shrink-0" style={{ backgroundColor: activeTheme.colors.surfaceCard, color: activeTheme.colors.textGold, borderColor: activeTheme.colors.borderGold }}>
                             {item.badge}
                           </span>
                         )
