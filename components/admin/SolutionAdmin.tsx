@@ -5,30 +5,21 @@ import { experienceThemes } from '@/src/experience/theme/ThemeRegistry';
 import { getSolutionAdminConfig, publishSolution, saveSolutionAdminConfig } from '@/src/services/solutionAdminService';
 import type { SolutionAdminConfig } from '@/src/contracts/solutionAdmin';
 
-/**
- * AAi Solution Administration
- * Architect: Vijay Kumar K.
- * Platform: ArchitectAny (AAi)
- * Contract: SOLUTION-ADMIN-001 — Per-Solution Control Plane
- * Status: ACTIVE
- * Version: 1.1.0
- *
- * A Solution Admin instance is scoped to exactly one registered solution.
- * It never exposes the universal AAi-Admin control plane to the client.
- */
-
 export interface SolutionAdminProps {
   solutionId: string;
   onPreviewSolution: () => void;
 }
 
 const solutionNames: Record<string, string> = { parakkai: 'Parakkai', ngliving: 'NGLiving' };
-const sections = [
+
+type AdminSection = readonly [label: string, icon: React.ComponentType<{ className?: string }>];
+
+const sections: readonly AdminSection[] = [
   ['Overview', Settings2], ['Identity', Workflow], ['Experience', Palette], ['Content', FileJson],
   ['Assets', Image], ['JSON / Data', FileJson], ['AI Prompts', Bot], ['AI Content', Sparkles],
   ['Navigation / UX', LayoutTemplate], ['Components', Settings2], ['Animation', Sparkles],
   ['Integrations', Workflow], ['Users & Access', Settings2], ['Publish', Send], ['Audit', CheckCircle2],
-] as const;
+];
 
 type Section = typeof sections[number][0];
 
@@ -136,7 +127,43 @@ export const SolutionAdmin: React.FC<SolutionAdminProps> = ({ solutionId, onPrev
 };
 
 function Overview({ config, name, theme, layout, onNavigate, onPublish }: { config: SolutionAdminConfig; name: string; theme: string; layout: string; onNavigate: (section: Section) => void; onPublish: () => void }) {
-  return <div className="space-y-5"><section className="rounded-2xl border border-cyan-400/20 bg-[#061525]/80 p-5"><div className="text-[10px] font-mono uppercase tracking-[0.2em] text-cyan-400">Solution control plane</div><h2 className="mt-1 text-2xl font-bold">{name}</h2><p className="mt-2 text-sm text-[#82a5bb]">This administration surface owns the solution configuration and content. It does not modify AAi framework code.</p><div className="grid grid-cols-2 xl:grid-cols-4 gap-3 mt-5"><Metric label="Theme" value={theme}/><Metric label="Layout" value={layout}/><Metric label="Version" value={`v${config.version}`}/><Metric label="State" value={config.publishState}/></div></section><div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">{[['Experience','Theme, layout and UX',Palette],['Content','Content and JSON data',FileJson],['AI','Prompts and generated content',Bot],['Publish','Version and release lifecycle',Send]].map(([title, detail, Icon]) => { const C = Icon as React.ComponentType<{ className?: string }>; return <button key={String(title)} type="button" onClick={() => onNavigate(title as Section)} className="rounded-xl border border-white/10 bg-[#061525]/70 p-4 text-left hover:border-cyan-400/30"><C className="w-5 h-5 text-cyan-400"/><div className="mt-3 font-semibold">{title}</div><div className="mt-1 text-xs text-[#82a5bb]">{detail}</div></button>; })}</div><div className="flex flex-wrap gap-2"><button type="button" onClick={() => onNavigate('Experience')} className="rounded-xl bg-cyan-400 px-4 py-2 text-sm font-bold text-[#00131f]">Configure Experience</button><button type="button" onClick={onPublish} className="rounded-xl border border-emerald-400/30 px-4 py-2 text-sm font-semibold text-emerald-300">Publish Solution</button></div></div>;
+  const overviewCards: readonly [title: Section, detail: string, icon: React.ComponentType<{ className?: string }>][]= [
+    ['Experience', 'Theme, layout and UX', Palette],
+    ['Content', 'Content and JSON data', FileJson],
+    ['AI Prompts', 'Prompts and generated content', Bot],
+    ['Publish', 'Version and release lifecycle', Send],
+  ];
+
+  return (
+    <div className="space-y-5">
+      <section className="rounded-2xl border border-cyan-400/20 bg-[#061525]/80 p-5">
+        <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-cyan-400">Solution control plane</div>
+        <h2 className="mt-1 text-2xl font-bold">{name}</h2>
+        <p className="mt-2 text-sm text-[#82a5bb]">This administration surface owns the solution configuration and content. It does not modify AAi framework code.</p>
+        <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 mt-5">
+          <Metric label="Theme" value={theme}/>
+          <Metric label="Layout" value={layout}/>
+          <Metric label="Version" value={`v${config.version}`}/>
+          <Metric label="State" value={config.publishState}/>
+        </div>
+      </section>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+        {overviewCards.map(([title, detail, Icon]) => (
+          <button key={title} type="button" onClick={() => onNavigate(title)} className="rounded-xl border border-white/10 bg-[#061525]/70 p-4 text-left hover:border-cyan-400/30">
+            <Icon className="w-5 h-5 text-cyan-400"/>
+            <div className="mt-3 font-semibold">{title}</div>
+            <div className="mt-1 text-xs text-[#82a5bb]">{detail}</div>
+          </button>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        <button type="button" onClick={() => onNavigate('Experience')} className="rounded-xl bg-cyan-400 px-4 py-2 text-sm font-bold text-[#00131f]">Configure Experience</button>
+        <button type="button" onClick={onPublish} className="rounded-xl border border-emerald-400/30 px-4 py-2 text-sm font-semibold text-emerald-300">Publish Solution</button>
+      </div>
+    </div>
+  );
 }
 
 function Identity({ solutionId, name }: { solutionId: string; name: string }) {
