@@ -21,11 +21,13 @@ import { getSolutionExperienceDefinition } from '@/src/services/solutionAdminSer
 export interface ApplicationRuntimeProps {
   applicationId?: string;
   onExitToAAi?: () => void;
+  previewDraft?: boolean;
 }
 
 export const ApplicationRuntime: React.FC<ApplicationRuntimeProps> = ({
   applicationId,
   onExitToAAi,
+  previewDraft = false,
 }) => {
   const definition = applicationId
     ? getApplicationDefinition(applicationId) ?? getDefaultApplicationDefinition()
@@ -35,8 +37,8 @@ export const ApplicationRuntime: React.FC<ApplicationRuntimeProps> = ({
   const Experience = definition.component;
 
   const experienceDefinition = useMemo(
-    () => getSolutionExperienceDefinition(resolvedApplicationId),
-    [resolvedApplicationId],
+    () => getSolutionExperienceDefinition(resolvedApplicationId, { includeDraft: previewDraft }),
+    [resolvedApplicationId, previewDraft],
   );
 
   return (
