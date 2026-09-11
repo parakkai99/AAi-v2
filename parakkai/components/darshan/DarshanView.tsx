@@ -88,17 +88,17 @@ export const DarshanView: React.FC<DarshanViewProps> = ({
                 <div className="text-[10px] font-mono" style={{ color: activeTheme.colors.textSecondary }}>Posture</div>
                 <div className="text-xs font-serif font-bold mt-0.5" style={{ color: activeTheme.colors.textGold }}>{sanctum.posture}</div>
               </div>
-              <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-center">
-                <div className="text-[10px] text-slate-400 font-mono">Orientation</div>
-                <div className="text-xs font-serif font-bold text-amber-300 mt-0.5">{sanctum.facingDirection}</div>
+              <div className="p-3 rounded-xl border text-center" style={{ backgroundColor: activeTheme.colors.surfaceAlt, borderColor: activeTheme.colors.borderSubtle }}>
+                <div className="text-[10px] font-mono" style={{ color: activeTheme.colors.textSecondary }}>Orientation</div>
+                <div className="text-xs font-serif font-bold mt-0.5" style={{ color: activeTheme.colors.textGold }}>{sanctum.facingDirection}</div>
               </div>
-              <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-center">
-                <div className="text-[10px] text-slate-400 font-mono">Sacred Tree</div>
-                <div className="text-xs font-serif font-bold text-amber-300 mt-0.5">{sanctum.sthalaVriksham}</div>
+              <div className="p-3 rounded-xl border text-center" style={{ backgroundColor: activeTheme.colors.surfaceAlt, borderColor: activeTheme.colors.borderSubtle }}>
+                <div className="text-[10px] font-mono" style={{ color: activeTheme.colors.textSecondary }}>Sacred Tree</div>
+                <div className="text-xs font-serif font-bold mt-0.5" style={{ color: activeTheme.colors.textGold }}>{sanctum.sthalaVriksham}</div>
               </div>
-              <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-center">
-                <div className="text-[10px] text-slate-400 font-mono">Holy Water</div>
-                <div className="text-xs font-serif font-bold text-amber-300 mt-0.5">{sanctum.theertham}</div>
+              <div className="p-3 rounded-xl border text-center" style={{ backgroundColor: activeTheme.colors.surfaceAlt, borderColor: activeTheme.colors.borderSubtle }}>
+                <div className="text-[10px] font-mono" style={{ color: activeTheme.colors.textSecondary }}>Holy Water</div>
+                <div className="text-xs font-serif font-bold mt-0.5" style={{ color: activeTheme.colors.textGold }}>{sanctum.theertham}</div>
               </div>
             </div>
 
