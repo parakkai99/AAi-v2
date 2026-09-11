@@ -1,8 +1,10 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { getExperienceTheme } from './theme/ThemeRegistry';
 import { getExperienceLayout } from './layout/LayoutRegistry';
+import { resolveExperienceDefinition } from './resolver';
 import type { ExperienceTheme } from './theme/ThemeDefinition';
 import type { ExperienceLayout } from './layout/LayoutRegistry';
+import type { ExperienceDefinition, ExperienceScope } from './contracts';
 
 /**
  * AAi Experience Runtime
@@ -10,23 +12,28 @@ import type { ExperienceLayout } from './layout/LayoutRegistry';
  * Platform: ArchitectAny (AAi)
  * Contract: EXPERIENCE-RUNTIME-001
  * Status: ACTIVE
- * Version: 1.0.0
+ * Version: 1.2.0
  *
- * Applies framework-owned visual tokens and layout selection without knowing
- * the application's domain, content or business rules.
+ * Resolves a layered experience definition and applies framework-owned
+ * presentation state without knowing the application's domain or content.
+ *
+ * The runtime is shared by Universe, Domain, Subdomain and Solution scopes.
+ * It does not own component content, business rules, persistence or providers.
  */
 
-interface ExperienceRuntimeValue {
+export interface ExperienceRuntimeValue {
   theme: ExperienceTheme;
   layout: ExperienceLayout;
+  definition: ExperienceDefinition;
+  scope: ExperienceScope;
   setTheme: (id: string) => void;
   setLayout: (id: string) => void;
 }
 
 const ExperienceContext = createContext<ExperienceRuntimeValue | null>(null);
 
-const themeKey = (applicationId: string) => `aai-experience-theme:${applicationId}`;
-const layoutKey = (applicationId: string) => `aai-experience-layout:${applicationId}`;
+const themeKey = (applicationId: string) => 'aai-experience-theme:' + applicationId;
+const layoutKey = (applicationId: string) => 'aai-experience-layout:' + applicationId;
 
 function read(key: string, fallback: string): string {
   if (typeof window === 'undefined') return fallback;
@@ -36,6 +43,9 @@ function read(key: string, fallback: string): string {
 export interface ExperienceRuntimeProps {
   applicationId: string;
   children: React.ReactNode;
+  scope?: ExperienceScope;
+  definition?: ExperienceDefinition;
+  parentDefinitions?: readonly ExperienceDefinition[];
   defaultThemeId?: string;
   defaultLayoutId?: string;
 }
@@ -43,11 +53,45 @@ export interface ExperienceRuntimeProps {
 export const ExperienceRuntime: React.FC<ExperienceRuntimeProps> = ({
   applicationId,
   children,
+  scope = 'solution',
+  definition,
+  parentDefinitions = [],
   defaultThemeId = 'midnight-dark',
   defaultLayoutId = 'drilldown-4',
 }) => {
-  const [themeId, setThemeId] = useState(() => read(themeKey(applicationId), defaultThemeId));
-  const [layoutId, setLayoutId] = useState(() => read(layoutKey(applicationId), defaultLayoutId));
+  const fallbackDefinition = useMemo<ExperienceDefinition>(
+    () => ({
+      id: applicationId,
+      scope,
+      themeId: defaultThemeId,
+      layoutId: defaultLayoutId,
+    }),
+    [applicationId, scope, defaultThemeId, defaultLayoutId],
+  );
+
+  const resolvedDefinition = useMemo<ExperienceDefinition>(() => {
+    const chain = [
+      ...parentDefinitions,
+      definition ?? fallbackDefinition,
+    ];
+
+    return resolveExperienceDefinition(chain);
+  }, [definition, fallbackDefinition, parentDefinitions]);
+
+  const resolvedThemeId = resolvedDefinition.themeId ?? defaultThemeId;
+  const resolvedLayoutId = resolvedDefinition.layoutId ?? defaultLayoutId;
+
+  const [themeId, setThemeId] = useState(() =>
+    read(themeKey(applicationId), resolvedThemeId),
+  );
+  const [layoutId, setLayoutId] = useState(() =>
+    read(layoutKey(applicationId), resolvedLayoutId),
+  );
+
+  useEffect(() => {
+    setThemeId(resolvedThemeId);
+    setLayoutId(resolvedLayoutId);
+  }, [resolvedThemeId, resolvedLayoutId]);
 
   const theme = useMemo(() => getExperienceTheme(themeId), [themeId]);
   const layout = useMemo(() => getExperienceLayout(layoutId), [layoutId]);
@@ -59,6 +103,7 @@ export const ExperienceRuntime: React.FC<ExperienceRuntimeProps> = ({
 
   useEffect(() => {
     const root = document.documentElement;
+
     const entries = {
       '--aai-bg': theme.tokens.background,
       '--aai-surface': theme.tokens.surface,
@@ -74,23 +119,43 @@ export const ExperienceRuntime: React.FC<ExperienceRuntimeProps> = ({
       '--aai-hero-overlay': theme.tokens.heroOverlay,
     } as const;
 
-    Object.entries(entries).forEach(([key, value]) => root.style.setProperty(key, value));
+    Object.entries(entries).forEach(([key, value]) => {
+      root.style.setProperty(key, value);
+    });
+
     root.dataset.aaiTheme = theme.id;
     root.dataset.aaiLayout = layout.id;
-  }, [theme, layout]);
+    root.dataset.aaiExperience = resolvedDefinition.id;
+    root.dataset.aaiExperienceScope = resolvedDefinition.scope;
+  }, [theme, layout, resolvedDefinition]);
 
-  const value = useMemo<ExperienceRuntimeValue>(() => ({
-    theme,
-    layout,
-    setTheme: setThemeId,
-    setLayout: setLayoutId,
-  }), [theme, layout]);
+  const value = useMemo<ExperienceRuntimeValue>(
+    () => ({
+      theme,
+      layout,
+      definition: resolvedDefinition,
+      scope: resolvedDefinition.scope,
+      setTheme: setThemeId,
+      setLayout: setLayoutId,
+    }),
+    [theme, layout, resolvedDefinition],
+  );
 
-  return <ExperienceContext.Provider value={value}>{children}</ExperienceContext.Provider>;
+  return (
+    <ExperienceContext.Provider value={value}>
+      {children}
+    </ExperienceContext.Provider>
+  );
 };
 
 export function useExperienceRuntime(): ExperienceRuntimeValue {
   const value = useContext(ExperienceContext);
-  if (!value) throw new Error('useExperienceRuntime must be used inside ExperienceRuntime.');
+
+  if (!value) {
+    throw new Error(
+      'useExperienceRuntime must be used inside ExperienceRuntime.',
+    );
+  }
+
   return value;
 }
