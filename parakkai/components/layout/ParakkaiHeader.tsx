@@ -100,7 +100,7 @@ export const ParakkaiHeader: React.FC<ParakkaiHeaderProps> = ({
       id="parakkai-master-header"
       className="sticky top-0 z-50 w-full backdrop-blur-md transition-all duration-300 border-b shrink-0 shadow-xs"
       style={{
-        backgroundColor: activeTheme.colors.surfaceElevated,
+        backgroundColor: activeTheme.colors.surfaceCanvasElevated,
         borderColor: activeTheme.colors.borderSubtle
       }}
     >
@@ -108,7 +108,7 @@ export const ParakkaiHeader: React.FC<ParakkaiHeaderProps> = ({
       <div
         className="w-full px-4 py-0.5 sm:py-1 flex items-center justify-between text-[11px] font-sans border-b overflow-x-auto whitespace-nowrap"
         style={{
-          backgroundColor: activeTheme.colors.surfaceCard,
+          backgroundColor: activeTheme.colors.surfaceCanvasCard,
           borderColor: activeTheme.colors.borderSubtle,
           color: activeTheme.colors.textSecondary
         }}
@@ -171,7 +171,7 @@ export const ParakkaiHeader: React.FC<ParakkaiHeaderProps> = ({
         >
           {/* Sacred Temple Lotus Emblem */}
           <div
-            className="w-9 h-9 rounded-xl flex items-center justify-center font-serif text-lg shadow-sm transition-transform group-hover:scale-105 border" style={{ backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderGold, color: activeTheme.colors.textGold }}
+            className="w-9 h-9 rounded-xl flex items-center justify-center font-serif text-lg shadow-sm transition-transform group-hover:scale-105 border" style={{ backgroundColor: activeTheme.colors.surfaceCanvasCard, borderColor: activeTheme.colors.borderGold, color: activeTheme.colors.textGold }}
           >
             🪷
           </div>
@@ -184,7 +184,7 @@ export const ParakkaiHeader: React.FC<ParakkaiHeaderProps> = ({
                 {siteConfig.name}
               </span>
               <span
-                className="text-[10px] px-2 py-0.2 rounded-full font-semibold hidden sm:inline border" style={{ backgroundColor: activeTheme.colors.surfaceCard, color: activeTheme.colors.primarySkyBlue, borderColor: activeTheme.colors.borderSubtle }}
+                className="text-[10px] px-2 py-0.2 rounded-full font-semibold hidden sm:inline border" style={{ backgroundColor: activeTheme.colors.surfaceCanvasCard, color: activeTheme.colors.primarySkyBlue, borderColor: activeTheme.colors.borderSubtle }}
               >
                 Living Temple
               </span>
@@ -206,13 +206,13 @@ export const ParakkaiHeader: React.FC<ParakkaiHeaderProps> = ({
                 key={link.id}
                 type="button"
                 onClick={() => onNavigate(link.targetView)}
-                className={`relative px-2.5 py-1 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 cursor-pointer border ${isActive ? "font-bold" : ""}`} style={isActive ? { color: activeTheme.colors.textPrimary, backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderSubtle } : { color: activeTheme.colors.textSecondary }}
+                className={`relative px-2.5 py-1 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 cursor-pointer border ${isActive ? "font-bold" : ""}`} style={isActive ? { color: activeTheme.colors.textPrimary, backgroundColor: activeTheme.colors.surfaceCanvasCard, borderColor: activeTheme.colors.borderSubtle } : { color: activeTheme.colors.textSecondary }}
               >
                 {getNavIcon(link.iconName)}
                 <span>{link.label}</span>
                 {link.badge && (
                   <span
-                    className="ml-0.5 text-[8.5px] px-1.5 py-0.2 rounded-full font-bold uppercase tracking-wider border" style={{ backgroundColor: activeTheme.colors.surfaceCard, color: activeTheme.colors.textGold, borderColor: activeTheme.colors.borderGold }}
+                    className="ml-0.5 text-[8.5px] px-1.5 py-0.2 rounded-full font-bold uppercase tracking-wider border" style={{ backgroundColor: activeTheme.colors.surfaceCanvasCard, color: activeTheme.colors.textGold, borderColor: activeTheme.colors.borderGold }}
                   >
                     {link.badge}
                   </span>
@@ -228,7 +228,7 @@ export const ParakkaiHeader: React.FC<ParakkaiHeaderProps> = ({
           <button
             type="button"
             onClick={onOpenThemeModal}
-            className="p-1.5 rounded-lg transition-colors border cursor-pointer" style={{ color: activeTheme.colors.textSecondary, borderColor: activeTheme.colors.borderSubtle, backgroundColor: activeTheme.colors.surface }}
+            className="p-1.5 rounded-lg transition-colors border cursor-pointer" style={{ color: activeTheme.colors.textSecondary, borderColor: activeTheme.colors.borderSubtle, backgroundColor: activeTheme.colors.surfaceCanvas }}
             title={`Active Theme: ${activeTheme.name}`}
             aria-label="Change Theme"
           >
@@ -239,7 +239,7 @@ export const ParakkaiHeader: React.FC<ParakkaiHeaderProps> = ({
           <button
             type="button"
             onClick={onOpenCart}
-            className="relative p-1.5 rounded-lg transition-colors border cursor-pointer" style={{ color: activeTheme.colors.textSecondary, backgroundColor: activeTheme.colors.surface, borderColor: activeTheme.colors.borderSubtle }}
+            className="relative p-1.5 rounded-lg transition-colors border cursor-pointer" style={{ color: activeTheme.colors.textSecondary, backgroundColor: activeTheme.colors.surfaceCanvas, borderColor: activeTheme.colors.borderSubtle }}
             title="Open Parakkai Hypermarket Cart"
             aria-label="View Cart"
           >
@@ -257,7 +257,7 @@ export const ParakkaiHeader: React.FC<ParakkaiHeaderProps> = ({
           <button
             type="button"
             onClick={onOpenAdmin}
-            className="px-2 py-1 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all border cursor-pointer" style={{ color: activeTheme.colors.textSecondary, backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderSubtle }} title="Open Parakkai Admin Control Console"
+            className="px-2 py-1 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all border cursor-pointer" style={{ color: activeTheme.colors.textSecondary, backgroundColor: activeTheme.colors.surfaceCanvasCard, borderColor: activeTheme.colors.borderSubtle }} title="Open Parakkai Admin Control Console"
           >
             <Shield className="w-3.5 h-3.5 text-amber-400" />
             <span className="hidden sm:inline">Admin</span>
@@ -267,7 +267,7 @@ export const ParakkaiHeader: React.FC<ParakkaiHeaderProps> = ({
           <button
             type="button"
             onClick={onOpenAuth}
-            className="px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center gap-2 transition-all border cursor-pointer" style={{ color: activeTheme.colors.textPrimary, backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderSubtle }}
+            className="px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center gap-2 transition-all border cursor-pointer" style={{ color: activeTheme.colors.textPrimary, backgroundColor: activeTheme.colors.surfaceCanvasCard, borderColor: activeTheme.colors.borderSubtle }}
             title={`Logged in as ${currentUser.name} (${currentUser.role})`}
           >
             <User className="w-3.5 h-3.5 text-sky-400" />
@@ -293,7 +293,7 @@ export const ParakkaiHeader: React.FC<ParakkaiHeaderProps> = ({
         <div
           className="lg:hidden border-t px-4 py-4 space-y-2 animate-fadeIn"
           style={{
-            backgroundColor: activeTheme.colors.surfaceElevated,
+            backgroundColor: activeTheme.colors.surfaceCanvasElevated,
             borderColor: activeTheme.colors.borderSubtle
           }}
         >
