@@ -64,6 +64,37 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
   );
   const { theme: experienceTheme, layout: experienceLayout } = useExperienceRuntime();
 
+  useEffect(() => {
+    const tokens = experienceTheme.tokens;
+
+    setActiveTheme((current) => ({
+      ...current,
+      id: `aai-${experienceTheme.id}`,
+      name: experienceTheme.name,
+      description: experienceTheme.description,
+      colors: {
+        ...current.colors,
+        primarySkyBlue: tokens.primary,
+        skyBlueHover: tokens.secondary,
+        sacredGold: tokens.accent,
+        goldAccent: tokens.accent,
+        deepTempleNavy: tokens.background,
+        sacredIvoryStone: tokens.surfaceAlt,
+        templeGreen: tokens.secondary,
+        templeCrimson: tokens.primary,
+        surfaceCanvas: tokens.background,
+        surfaceElevated: tokens.surface,
+        surfaceCard: tokens.surface,
+        borderSubtle: tokens.border,
+        borderGold: tokens.border,
+        textPrimary: tokens.text,
+        textSecondary: tokens.textMuted,
+        textGold: tokens.accent,
+        sunlightGlow: tokens.accent,
+      },
+    }));
+  }, [experienceTheme]);
+
   // Cinematic Scene Mode for Home
   const [sceneMode, setSceneMode] = useState<"facade" | "aerial" | "lake">(
     "facade",
