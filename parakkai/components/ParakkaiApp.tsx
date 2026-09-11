@@ -192,6 +192,10 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
         ["--aai-solution-accent"]: experienceTheme.tokens.accent,
         ["--aai-solution-border"]: experienceTheme.tokens.border,
         ["--aai-solution-radius"]: experienceTheme.tokens.radius,
+        ["--aai-font-display"]: experienceTheme.typography.display,
+        ["--aai-font-body"]: experienceTheme.typography.body,
+        ["--aai-font-mono"]: experienceTheme.typography.mono,
+        fontFamily: "var(--aai-font-body)",
       } as React.CSSProperties & Record<`--aai-${string}`, string>}
     >
       {/* 1. Header (Sticky Top-0) */}
