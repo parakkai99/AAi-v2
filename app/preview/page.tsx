@@ -115,11 +115,11 @@ export default function PreviewPage() {
       const app = params.get("app")?.toLowerCase();
       const tab = params.get("tab")?.toLowerCase();
       if (app === "ngliving" || tab === "ngliving") return "NGLiving";
+      if (app === "parakkai" || tab === "parakkai" || params.get("project") === "P-PARAKKAI-001") return "Parakkai";
       if (tab === "universe") return "Universe";
       if (tab === "agentos") return "AgentOS";
-      if (tab === "parakkai" || params.get("project") === "P-PARAKKAI-001") return "Parakkai";
     }
-    return "Parakkai";
+    return "Universe";
   });
   const [searchQuery, setSearchQuery] = useState("");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
