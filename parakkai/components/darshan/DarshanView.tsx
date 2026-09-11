@@ -84,26 +84,26 @@ export const DarshanView: React.FC<DarshanViewProps> = ({
 
             {/* Iconography Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-              <div className="p-3 rounded-xl border text-center" style={{ backgroundColor: activeTheme.colors.surfaceAlt, borderColor: activeTheme.colors.borderSubtle }}>
+              <div className="p-3 rounded-xl border text-center" style={{ backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderSubtle }}>
                 <div className="text-[10px] font-mono" style={{ color: activeTheme.colors.textSecondary }}>Posture</div>
                 <div className="text-xs font-serif font-bold mt-0.5" style={{ color: activeTheme.colors.textGold }}>{sanctum.posture}</div>
               </div>
-              <div className="p-3 rounded-xl border text-center" style={{ backgroundColor: activeTheme.colors.surfaceAlt, borderColor: activeTheme.colors.borderSubtle }}>
+              <div className="p-3 rounded-xl border text-center" style={{ backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderSubtle }}>
                 <div className="text-[10px] font-mono" style={{ color: activeTheme.colors.textSecondary }}>Orientation</div>
                 <div className="text-xs font-serif font-bold mt-0.5" style={{ color: activeTheme.colors.textGold }}>{sanctum.facingDirection}</div>
               </div>
-              <div className="p-3 rounded-xl border text-center" style={{ backgroundColor: activeTheme.colors.surfaceAlt, borderColor: activeTheme.colors.borderSubtle }}>
+              <div className="p-3 rounded-xl border text-center" style={{ backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderSubtle }}>
                 <div className="text-[10px] font-mono" style={{ color: activeTheme.colors.textSecondary }}>Sacred Tree</div>
                 <div className="text-xs font-serif font-bold mt-0.5" style={{ color: activeTheme.colors.textGold }}>{sanctum.sthalaVriksham}</div>
               </div>
-              <div className="p-3 rounded-xl border text-center" style={{ backgroundColor: activeTheme.colors.surfaceAlt, borderColor: activeTheme.colors.borderSubtle }}>
+              <div className="p-3 rounded-xl border text-center" style={{ backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderSubtle }}>
                 <div className="text-[10px] font-mono" style={{ color: activeTheme.colors.textSecondary }}>Holy Water</div>
                 <div className="text-xs font-serif font-bold mt-0.5" style={{ color: activeTheme.colors.textGold }}>{sanctum.theertham}</div>
               </div>
             </div>
 
             {/* Arms & Mudras */}
-            <div className="p-3.5 rounded-xl border text-xs space-y-1" style={{ backgroundColor: activeTheme.colors.surfaceAlt, borderColor: activeTheme.colors.borderGold, color: activeTheme.colors.textSecondary }}>
+            <div className="p-3.5 rounded-xl border text-xs space-y-1" style={{ backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderGold, color: activeTheme.colors.textSecondary }}>
               <span className="font-bold font-serif" style={{ color: activeTheme.colors.textGold }}>Chaturbhuja (Four Divine Arms): </span>
               <span>
                 Upper right holds the sacred <strong>Panchajanya Shankha</strong> (Conch), upper left holds the <strong>Sudarshana Chakra</strong> (Discus), lower right displays the comforting <strong>Varada Mudra</strong> (Boon-granting gesture), and lower left rests upon the <strong>Kaumodaki Gada</strong> (Mace).
@@ -115,7 +115,7 @@ export const DarshanView: React.FC<DarshanViewProps> = ({
           <div className="lg:col-span-4 flex flex-col items-center">
             <div className="w-full p-6 rounded-2xl border space-y-4 shadow-xl" style={{ backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderGold }}>
               <div className="text-center space-y-1">
-                <div className="w-16 h-16 rounded-full mx-auto text-3xl flex items-center justify-center border shadow-md" style={{ backgroundColor: activeTheme.colors.surfaceAlt, color: activeTheme.colors.textGold, borderColor: activeTheme.colors.borderGold }}>
+                <div className="w-16 h-16 rounded-full mx-auto text-3xl flex items-center justify-center border shadow-md" style={{ backgroundColor: activeTheme.colors.surfaceCard, color: activeTheme.colors.textGold, borderColor: activeTheme.colors.borderGold }}>
                   🪷
                 </div>
                 <h4 className="text-base font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
@@ -127,7 +127,7 @@ export const DarshanView: React.FC<DarshanViewProps> = ({
                 </p>
               </div>
 
-              <div className="p-3 rounded-xl border text-center" style={{ backgroundColor: activeTheme.colors.surfaceAlt, borderColor: activeTheme.colors.borderGold }}>
+              <div className="p-3 rounded-xl border text-center" style={{ backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderGold }}>
                 <div className="text-[11px] font-bold font-serif" style={{ color: activeTheme.colors.textGold }}>
                   ☀️ Daily 6:30 AM Sunlight Miracle
                 </div>
@@ -207,7 +207,7 @@ export const DarshanView: React.FC<DarshanViewProps> = ({
               <div className="space-y-2.5">
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border" style={{ backgroundColor: activeTheme.colors.surfaceAlt, color: activeTheme.colors.textSecondary, borderColor: activeTheme.colors.borderSubtle }}>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border" style={{ backgroundColor: activeTheme.colors.surfaceCard, color: activeTheme.colors.textSecondary, borderColor: activeTheme.colors.borderSubtle }}>
                       {offering.category}
                     </span>
                     <h4 className="text-base font-serif font-bold mt-1.5" style={{ color: activeTheme.colors.textPrimary }}>
@@ -275,7 +275,7 @@ export const DarshanView: React.FC<DarshanViewProps> = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-sans" style={{ color: activeTheme.colors.textSecondary }}>
-          <div className="p-3 rounded-xl border space-y-1" style={{ backgroundColor: activeTheme.colors.surfaceAlt, borderColor: activeTheme.colors.borderSubtle }}>
+          <div className="p-3 rounded-xl border space-y-1" style={{ backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderSubtle }}>
             <strong className="block font-serif" style={{ color: activeTheme.colors.textPrimary }}>Traditional Dress Code</strong>
             <p>
               Men: Dhoti / Veshti with angavastram or bare upper body. Women: Sarees, half-sarees, or salwar kameez with dupatta.
