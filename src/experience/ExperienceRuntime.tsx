@@ -117,6 +117,9 @@ export const ExperienceRuntime: React.FC<ExperienceRuntimeProps> = ({
       '--aai-radius': theme.tokens.radius,
       '--aai-shadow': theme.tokens.shadow,
       '--aai-hero-overlay': theme.tokens.heroOverlay,
+      '--aai-font-display': theme.typography.display,
+      '--aai-font-body': theme.typography.body,
+      '--aai-font-mono': theme.typography.mono,
     } as const;
 
     Object.entries(entries).forEach(([key, value]) => {
