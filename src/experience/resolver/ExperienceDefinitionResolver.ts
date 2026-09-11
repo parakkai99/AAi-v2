@@ -1,5 +1,4 @@
 import type {
-  ExperienceBehaviorSurfaceDefinition,
   ExperienceDefinition,
   ExperienceInfrastructureDefinition,
   ExperienceNavigationBehaviorDefinition,
@@ -67,6 +66,7 @@ function mergeInfrastructure(
   child?: ExperienceInfrastructureDefinition,
 ): ExperienceInfrastructureDefinition | undefined {
   if (!parent && !child) return undefined;
+
   return {
     ...parent,
     ...child,
@@ -78,6 +78,7 @@ function mergeObject<T extends object>(
   child?: T,
 ): T | undefined {
   if (!parent && !child) return undefined;
+
   return {
     ...parent,
     ...child,
