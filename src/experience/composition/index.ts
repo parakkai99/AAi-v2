@@ -17,7 +17,6 @@ export type {
   ExperienceMediaReference,
   ExperienceRegionArea,
   ExperienceRegionDefinition,
-  ExperienceScope,
   ExperienceTransitionReference,
 } from "./ExperienceCompositionDefinition";
 
