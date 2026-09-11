@@ -16,11 +16,7 @@
  * by their respective shared runtime frameworks.
  */
 
-export type ExperienceScope =
-  | "universe"
-  | "domain"
-  | "subdomain"
-  | "solution";
+import type { ExperienceScope } from "../contracts";
 
 export type ExperienceRegionArea =
   | "header"
