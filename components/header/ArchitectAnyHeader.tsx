@@ -147,7 +147,21 @@ export const ArchitectAnyHeader: React.FC<ArchitectAnyHeaderProps> = ({
                   <StackButton icon={Globe2} label="NGLiving" active={currentTab === 'NGLiving'} onClick={() => openContext('NGLiving')} isDark={isDark} />
                   <StackButton icon={Cpu} label="AAi Agent OS" active={currentTab === 'AgentOS'} onClick={() => openContext('AgentOS')} isDark={isDark} />
                   <StackButton icon={Database} label="JSON / Data" onClick={() => { setIsAppStackOpen(false); window.dispatchEvent(new CustomEvent('aai:toggle-json-inspector')); }} isDark={isDark} />
-                  <StackButton icon={Settings2} label="Solution Admin" onClick={() => { setIsAppStackOpen(false); window.dispatchEvent(new CustomEvent('aai:open-solution-admin')); }} isDark={isDark} />
+                  <StackButton
+                    icon={Settings2}
+                    label="Solution Admin"
+                    onClick={() => {
+                      setIsAppStackOpen(false);
+                      const solutionId =
+                        currentTab === 'NGLiving'
+                          ? 'ngliving'
+                          : currentTab === 'Parakkai'
+                            ? 'parakkai'
+                            : new URLSearchParams(window.location.search).get('app') || 'parakkai';
+                      window.location.assign('/solution-admin/' + solutionId);
+                    }}
+                    isDark={isDark}
+                  />
                 </div>
               </div>
             )}
