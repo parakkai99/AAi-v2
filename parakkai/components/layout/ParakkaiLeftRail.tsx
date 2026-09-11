@@ -67,12 +67,12 @@ export const ParakkaiLeftRail: React.FC<ParakkaiLeftRailProps> = ({
     >
       {/* Rail Header with Toggle */}
       <div
-        className="px-3 py-2 border-b flex items-center justify-between shrink-0 border-[#00e3fd]/20"
+        className="px-3 py-2 border-b flex items-center justify-between shrink-0" style={{ borderColor: activeTheme.colors.borderSubtle }}
       >
         {!isCollapsed && (
           <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#00e3fd] animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-wider font-mono text-[#00e3fd]">
+            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: activeTheme.colors.primarySkyBlue }} />
+            <span className="text-[10px] font-bold uppercase tracking-wider font-mono" style={{ color: activeTheme.colors.primarySkyBlue }}>
               DISCOVER
             </span>
           </div>
@@ -80,7 +80,7 @@ export const ParakkaiLeftRail: React.FC<ParakkaiLeftRailProps> = ({
         <button
           type="button"
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="p-1 rounded-md text-slate-400 hover:text-white hover:bg-[#052b4f] transition-colors mx-auto cursor-pointer"
+          className="p-1 rounded-md transition-colors mx-auto cursor-pointer" style={{ color: activeTheme.colors.textSecondary }}
           title={isCollapsed ? 'Expand Navigation Rail' : 'Collapse Navigation Rail'}
         >
           {isCollapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
@@ -97,19 +97,10 @@ export const ParakkaiLeftRail: React.FC<ParakkaiLeftRailProps> = ({
                 key={item.id}
                 type="button"
                 onClick={() => onNavigate(item.id)}
-                className={`w-full px-2.5 py-1.5 rounded-xl text-left transition-all flex items-center gap-2 cursor-pointer group text-xs border ${
-                  isSelected
-                    ? 'bg-gradient-to-r from-amber-500/25 to-amber-600/10 border-amber-400/60 text-amber-200 shadow-[0_0_12px_rgba(245,158,11,0.2)] font-semibold'
-                    : 'text-slate-300 hover:text-white hover:bg-[#052b4f]/70 border-transparent'
-                }`}
-                title={item.label}
+                className={`w-full px-2.5 py-1.5 rounded-xl text-left transition-all flex items-center gap-2 cursor-pointer group text-xs border ${isSelected ? "font-semibold" : ""}`} style={isSelected ? { color: activeTheme.colors.textPrimary, backgroundColor: activeTheme.colors.surfaceAlt, borderColor: activeTheme.colors.borderGold } : { color: activeTheme.colors.textSecondary }} title={item.label}
               >
                 <div
-                  className={`p-1 rounded-lg flex items-center justify-center transition-colors shrink-0 ${
-                    isSelected
-                      ? 'bg-amber-400/20 text-amber-300'
-                      : 'bg-[#020914] text-slate-400 group-hover:text-[#00e3fd] group-hover:bg-[#020914]/80'
-                  }`}
+                  className="p-1 rounded-lg flex items-center justify-center transition-colors shrink-0" style={{ backgroundColor: activeTheme.colors.surfaceCard, color: isSelected ? activeTheme.colors.textGold : activeTheme.colors.textSecondary }}
                 >
                   {item.icon}
                 </div>
@@ -118,7 +109,7 @@ export const ParakkaiLeftRail: React.FC<ParakkaiLeftRailProps> = ({
                   <div className="flex-1 min-w-0 flex items-center justify-between">
                     <span className="font-serif truncate leading-tight text-[11.5px]">{item.label}</span>
                     {item.badge && (
-                      <span className="text-[8.5px] px-1.5 py-0.2 rounded-full font-mono font-bold ml-1 shrink-0 bg-amber-500/20 text-amber-300 border border-amber-400/30">
+                      <span className="text-[8.5px] px-1.5 py-0.2 rounded-full font-mono font-bold ml-1 shrink-0 border" style={{ backgroundColor: activeTheme.colors.surfaceAlt, color: activeTheme.colors.textGold, borderColor: activeTheme.colors.borderGold }}>
                         {item.badge}
                       </span>
                     )}
@@ -131,9 +122,9 @@ export const ParakkaiLeftRail: React.FC<ParakkaiLeftRailProps> = ({
 
         {/* Compact Devotional Inscription */}
         {!isCollapsed && (
-          <div className="p-2 mt-1 rounded-xl border text-center font-serif text-[11px] shrink-0 bg-[#020914]/80 border-amber-500/20">
-            <div className="text-amber-300 font-bold text-[10.5px]">ஓம் நமோ நாராயணாய</div>
-            <p className="text-[8.5px] text-slate-400 italic font-sans leading-tight mt-0.5">
+          <div className="p-2 mt-1 rounded-xl border text-center font-serif text-[11px] shrink-0" style={{ backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderSubtle }}>
+            <div className="font-bold text-[10.5px]" style={{ color: activeTheme.colors.textGold }}>ஓம் நமோ நாராயணாய</div>
+            <p className="text-[8.5px] italic font-sans leading-tight mt-0.5" style={{ color: activeTheme.colors.textSecondary }}>
               Daily 6:30 AM Solar Ray Alignment
             </p>
           </div>
