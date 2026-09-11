@@ -44,6 +44,7 @@ import { CartDrawer } from "./marketplace/CartDrawer";
 import { parakkaiService } from "../services/parakkaiService";
 import { ParakkaiThemeDefinition } from "../contracts/theme";
 import { CartItem, HypermarketProduct } from "../contracts/marketplace";
+import { useExperienceRuntime } from "@/src/experience";
 
 interface ParakkaiAppProps {
   initialView?: string;
@@ -61,6 +62,7 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
   const [activeTheme, setActiveTheme] = useState<ParakkaiThemeDefinition>(() =>
     parakkaiService.getActiveTheme(),
   );
+  const { theme: experienceTheme, layout: experienceLayout } = useExperienceRuntime();
 
   // Cinematic Scene Mode for Home
   const [sceneMode, setSceneMode] = useState<"facade" | "aerial" | "lake">(
@@ -142,14 +144,23 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
   return (
     <div
       id="parakkai-app-root"
+      data-aai-layout={experienceLayout.id}
+      data-aai-layout-navigation={experienceLayout.navigation}
       className={`font-sans transition-colors duration-300 ${
         isHomeView
           ? "h-screen max-h-screen overflow-hidden flex flex-col"
           : "min-h-screen flex flex-col"
       }`}
       style={{
-        backgroundColor: activeTheme.colors.surfaceCanvas,
-        color: activeTheme.colors.textPrimary,
+        backgroundColor: experienceTheme.tokens.background,
+        color: experienceTheme.tokens.text,
+        ["--aai-solution-surface"]: experienceTheme.tokens.surface,
+        ["--aai-solution-surface-alt"]: experienceTheme.tokens.surfaceAlt,
+        ["--aai-solution-primary"]: experienceTheme.tokens.primary,
+        ["--aai-solution-secondary"]: experienceTheme.tokens.secondary,
+        ["--aai-solution-accent"]: experienceTheme.tokens.accent,
+        ["--aai-solution-border"]: experienceTheme.tokens.border,
+        ["--aai-solution-radius"]: experienceTheme.tokens.radius,
       }}
     >
       {/* 1. Header (Sticky Top-0) */}
@@ -188,6 +199,7 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
         }`}
       >
         {/* Left Discovery Rail (Desktop) */}
+        {experienceLayout.navigation !== "top" && experienceLayout.navigation !== "cards" && (
         <ParakkaiLeftRail
           currentView={activeView}
           activeTheme={activeTheme}
@@ -196,6 +208,7 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
         />
+        )}
 
         {/* Center Stage Container */}
         <main
@@ -305,6 +318,7 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
         </main>
 
         {/* Right Participation Rail (Desktop) */}
+        {experienceLayout.navigation === "hybrid" && (
         <ParakkaiRightRail
           currentView={activeView}
           activeTheme={activeTheme}
@@ -316,6 +330,7 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
           onOpenConcernModal={() => setActiveView("community")}
           onOpenIdeaModal={() => setActiveView("community")}
         />
+        )}
       </div>
 
       {/* 3. Footer: Compact Bottom Bar on HOME, Rich ParakkaiFooter on Secondary Pages */}
