@@ -4,7 +4,7 @@
  * Platform: ArchitectAny (AAi)
  * Contract: EXPERIENCE-FRAMEWORK-001
  * Status: ACTIVE
- * Version: 1.2.0
+ * Version: 1.3.0
  */
 
 export { ExperienceRuntime, useExperienceRuntime } from './ExperienceRuntime';
@@ -17,3 +17,4 @@ export type { ExperienceLayout } from './layout/LayoutRegistry';
 export * from './contracts';
 export * from './composition';
 export * from './resolver';
+export * from './runtime';
