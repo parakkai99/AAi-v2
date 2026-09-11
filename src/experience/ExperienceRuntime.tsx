@@ -126,6 +126,7 @@ export const ExperienceRuntime: React.FC<ExperienceRuntimeProps> = ({
       root.style.setProperty(key, value);
     });
 
+    root.style.fontFamily = theme.typography.body;
     root.dataset.aaiTheme = theme.id;
     root.dataset.aaiLayout = layout.id;
     root.dataset.aaiExperience = resolvedDefinition.id;
