@@ -97,7 +97,7 @@ export const ParakkaiLeftRail: React.FC<ParakkaiLeftRailProps> = ({
                 key={item.id}
                 type="button"
                 onClick={() => onNavigate(item.id)}
-                className={`w-full px-2.5 py-1.5 rounded-xl text-left transition-all flex items-center gap-2 cursor-pointer group text-xs border ${isSelected ? "font-semibold" : ""}`} style={isSelected ? { color: activeTheme.colors.textPrimary, backgroundColor: activeTheme.colors.surfaceAlt, borderColor: activeTheme.colors.borderGold } : { color: activeTheme.colors.textSecondary }} title={item.label}
+                className={`w-full px-2.5 py-1.5 rounded-xl text-left transition-all flex items-center gap-2 cursor-pointer group text-xs border ${isSelected ? "font-semibold" : ""}`} style={isSelected ? { color: activeTheme.colors.textPrimary, backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderGold } : { color: activeTheme.colors.textSecondary }} title={item.label}
               >
                 <div
                   className="p-1 rounded-lg flex items-center justify-center transition-colors shrink-0" style={{ backgroundColor: activeTheme.colors.surfaceCard, color: isSelected ? activeTheme.colors.textGold : activeTheme.colors.textSecondary }}
@@ -109,7 +109,7 @@ export const ParakkaiLeftRail: React.FC<ParakkaiLeftRailProps> = ({
                   <div className="flex-1 min-w-0 flex items-center justify-between">
                     <span className="font-serif truncate leading-tight text-[11.5px]">{item.label}</span>
                     {item.badge && (
-                      <span className="text-[8.5px] px-1.5 py-0.2 rounded-full font-mono font-bold ml-1 shrink-0 border" style={{ backgroundColor: activeTheme.colors.surfaceAlt, color: activeTheme.colors.textGold, borderColor: activeTheme.colors.borderGold }}>
+                      <span className="text-[8.5px] px-1.5 py-0.2 rounded-full font-mono font-bold ml-1 shrink-0 border" style={{ backgroundColor: activeTheme.colors.surfaceCard, color: activeTheme.colors.textGold, borderColor: activeTheme.colors.borderGold }}>
                         {item.badge}
                       </span>
                     )}
