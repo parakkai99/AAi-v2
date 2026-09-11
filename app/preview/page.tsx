@@ -28,9 +28,9 @@ import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 import { ApplicationRuntime } from "@/src/applications/ApplicationRuntime";
 import {
   ExperienceRuntime,
-  ExperienceShell,
   useExperienceRuntime,
 } from "@/src/experience/ExperienceRuntime";
+import { ExperienceShell } from "@/src/experience";
 import { getSolutionExperienceDefinition } from "@/src/services/solutionAdminService";
 import type { ExperienceDefinition } from "@/src/experience";
 import { useArchitectAny } from "@/src/context/ArchitectAnyContext";
