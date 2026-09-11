@@ -44,7 +44,7 @@ import type {
 } from "@/src/contracts/catalog";
 import type { Domain, Subdomain, Capability, Solution } from "@/src/types";
 
-interface ExperienceSurfaceProps {
+type NavigateTo = ReturnType<typeof useUniversalNavigation>["navigateTo"];\n\ninterface ExperienceSurfaceProps {
   currentTab: string;
   onTabChange: (tab: string) => void;
   onHome: () => void;
@@ -61,7 +61,7 @@ interface ExperienceSurfaceProps {
   isIntentCoreActive: boolean;
   intentCoreQuery: string;
   onSetIntentCoreQuery: (value: string) => void;
-  navigateTo: (input: Parameters<ReturnType<typeof useUniversalNavigation>["navigateTo"]>[0]) => void;
+  navigateTo: NavigateTo;
 }
 
 function ExperienceSurface({
