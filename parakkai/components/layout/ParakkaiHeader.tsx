@@ -206,13 +206,13 @@ export const ParakkaiHeader: React.FC<ParakkaiHeaderProps> = ({
                 key={link.id}
                 type="button"
                 onClick={() => onNavigate(link.targetView)}
-                className={`relative px-2.5 py-1 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 cursor-pointer border ${isActive ? "font-bold" : ""}`} style={isActive ? { color: activeTheme.colors.textPrimary, backgroundColor: activeTheme.colors.surfaceAlt, borderColor: activeTheme.colors.borderSubtle } : { color: activeTheme.colors.textSecondary }}
+                className={`relative px-2.5 py-1 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 cursor-pointer border ${isActive ? "font-bold" : ""}`} style={isActive ? { color: activeTheme.colors.textPrimary, backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderSubtle } : { color: activeTheme.colors.textSecondary }}
               >
                 {getNavIcon(link.iconName)}
                 <span>{link.label}</span>
                 {link.badge && (
                   <span
-                    className="ml-0.5 text-[8.5px] px-1.5 py-0.2 rounded-full font-bold uppercase tracking-wider border" style={{ backgroundColor: activeTheme.colors.surfaceAlt, color: activeTheme.colors.textGold, borderColor: activeTheme.colors.borderGold }}
+                    className="ml-0.5 text-[8.5px] px-1.5 py-0.2 rounded-full font-bold uppercase tracking-wider border" style={{ backgroundColor: activeTheme.colors.surfaceCard, color: activeTheme.colors.textGold, borderColor: activeTheme.colors.borderGold }}
                   >
                     {link.badge}
                   </span>
