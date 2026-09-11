@@ -10,7 +10,7 @@ import { experienceLayouts } from '@/src/experience/layout/LayoutRegistry';
  * Platform: ArchitectAny (AAi)
  * Contract: AAi-ADMIN-001 — Platform Administration Boundary
  * Status: ACTIVE
- * Version: 1.0.0
+ * Version: 1.0.1
  *
  * AAi-Admin governs the platform. Solution Admin governs each individual solution.
  */
@@ -24,7 +24,13 @@ const applicationLabels: Record<string, { name: string; description: string; sta
   ngliving: { name: 'NGLiving', description: 'Second reference solution used to validate portability.', status: 'Reference / Active' },
 };
 
-const platformSections = [
+type PlatformSection = readonly [
+  title: string,
+  description: string,
+  icon: React.ComponentType<{ className?: string }>,
+];
+
+const platformSections: readonly PlatformSection[] = [
   ['Framework', 'Reusable contracts, components and runtime capability.', Layers3],
   ['Theme Library', 'Framework-owned themes available to solutions.', Palette],
   ['Layout Library', 'Reusable navigation and drilldown layouts.', LayoutTemplate],
@@ -93,10 +99,13 @@ export const AAiPlatformAdmin: React.FC<AAiPlatformAdminProps> = ({ onReturnToUn
         <section className="rounded-2xl border border-white/10 bg-[#061525]/80 p-5">
           <div className="flex items-center gap-2 mb-4"><Settings2 className="w-5 h-5 text-cyan-400"/><div><h2 className="text-xl font-semibold">AAi Platform Controls</h2><p className="text-xs text-[#82a5bb]">These controls belong to AAi, not to an individual solution.</p></div></div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-            {platformSections.map(([title, description, Icon]) => {
-              const Component = Icon as React.ComponentType<{ className?: string }>;
-              return <div key={title} className="rounded-xl border border-white/10 bg-[#020914]/60 p-4"><Component className="w-5 h-5 text-cyan-400"/><h3 className="mt-3 font-semibold">{title}</h3><p className="mt-1 text-xs text-[#82a5bb]">{description}</p></div>;
-            })}
+            {platformSections.map(([title, description, Icon]) => (
+              <div key={title} className="rounded-xl border border-white/10 bg-[#020914]/60 p-4">
+                <Icon className="w-5 h-5 text-cyan-400"/>
+                <h3 className="mt-3 font-semibold">{title}</h3>
+                <p className="mt-1 text-xs text-[#82a5bb]">{description}</p>
+              </div>
+            ))}
           </div>
         </section>
 
