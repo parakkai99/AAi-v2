@@ -5,12 +5,12 @@
  * Context: M01 Solution Universe
  * Catalog Source: Canonical Capability Catalog
  * Status: ACTIVE
- * Version: 1.1.0
+ * Version: 1.2.0
  */
 
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Header } from "@/components/preview/Header";
 import { UniverseStage } from "@/components/preview/UniverseStage";
 import { IntentCoreHome } from "@/components/preview/IntentCoreHome";
@@ -26,6 +26,9 @@ import { CatalogInspector } from "@/components/preview/CatalogInspector";
 import { AAiJsonStickyTrigger } from "@/components/common/AAiJsonStickyTrigger";
 import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 import { ApplicationRuntime } from "@/src/applications/ApplicationRuntime";
+import { ExperienceRuntime } from "@/src/experience/ExperienceRuntime";
+import { getSolutionExperienceDefinition } from "@/src/services/solutionAdminService";
+import type { ExperienceDefinition } from "@/src/experience";
 import { useArchitectAny } from "@/src/context/ArchitectAnyContext";
 import { useUniversalNavigation } from "@/src/context/UniversalNavigationContext";
 import { catalogRepository } from "@/src/repositories/catalogRepository";
@@ -217,6 +220,68 @@ export default function PreviewPage() {
     ? solutions.find((solution) => solution.id === selectedSolutionId) || null
     : null;
 
+  const universeExperienceDefinition = useMemo<ExperienceDefinition>(
+    () => ({
+      id: "aai-universe",
+      scope: "universe",
+      version: "1",
+      identity: {
+        displayName: "ArchitectAny",
+        tagline: "Solution Universe",
+      },
+      context: {
+        languageProfileRef: "universal-language",
+        locationProfileRef: "universal-location",
+      },
+      search: {
+        intentProfileRef: "universal-intent",
+        enabled: true,
+        placeholder: "What do you want to create, find, analyse or shape?",
+      },
+      appStack: {
+        modelStackRef: "universal-solution-models",
+        enabled: true,
+      },
+      navigation: {
+        leftRail: {
+          profileRef: "universal-navigation",
+          expandOn: "hover",
+          collapsed: true,
+        },
+        rightRail: {
+          profileRef: "universal-intelligence",
+          expandOn: "hover",
+          collapsed: true,
+        },
+        topNavigation: {
+          profileRef: "universal-top-shell",
+          expandOn: "click",
+          collapsed: false,
+        },
+      },
+      themeId: isDark ? "midnight-dark" : "pure-white",
+      layoutId: "drilldown-4",
+      compositionId: "universe-default",
+      behaviorProfileId: "universe-default",
+      infrastructure: {
+        authProfileRef: "universe-default-auth",
+        dataProfileRef: "universe-catalog",
+        storeProfileRef: "universe-default-store",
+        assetLibraryRef: "universe-default-assets",
+        integrationProfileRef: "universe-default-integrations",
+      },
+    }),
+    [isDark],
+  );
+
+  const selectedSolutionExperienceDefinition = useMemo(
+    () =>
+      selectedSolutionId
+        ? getSolutionExperienceDefinition(selectedSolutionId)
+        : undefined,
+    [selectedSolutionId],
+  );
+
   return (
     <div
       className={`font-sans min-h-screen flex flex-col overflow-x-hidden transition-colors duration-300 ${
@@ -241,77 +306,86 @@ export default function PreviewPage() {
           />
         </ErrorBoundary>
       ) : (
-        <>
-          <Header
-            currentTab={currentTab}
-            onTabChange={(tab) => {
-              setCurrentTab(tab);
-              if (tab === "Universe") navigateTo({ layer: 1 });
-            }}
-            onHome={() => navigateTo({ layer: 1 })}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            onSelectSolution={(solutionId) => navigateTo({ layer: 5, solutionId })}
-            onOpenMapModal={(prefill) => {
-              setMapModalPrefill(prefill);
-              setIsMapModalOpen(true);
-            }}
-          />
+        <ExperienceRuntime
+          applicationId={selectedSolutionId ?? "aai-universe"}
+          scope={selectedSolutionId ? "solution" : "universe"}
+          definition={selectedSolutionExperienceDefinition}
+          parentDefinitions={[universeExperienceDefinition]}
+          defaultThemeId={isDark ? "midnight-dark" : "pure-white"}
+          defaultLayoutId="drilldown-4"
+        >
+          <>
+            <Header
+              currentTab={currentTab}
+              onTabChange={(tab) => {
+                setCurrentTab(tab);
+                if (tab === "Universe") navigateTo({ layer: 1 });
+              }}
+              onHome={() => navigateTo({ layer: 1 })}
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+              onSelectSolution={(solutionId) => navigateTo({ layer: 5, solutionId })}
+              onOpenMapModal={(prefill) => {
+                setMapModalPrefill(prefill);
+                setIsMapModalOpen(true);
+              }}
+            />
 
-          <main className="flex-grow flex flex-col relative z-10 w-full overflow-x-hidden">
-            {selectedSolutionId ? (
-              <SolutionDetail
-                solutionId={selectedSolutionId}
-                solution={activeSolution}
-                domains={domains}
-                subdomains={subdomains}
-                capabilities={capabilities}
-                onBackToUniverse={() => navigateTo({ type: "up-level" })}
-              />
-            ) : isIntentCoreActive ? (
-              <IntentCoreHome
-                domains={domains}
-                subdomains={subdomains}
-                capabilities={capabilities}
-                solutions={solutions}
-                initialQuery={intentCoreQuery}
-                onReturnToUniverse={() => navigateTo({ layer: 1 })}
-                onNavigateToDomain={(domainId) => navigateTo({ layer: 2, domainId })}
-                onNavigateToSolution={(solutionId) => navigateTo({ layer: 5, solutionId })}
-              />
-            ) : (
-              <UniverseStage
-                searchQuery={searchQuery}
-                onSelectSolution={(solutionId) => navigateTo({ layer: 5, solutionId })}
-                onOpenIntentCore={(query) => {
-                  if (query) setIntentCoreQuery(query);
-                  navigateTo({ layer: 0, query });
-                }}
-              />
-            )}
-          </main>
+            <main className="flex-grow flex flex-col relative z-10 w-full overflow-x-hidden">
+              {selectedSolutionId ? (
+                <SolutionDetail
+                  solutionId={selectedSolutionId}
+                  solution={activeSolution}
+                  domains={domains}
+                  subdomains={subdomains}
+                  capabilities={capabilities}
+                  onBackToUniverse={() => navigateTo({ type: "up-level" })}
+                />
+              ) : isIntentCoreActive ? (
+                <IntentCoreHome
+                  domains={domains}
+                  subdomains={subdomains}
+                  capabilities={capabilities}
+                  solutions={solutions}
+                  initialQuery={intentCoreQuery}
+                  onReturnToUniverse={() => navigateTo({ layer: 1 })}
+                  onNavigateToDomain={(domainId) => navigateTo({ layer: 2, domainId })}
+                  onNavigateToSolution={(solutionId) => navigateTo({ layer: 5, solutionId })}
+                />
+              ) : (
+                <UniverseStage
+                  searchQuery={searchQuery}
+                  onSelectSolution={(solutionId) => navigateTo({ layer: 5, solutionId })}
+                  onOpenIntentCore={(query) => {
+                    if (query) setIntentCoreQuery(query);
+                    navigateTo({ layer: 0, query });
+                  }}
+                />
+              )}
+            </main>
 
-          <ContextualNavigationRail
-            domains={domains}
-            subdomains={subdomains}
-            selectedSolutionId={selectedSolutionId}
-            onSelectDomain={(domainId) => navigateTo({ layer: 2, domainId })}
-            onResetRoot={() => navigateTo({ layer: 1 })}
-          />
+            <ContextualNavigationRail
+              domains={domains}
+              subdomains={subdomains}
+              selectedSolutionId={selectedSolutionId}
+              onSelectDomain={(domainId) => navigateTo({ layer: 2, domainId })}
+              onResetRoot={() => navigateTo({ layer: 1 })}
+            />
 
-          <ContextualIntelligenceRail
-            domains={domains}
-            subdomains={subdomains}
-            capabilities={capabilities}
-            solutions={solutions}
-            selectedSolutionId={selectedSolutionId}
-            activeSolution={activeSolution}
-            onSelectDomain={(domainId) => navigateTo({ layer: 2, domainId })}
-            onSelectSolution={(solutionId) => navigateTo({ layer: 5, solutionId })}
-          />
+            <ContextualIntelligenceRail
+              domains={domains}
+              subdomains={subdomains}
+              capabilities={capabilities}
+              solutions={solutions}
+              selectedSolutionId={selectedSolutionId}
+              activeSolution={activeSolution}
+              onSelectDomain={(domainId) => navigateTo({ layer: 2, domainId })}
+              onSelectSolution={(solutionId) => navigateTo({ layer: 5, solutionId })}
+            />
 
-          <Footer />
-        </>
+            <Footer />
+          </>
+        </ExperienceRuntime>
       )}
 
       <SpatialMapModal
