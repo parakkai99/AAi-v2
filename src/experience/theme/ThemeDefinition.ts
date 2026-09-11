@@ -14,6 +14,11 @@ export interface ExperienceTheme {
   name: string;
   category: 'ai' | 'nature' | 'commerce' | 'modern' | 'dark' | 'light' | 'minimal' | 'business' | 'creative';
   description: string;
+  typography: {
+    display: string;
+    body: string;
+    mono: string;
+  };
   tokens: {
     background: string;
     surface: string;
