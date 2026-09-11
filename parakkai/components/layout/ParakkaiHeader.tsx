@@ -239,7 +239,7 @@ export const ParakkaiHeader: React.FC<ParakkaiHeaderProps> = ({
           <button
             type="button"
             onClick={onOpenCart}
-            className="relative p-1.5 rounded-lg text-slate-400 hover:text-amber-300 hover:bg-[#052b4f] transition-colors border border-transparent hover:border-[#00e3fd]/30 cursor-pointer"
+            className="relative p-1.5 rounded-lg transition-colors border cursor-pointer" style={{ color: activeTheme.colors.textSecondary, backgroundColor: activeTheme.colors.surface, borderColor: activeTheme.colors.borderSubtle }}
             title="Open Parakkai Hypermarket Cart"
             aria-label="View Cart"
           >
