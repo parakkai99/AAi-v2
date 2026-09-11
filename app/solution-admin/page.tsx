@@ -18,7 +18,7 @@ export default function SolutionAdminPage({ solutionId }: { solutionId: string }
     <SolutionAdmin
       solutionId={solutionId}
       onPreviewSolution={() => {
-        window.history.pushState({}, '', `/?app=${encodeURIComponent(solutionId)}&preview=1`); window.dispatchEvent(new PopStateEvent('popstate'));
+        window.location.assign(`/?app=${encodeURIComponent(solutionId)}&preview=1`);
       }}
     />
   );
