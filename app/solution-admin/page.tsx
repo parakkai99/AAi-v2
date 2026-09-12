@@ -10,15 +10,19 @@
  * to that solution's application experience; AAi-Admin remains platform authority.
  */
 
+'use client';
+
 import React from 'react';
+import type { SolutionAdminConfig } from '@/src/contracts/solutionAdmin';
 import { SolutionAdmin } from '@/components/admin/SolutionAdmin';
 
 export default function SolutionAdminPage({ solutionId }: { solutionId: string }) {
   return (
     <SolutionAdmin
       solutionId={solutionId}
-      onPreviewSolution={() => {
-        const previewUrl = new URL('/?app=' + encodeURIComponent(solutionId) + '&preview=1', window.location.origin).toString();
+      onPreviewSolution={(config: SolutionAdminConfig) => {
+        const query = new URLSearchParams({ app: config.solutionId, preview: '1', theme: config.themeId, layout: config.layoutId });
+        const previewUrl = new URL('/?' + query.toString(), window.location.origin).toString();
         const previewWindow = window.open(previewUrl, '_blank', 'noopener,noreferrer');
         previewWindow?.focus();
       }}
