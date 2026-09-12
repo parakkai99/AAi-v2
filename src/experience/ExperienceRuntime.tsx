@@ -56,8 +56,8 @@ export const ExperienceRuntime: React.FC<ExperienceRuntimeProps> = ({
   scope = 'solution',
   definition,
   parentDefinitions = [],
-  defaultThemeId = 'midnight-dark',
-  defaultLayoutId = 'drilldown-4',
+  defaultThemeId = 'aai-live',
+  defaultLayoutId = 'aai-live-full',
 }) => {
   const fallbackDefinition = useMemo<ExperienceDefinition>(
     () => ({
