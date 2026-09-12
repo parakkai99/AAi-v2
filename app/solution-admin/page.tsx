@@ -1,31 +1,22 @@
-/**
- * AAi Solution Administration Route
- * Architect: Vijay Kumar K.
- * Platform: ArchitectAny (AAi)
- * Contract: SOLUTION-ADMIN-ROUTE-001
- * Status: ACTIVE
- * Version: 1.1.0
- *
- * The route is scoped to one registered solution. The client can return only
- * to that solution's application experience; AAi-Admin remains platform authority.
- */
+"use client";
 
-'use client';
+import React, { useEffect } from "react";
 
-import React from 'react';
-import type { SolutionAdminConfig } from '@/src/contracts/solutionAdmin';
-import { SolutionAdmin } from '@/components/admin/SolutionAdmin';
+export default function SolutionAdminRootPage() {
+  useEffect(() => {
+    window.location.replace("/solution-admin/jaico");
+  }, []);
 
-export default function SolutionAdminPage({ solutionId }: { solutionId: string }) {
   return (
-    <SolutionAdmin
-      solutionId={solutionId}
-      onPreviewSolution={(config: SolutionAdminConfig) => {
-        const query = new URLSearchParams({ app: config.solutionId, preview: '1', theme: config.themeId, layout: config.layoutId });
-        const previewUrl = new URL('/?' + query.toString(), window.location.origin).toString();
-        const previewWindow = window.open(previewUrl, '_blank', 'noopener,noreferrer');
-        previewWindow?.focus();
-      }}
-    />
+    <div className="min-h-screen bg-[#020914] text-[#eaf7ff] flex items-center justify-center">
+      <div className="rounded-2xl border border-cyan-400/20 bg-[#061525]/90 px-6 py-5 text-center">
+        <div className="text-[10px] font-mono uppercase tracking-[0.25em] text-cyan-400">
+          Solution Administration
+        </div>
+        <div className="mt-2 text-sm text-[#82a5bb]">
+          Opening the Jaico-Mart solution control plane…
+        </div>
+      </div>
+    </div>
   );
 }
