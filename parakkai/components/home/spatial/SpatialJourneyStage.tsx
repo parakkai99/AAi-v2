@@ -318,7 +318,7 @@ export default function SpatialJourneyStage({
       ref={stageRef}
       className={[
         "relative h-full w-full min-h-0 overflow-hidden",
-        "bg-black text-white",
+        "text-[var(--aai-text)]",
         isImmersive ? "z-[100]" : "",
       ].join(" ")}
       aria-label="Parakkai Sacred Spatial Journey"
@@ -442,7 +442,7 @@ export default function SpatialJourneyStage({
           <button
             type="button"
             onClick={() => setIsNavigationOpen((current) => !current)}
-            className="rounded-full border border-white/20 bg-black/35 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.24em] text-white/90 shadow-lg backdrop-blur-md transition hover:bg-black/55"
+            className="rounded-full border px-4 py-2 text-[10px] font-medium uppercase tracking-[0.24em] shadow-lg backdrop-blur-md transition" style={{ color: "var(--aai-text)", borderColor: "var(--aai-border)", backgroundColor: "var(--aai-surface)" }}
             aria-expanded={isNavigationOpen}
             aria-controls="parakkai-cinematic-navigation"
           >
@@ -453,9 +453,9 @@ export default function SpatialJourneyStage({
             <nav
               id="parakkai-cinematic-navigation"
               aria-label="Parakkai navigation"
-              className="mt-2 w-56 rounded-2xl border border-white/15 bg-black/65 p-2 shadow-2xl backdrop-blur-xl"
+              className="mt-2 w-56 rounded-2xl border p-2 shadow-2xl backdrop-blur-xl" style={{ color: "var(--aai-text)", borderColor: "var(--aai-border)", backgroundColor: "var(--aai-surface)" }}
             >
-              <div className="px-3 pb-2 pt-1 text-[9px] uppercase tracking-[0.28em] text-white/45">
+              <div className="px-3 pb-2 pt-1 text-[9px] uppercase tracking-[0.28em]" style={{ color: "var(--aai-text-muted)" }}>
                 Sacred Experience
               </div>
               <div className="grid grid-cols-2 gap-1">
@@ -464,7 +464,7 @@ export default function SpatialJourneyStage({
                     key={item.id}
                     type="button"
                     onClick={() => handleNavigate(item.id)}
-                    className="rounded-xl px-3 py-2 text-left text-[11px] text-white/80 transition hover:bg-white/10 hover:text-white"
+                    className="rounded-xl px-3 py-2 text-left text-[11px] transition" style={{ color: "var(--aai-text-muted)" }}
                   >
                     {item.label}
                   </button>
@@ -476,7 +476,7 @@ export default function SpatialJourneyStage({
       ) : null}
 
       <div className="pointer-events-none absolute right-6 top-6 z-30 text-right">
-        <div className="font-mono text-[11px] tracking-[0.25em] text-white/55">
+        <div className="font-mono text-[11px] tracking-[0.25em]" style={{ color: "var(--aai-text-muted)" }}>
           {String(scene.number).padStart(2, "0")}
 
           <span className="mx-1 text-white/20">/</span>
@@ -486,11 +486,11 @@ export default function SpatialJourneyStage({
       </div>
 
       <div className="pointer-events-none absolute bottom-24 left-6 z-30 max-w-xl">
-        <div className="mb-2 text-[10px] uppercase tracking-[0.32em] text-white/45">
+        <div className="mb-2 text-[10px] uppercase tracking-[0.32em]" style={{ color: "var(--aai-text-muted)" }}>
           {scene.subtitle}
         </div>
 
-        <h1 className="text-2xl font-light tracking-wide text-white/95 md:text-4xl">
+        <h1 className="text-2xl font-light tracking-wide md:text-4xl" style={{ color: "var(--aai-text)" }}>
           {scene.title}
         </h1>
       </div>
