@@ -196,7 +196,8 @@ function Experience({
   onUpdate: (patch: Partial<SolutionAdminConfig>) => void;
   onPreview: () => void;
 }) {
-  const [openLibrary, setOpenLibrary] = useState<'theme' | 'layout'>('theme');
+  const [openLibraries, setOpenLibraries] = useState<{ theme: boolean; layout: boolean }>({ theme: true, layout: false });
+  const [activeLibrary, setActiveLibrary] = useState<'theme' | 'layout'>('theme');
   const [selectedThemeId, setSelectedThemeId] = useState(config.themeId);
   const [selectedLayoutId, setSelectedLayoutId] = useState(config.layoutId);
 
@@ -215,12 +216,19 @@ function Experience({
 
   const chooseTheme = (themeId: string) => {
     setSelectedThemeId(themeId);
+    setActiveLibrary('theme');
     onUpdate({ themeId });
   };
 
   const chooseLayout = (layoutId: string) => {
     setSelectedLayoutId(layoutId);
+    setActiveLibrary('layout');
     onUpdate({ layoutId });
+  };
+
+  const toggleLibrary = (library: 'theme' | 'layout') => {
+    setOpenLibraries((current) => ({ ...current, [library]: !current[library] }));
+    setActiveLibrary(library);
   };
 
   return (
@@ -231,14 +239,12 @@ function Experience({
             title="Theme Library"
             subtitle="Visual language, typography and surface behavior"
             icon={Palette}
-            open={openLibrary === 'theme'}
-            onToggle={() =>
-              setOpenLibrary((current) => (current === 'theme' ? 'layout' : 'theme'))
-            }
+            open={openLibraries.theme}
+            onToggle={() => toggleLibrary('theme')}
             count={experienceThemes.length}
             selectedLabel={selectedTheme.name}
           >
-            <div className="space-y-2 max-h-[420px] overflow-auto pr-1">
+            <div className="grid grid-cols-1 gap-2">
               {experienceThemes.map((theme, index) => (
                 <button
                   key={theme.id}
@@ -283,14 +289,12 @@ function Experience({
             title="Layout Library"
             subtitle="Page frame and region arrangement"
             icon={LayoutTemplate}
-            open={openLibrary === 'layout'}
-            onToggle={() =>
-              setOpenLibrary((current) => (current === 'layout' ? 'theme' : 'layout'))
-            }
+            open={openLibraries.layout}
+            onToggle={() => toggleLibrary('layout')}
             count={experienceLayouts.length}
             selectedLabel={selectedLayout.name}
           >
-            <div className="space-y-2 max-h-[420px] overflow-auto pr-1">
+            <div className="grid grid-cols-1 gap-2">
               {experienceLayouts.map((layout, index) => (
                 <button
                   key={layout.id}
@@ -328,8 +332,8 @@ function Experience({
           </div>
         </div>
 
-        <div className="min-w-0 max-h-[calc(100vh-230px)] overflow-y-auto pr-2 overscroll-contain">
-          {openLibrary === 'theme' ? (
+        <div className="min-w-0">
+          {activeLibrary === 'theme' ? (
             <ThemeDetail theme={selectedTheme} />
           ) : (
             <LayoutDetail layout={selectedLayout} />
@@ -376,7 +380,7 @@ function ExperienceLibraryCard({
   children: React.ReactNode;
 }) {
   return (
-    <section className={`rounded-2xl border transition-all ${
+    <section className={`rounded-2xl border transition-all cursor-pointer ${
       open
         ? 'border-cyan-400/30 bg-[#061525]/90'
         : 'border-white/10 bg-[#061525]/60'
