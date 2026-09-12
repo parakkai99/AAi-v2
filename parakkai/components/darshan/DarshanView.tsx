@@ -181,11 +181,13 @@ export const DarshanView: React.FC<DarshanViewProps> = ({
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1 rounded-lg text-xs font-mono transition-colors cursor-pointer border ${
-                  selectedCategory === cat
-                    ? 'bg-amber-500/20 text-amber-300 border-amber-400 font-bold'
-                    : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
-                }`}
+                className="px-3 py-1 rounded-lg text-xs font-mono transition-colors cursor-pointer border"
+                style={{
+                  backgroundColor: selectedCategory === cat ? activeTheme.colors.sacredGold : activeTheme.colors.surfaceElevated,
+                  color: selectedCategory === cat ? '#000000' : activeTheme.colors.textSecondary,
+                  borderColor: selectedCategory === cat ? activeTheme.colors.sacredGold : activeTheme.colors.borderSubtle,
+                  fontWeight: selectedCategory === cat ? 'bold' : 'normal'
+                }}
               >
                 {cat.replace('_', ' ')}
               </button>
@@ -221,7 +223,7 @@ export const DarshanView: React.FC<DarshanViewProps> = ({
                   </div>
 
                   <div className="text-right">
-                    <span className="text-lg font-serif font-bold text-amber-400">
+                    <span className="text-lg font-serif font-bold" style={{ color: activeTheme.colors.sacredGold }}>
                       ₹{offering.priceINR}
                     </span>
                   </div>
@@ -233,10 +235,10 @@ export const DarshanView: React.FC<DarshanViewProps> = ({
 
                 <div className="pt-2 text-[11px] space-y-1 font-sans" style={{ color: activeTheme.colors.textSecondary }}>
                   <div>
-                    <strong className="text-slate-300">Prasadam Given: </strong>
+                    <strong style={{ color: activeTheme.colors.textPrimary }}>Prasadam Given: </strong>
                     <span>{offering.prasadamDescription}</span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-amber-300/90 font-mono text-[10px]">
+                  <div className="flex items-center gap-1.5 font-mono text-[10px]" style={{ color: activeTheme.colors.textGold }}>
                     <Clock className="w-3 h-3" />
                     <span>Time Slot: {offering.timingSlot || offering.timing || 'Temple Hours'}</span>
                   </div>
@@ -250,7 +252,8 @@ export const DarshanView: React.FC<DarshanViewProps> = ({
                 <button
                   type="button"
                   onClick={() => onBookPooja(offering.id)}
-                  className="px-3.5 py-1.5 rounded-lg text-xs font-serif font-bold transition-colors cursor-pointer flex items-center gap-1" style={{ backgroundColor: activeTheme.colors.sacredGold, color: activeTheme.colors.deepTempleNavy }}
+                  className="px-3.5 py-1.5 rounded-lg text-xs font-serif font-bold transition-colors cursor-pointer flex items-center gap-1"
+                  style={{ backgroundColor: activeTheme.colors.sacredGold, color: '#000000' }}
                 >
                   <Sparkles className="w-3 h-3" />
                   <span>Reserve Slot</span>
@@ -281,14 +284,14 @@ export const DarshanView: React.FC<DarshanViewProps> = ({
               Men: Dhoti / Veshti with angavastram or bare upper body. Women: Sarees, half-sarees, or salwar kameez with dupatta.
             </p>
           </div>
-          <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
-            <strong className="text-white block font-serif">Sanctum Photography</strong>
+          <div className="p-3 rounded-xl border space-y-1" style={{ backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderSubtle }}>
+            <strong className="block font-serif" style={{ color: activeTheme.colors.textPrimary }}>Sanctum Photography</strong>
             <p>
               Strictly prohibited inside the Garbha Griha and inner corridor to protect consecrated deity sanctity. Outer praharam photography permitted.
             </p>
           </div>
-          <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
-            <strong className="text-white block font-serif">Prasadam Counter</strong>
+          <div className="p-3 rounded-xl border space-y-1" style={{ backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderSubtle }}>
+            <strong className="block font-serif" style={{ color: activeTheme.colors.textPrimary }}>Prasadam Counter</strong>
             <p>
               Online pooja receipts can be shown at the temple outer counter alongside your SMS/WhatsApp reference number to collect sanctified prasad.
             </p>

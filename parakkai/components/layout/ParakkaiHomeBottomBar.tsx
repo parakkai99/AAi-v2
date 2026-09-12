@@ -80,17 +80,27 @@ export const ParakkaiHomeBottomBar: React.FC<ParakkaiHomeBottomBarProps> = ({
         <button
           type="button"
           onClick={() => onNavigate('today')}
-          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full font-medium transition-all cursor-pointer border text-[11px] ${
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-full font-medium transition-all cursor-pointer border text-[11px]"
+          style={
             sunlightStatus.isMiracleWindow
-              ? 'bg-amber-500/20 text-amber-300 border-amber-400 animate-pulse font-bold shadow-[0_0_10px_rgba(245,158,11,0.3)]'
-              : 'bg-[#03162b] text-slate-300 border-[#00e3fd]/20 hover:border-amber-400/40 hover:text-amber-200'
-          }`}
+              ? {
+                  backgroundColor: `${activeTheme.colors.sacredGold}30`,
+                  color: activeTheme.colors.textGold,
+                  borderColor: activeTheme.colors.sacredGold,
+                  fontWeight: 700
+                }
+              : {
+                  backgroundColor: activeTheme.colors.surfaceCard,
+                  color: activeTheme.colors.textSecondary,
+                  borderColor: activeTheme.colors.borderSubtle
+                }
+          }
           title="Daily 6:30 AM Solar Ray Alignment at Lotus Feet"
         >
-          <Sun className="w-3.5 h-3.5 text-amber-400 animate-spin-slow shrink-0" />
+          <Sun className="w-3.5 h-3.5 text-amber-500 shrink-0" />
           <span className="font-serif">
             {sunlightStatus.isMiracleWindow ? (
-              <span className="text-amber-300 font-bold">6:30 AM Miracle Active Now!</span>
+              <span style={{ color: activeTheme.colors.textGold, fontWeight: 700 }}>6:30 AM Miracle Active Now!</span>
             ) : (
               <span>6:30 AM Ray: {Math.floor(sunlightStatus.minutesUntilNextMiracle / 60)}h {sunlightStatus.minutesUntilNextMiracle % 60}m</span>
             )}
@@ -102,11 +112,12 @@ export const ParakkaiHomeBottomBar: React.FC<ParakkaiHomeBottomBarProps> = ({
           <button
             type="button"
             onClick={() => onSceneChange('facade')}
-            className={`px-2 py-0.5 rounded-md transition-all cursor-pointer font-medium ${
-              sceneMode === 'facade'
-                ? 'font-semibold'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
+            className="px-2 py-0.5 rounded-md transition-all cursor-pointer font-medium"
+            style={{
+              backgroundColor: sceneMode === 'facade' ? `${activeTheme.colors.sacredGold}25` : 'transparent',
+              color: sceneMode === 'facade' ? activeTheme.colors.sacredGold : activeTheme.colors.textSecondary,
+              fontWeight: sceneMode === 'facade' ? 600 : 400
+            }}
             title="Temple Façade View (Approved Artwork)"
           >
             Façade
@@ -114,11 +125,12 @@ export const ParakkaiHomeBottomBar: React.FC<ParakkaiHomeBottomBarProps> = ({
           <button
             type="button"
             onClick={() => onSceneChange('aerial')}
-            className={`px-2 py-0.5 rounded-md transition-all cursor-pointer font-medium flex items-center gap-1 ${
-              sceneMode === 'aerial'
-                ? 'bg-[#052b4f] text-[#00e3fd] border border-[#00e3fd]/40 font-semibold shadow-xs'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
+            className="px-2 py-0.5 rounded-md transition-all cursor-pointer font-medium flex items-center gap-1"
+            style={{
+              backgroundColor: sceneMode === 'aerial' ? `${activeTheme.colors.sacredGold}25` : 'transparent',
+              color: sceneMode === 'aerial' ? activeTheme.colors.sacredGold : activeTheme.colors.textSecondary,
+              fontWeight: sceneMode === 'aerial' ? 600 : 400
+            }}
             title="Aerial Drone View over Coconut Groves & Kodimaram"
           >
             <span>Aerial Grove</span>
@@ -126,11 +138,12 @@ export const ParakkaiHomeBottomBar: React.FC<ParakkaiHomeBottomBarProps> = ({
           <button
             type="button"
             onClick={() => onSceneChange('lake')}
-            className={`px-2 py-0.5 rounded-md transition-all cursor-pointer font-medium ${
-              sceneMode === 'lake'
-                ? 'bg-[#052b4f] text-[#00e3fd] border border-[#00e3fd]/40 font-semibold shadow-xs'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
+            className="px-2 py-0.5 rounded-md transition-all cursor-pointer font-medium"
+            style={{
+              backgroundColor: sceneMode === 'lake' ? `${activeTheme.colors.sacredGold}25` : 'transparent',
+              color: sceneMode === 'lake' ? activeTheme.colors.sacredGold : activeTheme.colors.textSecondary,
+              fontWeight: sceneMode === 'lake' ? 600 : 400
+            }}
             title="Sacred Parakkai Lake at Sunrise"
           >
             Teertham Lake

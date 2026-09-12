@@ -40,12 +40,13 @@ export const ParakkaiNatureView: React.FC<ParakkaiNatureViewProps> = ({
           </div>
 
           <h1
-            className="text-2xl sm:text-4xl font-serif font-bold tracking-tight text-slate-900"
+            className="text-2xl sm:text-4xl font-serif font-bold tracking-tight"
+            style={{ color: activeTheme.colors.textPrimary }}
           >
             Parakkai Lake & Green Groves
           </h1>
 
-          <p className="text-sm sm:text-base text-slate-700 font-sans leading-relaxed">
+          <p className="text-sm sm:text-base font-sans leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
             Nestled in the lush delta plains of Kanyakumari district, Parakkai is famed for its expansive freshwater lake, thriving coconut groves, and a bird sanctuary welcoming migratory birds throughout the winter months. Devotion and environmental stewardship merge naturally in this timeless haven.
           </p>
 
@@ -53,7 +54,11 @@ export const ParakkaiNatureView: React.FC<ParakkaiNatureViewProps> = ({
             <button
               type="button"
               onClick={() => onNavigate('map')}
-              className="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white flex items-center gap-1.5 cursor-pointer shadow-xs"
+              className="px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-xs"
+              style={{
+                backgroundColor: activeTheme.colors.sacredGold,
+                color: '#000000'
+              }}
             >
               <Compass className="w-4 h-4" />
               <span>Explore Village Map</span>
@@ -61,7 +66,12 @@ export const ParakkaiNatureView: React.FC<ParakkaiNatureViewProps> = ({
             <button
               type="button"
               onClick={() => onNavigate('temple')}
-              className="px-4 py-2 rounded-xl text-xs font-medium text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2 rounded-xl text-xs font-medium border flex items-center gap-1.5 cursor-pointer transition-colors"
+              style={{
+                backgroundColor: activeTheme.colors.surfaceElevated,
+                borderColor: activeTheme.colors.borderSubtle,
+                color: activeTheme.colors.textPrimary
+              }}
             >
               <span>Temple Architecture</span>
             </button>
@@ -78,13 +88,19 @@ export const ParakkaiNatureView: React.FC<ParakkaiNatureViewProps> = ({
             borderColor: activeTheme.colors.borderSubtle
           }}
         >
-          <div className="w-9 h-9 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-bold">
+          <div
+            className="w-9 h-9 rounded-xl flex items-center justify-center font-bold"
+            style={{
+              backgroundColor: `${activeTheme.colors.primarySkyBlue}20`,
+              color: activeTheme.colors.primarySkyBlue
+            }}
+          >
             <Droplets className="w-5 h-5" />
           </div>
-          <h3 className="text-base font-serif font-bold text-slate-900">
+          <h3 className="text-base font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
             Sacred Teertham Lake
           </h3>
-          <p className="text-xs text-slate-600 leading-relaxed">
+          <p className="text-xs leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
             The expansive temple tank and village freshwater lake supply pristine water for sanctum theertha abhishekam and sustain the surrounding flora and fauna year-round.
           </p>
         </div>
@@ -96,13 +112,19 @@ export const ParakkaiNatureView: React.FC<ParakkaiNatureViewProps> = ({
             borderColor: activeTheme.colors.borderSubtle
           }}
         >
-          <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+          <div
+            className="w-9 h-9 rounded-xl flex items-center justify-center font-bold"
+            style={{
+              backgroundColor: `${activeTheme.colors.sacredGold}20`,
+              color: activeTheme.colors.sacredGold
+            }}
+          >
             <Bird className="w-5 h-5" />
           </div>
-          <h3 className="text-base font-serif font-bold text-slate-900">
+          <h3 className="text-base font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
             Migratory Bird Sanctuary
           </h3>
-          <p className="text-xs text-slate-600 leading-relaxed">
+          <p className="text-xs leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
             Parakkai Lake attracts painted storks, spot-billed pelicans, egrets, and white ibises. The tranquil waters provide a sanctuary where nature flourishes unhindered.
           </p>
         </div>
@@ -114,13 +136,19 @@ export const ParakkaiNatureView: React.FC<ParakkaiNatureViewProps> = ({
             borderColor: activeTheme.colors.borderSubtle
           }}
         >
-          <div className="w-9 h-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
+          <div
+            className="w-9 h-9 rounded-xl flex items-center justify-center font-bold"
+            style={{
+              backgroundColor: `${activeTheme.colors.textGold}20`,
+              color: activeTheme.colors.textGold
+            }}
+          >
             <Sun className="w-5 h-5" />
           </div>
-          <h3 className="text-base font-serif font-bold text-slate-900">
+          <h3 className="text-base font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
             Solar Dawn Miracle
           </h3>
-          <p className="text-xs text-slate-600 leading-relaxed">
+          <p className="text-xs leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
             The geographical orientation of the village and temple aligns perfectly with the rising sun at 6:30 AM, creating an astronomical marvel preserved for centuries.
           </p>
         </div>

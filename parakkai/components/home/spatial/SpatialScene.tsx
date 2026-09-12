@@ -152,20 +152,22 @@ export default function SpatialScene({
     focalPointMap[scene.focalPoint ?? "center"] ?? "50% 50%";
 
   const isScene01 = scene.id === "sakthi-vinayakar";
+  const isScene02 = scene.id === "sacred-tree";
 
   /*
-   * Scene 01 is the reference implementation.
+   * Scene 01 (Sakthi Vinayakar) and Scene 02 (Sacred Tree) adhere to the
+   * One-Scene Cinematic Production standard.
    *
    * Important:
    * No automatic Ken Burns animation.
    * No zoom-in / zoom-out cycle.
    *
-   * The image remains essentially stable.
+   * The photograph remains the hero.
    */
   const imageTransform = `
   translate3d(
-    ${pointer.x * -0.35}%,
-    ${pointer.y * -0.25}%,
+    ${pointer.x * (scene.motion === "drift" ? -0.42 : -0.35)}%,
+    ${pointer.y * (scene.motion === "drift" ? -0.32 : -0.25)}%,
     0
   )
   scale(1)
@@ -251,7 +253,7 @@ export default function SpatialScene({
       {!imageError && <SpatialAtmosphere scene={scene} />}
 
       {/* ============================================================
-          4. NATURAL MORNING LIGHT
+          4. NATURAL MORNING & CANOPY LIGHT
           ============================================================ */}
 
       {isScene01 && (
@@ -273,6 +275,78 @@ export default function SpatialScene({
             style={{
               background:
                 "linear-gradient(180deg, rgba(255,220,150,0.045) 0%, transparent 38%, rgba(2,9,20,0.08) 70%, rgba(2,9,20,0.42) 100%)",
+            }}
+          />
+        </div>
+      )}
+
+      {isScene02 && (
+        <div
+          className="pointer-events-none absolute inset-0 z-20"
+          aria-hidden="true"
+        >
+          <div
+            className="absolute -left-[10%] -top-[14%] h-[68vh] w-[68vh] rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(215,255,185,0.16) 0%, rgba(255,225,130,0.04) 38%, transparent 70%)",
+              filter: "blur(26px)",
+            }}
+          />
+
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(200,245,180,0.04) 0%, transparent 40%, rgba(5,18,10,0.08) 68%, rgba(5,18,10,0.40) 100%)",
+            }}
+          />
+        </div>
+      )}
+
+      {scene.id === "vinayakar-to-lake" && (
+        <div
+          className="pointer-events-none absolute inset-0 z-20"
+          aria-hidden="true"
+        >
+          <div
+            className="absolute left-[20%] -top-[15%] h-[64vh] w-[64vh] rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(255,230,150,0.18) 0%, rgba(180,230,245,0.06) 42%, transparent 70%)",
+              filter: "blur(28px)",
+            }}
+          />
+
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(255,240,200,0.05) 0%, transparent 42%, rgba(4,16,28,0.08) 68%, rgba(4,16,28,0.38) 100%)",
+            }}
+          />
+        </div>
+      )}
+
+      {scene.id === "parakkai-lake" && (
+        <div
+          className="pointer-events-none absolute inset-0 z-20"
+          aria-hidden="true"
+        >
+          <div
+            className="absolute left-[30%] -top-[10%] h-[60vh] w-[60vh] rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(190,235,255,0.20) 0%, rgba(140,215,240,0.05) 45%, transparent 72%)",
+              filter: "blur(28px)",
+            }}
+          />
+
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(175,225,245,0.04) 0%, transparent 40%, rgba(3,18,30,0.10) 65%, rgba(3,18,30,0.42) 100%)",
             }}
           />
         </div>
@@ -324,14 +398,14 @@ export default function SpatialScene({
       {!imageSource ||
         (imageError && (
           <div className="absolute inset-0 z-40 grid place-items-center" style={{ backgroundColor: "var(--aai-bg)", color: "var(--aai-text)" }}>
-            <div className="text-center">
-              <div className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/35">
+            <div className="text-center p-6 rounded-2xl border" style={{ backgroundColor: "var(--aai-surface)", borderColor: "var(--aai-border)" }}>
+              <div className="font-mono text-[9px] uppercase tracking-[0.3em]" style={{ color: "var(--aai-text-muted)" }}>
                 Scene {scene.number}
               </div>
 
-              <div className="mt-2 text-sm text-white/60">{scene.title}</div>
+              <div className="mt-2 text-sm font-semibold" style={{ color: "var(--aai-text)" }}>{scene.title}</div>
 
-              <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/25">
+              <div className="mt-1 text-[10px] uppercase tracking-[0.18em]" style={{ color: "var(--aai-text-muted)" }}>
                 Asset pending
               </div>
             </div>

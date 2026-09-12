@@ -97,16 +97,23 @@ export const PoojaBookingModal: React.FC<PoojaBookingModalProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start justify-between border-b border-slate-800 pb-4">
+        <div className="flex items-start justify-between border-b pb-4" style={{ borderColor: activeTheme.colors.borderSubtle }}>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-xl border border-amber-400">
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center text-xl border"
+              style={{
+                backgroundColor: `${activeTheme.colors.sacredGold}20`,
+                borderColor: activeTheme.colors.borderGold,
+                color: activeTheme.colors.textGold
+              }}
+            >
               🪷
             </div>
             <div>
-              <h3 className="text-lg font-serif font-bold text-white">
+              <h3 className="text-lg font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
                 Book Temple Pooja Offering
               </h3>
-              <p className="text-xs text-slate-300 font-sans">
+              <p className="text-xs font-sans" style={{ color: activeTheme.colors.textSecondary }}>
                 Arulmigu Madhusoodhana Perumal Sannadhi • Parakkai
               </p>
             </div>
@@ -115,7 +122,8 @@ export const PoojaBookingModal: React.FC<PoojaBookingModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg transition-colors cursor-pointer"
+            style={{ color: activeTheme.colors.textSecondary }}
           >
             <X className="w-5 h-5" />
           </button>
@@ -132,32 +140,45 @@ export const PoojaBookingModal: React.FC<PoojaBookingModalProps> = ({
               <span className="text-xs uppercase font-mono tracking-widest text-emerald-400 font-bold">
                 Pooja Slot Reserved
               </span>
-              <h4 className="text-xl font-serif font-bold text-white">
+              <h4 className="text-xl font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
                 {confirmedBooking.offeringName}
               </h4>
-              <p className="text-xs text-slate-300 font-sans">
-                Devotee: <strong>{confirmedBooking.devoteeName}</strong>
+              <p className="text-xs font-sans" style={{ color: activeTheme.colors.textSecondary }}>
+                Devotee: <strong style={{ color: activeTheme.colors.textPrimary }}>{confirmedBooking.devoteeName}</strong>
               </p>
             </div>
 
             {/* Reference Number Card */}
-            <div className="p-4 rounded-2xl bg-slate-950 border border-amber-500/30 text-center space-y-1">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+            <div
+              className="p-4 rounded-2xl border text-center space-y-1"
+              style={{
+                backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                borderColor: activeTheme.colors.borderGold
+              }}
+            >
+              <span className="text-[10px] font-mono uppercase tracking-wider" style={{ color: activeTheme.colors.textSecondary }}>
                 Official Booking Reference Code
               </span>
-              <div className="text-xl sm:text-2xl font-mono font-black text-amber-400 tracking-wider">
+              <div className="text-xl sm:text-2xl font-mono font-black tracking-wider" style={{ color: activeTheme.colors.sacredGold }}>
                 {confirmedBooking.referenceNumber}
               </div>
-              <p className="text-[11px] text-slate-400 font-sans">
+              <p className="text-[11px] font-sans" style={{ color: activeTheme.colors.textSecondary }}>
                 Date: {confirmedBooking.preferredDate} • Slot: {confirmedBooking.preferredTimeSlot}
               </p>
-              <div className="text-xs font-serif font-bold text-slate-300 pt-1">
+              <div className="text-xs font-serif font-bold pt-1" style={{ color: activeTheme.colors.textPrimary }}>
                 Amount: ₹{confirmedBooking.amountINR} (Payable at Temple Counter or Online Link)
               </div>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-left text-xs text-slate-300 space-y-1 font-sans">
-              <strong className="text-amber-300 block font-serif">Prasadam Collection Guidelines:</strong>
+            <div
+              className="p-3.5 rounded-xl border text-left text-xs space-y-1 font-sans"
+              style={{
+                backgroundColor: activeTheme.colors.surfaceElevated,
+                borderColor: activeTheme.colors.borderSubtle,
+                color: activeTheme.colors.textSecondary
+              }}
+            >
+              <strong className="block font-serif" style={{ color: activeTheme.colors.textGold }}>Prasadam Collection Guidelines:</strong>
               <p>
                 Please present this reference number at the temple outer archana counter on the booked date. Consecrated Vibhuti, Kumkum, and sacred Tulsi Prasadam will be handed to your family after archana deeparadhana.
               </p>
@@ -166,7 +187,11 @@ export const PoojaBookingModal: React.FC<PoojaBookingModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="w-full py-2.5 px-4 rounded-xl text-xs font-serif font-bold bg-amber-500 hover:bg-amber-400 text-black transition-colors cursor-pointer"
+              className="w-full py-2.5 px-4 rounded-xl text-xs font-serif font-bold transition-colors cursor-pointer shadow-xs"
+              style={{
+                backgroundColor: activeTheme.colors.sacredGold,
+                color: '#000000'
+              }}
             >
               Done
             </button>
@@ -182,13 +207,18 @@ export const PoojaBookingModal: React.FC<PoojaBookingModalProps> = ({
 
             {/* Offering Selector */}
             <div className="space-y-1.5">
-              <label className="text-xs font-mono font-medium text-slate-300">
+              <label className="text-xs font-mono font-medium" style={{ color: activeTheme.colors.textSecondary }}>
                 Select Pooja Offering
               </label>
               <select
                 value={selectedOfferingId}
                 onChange={(e) => setSelectedOfferingId(e.target.value)}
-                className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:border-amber-400 focus:outline-none"
+                className="w-full p-2.5 rounded-xl border text-xs focus:outline-none"
+                style={{
+                  backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                  borderColor: activeTheme.colors.borderSubtle,
+                  color: activeTheme.colors.textPrimary
+                }}
               >
                 {offerings.map((o: PoojaOfferingItem) => (
                   <option key={o.id} value={o.id}>
@@ -197,7 +227,7 @@ export const PoojaBookingModal: React.FC<PoojaBookingModalProps> = ({
                 ))}
               </select>
               {selectedOffering && (
-                <p className="text-[11px] text-slate-400 font-sans pt-0.5">
+                <p className="text-[11px] font-sans pt-0.5" style={{ color: activeTheme.colors.textSecondary }}>
                   {selectedOffering.description}
                 </p>
               )}
@@ -206,7 +236,7 @@ export const PoojaBookingModal: React.FC<PoojaBookingModalProps> = ({
             {/* Devotee Name & Phone */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1">
-                <label className="text-xs font-mono font-medium text-slate-300">
+                <label className="text-xs font-mono font-medium" style={{ color: activeTheme.colors.textSecondary }}>
                   Devotee Name *
                 </label>
                 <input
@@ -214,13 +244,18 @@ export const PoojaBookingModal: React.FC<PoojaBookingModalProps> = ({
                   value={devoteeName}
                   onChange={(e) => setDevoteeName(e.target.value)}
                   placeholder="e.g. Vijay Kumar K."
-                  className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:border-amber-400 focus:outline-none"
+                  className="w-full p-2.5 rounded-xl border text-xs focus:outline-none"
+                  style={{
+                    backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                    borderColor: activeTheme.colors.borderSubtle,
+                    color: activeTheme.colors.textPrimary
+                  }}
                   required
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-mono font-medium text-slate-300">
+                <label className="text-xs font-mono font-medium" style={{ color: activeTheme.colors.textSecondary }}>
                   WhatsApp / Phone *
                 </label>
                 <input
@@ -228,7 +263,12 @@ export const PoojaBookingModal: React.FC<PoojaBookingModalProps> = ({
                   value={devoteePhone}
                   onChange={(e) => setDevoteePhone(e.target.value)}
                   placeholder="+91 94430 00000"
-                  className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:border-amber-400 focus:outline-none"
+                  className="w-full p-2.5 rounded-xl border text-xs focus:outline-none"
+                  style={{
+                    backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                    borderColor: activeTheme.colors.borderSubtle,
+                    color: activeTheme.colors.textPrimary
+                  }}
                   required
                 />
               </div>
@@ -237,7 +277,7 @@ export const PoojaBookingModal: React.FC<PoojaBookingModalProps> = ({
             {/* Devotee Gothram & Nakshatram */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1">
-                <label className="text-xs font-mono font-medium text-slate-300">
+                <label className="text-xs font-mono font-medium" style={{ color: activeTheme.colors.textSecondary }}>
                   Gothram (கோத்திரம்)
                 </label>
                 <input
@@ -245,12 +285,17 @@ export const PoojaBookingModal: React.FC<PoojaBookingModalProps> = ({
                   value={devoteeGothram}
                   onChange={(e) => setDevoteeGothram(e.target.value)}
                   placeholder="e.g. Kasyapa / Haritha / Bharadwaja"
-                  className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:border-amber-400 focus:outline-none"
+                  className="w-full p-2.5 rounded-xl border text-xs focus:outline-none"
+                  style={{
+                    backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                    borderColor: activeTheme.colors.borderSubtle,
+                    color: activeTheme.colors.textPrimary
+                  }}
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-mono font-medium text-slate-300">
+                <label className="text-xs font-mono font-medium" style={{ color: activeTheme.colors.textSecondary }}>
                   Nakshatram (நட்சத்திரம்)
                 </label>
                 <input
@@ -258,7 +303,12 @@ export const PoojaBookingModal: React.FC<PoojaBookingModalProps> = ({
                   value={devoteeNakshatram}
                   onChange={(e) => setDevoteeNakshatram(e.target.value)}
                   placeholder="e.g. Rohini / Thiruvonam / Hastham"
-                  className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:border-amber-400 focus:outline-none"
+                  className="w-full p-2.5 rounded-xl border text-xs focus:outline-none"
+                  style={{
+                    backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                    borderColor: activeTheme.colors.borderSubtle,
+                    color: activeTheme.colors.textPrimary
+                  }}
                 />
               </div>
             </div>
@@ -266,26 +316,36 @@ export const PoojaBookingModal: React.FC<PoojaBookingModalProps> = ({
             {/* Date & Time Slot */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1">
-                <label className="text-xs font-mono font-medium text-slate-300">
+                <label className="text-xs font-mono font-medium" style={{ color: activeTheme.colors.textSecondary }}>
                   Preferred Date *
                 </label>
                 <input
                   type="date"
                   value={preferredDate}
                   onChange={(e) => setPreferredDate(e.target.value)}
-                  className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:border-amber-400 focus:outline-none"
+                  className="w-full p-2.5 rounded-xl border text-xs focus:outline-none"
+                  style={{
+                    backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                    borderColor: activeTheme.colors.borderSubtle,
+                    color: activeTheme.colors.textPrimary
+                  }}
                   required
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-mono font-medium text-slate-300">
+                <label className="text-xs font-mono font-medium" style={{ color: activeTheme.colors.textSecondary }}>
                   Pooja Kaalam / Time Slot
                 </label>
                 <select
                   value={preferredTimeSlot}
                   onChange={(e) => setPreferredTimeSlot(e.target.value)}
-                  className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:border-amber-400 focus:outline-none"
+                  className="w-full p-2.5 rounded-xl border text-xs focus:outline-none"
+                  style={{
+                    backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                    borderColor: activeTheme.colors.borderSubtle,
+                    color: activeTheme.colors.textPrimary
+                  }}
                 >
                   <option value="06:30 AM – 07:00 AM (Viswaroopa & Dawn Light)">06:30 AM (Viswaroopa & Dawn Light)</option>
                   <option value="08:00 AM – 09:30 AM (Kaala Santhi)">08:00 AM – 09:30 AM (Kaala Santhi)</option>
@@ -299,7 +359,7 @@ export const PoojaBookingModal: React.FC<PoojaBookingModalProps> = ({
 
             {/* Sankalpam Prayer Notes */}
             <div className="space-y-1">
-              <label className="text-xs font-mono font-medium text-slate-300">
+              <label className="text-xs font-mono font-medium" style={{ color: activeTheme.colors.textSecondary }}>
                 Sankalpam Intent / Prayer Notes (Optional)
               </label>
               <textarea
@@ -307,15 +367,20 @@ export const PoojaBookingModal: React.FC<PoojaBookingModalProps> = ({
                 onChange={(e) => setSankalpamNotes(e.target.value)}
                 placeholder="Specific prayers for family health, birthday, wedding anniversary, education, peace..."
                 rows={2}
-                className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:border-amber-400 focus:outline-none"
+                className="w-full p-2.5 rounded-xl border text-xs focus:outline-none"
+                style={{
+                  backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                  borderColor: activeTheme.colors.borderSubtle,
+                  color: activeTheme.colors.textPrimary
+                }}
               />
             </div>
 
             {/* Total Fee & Submit */}
-            <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
+            <div className="pt-3 border-t flex items-center justify-between" style={{ borderColor: activeTheme.colors.borderSubtle }}>
               <div>
-                <span className="text-[10px] text-slate-400 font-mono block">Dakshina / Seva Amount</span>
-                <span className="text-xl font-serif font-bold text-amber-400">
+                <span className="text-[10px] font-mono block" style={{ color: activeTheme.colors.textSecondary }}>Dakshina / Seva Amount</span>
+                <span className="text-xl font-serif font-bold" style={{ color: activeTheme.colors.textGold }}>
                   ₹{selectedOffering?.priceINR || 0}
                 </span>
               </div>
@@ -323,7 +388,11 @@ export const PoojaBookingModal: React.FC<PoojaBookingModalProps> = ({
               <button
                 type="submit"
                 disabled={submitting}
-                className="px-6 py-2.5 rounded-xl font-serif font-bold text-xs bg-amber-500 hover:bg-amber-400 text-black transition-colors flex items-center gap-2 cursor-pointer shadow-lg disabled:opacity-50"
+                className="px-6 py-2.5 rounded-xl font-serif font-bold text-xs transition-colors flex items-center gap-2 cursor-pointer shadow-lg disabled:opacity-50"
+                style={{
+                  backgroundColor: activeTheme.colors.sacredGold,
+                  color: '#000000'
+                }}
               >
                 <Sparkles className="w-4 h-4" />
                 <span>{submitting ? 'Reserving...' : 'Confirm Pooja Reservation'}</span>

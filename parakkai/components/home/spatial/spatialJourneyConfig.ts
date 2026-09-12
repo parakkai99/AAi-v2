@@ -90,7 +90,7 @@ export const PARAKKAI_SPATIAL_JOURNEY: SpatialJourneyScene[] = [
 
   /*
    * SCENE 02
-   * Sacred Tree
+   * Sacred Tree (Phase 2 - Active Production)
    */
   {
     id: "sacred-tree",
@@ -99,8 +99,8 @@ export const PARAKKAI_SPATIAL_JOURNEY: SpatialJourneyScene[] = [
     subtitle: "Living Knowledge",
     kind: "nature",
 
-    image: "/parakkai/spatial/perumal.png",
-    imageFallback: "/parakkai/spatial/sacred-tree.webp",
+    image: "/parakkai/spatial/sacred-tree.webp",
+    imageFallback: "/parakkai/spatial/sacred-tree.jpg",
     accent: "green",
 
     assetStatus: "ready",

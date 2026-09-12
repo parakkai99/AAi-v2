@@ -43,14 +43,14 @@ export const JourneyExperienceView: React.FC<JourneyExperienceViewProps> = ({
         }}
       >
         <div className="space-y-1 max-w-2xl">
-          <div className="flex items-center gap-2 text-xs font-mono font-bold text-sky-700 uppercase">
+          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase" style={{ color: activeTheme.colors.primarySkyBlue }}>
             <Layers className="w-4 h-4" />
             <span>The 7 Stations of Parakkai • Pilgrim Pathway</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900">
+          <h1 className="text-2xl sm:text-3xl font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
             A Step-by-Step Spiritual Passage
           </h1>
-          <p className="text-xs sm:text-sm text-slate-600 font-sans">
+          <p className="text-xs sm:text-sm font-sans" style={{ color: activeTheme.colors.textSecondary }}>
             Follow the ancient pilgrim route from the comfort of home through the village bazaar, past Sakthi Vinayakar, under the towering Dravidian Gopuram, by the Golden Kodimaram, directly into the sanctum sanctorum.
           </p>
         </div>
@@ -59,15 +59,25 @@ export const JourneyExperienceView: React.FC<JourneyExperienceViewProps> = ({
           <button
             type="button"
             onClick={() => onNavigate('darshan')}
-            className="px-4 py-2 rounded-xl text-xs font-medium text-amber-900 bg-amber-100 hover:bg-amber-200 border border-amber-300 transition-colors flex items-center gap-1.5 cursor-pointer"
+            className="px-4 py-2 rounded-xl text-xs font-medium border transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+            style={{
+              backgroundColor: activeTheme.colors.sacredGold,
+              color: '#000000',
+              borderColor: activeTheme.colors.borderGold
+            }}
           >
-            <Sparkles className="w-4 h-4 text-amber-600" />
+            <Sparkles className="w-4 h-4" />
             <span>Enter Sanctum Directly</span>
           </button>
           <button
             type="button"
             onClick={() => onNavigate('home')}
-            className="px-3.5 py-2 rounded-xl text-xs font-medium text-slate-600 hover:text-slate-900 bg-white border border-slate-200 transition-colors flex items-center gap-1 cursor-pointer"
+            className="px-3.5 py-2 rounded-xl text-xs font-medium border transition-colors flex items-center gap-1 cursor-pointer"
+            style={{
+              backgroundColor: activeTheme.colors.surfaceElevated,
+              borderColor: activeTheme.colors.borderSubtle,
+              color: activeTheme.colors.textPrimary
+            }}
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Home</span>

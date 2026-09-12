@@ -67,10 +67,10 @@ export const MediaDiscoveryView: React.FC<MediaDiscoveryViewProps> = ({ activeTh
               </span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold tracking-tight" style={{ color: activeTheme.colors.textPrimary }}>
               Parakkai Media Discovery
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+            <p className="text-xs sm:text-sm font-sans leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
               Experience the divine presence of Sri Madhusoodhana Perumal through consecrated morning darshan recordings, documentary heritage explorations, sacred sthotrams, and Panguni Therottam highlights.
             </p>
           </div>
@@ -81,11 +81,13 @@ export const MediaDiscoveryView: React.FC<MediaDiscoveryViewProps> = ({ activeTh
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-mono transition-colors cursor-pointer border ${
-                  selectedCategory === cat
-                    ? 'bg-amber-500/20 text-amber-300 border-amber-400 font-bold'
-                    : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
-                }`}
+                className="px-3 py-1.5 rounded-xl text-xs font-mono transition-colors cursor-pointer border"
+                style={{
+                  backgroundColor: selectedCategory === cat ? activeTheme.colors.sacredGold : activeTheme.colors.surfaceElevated,
+                  color: selectedCategory === cat ? '#000000' : activeTheme.colors.textSecondary,
+                  borderColor: selectedCategory === cat ? activeTheme.colors.sacredGold : activeTheme.colors.borderSubtle,
+                  fontWeight: selectedCategory === cat ? 'bold' : 'normal'
+                }}
               >
                 {cat.replace('_', ' ')}
               </button>
@@ -100,27 +102,30 @@ export const MediaDiscoveryView: React.FC<MediaDiscoveryViewProps> = ({ activeTh
           <div
             key={item.mediaId}
             onClick={() => setActiveVideo(item)}
-            className="rounded-2xl border overflow-hidden transition-all group hover:shadow-2xl hover:border-amber-400/60 cursor-pointer flex flex-col justify-between"
+            className="rounded-2xl border overflow-hidden transition-all group hover:shadow-2xl cursor-pointer flex flex-col justify-between"
             style={{
-              backgroundColor: `${activeTheme.colors.surfaceElevated}`,
+              backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceElevated,
               borderColor: activeTheme.colors.borderSubtle
             }}
           >
             <div>
               {/* Video Thumbnail Canvas */}
-              <div className="relative aspect-video w-full bg-slate-950 overflow-hidden">
+              <div className="relative aspect-video w-full bg-slate-900 overflow-hidden">
                 <img
                   src={item.thumbnailUrl}
                   alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-80"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-85"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-black/40" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
 
                 {/* Center Play Button Overlay */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-12 h-12 rounded-full bg-amber-500/90 text-black flex items-center justify-center shadow-2xl transition-transform group-hover:scale-115">
-                    <Play className="w-5 h-5 fill-black ml-0.5" />
+                  <div
+                    className="w-12 h-12 rounded-full flex items-center justify-center shadow-2xl transition-transform group-hover:scale-115"
+                    style={{ backgroundColor: activeTheme.colors.sacredGold, color: '#000000' }}
+                  >
+                    <Play className="w-5 h-5 fill-current ml-0.5" />
                   </div>
                 </div>
 
@@ -137,7 +142,14 @@ export const MediaDiscoveryView: React.FC<MediaDiscoveryViewProps> = ({ activeTh
                       <span>LIVE</span>
                     </span>
                   ) : (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-slate-900/90 text-amber-300 border border-amber-500/30">
+                    <span
+                      className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border"
+                      style={{
+                        backgroundColor: `${activeTheme.colors.surfaceElevated}ee`,
+                        color: activeTheme.colors.textGold,
+                        borderColor: activeTheme.colors.borderGold
+                      }}
+                    >
                       Recorded Darshan
                     </span>
                   )}
@@ -146,33 +158,46 @@ export const MediaDiscoveryView: React.FC<MediaDiscoveryViewProps> = ({ activeTh
 
               {/* Text Info */}
               <div className="p-5 space-y-2">
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-900 text-slate-400 border border-slate-800">
+                <span
+                  className="text-[10px] font-mono px-2 py-0.5 rounded-full border"
+                  style={{
+                    backgroundColor: activeTheme.colors.surfaceElevated,
+                    color: activeTheme.colors.textSecondary,
+                    borderColor: activeTheme.colors.borderSubtle
+                  }}
+                >
                   {item.category.replace('_', ' ')}
                 </span>
 
-                <h3 className="text-sm font-serif font-bold text-white group-hover:text-amber-300 transition-colors line-clamp-2">
+                <h3 className="text-sm font-serif font-bold transition-colors line-clamp-2" style={{ color: activeTheme.colors.textPrimary }}>
                   {item.title}
                 </h3>
 
                 {item.tamilTitle && (
-                  <span className="text-xs text-amber-300/80 font-sans block line-clamp-1">
+                  <span className="text-xs font-sans block line-clamp-1" style={{ color: activeTheme.colors.textGold }}>
                     {item.tamilTitle}
                   </span>
                 )}
 
-                <p className="text-xs text-slate-400 font-sans line-clamp-2 leading-relaxed">
+                <p className="text-xs font-sans line-clamp-2 leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
                   {item.description}
                 </p>
               </div>
             </div>
 
             {/* Card Footer: Views & Speaker */}
-            <div className="p-4 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400 font-sans">
+            <div
+              className="p-4 border-t flex items-center justify-between text-[11px] font-sans"
+              style={{
+                borderColor: activeTheme.colors.borderSubtle,
+                color: activeTheme.colors.textSecondary
+              }}
+            >
               <span className="truncate max-w-[150px]">
                 {item.authorOrSpeaker || 'Parakkai Trust'}
               </span>
               <div className="flex items-center gap-1 font-mono">
-                <Eye className="w-3 h-3 text-slate-400" />
+                <Eye className="w-3 h-3" style={{ color: activeTheme.colors.textSecondary }} />
                 <span>{item.viewsCount} views</span>
               </div>
             </div>
@@ -187,49 +212,78 @@ export const MediaDiscoveryView: React.FC<MediaDiscoveryViewProps> = ({ activeTh
           onClick={() => setActiveVideo(null)}
         >
           <div
-            className="w-full max-w-3xl rounded-3xl border p-6 space-y-4 shadow-2xl bg-slate-950 border-amber-500/40 text-white"
+            className="w-full max-w-3xl rounded-3xl border p-6 space-y-4 shadow-2xl"
+            style={{
+              backgroundColor: activeTheme.colors.surfaceElevated,
+              borderColor: activeTheme.colors.borderGold
+            }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-start justify-between border-b border-slate-800 pb-3">
+            <div className="flex items-start justify-between border-b pb-3" style={{ borderColor: activeTheme.colors.borderSubtle }}>
               <div>
-                <span className="text-[10px] font-mono text-amber-400 font-bold uppercase">
+                <span className="text-[10px] font-mono font-bold uppercase" style={{ color: activeTheme.colors.textGold }}>
                   {activeVideo.category.replace('_', ' ')} • {activeVideo.durationMinutes} mins
                 </span>
-                <h3 className="text-base font-serif font-bold text-white mt-0.5">
+                <h3 className="text-base font-serif font-bold mt-0.5" style={{ color: activeTheme.colors.textPrimary }}>
                   {activeVideo.title}
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={() => setActiveVideo(null)}
-                className="p-1 rounded-lg text-slate-400 hover:text-white cursor-pointer"
+                className="p-1 rounded-lg cursor-pointer"
+                style={{ color: activeTheme.colors.textSecondary }}
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Video Canvas Stage */}
-            <div className="relative aspect-video w-full rounded-2xl bg-black border border-slate-800 overflow-hidden flex flex-col items-center justify-center text-center p-8">
-              <div className="w-20 h-20 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-4xl mb-3 border border-amber-400/40 animate-pulse">
+            <div
+              className="relative aspect-video w-full rounded-2xl border overflow-hidden flex flex-col items-center justify-center text-center p-8"
+              style={{
+                backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceElevated,
+                borderColor: activeTheme.colors.borderSubtle
+              }}
+            >
+              <div
+                className="w-20 h-20 rounded-full flex items-center justify-center text-4xl mb-3 border animate-pulse"
+                style={{
+                  backgroundColor: `${activeTheme.colors.sacredGold}20`,
+                  borderColor: activeTheme.colors.borderGold,
+                  color: activeTheme.colors.textGold
+                }}
+              >
                 🪷
               </div>
-              <h4 className="text-lg font-serif font-bold text-white">
+              <h4 className="text-lg font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
                 Devotional Stream Active
               </h4>
-              <p className="text-xs text-slate-300 font-sans max-w-md mt-1">
+              <p className="text-xs font-sans max-w-md mt-1" style={{ color: activeTheme.colors.textSecondary }}>
                 {activeVideo.description}
               </p>
-              <div className="mt-4 px-4 py-1.5 rounded-full text-xs font-mono bg-slate-900 border border-amber-500/30 text-amber-300">
+              <div
+                className="mt-4 px-4 py-1.5 rounded-full text-xs font-mono border"
+                style={{
+                  backgroundColor: activeTheme.colors.surfaceElevated,
+                  borderColor: activeTheme.colors.borderGold,
+                  color: activeTheme.colors.textGold
+                }}
+              >
                 Playing: {activeVideo.sourceType} • {activeVideo.viewsCount} Devotees Joined
               </div>
             </div>
 
-            <div className="text-xs text-slate-400 font-sans flex items-center justify-between pt-1">
+            <div className="text-xs font-sans flex items-center justify-between pt-1" style={{ color: activeTheme.colors.textSecondary }}>
               <span>Presented by {activeVideo.authorOrSpeaker || 'Parakkai Temple Trust'}</span>
               <button
                 type="button"
                 onClick={() => setActiveVideo(null)}
-                className="px-4 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-medium text-white cursor-pointer"
+                className="px-4 py-1.5 rounded-xl text-xs font-serif font-bold cursor-pointer transition-colors"
+                style={{
+                  backgroundColor: activeTheme.colors.sacredGold,
+                  color: '#000000'
+                }}
               >
                 Close Player
               </button>

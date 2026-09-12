@@ -75,39 +75,46 @@ export const HyperlocalDirectoryView: React.FC<HyperlocalDirectoryViewProps> = (
               </span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold tracking-tight" style={{ color: activeTheme.colors.textPrimary }}>
               Nearby Shops & Pilgrim Services
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+            <p className="text-xs sm:text-sm font-sans leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
               Support traditional Nanjil merchants and verified local service providers surrounding Parakkai Temple. Connect directly via WhatsApp or phone with zero mediator markup.
             </p>
           </div>
 
           {/* Search Box */}
           <div className="relative w-full md:w-72">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+            <Search className="w-4 h-4 absolute left-3 top-3" style={{ color: activeTheme.colors.textSecondary }} />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search food, flowers, taxi..."
-              className="w-full pl-9 pr-4 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:border-amber-400 focus:outline-none"
+              className="w-full pl-9 pr-4 py-2 rounded-xl text-xs focus:outline-none border shadow-xs"
+              style={{
+                backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceElevated,
+                borderColor: activeTheme.colors.borderSubtle,
+                color: activeTheme.colors.textPrimary
+              }}
             />
           </div>
         </div>
 
         {/* Category Pills */}
-        <div className="mt-6 pt-4 border-t border-slate-800 flex items-center gap-2 overflow-x-auto pb-1">
+        <div className="mt-6 pt-4 border-t flex items-center gap-2 overflow-x-auto pb-1" style={{ borderColor: activeTheme.colors.borderSubtle }}>
           {categories.map((cat) => (
             <button
               key={cat}
               type="button"
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-mono transition-colors cursor-pointer border whitespace-nowrap ${
-                selectedCategory === cat
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-400 font-bold'
-                  : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
-              }`}
+              className="px-3 py-1.5 rounded-xl text-xs font-mono transition-colors cursor-pointer border whitespace-nowrap"
+              style={{
+                backgroundColor: selectedCategory === cat ? activeTheme.colors.sacredGold : activeTheme.colors.surfaceElevated,
+                color: selectedCategory === cat ? '#000000' : activeTheme.colors.textSecondary,
+                borderColor: selectedCategory === cat ? activeTheme.colors.sacredGold : activeTheme.colors.borderSubtle,
+                fontWeight: selectedCategory === cat ? 'bold' : 'normal'
+              }}
             >
               {cat.replace('_', ' ')}
             </button>
@@ -120,18 +127,18 @@ export const HyperlocalDirectoryView: React.FC<HyperlocalDirectoryViewProps> = (
         {filtered.map((biz: HyperlocalBusiness) => (
           <div
             key={biz.businessId}
-            className="rounded-2xl border overflow-hidden transition-all flex flex-col justify-between hover:shadow-xl hover:border-amber-400/60"
+            className="rounded-2xl border overflow-hidden transition-all flex flex-col justify-between hover:shadow-xl"
             style={{
-              backgroundColor: `${activeTheme.colors.surfaceElevated}`,
+              backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceElevated,
               borderColor: activeTheme.colors.borderSubtle
             }}
           >
             <div>
-              <div className="h-44 w-full bg-slate-950 overflow-hidden relative">
+              <div className="h-44 w-full bg-slate-900 overflow-hidden relative">
                 <img
                   src={biz.imageUrl}
                   alt={biz.name}
-                  className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform"
+                  className="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform"
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute top-2 left-2 flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-black/80 text-amber-300">
@@ -150,31 +157,31 @@ export const HyperlocalDirectoryView: React.FC<HyperlocalDirectoryViewProps> = (
               <div className="p-5 space-y-2.5">
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <h3 className="text-base font-serif font-bold text-white">
+                    <h3 className="text-base font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
                       {biz.name}
                     </h3>
                     {biz.tamilName && (
-                      <span className="text-xs text-amber-300/80 font-sans block">
+                      <span className="text-xs font-sans block" style={{ color: activeTheme.colors.textGold }}>
                         {biz.tamilName}
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-1 font-mono text-xs font-bold text-amber-400">
-                    <Star className="w-3.5 h-3.5 fill-amber-400" />
+                  <div className="flex items-center gap-1 font-mono text-xs font-bold" style={{ color: activeTheme.colors.textGold }}>
+                    <Star className="w-3.5 h-3.5 fill-current" />
                     <span>{biz.rating}</span>
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-300 font-sans line-clamp-2 leading-relaxed">
+                <p className="text-xs font-sans line-clamp-2 leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
                   {biz.description}
                 </p>
 
-                <div className="space-y-1 text-[11px] text-slate-400 font-sans pt-1">
+                <div className="space-y-1 text-[11px] font-sans pt-1" style={{ color: activeTheme.colors.textSecondary }}>
                   <div className="flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5 text-amber-400" />
+                    <Clock className="w-3.5 h-3.5" style={{ color: activeTheme.colors.sacredGold }} />
                     <span>{biz.openingHours}</span>
                   </div>
-                  <div className="truncate text-slate-400">
+                  <div className="truncate" style={{ color: activeTheme.colors.textSecondary }}>
                     {biz.address}
                   </div>
                 </div>
@@ -182,12 +189,23 @@ export const HyperlocalDirectoryView: React.FC<HyperlocalDirectoryViewProps> = (
             </div>
 
             {/* Direct Action Buttons: WhatsApp and Phone */}
-            <div className="p-4 border-t border-slate-800 bg-slate-950/40 grid grid-cols-2 gap-2">
+            <div
+              className="p-4 border-t grid grid-cols-2 gap-2"
+              style={{
+                borderColor: activeTheme.colors.borderSubtle,
+                backgroundColor: activeTheme.colors.surfaceElevated
+              }}
+            >
               <a
                 href={`https://wa.me/${biz.whatsappNumber}?text=Vanakkam,%20inquiry%20from%20Parakkai%20Temple%20App`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-2 px-3 rounded-xl text-xs font-medium bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                className="py-2 px-3 rounded-xl text-xs font-medium border transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                style={{
+                  backgroundColor: `${activeTheme.colors.sacredGold}20`,
+                  borderColor: activeTheme.colors.borderGold,
+                  color: activeTheme.colors.textGold
+                }}
               >
                 <MessageCircle className="w-3.5 h-3.5" />
                 <span>WhatsApp</span>
@@ -195,9 +213,14 @@ export const HyperlocalDirectoryView: React.FC<HyperlocalDirectoryViewProps> = (
 
               <a
                 href={`tel:${biz.phone}`}
-                className="py-2 px-3 rounded-xl text-xs font-medium bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                className="py-2 px-3 rounded-xl text-xs font-medium border transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                style={{
+                  backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceElevated,
+                  borderColor: activeTheme.colors.borderSubtle,
+                  color: activeTheme.colors.textPrimary
+                }}
               >
-                <Phone className="w-3.5 h-3.5 text-amber-400" />
+                <Phone className="w-3.5 h-3.5" style={{ color: activeTheme.colors.primarySkyBlue }} />
                 <span>Call</span>
               </a>
             </div>

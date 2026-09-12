@@ -85,10 +85,10 @@ export const HypermarketView: React.FC<HypermarketViewProps> = ({
               </span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold tracking-tight" style={{ color: activeTheme.colors.textPrimary }}>
               Consecrated Prasadam & Village Heritage Goods
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+            <p className="text-xs sm:text-sm font-sans leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
               Order authentic Parakkai Temple prasadam kits, hand-cast brass oil lamps, organic Nendran banana chips fried in village coconut oil, and handwoven palmyra crafts. All proceeds directly support local artisan guilds and temple seva.
             </p>
           </div>
@@ -97,7 +97,11 @@ export const HypermarketView: React.FC<HypermarketViewProps> = ({
             <button
               type="button"
               onClick={onOpenCart}
-              className="px-5 py-2.5 rounded-xl font-serif font-bold text-xs bg-amber-500 hover:bg-amber-400 text-black transition-colors flex items-center gap-2 cursor-pointer shadow-lg whitespace-nowrap"
+              className="px-5 py-2.5 rounded-xl font-serif font-bold text-xs transition-colors flex items-center gap-2 cursor-pointer shadow-lg whitespace-nowrap"
+              style={{
+                backgroundColor: activeTheme.colors.sacredGold,
+                color: '#000000'
+              }}
             >
               <ShoppingBag className="w-4 h-4" />
               <span>View Shopping Cart</span>
@@ -106,17 +110,19 @@ export const HypermarketView: React.FC<HypermarketViewProps> = ({
         </div>
 
         {/* Categories */}
-        <div className="mt-8 pt-4 border-t border-slate-800 flex items-center gap-2 overflow-x-auto pb-1">
+        <div className="mt-8 pt-4 border-t flex items-center gap-2 overflow-x-auto pb-1" style={{ borderColor: activeTheme.colors.borderSubtle }}>
           {categories.map((cat) => (
             <button
               key={cat}
               type="button"
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-mono transition-colors cursor-pointer border whitespace-nowrap ${
-                selectedCategory === cat
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-400 font-bold'
-                  : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
-              }`}
+              className="px-3 py-1.5 rounded-xl text-xs font-mono transition-colors cursor-pointer border whitespace-nowrap"
+              style={{
+                backgroundColor: selectedCategory === cat ? activeTheme.colors.sacredGold : activeTheme.colors.surfaceElevated,
+                color: selectedCategory === cat ? '#000000' : activeTheme.colors.textSecondary,
+                borderColor: selectedCategory === cat ? activeTheme.colors.sacredGold : activeTheme.colors.borderSubtle,
+                fontWeight: selectedCategory === cat ? 'bold' : 'normal'
+              }}
             >
               {cat.replace(/_/g, ' ')}
             </button>
@@ -131,18 +137,18 @@ export const HypermarketView: React.FC<HypermarketViewProps> = ({
           return (
             <div
               key={prod.productId}
-              className="rounded-2xl border overflow-hidden transition-all flex flex-col justify-between hover:shadow-xl hover:border-amber-400/60"
+              className="rounded-2xl border overflow-hidden transition-all flex flex-col justify-between hover:shadow-xl"
               style={{
-                backgroundColor: `${activeTheme.colors.surfaceElevated}`,
+                backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceElevated,
                 borderColor: activeTheme.colors.borderSubtle
               }}
             >
               <div>
-                <div className="h-48 w-full bg-slate-950 overflow-hidden relative">
+                <div className="h-48 w-full bg-slate-900 overflow-hidden relative">
                   <img
                     src={prod.imageUrl}
                     alt={prod.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform opacity-85"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform opacity-90"
                     referrerPolicy="no-referrer"
                   />
                   <span className="absolute top-2 left-2 px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-black/80 text-amber-300">
@@ -157,49 +163,55 @@ export const HypermarketView: React.FC<HypermarketViewProps> = ({
 
                 <div className="p-5 space-y-2">
                   <div className="flex items-baseline justify-between gap-2">
-                    <span className="text-xl font-mono font-bold text-amber-400">
+                    <span className="text-xl font-mono font-bold" style={{ color: activeTheme.colors.textGold }}>
                       ₹{prod.priceINR}
                     </span>
                     {prod.originalPriceINR && (
-                      <span className="text-xs text-slate-500 line-through font-mono">
+                      <span className="text-xs line-through font-mono opacity-50" style={{ color: activeTheme.colors.textSecondary }}>
                         ₹{prod.originalPriceINR}
                       </span>
                     )}
                   </div>
 
-                  <h3 className="text-base font-serif font-bold text-white leading-snug">
+                  <h3 className="text-base font-serif font-bold leading-snug" style={{ color: activeTheme.colors.textPrimary }}>
                     {prod.name}
                   </h3>
 
                   {prod.tamilName && (
-                    <span className="text-xs text-amber-300/80 font-sans block">
+                    <span className="text-xs font-sans block" style={{ color: activeTheme.colors.textGold }}>
                       {prod.tamilName}
                     </span>
                   )}
 
-                  <p className="text-xs text-slate-300 font-sans line-clamp-2 leading-relaxed">
+                  <p className="text-xs font-sans line-clamp-2 leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
                     {prod.description}
                   </p>
 
-                  <div className="pt-2 text-[11px] text-slate-400 font-sans">
-                    <span>Seller: <strong>{prod.seller.businessName}</strong></span>
+                  <div className="pt-2 text-[11px] font-sans" style={{ color: activeTheme.colors.textSecondary }}>
+                    <span>Seller: <strong style={{ color: activeTheme.colors.textPrimary }}>{prod.seller.businessName}</strong></span>
                   </div>
                 </div>
               </div>
 
-              <div className="p-4 border-t border-slate-800 bg-slate-950/40 flex items-center justify-between">
-                <span className="text-[11px] text-emerald-400 font-mono">
+              <div
+                className="p-4 border-t flex items-center justify-between"
+                style={{
+                  borderColor: activeTheme.colors.borderSubtle,
+                  backgroundColor: activeTheme.colors.surfaceElevated
+                }}
+              >
+                <span className="text-[11px] font-mono font-bold" style={{ color: activeTheme.colors.primarySkyBlue }}>
                   {prod.inStock ? `In Stock (${prod.stockCount})` : 'Out of Stock'}
                 </span>
 
                 <button
                   type="button"
                   onClick={() => handleAdd(prod)}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-serif font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                    isJustAdded
-                      ? 'bg-emerald-500 text-white'
-                      : 'bg-amber-500 hover:bg-amber-400 text-black'
-                  }`}
+                  className="px-3.5 py-1.5 rounded-xl text-xs font-serif font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+                  style={{
+                    backgroundColor: isJustAdded ? '#10b981' : activeTheme.colors.sacredGold,
+                    color: isJustAdded ? '#ffffff' : '#000000'
+                  }}
                 >
                   {isJustAdded ? (
                     <>

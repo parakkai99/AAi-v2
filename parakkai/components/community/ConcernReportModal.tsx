@@ -66,19 +66,31 @@ export const ConcernReportModal: React.FC<ConcernReportModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-lg my-8 rounded-3xl border shadow-2xl p-6 sm:p-8 space-y-6 overflow-hidden max-h-[90vh] overflow-y-auto bg-slate-950 border-amber-500/40 text-white"
+        className="relative w-full max-w-lg my-8 rounded-3xl border shadow-2xl p-6 sm:p-8 space-y-6 overflow-hidden max-h-[90vh] overflow-y-auto"
+        style={{
+          backgroundColor: activeTheme.colors.surfaceElevated,
+          borderColor: activeTheme.colors.borderGold,
+          color: activeTheme.colors.textPrimary
+        }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-start justify-between border-b border-slate-800 pb-4">
+        <div className="flex items-start justify-between border-b pb-4" style={{ borderColor: activeTheme.colors.borderSubtle }}>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-xl border border-amber-400">
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center text-xl border"
+              style={{
+                backgroundColor: `${activeTheme.colors.sacredGold}20`,
+                borderColor: activeTheme.colors.borderGold,
+                color: activeTheme.colors.textGold
+              }}
+            >
               <AlertCircle className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-lg font-serif font-bold">
+              <h3 className="text-lg font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
                 Report Temple / Village Concern
               </h3>
-              <p className="text-xs text-slate-400 font-sans">
+              <p className="text-xs font-sans" style={{ color: activeTheme.colors.textSecondary }}>
                 Cleanliness • Lighting • Water • Devotee Comfort
               </p>
             </div>
@@ -86,7 +98,8 @@ export const ConcernReportModal: React.FC<ConcernReportModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1 rounded-lg text-slate-400 hover:text-white cursor-pointer"
+            className="p-1 rounded-lg cursor-pointer"
+            style={{ color: activeTheme.colors.textSecondary }}
           >
             <X className="w-5 h-5" />
           </button>
@@ -98,17 +111,21 @@ export const ConcernReportModal: React.FC<ConcernReportModalProps> = ({
               <CheckCircle2 className="w-8 h-8" />
             </div>
             <div className="space-y-1">
-              <h4 className="text-lg font-serif font-bold text-white">
+              <h4 className="text-lg font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
                 Concern Registered
               </h4>
-              <p className="text-xs text-slate-300 font-sans max-w-sm mx-auto">
+              <p className="text-xs font-sans max-w-sm mx-auto" style={{ color: activeTheme.colors.textSecondary }}>
                 Thank you for helping preserve Parakkai Temple and village. Your concern has been queued for review by the temple trust volunteers.
               </p>
             </div>
             <button
               type="button"
               onClick={onClose}
-              className="w-full py-2.5 px-4 rounded-xl text-xs font-serif font-bold bg-amber-500 hover:bg-amber-400 text-black cursor-pointer"
+              className="w-full py-2.5 px-4 rounded-xl text-xs font-serif font-bold cursor-pointer shadow-xs"
+              style={{
+                backgroundColor: activeTheme.colors.sacredGold,
+                color: '#000000'
+              }}
             >
               Done
             </button>
@@ -117,11 +134,16 @@ export const ConcernReportModal: React.FC<ConcernReportModalProps> = ({
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1">
-                <label className="text-xs font-mono text-slate-300">Category</label>
+                <label className="text-xs font-mono" style={{ color: activeTheme.colors.textSecondary }}>Category</label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value as ConcernCategory)}
-                  className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white"
+                  className="w-full p-2.5 rounded-xl border text-xs focus:outline-none"
+                  style={{
+                    backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                    borderColor: activeTheme.colors.borderSubtle,
+                    color: activeTheme.colors.textPrimary
+                  }}
                 >
                   <option value="CLEANLINESS">Cleanliness & Waste Disposal</option>
                   <option value="LIGHTING">Street Lighting & Lamps</option>
@@ -134,11 +156,16 @@ export const ConcernReportModal: React.FC<ConcernReportModalProps> = ({
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-mono text-slate-300">Priority</label>
+                <label className="text-xs font-mono" style={{ color: activeTheme.colors.textSecondary }}>Priority</label>
                 <select
                   value={priority}
                   onChange={(e) => setPriority(e.target.value as 'LOW' | 'MEDIUM' | 'HIGH')}
-                  className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white"
+                  className="w-full p-2.5 rounded-xl border text-xs focus:outline-none"
+                  style={{
+                    backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                    borderColor: activeTheme.colors.borderSubtle,
+                    color: activeTheme.colors.textPrimary
+                  }}
                 >
                   <option value="LOW">Low (Routine maintenance)</option>
                   <option value="MEDIUM">Medium (Needs attention this week)</option>
@@ -148,61 +175,86 @@ export const ConcernReportModal: React.FC<ConcernReportModalProps> = ({
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs font-mono text-slate-300">Issue Title *</label>
+              <label className="text-xs font-mono" style={{ color: activeTheme.colors.textSecondary }}>Issue Title *</label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
                 placeholder="Brief summary of issue"
-                className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white"
+                className="w-full p-2.5 rounded-xl border text-xs focus:outline-none"
+                style={{
+                  backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                  borderColor: activeTheme.colors.borderSubtle,
+                  color: activeTheme.colors.textPrimary
+                }}
               />
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs font-mono text-slate-300">Location Area</label>
+              <label className="text-xs font-mono" style={{ color: activeTheme.colors.textSecondary }}>Location Area</label>
               <input
                 type="text"
                 value={locationArea}
                 onChange={(e) => setLocationArea(e.target.value)}
                 placeholder="e.g. North Lake Bund, East Car Street, Outer Praharam"
-                className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white"
+                className="w-full p-2.5 rounded-xl border text-xs focus:outline-none"
+                style={{
+                  backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                  borderColor: activeTheme.colors.borderSubtle,
+                  color: activeTheme.colors.textPrimary
+                }}
               />
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs font-mono text-slate-300">Detailed Description *</label>
+              <label className="text-xs font-mono" style={{ color: activeTheme.colors.textSecondary }}>Detailed Description *</label>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required
                 rows={3}
                 placeholder="Please describe the issue in detail..."
-                className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white"
+                className="w-full p-2.5 rounded-xl border text-xs focus:outline-none"
+                style={{
+                  backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                  borderColor: activeTheme.colors.borderSubtle,
+                  color: activeTheme.colors.textPrimary
+                }}
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1">
-                <label className="text-xs font-mono text-slate-300">Your Name *</label>
+                <label className="text-xs font-mono" style={{ color: activeTheme.colors.textSecondary }}>Your Name *</label>
                 <input
                   type="text"
                   value={submittedByName}
                   onChange={(e) => setSubmittedByName(e.target.value)}
                   required
                   placeholder="Devotee name"
-                  className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white"
+                  className="w-full p-2.5 rounded-xl border text-xs focus:outline-none"
+                  style={{
+                    backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                    borderColor: activeTheme.colors.borderSubtle,
+                    color: activeTheme.colors.textPrimary
+                  }}
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-mono text-slate-300">Phone (for updates)</label>
+                <label className="text-xs font-mono" style={{ color: activeTheme.colors.textSecondary }}>Phone (for updates)</label>
                 <input
                   type="tel"
                   value={submittedByPhone}
                   onChange={(e) => setSubmittedByPhone(e.target.value)}
                   placeholder="+91 94430 00000"
-                  className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white"
+                  className="w-full p-2.5 rounded-xl border text-xs focus:outline-none"
+                  style={{
+                    backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                    borderColor: activeTheme.colors.borderSubtle,
+                    color: activeTheme.colors.textPrimary
+                  }}
                 />
               </div>
             </div>
@@ -211,7 +263,11 @@ export const ConcernReportModal: React.FC<ConcernReportModalProps> = ({
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full py-2.5 px-4 rounded-xl text-xs font-serif font-bold bg-amber-500 hover:bg-amber-400 text-black transition-colors cursor-pointer disabled:opacity-50"
+                className="w-full py-2.5 px-4 rounded-xl text-xs font-serif font-bold transition-colors cursor-pointer disabled:opacity-50 shadow-xs"
+                style={{
+                  backgroundColor: activeTheme.colors.sacredGold,
+                  color: '#000000'
+                }}
               >
                 {submitting ? 'Submitting...' : 'Register Concern with Temple Seva Desk'}
               </button>

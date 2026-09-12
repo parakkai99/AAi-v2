@@ -82,20 +82,32 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md h-full bg-slate-950 border-l border-amber-500/40 text-white flex flex-col justify-between shadow-2xl animate-slideLeft"
+        className="w-full max-w-md h-full border-l flex flex-col justify-between shadow-2xl animate-slideLeft"
+        style={{
+          backgroundColor: activeTheme.colors.surfaceElevated,
+          borderColor: activeTheme.colors.borderGold,
+          color: activeTheme.colors.textPrimary
+        }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="p-5 border-b border-slate-800 flex items-center justify-between">
+        <div className="p-5 border-b flex items-center justify-between" style={{ borderColor: activeTheme.colors.borderSubtle }}>
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center border border-amber-400">
+            <div
+              className="w-8 h-8 rounded-lg flex items-center justify-center border"
+              style={{
+                backgroundColor: `${activeTheme.colors.sacredGold}20`,
+                borderColor: activeTheme.colors.borderGold,
+                color: activeTheme.colors.textGold
+              }}
+            >
               <ShoppingBag className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-base font-serif font-bold text-white">
+              <h3 className="text-base font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
                 Parakkai Hypermarket Cart
               </h3>
-              <p className="text-[11px] text-slate-400 font-sans">
+              <p className="text-[11px] font-sans" style={{ color: activeTheme.colors.textSecondary }}>
                 {cart.length} unique items
               </p>
             </div>
@@ -103,7 +115,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1 rounded-lg text-slate-400 hover:text-white cursor-pointer"
+            className="p-1 rounded-lg cursor-pointer"
+            style={{ color: activeTheme.colors.textSecondary }}
           >
             <X className="w-5 h-5" />
           </button>
@@ -120,18 +133,25 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 <div className="text-xs font-mono uppercase text-emerald-400 font-bold">
                   Order Placed Successfully
                 </div>
-                <div className="text-xl font-mono font-black text-amber-400">
+                <div className="text-xl font-mono font-black" style={{ color: activeTheme.colors.sacredGold }}>
                   {confirmedOrder.orderId}
                 </div>
-                <p className="text-xs text-slate-300 font-sans">
-                  Total Amount: <strong>₹{confirmedOrder.totalAmountINR}</strong>
+                <p className="text-xs font-sans" style={{ color: activeTheme.colors.textSecondary }}>
+                  Total Amount: <strong style={{ color: activeTheme.colors.textPrimary }}>₹{confirmedOrder.totalAmountINR}</strong>
                 </p>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-left text-xs text-slate-300 space-y-1 font-sans">
-                <strong className="text-amber-300 block font-serif">Pickup / Delivery Instructions:</strong>
+              <div
+                className="p-3.5 rounded-xl border text-left text-xs space-y-1 font-sans"
+                style={{
+                  backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                  borderColor: activeTheme.colors.borderSubtle,
+                  color: activeTheme.colors.textSecondary
+                }}
+              >
+                <strong className="block font-serif" style={{ color: activeTheme.colors.textGold }}>Pickup / Delivery Instructions:</strong>
                 <p>
-                  Your order has been notified to the temple trust vendor desk. Please present order ID <strong>{confirmedOrder.orderId}</strong> at the outer prasadam counter.
+                  Your order has been notified to the temple trust vendor desk. Please present order ID <strong style={{ color: activeTheme.colors.textPrimary }}>{confirmedOrder.orderId}</strong> at the outer prasadam counter.
                 </p>
               </div>
 
@@ -141,18 +161,29 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   setConfirmedOrder(null);
                   onClose();
                 }}
-                className="w-full py-2.5 px-4 rounded-xl text-xs font-serif font-bold bg-amber-500 hover:bg-amber-400 text-black cursor-pointer"
+                className="w-full py-2.5 px-4 rounded-xl text-xs font-serif font-bold cursor-pointer shadow-xs"
+                style={{
+                  backgroundColor: activeTheme.colors.sacredGold,
+                  color: '#000000'
+                }}
               >
                 Continue Shopping
               </button>
             </div>
           ) : cart.length === 0 ? (
             <div className="text-center py-16 space-y-3">
-              <div className="w-16 h-16 rounded-full mx-auto bg-slate-900 text-slate-500 flex items-center justify-center text-2xl">
+              <div
+                className="w-16 h-16 rounded-full mx-auto flex items-center justify-center text-2xl border"
+                style={{
+                  backgroundColor: `${activeTheme.colors.sacredGold}15`,
+                  borderColor: activeTheme.colors.borderSubtle,
+                  color: activeTheme.colors.textSecondary
+                }}
+              >
                 🛍️
               </div>
-              <p className="text-sm text-slate-400 font-serif">Your cart is empty.</p>
-              <p className="text-xs text-slate-500 font-sans">
+              <p className="text-sm font-serif" style={{ color: activeTheme.colors.textPrimary }}>Your cart is empty.</p>
+              <p className="text-xs font-sans" style={{ color: activeTheme.colors.textSecondary }}>
                 Explore consecrated temple prasadam kits, hand-polished brass lamps, and village produce!
               </p>
             </div>
@@ -161,39 +192,52 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               {cart.map((item: CartItem) => (
                 <div
                   key={item.product.productId}
-                  className="p-3 rounded-xl border border-slate-800 bg-slate-900/60 flex items-center gap-3"
+                  className="p-3 rounded-xl border flex items-center gap-3"
+                  style={{
+                    backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                    borderColor: activeTheme.colors.borderSubtle
+                  }}
                 >
                   <img
                     src={item.product.imageUrl}
                     alt={item.product.name}
-                    className="w-14 h-14 rounded-lg object-cover bg-slate-950 flex-shrink-0"
+                    className="w-14 h-14 rounded-lg object-cover flex-shrink-0"
+                    style={{ backgroundColor: activeTheme.colors.surfaceElevated }}
                     referrerPolicy="no-referrer"
                   />
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-xs font-serif font-bold text-white truncate">
+                    <h4 className="text-xs font-serif font-bold truncate" style={{ color: activeTheme.colors.textPrimary }}>
                       {item.product.name}
                     </h4>
-                    <div className="text-xs font-mono text-amber-400 font-bold mt-0.5">
+                    <div className="text-xs font-mono font-bold mt-0.5" style={{ color: activeTheme.colors.sacredGold }}>
                       ₹{item.product.priceINR}
                     </div>
 
                     {/* Quantity Controls */}
                     <div className="flex items-center gap-2 mt-2">
-                      <div className="flex items-center border border-slate-700 rounded-lg bg-slate-950">
+                      <div
+                        className="flex items-center border rounded-lg"
+                        style={{
+                          borderColor: activeTheme.colors.borderSubtle,
+                          backgroundColor: activeTheme.colors.surfaceElevated
+                        }}
+                      >
                         <button
                           type="button"
                           onClick={() => onUpdateQuantity(item.product.productId, -1)}
-                          className="p-1 text-slate-400 hover:text-white cursor-pointer"
+                          className="p-1 cursor-pointer"
+                          style={{ color: activeTheme.colors.textSecondary }}
                         >
                           <Minus className="w-3 h-3" />
                         </button>
-                        <span className="px-2 font-mono text-xs font-bold text-white">
+                        <span className="px-2 font-mono text-xs font-bold" style={{ color: activeTheme.colors.textPrimary }}>
                           {item.quantity}
                         </span>
                         <button
                           type="button"
                           onClick={() => onUpdateQuantity(item.product.productId, 1)}
-                          className="p-1 text-slate-400 hover:text-white cursor-pointer"
+                          className="p-1 cursor-pointer"
+                          style={{ color: activeTheme.colors.textSecondary }}
                         >
                           <Plus className="w-3 h-3" />
                         </button>
@@ -202,7 +246,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       <button
                         type="button"
                         onClick={() => onRemoveItem(item.product.productId)}
-                        className="text-slate-500 hover:text-rose-400 transition-colors p-1 cursor-pointer"
+                        className="p-1 cursor-pointer hover:opacity-80 transition-opacity"
+                        style={{ color: activeTheme.colors.textSecondary }}
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -212,44 +257,59 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               ))}
 
               {/* Checkout Form */}
-              <form onSubmit={handleCheckout} className="pt-4 border-t border-slate-800 space-y-3">
+              <form onSubmit={handleCheckout} className="pt-4 border-t space-y-3" style={{ borderColor: activeTheme.colors.borderSubtle }}>
                 <div className="space-y-1">
-                  <label className="text-xs font-mono text-slate-300">Name *</label>
+                  <label className="text-xs font-mono" style={{ color: activeTheme.colors.textSecondary }}>Name *</label>
                   <input
                     type="text"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
                     required
                     placeholder="Recipient name"
-                    className="w-full p-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white"
+                    className="w-full p-2 rounded-lg border text-xs focus:outline-none"
+                    style={{
+                      backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                      borderColor: activeTheme.colors.borderSubtle,
+                      color: activeTheme.colors.textPrimary
+                    }}
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-mono text-slate-300">Phone *</label>
+                  <label className="text-xs font-mono" style={{ color: activeTheme.colors.textSecondary }}>Phone *</label>
                   <input
                     type="tel"
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
                     required
                     placeholder="+91 94430 00000"
-                    className="w-full p-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white"
+                    className="w-full p-2 rounded-lg border text-xs focus:outline-none"
+                    style={{
+                      backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                      borderColor: activeTheme.colors.borderSubtle,
+                      color: activeTheme.colors.textPrimary
+                    }}
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-mono text-slate-300">Pickup / Address</label>
+                  <label className="text-xs font-mono" style={{ color: activeTheme.colors.textSecondary }}>Pickup / Address</label>
                   <input
                     type="text"
                     value={deliveryAddress}
                     onChange={(e) => setDeliveryAddress(e.target.value)}
-                    className="w-full p-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white"
+                    className="w-full p-2 rounded-lg border text-xs focus:outline-none"
+                    style={{
+                      backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceCanvas,
+                      borderColor: activeTheme.colors.borderSubtle,
+                      color: activeTheme.colors.textPrimary
+                    }}
                   />
                 </div>
 
-                <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-                  <span className="text-xs text-slate-400 font-mono">Total Payable:</span>
-                  <span className="text-lg font-mono font-black text-amber-400">
+                <div className="pt-3 border-t flex items-center justify-between" style={{ borderColor: activeTheme.colors.borderSubtle }}>
+                  <span className="text-xs font-mono" style={{ color: activeTheme.colors.textSecondary }}>Total Payable:</span>
+                  <span className="text-lg font-mono font-black" style={{ color: activeTheme.colors.sacredGold }}>
                     ₹{totalAmount}
                   </span>
                 </div>
@@ -257,7 +317,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-2.5 px-4 rounded-xl text-xs font-serif font-bold bg-amber-500 hover:bg-amber-400 text-black transition-colors cursor-pointer shadow-lg disabled:opacity-50"
+                  className="w-full py-2.5 px-4 rounded-xl text-xs font-serif font-bold transition-colors cursor-pointer shadow-lg disabled:opacity-50"
+                  style={{
+                    backgroundColor: activeTheme.colors.sacredGold,
+                    color: '#000000'
+                  }}
                 >
                   {submitting ? 'Placing Order...' : 'Confirm Order (Pay at Counter)'}
                 </button>

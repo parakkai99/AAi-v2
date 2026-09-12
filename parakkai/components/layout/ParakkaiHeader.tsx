@@ -206,7 +206,22 @@ export const ParakkaiHeader: React.FC<ParakkaiHeaderProps> = ({
                 key={link.id}
                 type="button"
                 onClick={() => onNavigate(link.targetView)}
-                className={`relative px-2.5 py-1 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 cursor-pointer border ${isActive ? "font-bold" : ""}`} style={isActive ? { color: activeTheme.colors.textPrimary, backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderSubtle } : { color: activeTheme.colors.textSecondary }}
+                className={`relative px-3 py-1.5 rounded-lg text-xs transition-all flex items-center gap-1.5 cursor-pointer ${
+                  isActive ? "font-semibold shadow-xs" : "font-medium hover:opacity-80"
+                }`}
+                style={
+                  isActive
+                    ? {
+                        color: activeTheme.colors.textPrimary,
+                        backgroundColor: `${activeTheme.colors.primarySkyBlue}12`,
+                        border: `1px solid ${activeTheme.colors.primarySkyBlue}26`
+                      }
+                    : {
+                        color: activeTheme.colors.textSecondary,
+                        backgroundColor: 'transparent',
+                        border: '1px solid transparent'
+                      }
+                }
               >
                 {getNavIcon(link.iconName)}
                 <span>{link.label}</span>
@@ -307,10 +322,21 @@ export const ParakkaiHeader: React.FC<ParakkaiHeaderProps> = ({
                   setMobileMenuOpen(false);
                 }}
                 className={`p-2.5 rounded-lg text-xs font-medium flex items-center gap-2 text-left border ${
-                  currentView === link.targetView
-                    ? 'bg-sky-900/40 text-amber-300 border-amber-500/40 font-bold'
-                    : 'bg-slate-900/50 text-slate-300 border-slate-800'
+                  currentView === link.targetView ? 'font-bold' : ''
                 }`}
+                style={
+                  currentView === link.targetView
+                    ? {
+                        backgroundColor: `${activeTheme.colors.primarySkyBlue}18`,
+                        color: activeTheme.colors.textPrimary,
+                        borderColor: activeTheme.colors.borderGold,
+                      }
+                    : {
+                        backgroundColor: activeTheme.colors.surfaceCard,
+                        color: activeTheme.colors.textSecondary,
+                        borderColor: activeTheme.colors.borderSubtle,
+                      }
+                }
               >
                 {getNavIcon(link.iconName)}
                 <div className="flex flex-col">
@@ -321,14 +347,18 @@ export const ParakkaiHeader: React.FC<ParakkaiHeaderProps> = ({
             ))}
           </div>
 
-          <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
+          <div
+            className="pt-2 border-t flex items-center justify-between"
+            style={{ borderColor: activeTheme.colors.borderSubtle }}
+          >
             <button
               type="button"
               onClick={() => {
                 onOpenAdmin();
                 setMobileMenuOpen(false);
               }}
-              className="text-xs text-amber-300 flex items-center gap-1.5 font-medium"
+              className="text-xs flex items-center gap-1.5 font-medium cursor-pointer"
+              style={{ color: activeTheme.colors.textGold }}
             >
               <Shield className="w-3.5 h-3.5" />
               <span>Admin Console</span>
@@ -339,7 +369,8 @@ export const ParakkaiHeader: React.FC<ParakkaiHeaderProps> = ({
                 onOpenThemeModal();
                 setMobileMenuOpen(false);
               }}
-              className="text-xs text-sky-300 flex items-center gap-1.5 font-medium"
+              className="text-xs flex items-center gap-1.5 font-medium cursor-pointer"
+              style={{ color: activeTheme.colors.primarySkyBlue }}
             >
               <Palette className="w-3.5 h-3.5" />
               <span>Switch Theme</span>

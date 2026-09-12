@@ -156,10 +156,10 @@ export const SacredMapView: React.FC<SacredMapViewProps> = ({
             </span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-serif font-bold tracking-tight" style={{ color: activeTheme.colors.textPrimary }}>
             The Sacred Map of Parakkai
           </h2>
-          <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+          <p className="text-xs sm:text-sm font-sans leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
             Navigate the 7 devotional stations from the village entrance through Arasamotu Vinayakar, Sannadhi street, Dasavataram arch, Golden Kodimaram, the Sanctum Sanctorum, and the sacred temple lake.
           </p>
         </div>
@@ -168,10 +168,23 @@ export const SacredMapView: React.FC<SacredMapViewProps> = ({
       {/* Interactive Map Canvas Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left: Map Visual Stage (Schematic Temple Layout) */}
-        <div className="lg:col-span-8 rounded-3xl border border-amber-500/30 bg-slate-950 p-6 shadow-2xl relative overflow-hidden min-h-[500px] flex flex-col justify-between">
+        <div
+          className="lg:col-span-8 rounded-3xl border p-6 shadow-2xl relative overflow-hidden min-h-[500px] flex flex-col justify-between"
+          style={{
+            backgroundColor: activeTheme.colors.surfaceElevated,
+            borderColor: activeTheme.colors.borderGold
+          }}
+        >
           {/* Compass Rose */}
-          <div className="absolute top-4 right-4 p-2 rounded-xl bg-slate-900/80 border border-slate-800 text-[10px] font-mono text-slate-400 flex items-center gap-1.5 z-20">
-            <Navigation className="w-3.5 h-3.5 text-amber-400 rotate-45" />
+          <div
+            className="absolute top-4 right-4 p-2 rounded-xl border text-[10px] font-mono flex items-center gap-1.5 z-20 shadow-xs"
+            style={{
+              backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceElevated,
+              borderColor: activeTheme.colors.borderSubtle,
+              color: activeTheme.colors.textSecondary
+            }}
+          >
+            <Navigation className="w-3.5 h-3.5 rotate-45" style={{ color: activeTheme.colors.sacredGold }} />
             <span>N (Agrahara to East Sanctum)</span>
           </div>
 
@@ -179,7 +192,10 @@ export const SacredMapView: React.FC<SacredMapViewProps> = ({
           <div className="absolute top-1/4 right-0 w-48 h-72 rounded-l-full bg-sky-600/15 border-l border-y border-sky-500/30 blur-xs pointer-events-none" />
 
           {/* Sannadhi Central Axis Line */}
-          <div className="absolute left-1/2 top-16 bottom-16 w-0.5 -translate-x-1/2 border-l border-dashed border-amber-500/30 pointer-events-none" />
+          <div
+            className="absolute left-1/2 top-16 bottom-16 w-0.5 -translate-x-1/2 border-l border-dashed pointer-events-none"
+            style={{ borderColor: `${activeTheme.colors.sacredGold}60` }}
+          />
 
           {/* Interactive Spot Pins */}
           <div className="relative w-full h-[420px] z-10">
@@ -192,21 +208,20 @@ export const SacredMapView: React.FC<SacredMapViewProps> = ({
                   onClick={() => setSelectedSpotId(spot.id)}
                   style={{
                     left: `${spot.xPercent}%`,
-                    top: `${spot.yPercent}%`
+                    top: `${spot.yPercent}%`,
+                    backgroundColor: isSelected
+                      ? activeTheme.colors.sacredGold
+                      : activeTheme.colors.surfaceElevated,
+                    borderColor: isSelected ? activeTheme.colors.borderGold : activeTheme.colors.borderSubtle,
+                    color: isSelected ? '#000000' : activeTheme.colors.textPrimary
                   }}
                   className={`absolute -translate-x-1/2 -translate-y-1/2 p-2 rounded-2xl transition-all cursor-pointer flex items-center gap-1.5 shadow-lg border ${
-                    isSelected
-                      ? 'bg-amber-400 text-black border-amber-300 scale-125 z-30 ring-4 ring-amber-400/30'
-                      : spot.category === 'WATER'
-                      ? 'bg-sky-950 text-sky-300 border-sky-700 hover:scale-110'
-                      : 'bg-slate-900 text-amber-300 border-slate-700 hover:scale-110'
+                    isSelected ? 'scale-125 z-30 ring-4 ring-amber-400/30 font-bold' : 'hover:scale-110'
                   }`}
                   title={spot.name}
                 >
                   <span className="text-sm">{spot.icon}</span>
-                  <span className={`text-[10px] font-sans font-bold whitespace-nowrap hidden sm:inline ${
-                    isSelected ? 'text-black' : 'text-slate-200'
-                  }`}>
+                  <span className="text-[10px] font-sans whitespace-nowrap hidden sm:inline">
                     {spot.name.split('(')[0].trim()}
                   </span>
                 </button>
@@ -215,52 +230,75 @@ export const SacredMapView: React.FC<SacredMapViewProps> = ({
           </div>
 
           {/* Map Legend */}
-          <div className="relative z-20 pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400 font-sans">
+          <div
+            className="relative z-20 pt-4 border-t flex flex-wrap items-center justify-between gap-2 text-[11px] font-sans"
+            style={{ borderColor: activeTheme.colors.borderSubtle, color: activeTheme.colors.textSecondary }}
+          >
             <div className="flex items-center gap-3">
               <span className="flex items-center gap-1">🪷 Sanctum</span>
               <span className="flex items-center gap-1">☀️ 6:30 AM Beam</span>
               <span className="flex items-center gap-1">🌊 Theertham</span>
             </div>
-            <span className="font-mono text-[10px] text-amber-400">
+            <span className="font-mono text-[10px]" style={{ color: activeTheme.colors.textGold }}>
               Latitude 8.1472° N • Longitude 77.4523° E
             </span>
           </div>
         </div>
 
         {/* Right: Selected Spot Inspector Card */}
-        <div className="lg:col-span-4 rounded-3xl border border-amber-500/40 bg-slate-950/80 p-6 space-y-4 shadow-xl backdrop-blur-md">
+        <div
+          className="lg:col-span-4 rounded-3xl border p-6 space-y-4 shadow-xl backdrop-blur-md"
+          style={{
+            backgroundColor: activeTheme.colors.surfaceElevated,
+            borderColor: activeTheme.colors.borderGold
+          }}
+        >
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-300 text-2xl flex items-center justify-center border border-amber-400">
+            <div
+              className="w-12 h-12 rounded-2xl text-2xl flex items-center justify-center border shadow-xs"
+              style={{
+                backgroundColor: `${activeTheme.colors.sacredGold}25`,
+                borderColor: activeTheme.colors.borderGold,
+                color: activeTheme.colors.textGold
+              }}
+            >
               {currentSpot.icon}
             </div>
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-amber-400 font-bold">
+              <span className="text-[10px] font-mono uppercase tracking-widest font-bold" style={{ color: activeTheme.colors.textGold }}>
                 {currentSpot.category}
               </span>
-              <h3 className="text-base font-serif font-bold text-white">
+              <h3 className="text-base font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
                 {currentSpot.name}
               </h3>
             </div>
           </div>
 
           {currentSpot.tamilName && (
-            <div className="text-xs text-amber-300/90 font-sans font-medium">
+            <div className="text-xs font-sans font-medium" style={{ color: activeTheme.colors.textGold }}>
               {currentSpot.tamilName}
             </div>
           )}
 
-          <p className="text-xs text-slate-300 font-sans leading-relaxed">
+          <p className="text-xs font-sans leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
             {currentSpot.description}
           </p>
 
-          <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300 space-y-1 font-mono">
+          <div
+            className="p-3.5 rounded-xl border text-xs space-y-1 font-mono"
+            style={{
+              backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceElevated,
+              borderColor: activeTheme.colors.borderSubtle,
+              color: activeTheme.colors.textSecondary
+            }}
+          >
             <div className="flex justify-between">
-              <span className="text-slate-400">Sanctum Distance:</span>
-              <span className="text-amber-400 font-bold">{currentSpot.distanceFromSanctumMeters} meters</span>
+              <span style={{ color: activeTheme.colors.textSecondary }}>Sanctum Distance:</span>
+              <span className="font-bold" style={{ color: activeTheme.colors.textGold }}>{currentSpot.distanceFromSanctumMeters} meters</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-400">Walking Time:</span>
-              <span className="text-slate-200">{Math.ceil(currentSpot.distanceFromSanctumMeters / 60)} min walk</span>
+              <span style={{ color: activeTheme.colors.textSecondary }}>Walking Time:</span>
+              <span style={{ color: activeTheme.colors.textPrimary }}>{Math.ceil(currentSpot.distanceFromSanctumMeters / 60)} min walk</span>
             </div>
           </div>
 
@@ -269,7 +307,11 @@ export const SacredMapView: React.FC<SacredMapViewProps> = ({
               href="https://maps.google.com/?q=Parakkai+Madhusoodhana+Perumal+Temple+Kanyakumari"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-2.5 px-4 rounded-xl text-xs font-serif font-bold bg-amber-500 hover:bg-amber-400 text-black transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
+              className="w-full py-2.5 px-4 rounded-xl text-xs font-serif font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
+              style={{
+                backgroundColor: activeTheme.colors.sacredGold,
+                color: '#000000'
+              }}
             >
               <ExternalLink className="w-3.5 h-3.5" />
               <span>Open in Google Maps / GPS</span>

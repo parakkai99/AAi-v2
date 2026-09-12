@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, Bot, CheckCircle2, FileJson, Image, LayoutTemplate, Palette, Save, Send, Settings2, Sparkles, Upload, Workflow } from 'lucide-react';
 import { experienceLayouts } from '@/src/experience/layout/LayoutRegistry';
 import { experienceThemes } from '@/src/experience/theme/ThemeRegistry';
+import { AssetExplorer } from './AssetExplorer';
 import { getSolutionAdminConfig, publishSolution, saveSolutionAdminConfig } from '@/src/services/solutionAdminService';
 import type { SolutionAdminConfig } from '@/src/contracts/solutionAdmin';
 
@@ -124,7 +125,7 @@ export const SolutionAdmin: React.FC<SolutionAdminProps> = ({ solutionId, onPrev
             {activeSection === 'Identity' && <Identity solutionId={solutionId} name={name} />}
             {activeSection === 'Experience' && <Experience config={config} onUpdate={update} onPreview={() => { saveSolutionAdminConfig(config); onPreviewSolution(config); }} />}
             {activeSection === 'Content' && <JsonEditor title="Content" value={config.contentJson} onChange={(value) => update({ contentJson: value })} onSave={save} action="Save Content" />}
-            {activeSection === 'Assets' && <JsonEditor title="Asset Manifest" value={config.assetManifest} onChange={(value) => update({ assetManifest: value })} onSave={save} action="Save Assets" />}
+            {activeSection === 'Assets' && <AssetExplorer manifestJson={config.assetManifest} onChangeManifest={(value) => update({ assetManifest: value })} onSave={save} />}
             {activeSection === 'JSON / Data' && <JsonEditor title="Solution JSON / Data" value={config.contentJson} onChange={(value) => update({ contentJson: value })} onSave={save} action="Save JSON" onImport={() => fileRef.current?.click()} />}
             {activeSection === 'AI Prompts' && <PromptEditor value={config.aiPrompt} onChange={(value) => update({ aiPrompt: value })} onSave={save} />}
             {activeSection === 'AI Content' && <Capability title="AI Content" icon={Sparkles} items={['Generate content from approved prompts', 'Review generated output', 'Save approved content into solution data', 'Keep solution data separated from AAi platform data']} />}
@@ -196,7 +197,7 @@ function Experience({
   onUpdate: (patch: Partial<SolutionAdminConfig>) => void;
   onPreview: () => void;
 }) {
-  const [openLibraries, setOpenLibraries] = useState<{ theme: boolean; layout: boolean }>({ theme: true, layout: false });
+  const [openLibraries, setOpenLibraries] = useState<{ theme: boolean; layout: boolean }>({ theme: false, layout: false });
   const [activeLibrary, setActiveLibrary] = useState<'theme' | 'layout'>('theme');
   const [selectedThemeId, setSelectedThemeId] = useState(config.themeId);
   const [selectedLayoutId, setSelectedLayoutId] = useState(config.layoutId);
@@ -227,7 +228,21 @@ function Experience({
   };
 
   const toggleLibrary = (library: 'theme' | 'layout') => {
-    setOpenLibraries((current) => ({ ...current, [library]: !current[library] }));
+    setOpenLibraries((current) => {
+      const isCurrentlyOpen = current[library];
+      if (!isCurrentlyOpen) {
+        // Only expand the clicked library, collapse the other
+        return {
+          theme: library === 'theme',
+          layout: library === 'layout',
+        };
+      }
+      // Collapse if already open
+      return {
+        theme: false,
+        layout: false,
+      };
+    });
     setActiveLibrary(library);
   };
 
@@ -245,7 +260,7 @@ function Experience({
             selectedLabel={selectedTheme.name}
             tone="cyan"
           >
-            <div className="grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-1 gap-2 max-h-[440px] overflow-y-auto pr-1">
               {experienceThemes.map((theme, index) => (
                 <button
                   key={theme.id}
@@ -296,7 +311,7 @@ function Experience({
             selectedLabel={selectedLayout.name}
             tone="violet"
           >
-            <div className="grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-1 gap-2 max-h-[440px] overflow-y-auto pr-1">
               {experienceLayouts.map((layout, index) => (
                 <button
                   key={layout.id}
@@ -461,11 +476,11 @@ function ThemeDetail({ theme }: { theme: (typeof experienceThemes)[number] }) {
           <ThemeStat label="Display Font" value={theme.typography.display} />
           <ThemeStat label="Body Font" value={theme.typography.body} />
           <ThemeStat label="Corner" value={theme.tokens.radius} />
-          <ThemeStat label="Background" value={theme.background.mode} />
+          <ThemeStat label="Motion Speed" value={theme.motionLanguage?.speed ?? 'balanced'} />
         </div>
       </section>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         <ThemeTokenCard title="Typography" items={[
           ['Display', theme.typography.display],
           ['Body', theme.typography.body],
@@ -487,11 +502,27 @@ function ThemeDetail({ theme }: { theme: (typeof experienceThemes)[number] }) {
           ['Border', theme.tokens.border],
         ]} />
 
-        <ThemeTokenCard title="Readable Content" items={[
-          ['Text', theme.tokens.text],
-          ['Muted Text', theme.tokens.textMuted],
-          ['Background Mode', theme.background.mode],
-          ['Background Value', theme.background.value],
+        <ThemeTokenCard title="Motion Language" items={[
+          ['Curve', theme.motionLanguage?.curve ?? 'cubic-bezier(0.16, 1, 0.3, 1)'],
+          ['Speed', theme.motionLanguage?.speed ?? 'balanced'],
+          ['Feel', theme.motionLanguage?.feel ?? 'precise'],
+          ['Duration', theme.motionLanguage?.durationMs ? `${theme.motionLanguage.durationMs}ms` : '280ms'],
+        ]} />
+
+        <ThemeTokenCard title="Surface System" items={[
+          ['Card Surface', theme.surfaces?.card ?? theme.tokens.surface],
+          ['Elevated Surface', theme.surfaces?.elevated ?? theme.tokens.surfaceAlt],
+          ['Glass Surface', theme.surfaces?.glass ?? 'rgba(6, 21, 37, 0.85)'],
+          ['Rail Surface', theme.surfaces?.rail ?? '#030e1a'],
+          ['Spatial Glow', theme.elevation?.spatialGlow ?? 'None'],
+        ]} />
+
+        <ThemeTokenCard title="Radii & Scales" items={[
+          ['Small (sm)', theme.radii?.sm ?? '6px'],
+          ['Medium (md)', theme.radii?.md ?? '10px'],
+          ['Large (lg)', theme.radii?.lg ?? theme.tokens.radius],
+          ['Extra Large (xl)', theme.radii?.xl ?? '20px'],
+          ['Pill', theme.radii?.pill ?? '9999px'],
         ]} />
       </div>
     </div>
@@ -550,6 +581,9 @@ function LayoutDetail({ layout }: { layout: (typeof experienceLayouts)[number] }
               <span className="rounded-full border border-white/10 px-2 py-1 text-[10px] text-[#9bb6c7]">
                 L{layout.drilldownLevels}
               </span>
+              <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2 py-1 text-[10px] text-cyan-300 font-mono capitalize">
+                Density: {layout.density ?? 'balanced'}
+              </span>
             </div>
           </div>
           <div className="w-full lg:w-[360px] rounded-2xl border border-white/10 bg-[#020914] p-3">
@@ -559,14 +593,26 @@ function LayoutDetail({ layout }: { layout: (typeof experienceLayouts)[number] }
       </section>
 
       <section className="rounded-2xl border border-white/10 bg-[#061525]/70 p-4">
-        <h4 className="text-sm font-semibold">Screen Regions</h4>
+        <h4 className="text-sm font-semibold">Screen Regions &amp; Policies</h4>
         <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
-          {layout.regions.map((region, index) => (
-            <div key={region} className="rounded-xl border border-cyan-400/15 bg-cyan-400/5 p-3">
-              <div className="text-[9px] font-mono uppercase tracking-wider text-cyan-300">R{index + 1}</div>
-              <div className="mt-1 text-xs font-semibold capitalize">{region.replace('-', ' ')}</div>
-            </div>
-          ))}
+          {layout.regions.map((region, index) => {
+            const behavior = layout.regionBehaviors?.[region];
+            return (
+              <div key={region} className="rounded-xl border border-cyan-400/15 bg-cyan-400/5 p-3 flex flex-col justify-between">
+                <div>
+                  <div className="text-[9px] font-mono uppercase tracking-wider text-cyan-300">R{index + 1}</div>
+                  <div className="mt-1 text-xs font-semibold capitalize">{region.replace('-', ' ')}</div>
+                </div>
+                {behavior && (
+                  <div className="mt-2 pt-2 border-t border-white/5 space-y-0.5 text-[9px] font-mono text-[#82a5bb]">
+                    {behavior.sticky && <div>• sticky</div>}
+                    {behavior.collapsible && <div>• collapsible</div>}
+                    {behavior.width && <div>• {behavior.width}</div>}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </section>
     </div>

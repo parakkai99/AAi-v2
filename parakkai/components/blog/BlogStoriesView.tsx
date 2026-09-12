@@ -51,10 +51,10 @@ export const BlogStoriesView: React.FC<BlogStoriesViewProps> = ({ activeTheme })
             </span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-serif font-bold tracking-tight" style={{ color: activeTheme.colors.textPrimary }}>
             Sacred Chronicles of Parakkai
           </h2>
-          <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+          <p className="text-xs sm:text-sm font-sans leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
             Discover the eternal legends of Lord Indra's redemption, astronomical secrets of the dawn sunlight miracle, and spiritual wisdom passed down through generations of temple custodians.
           </p>
         </div>
@@ -66,18 +66,18 @@ export const BlogStoriesView: React.FC<BlogStoriesViewProps> = ({ activeTheme })
           <article
             key={post.postId}
             onClick={() => setActivePost(post)}
-            className="rounded-2xl border overflow-hidden transition-all group hover:shadow-2xl hover:border-amber-400/60 cursor-pointer flex flex-col justify-between"
+            className="rounded-2xl border overflow-hidden transition-all group hover:shadow-2xl cursor-pointer flex flex-col justify-between"
             style={{
-              backgroundColor: `${activeTheme.colors.surfaceElevated}`,
+              backgroundColor: activeTheme.colors.surfaceCard || activeTheme.colors.surfaceElevated,
               borderColor: activeTheme.colors.borderSubtle
             }}
           >
             <div>
-              <div className="aspect-video w-full overflow-hidden bg-slate-950 relative">
+              <div className="aspect-video w-full overflow-hidden bg-slate-900 relative">
                 <img
                   src={post.featuredImage}
                   alt={post.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-85"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90"
                   referrerPolicy="no-referrer"
                 />
                 <span className="absolute top-2 left-2 px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-black/80 text-amber-300">
@@ -86,31 +86,37 @@ export const BlogStoriesView: React.FC<BlogStoriesViewProps> = ({ activeTheme })
               </div>
 
               <div className="p-5 space-y-2">
-                <div className="flex items-center gap-2 text-[11px] text-slate-400 font-mono">
+                <div className="flex items-center gap-2 text-[11px] font-mono" style={{ color: activeTheme.colors.textSecondary }}>
                   <span>{post.publishedAt}</span>
                   <span>•</span>
                   <span>{post.readingTimeMinutes} min read</span>
                 </div>
 
-                <h3 className="text-base font-serif font-bold text-white group-hover:text-amber-300 transition-colors leading-snug">
+                <h3 className="text-base font-serif font-bold transition-colors leading-snug" style={{ color: activeTheme.colors.textPrimary }}>
                   {post.title}
                 </h3>
 
                 {post.tamilTitle && (
-                  <span className="text-xs text-amber-300/80 font-sans block line-clamp-1">
+                  <span className="text-xs font-sans block line-clamp-1" style={{ color: activeTheme.colors.textGold }}>
                     {post.tamilTitle}
                   </span>
                 )}
 
-                <p className="text-xs text-slate-300 font-sans line-clamp-3 leading-relaxed">
+                <p className="text-xs font-sans line-clamp-3 leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
                   {post.summary}
                 </p>
               </div>
             </div>
 
-            <div className="p-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 font-sans">
+            <div
+              className="p-4 border-t flex items-center justify-between text-xs font-sans"
+              style={{
+                borderColor: activeTheme.colors.borderSubtle,
+                color: activeTheme.colors.textSecondary
+              }}
+            >
               <span>{post.author.name}</span>
-              <span className="text-amber-400 font-medium group-hover:translate-x-1 transition-transform flex items-center gap-1">
+              <span className="font-medium group-hover:translate-x-1 transition-transform flex items-center gap-1" style={{ color: activeTheme.colors.textGold }}>
                 <span>Read Story</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
@@ -126,43 +132,58 @@ export const BlogStoriesView: React.FC<BlogStoriesViewProps> = ({ activeTheme })
           onClick={() => setActivePost(null)}
         >
           <div
-            className="w-full max-w-2xl max-h-[85vh] rounded-3xl border p-6 sm:p-8 space-y-6 shadow-2xl bg-slate-950 border-amber-500/40 text-white overflow-y-auto"
+            className="w-full max-w-2xl max-h-[85vh] rounded-3xl border p-6 sm:p-8 space-y-6 shadow-2xl overflow-y-auto"
+            style={{
+              backgroundColor: activeTheme.colors.surfaceElevated,
+              borderColor: activeTheme.colors.borderGold
+            }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-start justify-between border-b border-slate-800 pb-4">
+            <div className="flex items-start justify-between border-b pb-4" style={{ borderColor: activeTheme.colors.borderSubtle }}>
               <div className="space-y-1">
-                <span className="text-[10px] font-mono text-amber-400 font-bold uppercase">
+                <span className="text-[10px] font-mono font-bold uppercase" style={{ color: activeTheme.colors.textGold }}>
                   {activePost.category.replace('_', ' ')} • {activePost.readingTimeMinutes} min read
                 </span>
-                <h3 className="text-xl font-serif font-bold text-white">
+                <h3 className="text-xl font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
                   {activePost.title}
                 </h3>
                 {activePost.tamilTitle && (
-                  <p className="text-xs text-amber-300 font-sans">{activePost.tamilTitle}</p>
+                  <p className="text-xs font-sans" style={{ color: activeTheme.colors.textGold }}>{activePost.tamilTitle}</p>
                 )}
               </div>
               <button
                 type="button"
                 onClick={() => setActivePost(null)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white cursor-pointer"
+                className="p-1.5 rounded-lg cursor-pointer transition-colors"
+                style={{ color: activeTheme.colors.textSecondary }}
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="text-xs text-slate-300 font-sans leading-relaxed whitespace-pre-line space-y-3">
+            <div className="text-xs font-sans leading-relaxed whitespace-pre-line space-y-3" style={{ color: activeTheme.colors.textPrimary }}>
               {activePost.contentMarkdown}
             </div>
 
-            <div className="pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 font-sans">
+            <div
+              className="pt-4 border-t flex items-center justify-between text-xs font-sans"
+              style={{
+                borderColor: activeTheme.colors.borderSubtle,
+                color: activeTheme.colors.textSecondary
+              }}
+            >
               <div>
-                <strong>Author: </strong>
+                <strong style={{ color: activeTheme.colors.textPrimary }}>Author: </strong>
                 <span>{activePost.author.name} ({activePost.author.role})</span>
               </div>
               <button
                 type="button"
                 onClick={() => setActivePost(null)}
-                className="px-4 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs cursor-pointer"
+                className="px-4 py-1.5 rounded-xl font-bold text-xs cursor-pointer shadow-xs"
+                style={{
+                  backgroundColor: activeTheme.colors.sacredGold,
+                  color: '#000000'
+                }}
               >
                 Close Article
               </button>

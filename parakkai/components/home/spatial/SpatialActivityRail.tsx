@@ -9,11 +9,13 @@ import {
   RotateCcw,
   X,
 } from "lucide-react";
+import type { SpatialJourneyScene } from "./spatialJourneyConfig";
 
 type ActivityId = "animation" | "scenes" | "ai" | "info" | "more";
 type AnimationAction = "flight" | "sway" | "radiate" | "reset";
 
 interface SpatialActivityRailProps {
+  currentScene?: SpatialJourneyScene;
   onSceneSelect?: (sceneNumber: string) => void;
   onAnimationAction?: (action: AnimationAction) => void;
 }
@@ -31,6 +33,7 @@ const activities: Array<{
 ];
 
 export default function SpatialActivityRail({
+  currentScene,
   onSceneSelect,
   onAnimationAction,
 }: SpatialActivityRailProps) {
@@ -56,9 +59,10 @@ export default function SpatialActivityRail({
                 "flex h-9 w-9 items-center justify-center rounded-xl border",
                 "transition-all duration-200",
                 selected
-                  ? "border-cyan-300/70 bg-cyan-400/15 text-cyan-100 shadow-[0_0_16px_rgba(0,227,253,0.18)]"
+                  ? "border-cyan-500 bg-cyan-500/15 text-[var(--aai-primary)]"
                   : "border-transparent text-[var(--aai-text-muted)] hover:bg-[var(--aai-surface-alt)] hover:text-[var(--aai-text)]",
               ].join(" ")}
+              style={selected ? { borderColor: "var(--aai-primary)", color: "var(--aai-primary)" } : {}}
             >
               <Icon className="h-4 w-4" />
             </button>
@@ -71,7 +75,7 @@ export default function SpatialActivityRail({
           <div className="rounded-2xl border p-4 shadow-2xl backdrop-blur-xl" style={{ color: "var(--aai-text)", borderColor: "var(--aai-border)", backgroundColor: "var(--aai-surface)" }}>
             <div className="mb-3 flex items-center justify-between">
               <div>
-                <div className="text-[9px] font-mono uppercase tracking-[0.2em] text-cyan-300/80">
+                <div className="text-[9px] font-mono uppercase tracking-[0.2em] font-semibold" style={{ color: "var(--aai-primary)" }}>
                   AAi Activity
                 </div>
                 <div className="text-sm font-medium">
@@ -94,31 +98,35 @@ export default function SpatialActivityRail({
                 <button
                   type="button"
                   onClick={() => onAnimationAction?.("flight")}
-                  className="flex w-full items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-left text-xs hover:bg-cyan-400/10"
+                  className="flex w-full items-center gap-2 rounded-xl border px-3 py-2 text-left text-xs transition-colors hover:bg-cyan-400/10"
+                  style={{ borderColor: "var(--aai-border)", backgroundColor: "var(--aai-surface-alt)", color: "var(--aai-text)" }}
                 >
-                  <Play className="h-3.5 w-3.5 text-cyan-300" />
+                  <Play className="h-3.5 w-3.5 text-cyan-400" />
                   Birds — FLIGHT
                 </button>
                 <button
                   type="button"
                   onClick={() => onAnimationAction?.("sway")}
-                  className="flex w-full items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-left text-xs hover:bg-cyan-400/10"
+                  className="flex w-full items-center gap-2 rounded-xl border px-3 py-2 text-left text-xs transition-colors hover:bg-cyan-400/10"
+                  style={{ borderColor: "var(--aai-border)", backgroundColor: "var(--aai-surface-alt)", color: "var(--aai-text)" }}
                 >
-                  <Play className="h-3.5 w-3.5 text-amber-300" />
+                  <Play className="h-3.5 w-3.5 text-amber-400" />
                   Peacock — SWAY
                 </button>
                 <button
                   type="button"
                   onClick={() => onAnimationAction?.("radiate")}
-                  className="flex w-full items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-left text-xs hover:bg-cyan-400/10"
+                  className="flex w-full items-center gap-2 rounded-xl border px-3 py-2 text-left text-xs transition-colors hover:bg-cyan-400/10"
+                  style={{ borderColor: "var(--aai-border)", backgroundColor: "var(--aai-surface-alt)", color: "var(--aai-text)" }}
                 >
-                  <Play className="h-3.5 w-3.5 text-yellow-300" />
+                  <Play className="h-3.5 w-3.5 text-yellow-400" />
                   Sun — RADIATE
                 </button>
                 <button
                   type="button"
                   onClick={() => onAnimationAction?.("reset")}
-                  className="flex w-full items-center gap-2 rounded-xl border border-white/10 px-3 py-2 text-left text-xs text-white/65 hover:bg-white/5 hover:text-white"
+                  className="flex w-full items-center gap-2 rounded-xl border px-3 py-2 text-left text-xs transition-colors hover:bg-cyan-400/10"
+                  style={{ borderColor: "var(--aai-border)", backgroundColor: "var(--aai-surface-alt)", color: "var(--aai-text-muted)" }}
                 >
                   <RotateCcw className="h-3.5 w-3.5" />
                   Reset animation
@@ -131,46 +139,62 @@ export default function SpatialActivityRail({
                 {[
                   ["01", "Sakthi Vinayakar"],
                   ["02", "Sacred Tree"],
-                  ["03", "Temple"],
-                  ["04", "Teertham Lake"],
-                ].map(([number, name]) => (
-                  <button
-                    key={number}
-                    type="button"
-                    onClick={() => onSceneSelect?.(number)}
-                    className="flex w-full items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs hover:bg-cyan-400/10"
-                  >
-                    <span>{name}</span>
-                    <span className="font-mono text-[10px] text-cyan-300/80">
-                      {number}
-                    </span>
-                  </button>
-                ))}
+                  ["03", "Toward the Lake"],
+                  ["04", "Parakkai Lake"],
+                ].map(([number, name]) => {
+                  const isCurrent = currentScene ? String(currentScene.number).padStart(2, "0") === number : number === "01";
+                  return (
+                    <button
+                      key={number}
+                      type="button"
+                      onClick={() => onSceneSelect?.(number)}
+                      className={`flex w-full items-center justify-between rounded-xl border px-3 py-2 text-xs transition-colors hover:bg-cyan-400/10 cursor-pointer ${
+                        isCurrent ? "border-cyan-400 bg-cyan-400/15 font-semibold" : ""
+                      }`}
+                      style={{
+                        borderColor: isCurrent ? "var(--aai-primary)" : "var(--aai-border)",
+                        backgroundColor: isCurrent ? "rgba(6, 182, 212, 0.15)" : "var(--aai-surface-alt)",
+                        color: "var(--aai-text)"
+                      }}
+                    >
+                      <span>{name}</span>
+                      <span className="font-mono text-[10px] font-semibold" style={{ color: "var(--aai-primary)" }}>
+                        {number}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             )}
 
             {active === "ai" && (
-              <p className="text-xs leading-5 text-white/65">
+              <p className="text-xs leading-5" style={{ color: "var(--aai-text-muted)" }}>
                 AI assistance for scene understanding, motion planning and solution activity.
               </p>
             )}
 
             {active === "info" && (
-              <div className="space-y-2 text-xs text-white/65">
+              <div className="space-y-2 text-xs" style={{ color: "var(--aai-text-muted)" }}>
                 <div>
-                  <span className="text-cyan-300">Runtime:</span> AAi Animation Runtime
+                  <span className="font-medium" style={{ color: "var(--aai-primary)" }}>Runtime:</span> AAi Animation Runtime
                 </div>
                 <div>
-                  <span className="text-cyan-300">Mode:</span> Spatial Journey
+                  <span className="font-medium" style={{ color: "var(--aai-primary)" }}>Mode:</span> Spatial Journey
                 </div>
                 <div>
-                  <span className="text-cyan-300">Scene:</span> 01 / Sakthi Vinayakar
+                  <span className="font-medium" style={{ color: "var(--aai-primary)" }}>Scene:</span>{" "}
+                  {currentScene ? `${String(currentScene.number).padStart(2, "0")} / ${currentScene.title}` : "01 / Sakthi Vinayakar"}
                 </div>
+                {currentScene?.subtitle && (
+                  <div>
+                    <span className="font-medium" style={{ color: "var(--aai-primary)" }}>Focus:</span> {currentScene.subtitle}
+                  </div>
+                )}
               </div>
             )}
 
             {active === "more" && (
-              <p className="text-xs leading-5 text-white/65">
+              <p className="text-xs leading-5" style={{ color: "var(--aai-text-muted)" }}>
                 Additional solution activities can be surfaced here without changing the shared animation runtime.
               </p>
             )}

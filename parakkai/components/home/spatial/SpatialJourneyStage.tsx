@@ -51,6 +51,9 @@ export default function SpatialJourneyStage({
   const scene = getSpatialScene(sceneIndex);
   const sceneCount = PARAKKAI_SPATIAL_JOURNEY.length;
   const isScene01 = scene.id === "sakthi-vinayakar";
+  const isScene02 = scene.id === "sacred-tree";
+  const isScene03 = scene.id === "vinayakar-to-lake";
+  const isScene04 = scene.id === "parakkai-lake";
 
   const goPrevious = useCallback(() => {
     if (isTransitioning) {
@@ -179,56 +182,185 @@ export default function SpatialJourneyStage({
 
   const runtimeRef = useRef<AnimationRuntime | null>(null);
 
-  const startScene01Animations = useCallback((runtime: AnimationRuntime) => {
-    runtime.startMany([
-      {
-        objectId: "OBJ-06",
-        motionId: "RADIATE",
-        triggerId: "loop",
-        motionParameters: {
-          fromScale: 0.98,
-          toScale: 1.04,
-          intensity: 1,
-          pulse: true,
+  const startCurrentSceneAnimations = useCallback((runtime: AnimationRuntime, currentSceneId: string) => {
+    if (currentSceneId === "sakthi-vinayakar") {
+      runtime.startMany([
+        {
+          objectId: "OBJ-06",
+          motionId: "RADIATE",
+          triggerId: "loop",
+          motionParameters: {
+            fromScale: 0.98,
+            toScale: 1.04,
+            intensity: 1,
+            pulse: true,
+          },
+          triggerParameters: { infinite: true, count: 0, delayMs: 2200 },
         },
-        triggerParameters: { infinite: true, count: 0, delayMs: 2200 },
-      },
-      {
-        objectId: "OBJ-03",
-        motionId: "FLIGHT",
-        triggerId: "loop",
-        motionParameters: {
-          distanceX: 260,
-          distanceY: -18,
-          arc: 26,
-          rotation: 3,
-          speed: 0.85,
+        {
+          objectId: "OBJ-03",
+          motionId: "FLIGHT",
+          triggerId: "loop",
+          motionParameters: {
+            distanceX: 260,
+            distanceY: -18,
+            arc: 26,
+            rotation: 3,
+            speed: 0.85,
+          },
+          triggerParameters: { infinite: true, count: 0, delayMs: 5000 },
         },
-        triggerParameters: { infinite: true, count: 0, delayMs: 5000 },
-      },
-      {
-        objectId: "OBJ-01",
-        motionId: "SWAY",
-        triggerId: "loop",
-        motionParameters: {
-          angle: 3,
-          distance: 2,
-          axis: "rotation",
-          cycles: 2,
+        {
+          objectId: "OBJ-01",
+          motionId: "SWAY",
+          triggerId: "loop",
+          motionParameters: {
+            angle: 3,
+            distance: 2,
+            axis: "rotation",
+            cycles: 2,
+          },
+          triggerParameters: { infinite: true, count: 0, delayMs: 2600 },
         },
-        triggerParameters: { infinite: true, count: 0, delayMs: 2600 },
-      },
-    ]);
+      ]);
+      return;
+    }
+
+    if (currentSceneId === "sacred-tree") {
+      runtime.startMany([
+        {
+          objectId: "OBJ-06",
+          motionId: "RADIATE",
+          triggerId: "loop",
+          motionParameters: {
+            fromScale: 0.97,
+            toScale: 1.05,
+            intensity: 0.9,
+            pulse: true,
+          },
+          triggerParameters: { infinite: true, count: 0, delayMs: 2600 },
+        },
+        {
+          objectId: "OBJ-09",
+          motionId: "SWAY",
+          triggerId: "loop",
+          motionParameters: {
+            angle: 2,
+            distance: 4,
+            axis: "rotation",
+            cycles: 2,
+          },
+          triggerParameters: { infinite: true, count: 0, delayMs: 3400 },
+        },
+        {
+          objectId: "OBJ-12",
+          motionId: "DRIFT",
+          triggerId: "loop",
+          motionParameters: {
+            distanceX: 18,
+            distanceY: -14,
+            variance: 0.4,
+            speed: 0.8,
+          },
+          triggerParameters: { infinite: true, count: 0, delayMs: 4200 },
+        },
+      ]);
+      return;
+    }
+
+    if (currentSceneId === "vinayakar-to-lake") {
+      runtime.startMany([
+        {
+          objectId: "OBJ-06",
+          motionId: "RADIATE",
+          triggerId: "loop",
+          motionParameters: {
+            fromScale: 0.96,
+            toScale: 1.06,
+            intensity: 1.1,
+            pulse: true,
+          },
+          triggerParameters: { infinite: true, count: 0, delayMs: 2400 },
+        },
+        {
+          objectId: "OBJ-08",
+          motionId: "FLOW",
+          triggerId: "loop",
+          motionParameters: {
+            distanceX: 20,
+            distanceY: 3,
+            strength: 1.2,
+            direction: "forward",
+          },
+          triggerParameters: { infinite: true, count: 0, delayMs: 3000 },
+        },
+        {
+          objectId: "OBJ-12",
+          motionId: "DRIFT",
+          triggerId: "loop",
+          motionParameters: {
+            distanceX: 24,
+            distanceY: -10,
+            variance: 0.5,
+            speed: 0.9,
+          },
+          triggerParameters: { infinite: true, count: 0, delayMs: 3800 },
+        },
+      ]);
+      return;
+    }
+
+    if (currentSceneId === "parakkai-lake") {
+      runtime.startMany([
+        {
+          objectId: "OBJ-06",
+          motionId: "RADIATE",
+          triggerId: "loop",
+          motionParameters: {
+            fromScale: 0.98,
+            toScale: 1.04,
+            intensity: 1,
+            pulse: true,
+          },
+          triggerParameters: { infinite: true, count: 0, delayMs: 2200 },
+        },
+        {
+          objectId: "OBJ-07",
+          motionId: "FLOW",
+          triggerId: "loop",
+          motionParameters: {
+            distanceX: 16,
+            distanceY: 2,
+            strength: 1,
+            direction: "forward",
+          },
+          triggerParameters: { infinite: true, count: 0, delayMs: 3200 },
+        },
+        {
+          objectId: "OBJ-03",
+          motionId: "FLIGHT",
+          triggerId: "loop",
+          motionParameters: {
+            distanceX: 280,
+            distanceY: -14,
+            arc: 22,
+            rotation: 2,
+            speed: 0.9,
+          },
+          triggerParameters: { infinite: true, count: 0, delayMs: 5200 },
+        },
+      ]);
+    }
   }, []);
 
   const handleAnimationAction = useCallback(
     (action: "flight" | "sway" | "radiate" | "reset") => {
       const runtime = runtimeRef.current;
-      if (!runtime || !isScene01) return;
+      if (!runtime) return;
 
       if (action === "reset") {
         runtime.stopAll();
-        startScene01Animations(runtime);
+        startCurrentSceneAnimations(runtime, scene.id);
         return;
       }
 
@@ -247,7 +379,7 @@ export default function SpatialJourneyStage({
           triggerParameters: { infinite: true, count: 0, delayMs: 5000 },
         },
         sway: {
-          objectId: "OBJ-01" as const,
+          objectId: (isScene02 || isScene03 ? "OBJ-09" : "OBJ-01") as "OBJ-09" | "OBJ-01",
           motionId: "SWAY" as const,
           triggerId: "loop" as const,
           motionParameters: {
@@ -274,7 +406,7 @@ export default function SpatialJourneyStage({
 
       runtime.start(requests[action]);
     },
-    [isScene01, startScene01Animations],
+    [scene.id, isScene02, isScene03, startCurrentSceneAnimations],
   );
 
   const handleSceneSelect = useCallback(
@@ -298,20 +430,20 @@ export default function SpatialJourneyStage({
 
   useEffect(() => {
     const root = stageRef.current;
-    if (!root || !isScene01) {
+    if (!root) {
       runtimeRef.current = null;
       return;
     }
 
     const { runtime } = createAnimationRuntime(root);
     runtimeRef.current = runtime;
-    startScene01Animations(runtime);
+    startCurrentSceneAnimations(runtime, scene.id);
 
     return () => {
       runtime.stopAll();
       if (runtimeRef.current === runtime) runtimeRef.current = null;
     };
-  }, [sceneIndex, isScene01, startScene01Animations]);
+  }, [sceneIndex, scene.id, startCurrentSceneAnimations]);
 
   return (
     <main
@@ -432,6 +564,7 @@ export default function SpatialJourneyStage({
       />
 
       <SpatialActivityRail
+        currentScene={scene}
         onAnimationAction={handleAnimationAction}
         onSceneSelect={handleSceneSelect}
       />
@@ -442,7 +575,8 @@ export default function SpatialJourneyStage({
           <button
             type="button"
             onClick={() => setIsNavigationOpen((current) => !current)}
-            className="rounded-full border px-4 py-2 text-[10px] font-medium uppercase tracking-[0.24em] shadow-lg backdrop-blur-md transition" style={{ color: "var(--aai-text)", borderColor: "var(--aai-border)", backgroundColor: "var(--aai-surface)" }}
+            className="rounded-full border px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.24em] shadow-lg backdrop-blur-md transition cursor-pointer"
+            style={{ color: "var(--aai-text)", borderColor: "var(--aai-border)", backgroundColor: "var(--aai-surface)" }}
             aria-expanded={isNavigationOpen}
             aria-controls="parakkai-cinematic-navigation"
           >
@@ -453,9 +587,10 @@ export default function SpatialJourneyStage({
             <nav
               id="parakkai-cinematic-navigation"
               aria-label="Parakkai navigation"
-              className="mt-2 w-56 rounded-2xl border p-2 shadow-2xl backdrop-blur-xl" style={{ color: "var(--aai-text)", borderColor: "var(--aai-border)", backgroundColor: "var(--aai-surface)" }}
+              className="mt-2 w-56 rounded-2xl border p-2 shadow-2xl backdrop-blur-xl"
+              style={{ color: "var(--aai-text)", borderColor: "var(--aai-border)", backgroundColor: "var(--aai-surface)" }}
             >
-              <div className="px-3 pb-2 pt-1 text-[9px] uppercase tracking-[0.28em]" style={{ color: "var(--aai-text-muted)" }}>
+              <div className="px-3 pb-2 pt-1 text-[9px] font-mono uppercase tracking-[0.28em]" style={{ color: "var(--aai-text-muted)" }}>
                 Sacred Experience
               </div>
               <div className="grid grid-cols-2 gap-1">
@@ -464,7 +599,8 @@ export default function SpatialJourneyStage({
                     key={item.id}
                     type="button"
                     onClick={() => handleNavigate(item.id)}
-                    className="rounded-xl px-3 py-2 text-left text-[11px] transition" style={{ color: "var(--aai-text-muted)" }}
+                    className="rounded-xl px-3 py-2 text-left text-[11px] font-medium transition cursor-pointer hover:opacity-80"
+                    style={{ color: "var(--aai-text)", backgroundColor: "var(--aai-surface-alt)" }}
                   >
                     {item.label}
                   </button>
@@ -476,23 +612,36 @@ export default function SpatialJourneyStage({
       ) : null}
 
       <div className="pointer-events-none absolute right-6 top-6 z-30 text-right">
-        <div className="font-mono text-[11px] tracking-[0.25em]" style={{ color: "var(--aai-text-muted)" }}>
-          {String(scene.number).padStart(2, "0")}
-
-          <span className="mx-1 text-white/20">/</span>
-
-          {String(sceneCount).padStart(2, "0")}
+        <div
+          className="font-mono text-[11px] tracking-[0.25em] px-3 py-1.5 rounded-full backdrop-blur-md border shadow-md inline-flex items-center"
+          style={{
+            backgroundColor: "var(--aai-surface)",
+            color: "var(--aai-text)",
+            borderColor: "var(--aai-border)"
+          }}
+        >
+          <span>{String(scene.number).padStart(2, "0")}</span>
+          <span className="mx-1 opacity-40">/</span>
+          <span style={{ color: "var(--aai-text-muted)" }}>{String(sceneCount).padStart(2, "0")}</span>
         </div>
       </div>
 
       <div className="pointer-events-none absolute bottom-24 left-6 z-30 max-w-xl">
-        <div className="mb-2 text-[10px] uppercase tracking-[0.32em]" style={{ color: "var(--aai-text-muted)" }}>
-          {scene.subtitle}
-        </div>
+        <div
+          className="p-4 sm:p-5 rounded-2xl backdrop-blur-md border shadow-xl inline-block max-w-full"
+          style={{
+            backgroundColor: "var(--aai-surface)",
+            borderColor: "var(--aai-border)"
+          }}
+        >
+          <div className="mb-1 text-[10px] uppercase tracking-[0.32em] font-semibold font-mono" style={{ color: "var(--aai-text-muted)" }}>
+            {scene.subtitle}
+          </div>
 
-        <h1 className="text-2xl font-light tracking-wide md:text-4xl" style={{ color: "var(--aai-text)" }}>
-          {scene.title}
-        </h1>
+          <h1 className="text-xl sm:text-3xl font-serif font-bold tracking-tight" style={{ color: "var(--aai-text)" }}>
+            {scene.title}
+          </h1>
+        </div>
       </div>
     </main>
   );

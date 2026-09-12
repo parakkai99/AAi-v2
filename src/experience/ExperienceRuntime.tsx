@@ -126,9 +126,40 @@ export const ExperienceRuntime: React.FC<ExperienceRuntimeProps> = ({
       root.style.setProperty(key, value);
     });
 
+    const extendedEntries: Record<string, string | undefined> = {
+      '--aai-motion-curve': theme.motionLanguage?.curve,
+      '--aai-motion-speed': theme.motionLanguage?.speed,
+      '--aai-motion-feel': theme.motionLanguage?.feel,
+      '--aai-motion-duration': theme.motionLanguage?.durationMs ? `${theme.motionLanguage.durationMs}ms` : undefined,
+      '--aai-surface-card': theme.surfaces?.card,
+      '--aai-surface-elevated': theme.surfaces?.elevated,
+      '--aai-surface-glass': theme.surfaces?.glass,
+      '--aai-surface-rail': theme.surfaces?.rail,
+      '--aai-elevation-sm': theme.elevation?.sm,
+      '--aai-elevation-md': theme.elevation?.md,
+      '--aai-elevation-lg': theme.elevation?.lg,
+      '--aai-elevation-spatial-glow': theme.elevation?.spatialGlow,
+      '--aai-radius-sm': theme.radii?.sm,
+      '--aai-radius-md': theme.radii?.md,
+      '--aai-radius-lg': theme.radii?.lg,
+      '--aai-radius-xl': theme.radii?.xl,
+      '--aai-radius-pill': theme.radii?.pill,
+      '--aai-layout-density': layout.density,
+    };
+
+    Object.entries(extendedEntries).forEach(([key, value]) => {
+      if (value) {
+        root.style.setProperty(key, value);
+      }
+    });
+
     root.style.fontFamily = theme.typography.body;
     root.dataset.aaiTheme = theme.id;
     root.dataset.aaiLayout = layout.id;
+    root.dataset.aaiDensity = layout.density ?? 'balanced';
+    if (theme.motionLanguage?.speed) {
+      root.dataset.aaiMotionSpeed = theme.motionLanguage.speed;
+    }
     root.dataset.aaiExperience = resolvedDefinition.id;
     root.dataset.aaiExperienceScope = resolvedDefinition.scope;
   }, [theme, layout, resolvedDefinition]);

@@ -1,20 +1,16 @@
 /**
  * AAi Application Registry
- * Architect: Vijay Kumar K.
- * Platform: ArchitectAny (AAi)
- * Contract: APP-RUNTIME-002 — Application Registry
- * Status: ACTIVE
- * Version: 1.2.0
- *
- * This is the controlled application-identity boundary.
- * Shared runtime code does not assume a domain.
  */
-
 import type { ApplicationDefinition } from "./ApplicationDefinition";
 import { NGLivingApp } from "@/ngliving/components/NGLivingApp";
 import { ParakkaiApp } from "@/parakkai/components/ParakkaiApp";
+import { JaicoApp } from "@/jaico/components/JaicoApp";
 
 const APPLICATIONS: Record<string, ApplicationDefinition> = {
+  jaico: {
+    id: "jaico",
+    component: JaicoApp,
+  },
   parakkai: {
     id: "parakkai",
     component: ParakkaiApp,
@@ -22,7 +18,7 @@ const APPLICATIONS: Record<string, ApplicationDefinition> = {
   ngliving: {
     id: "ngliving",
     component: NGLivingApp,
-  },
+  }
 };
 
 export function getApplicationDefinition(applicationId: string): ApplicationDefinition | undefined {
@@ -34,5 +30,5 @@ export function getRegisteredApplicationDefinitions(): ApplicationDefinition[] {
 }
 
 export function getDefaultApplicationDefinition(): ApplicationDefinition {
-  return APPLICATIONS.parakkai;
+  return APPLICATIONS.jaico;
 }

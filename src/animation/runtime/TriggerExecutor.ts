@@ -215,29 +215,40 @@ export class TriggerExecutor {
 
     if (infinite) {
       const run = () => {
-        context.execute();
-
-        window.setTimeout(
-          run,
-          Math.max(0, delayMs),
-        );
+        const anim = context.execute();
+        if (anim && typeof anim.finished !== "undefined") {
+          anim.finished
+            .then(() => {
+              window.setTimeout(run, Math.max(50, delayMs));
+            })
+            .catch(() => {
+              // cancelled/stopped
+            });
+        } else {
+          window.setTimeout(run, Math.max(1000, delayMs));
+        }
       };
 
       run();
       return;
     }
 
-    for (
-      let index = 0;
-      index < Math.max(0, count);
-      index += 1
-    ) {
-      window.setTimeout(
-        () => {
-          context.execute();
-        },
-        index * Math.max(0, delayMs),
-      );
-    }
+    let iterations = 0;
+    const runCount = () => {
+      if (iterations >= Math.max(1, count)) return;
+      iterations += 1;
+      const anim = context.execute();
+      if (anim && typeof anim.finished !== "undefined") {
+        anim.finished
+          .then(() => {
+            window.setTimeout(runCount, Math.max(50, delayMs));
+          })
+          .catch(() => {});
+      } else {
+        window.setTimeout(runCount, Math.max(1000, delayMs));
+      }
+    };
+
+    runCount();
   }
 }

@@ -67,7 +67,7 @@ export const TempleExperienceView: React.FC<TempleExperienceViewProps> = ({
             Sri Madhusoodhana Perumal Temple
           </h1>
 
-          <p className="text-sm sm:text-base text-slate-700 font-sans leading-relaxed">
+          <p className="text-sm sm:text-base font-sans leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
             A sacred Vaishnavite divya kshethram celebrated across South India for its majestic white Dravidian Gopuram,
             the intricately sculpted Dasavataram wooden archway, the celestial presence of Sri Garuda and Sri Anjaneya,
             and the miraculous daily 6:30 AM sunrise alignment where the morning sun directly worships the Lord's sacred lotus feet.
@@ -77,7 +77,11 @@ export const TempleExperienceView: React.FC<TempleExperienceViewProps> = ({
             <button
               type="button"
               onClick={() => onBookPooja()}
-              className="px-5 py-2.5 rounded-xl font-serif font-bold text-xs flex items-center gap-2 shadow-sm transition-all hover:scale-105 cursor-pointer bg-amber-500 hover:bg-amber-600 text-slate-950"
+              className="px-5 py-2.5 rounded-xl font-serif font-bold text-xs flex items-center gap-2 shadow-sm transition-all hover:scale-105 cursor-pointer"
+              style={{
+                backgroundColor: activeTheme.colors.sacredGold,
+                color: '#000000'
+              }}
             >
               <Sparkles className="w-4 h-4" />
               <span>Book Pooja Offering</span>
@@ -86,25 +90,35 @@ export const TempleExperienceView: React.FC<TempleExperienceViewProps> = ({
             <button
               type="button"
               onClick={() => onNavigate('journey')}
-              className="px-4 py-2.5 rounded-xl text-xs font-medium text-sky-900 bg-sky-50 hover:bg-sky-100 border border-sky-200 flex items-center gap-1.5 cursor-pointer transition-colors"
+              className="px-4 py-2.5 rounded-xl text-xs font-medium border flex items-center gap-1.5 cursor-pointer transition-colors"
+              style={{
+                backgroundColor: `${activeTheme.colors.primarySkyBlue}18`,
+                borderColor: `${activeTheme.colors.primarySkyBlue}40`,
+                color: activeTheme.colors.textPrimary
+              }}
             >
-              <Layers className="w-4 h-4 text-sky-600" />
+              <Layers className="w-4 h-4" style={{ color: activeTheme.colors.primarySkyBlue }} />
               <span>Experience 7 Stations Pilgrim Walk</span>
             </button>
 
             <button
               type="button"
               onClick={() => onNavigate('darshan')}
-              className="px-4 py-2.5 rounded-xl text-xs font-medium text-slate-700 hover:text-slate-900 bg-white border border-slate-200 flex items-center gap-1.5 cursor-pointer transition-colors"
+              className="px-4 py-2.5 rounded-xl text-xs font-medium border flex items-center gap-1.5 cursor-pointer transition-colors"
+              style={{
+                backgroundColor: activeTheme.colors.surfaceElevated,
+                borderColor: activeTheme.colors.borderSubtle,
+                color: activeTheme.colors.textPrimary
+              }}
             >
-              <Sun className="w-4 h-4 text-amber-600" />
+              <Sun className="w-4 h-4" style={{ color: activeTheme.colors.sacredGold }} />
               <span>Sacred Darshan View</span>
             </button>
           </div>
         </div>
 
         {/* Ambient decorative watermarks */}
-        <div className="absolute right-4 -bottom-6 text-slate-100 select-none pointer-events-none text-9xl font-serif opacity-30">
+        <div className="absolute right-4 -bottom-6 select-none pointer-events-none text-9xl font-serif opacity-15" style={{ color: activeTheme.colors.sacredGold }}>
           🪷
         </div>
       </section>
@@ -121,11 +135,18 @@ export const TempleExperienceView: React.FC<TempleExperienceViewProps> = ({
             key={tab.id}
             type="button"
             onClick={() => setActiveTab(tab.id as any)}
-            className={`px-4 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
-              activeTab === tab.id
-                ? 'bg-sky-100 text-sky-900 border-sky-300 font-bold shadow-xs'
-                : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
-            }`}
+            className="px-4 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer whitespace-nowrap border"
+            style={{
+              backgroundColor: activeTab === tab.id
+                ? activeTheme.colors.sacredGold
+                : activeTheme.colors.surfaceElevated,
+              color: activeTab === tab.id
+                ? '#000000'
+                : activeTheme.colors.textSecondary,
+              borderColor: activeTab === tab.id
+                ? activeTheme.colors.sacredGold
+                : activeTheme.colors.borderSubtle
+            }}
           >
             {tab.label}
           </button>
@@ -145,16 +166,16 @@ export const TempleExperienceView: React.FC<TempleExperienceViewProps> = ({
               }}
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-amber-700 uppercase">Moolavar Sannadhi</span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 font-semibold">East Facing</span>
+                <span className="text-xs font-mono font-bold uppercase" style={{ color: activeTheme.colors.textGold }}>Moolavar Sannadhi</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ backgroundColor: `${activeTheme.colors.sacredGold}25`, color: activeTheme.colors.textGold }}>East Facing</span>
               </div>
-              <h3 className="text-lg font-serif font-bold text-slate-900">
+              <h3 className="text-lg font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
                 Sri Madhusoodhana Perumal
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
                 Flanked by Sri Devi and Bhoodevi Thayar in majestic Nindra Thirukkolam (standing posture), holding the divine Shankha (Conch) and Chakra (Discus), showering divine benevolence.
               </p>
-              <div className="text-[11px] text-amber-800 font-serif pt-1">
+              <div className="text-[11px] font-serif pt-1" style={{ color: activeTheme.colors.textGold }}>
                 மலர் மாலை அலங்காரம் & விசேஷ ஆராதனை
               </div>
             </div>
@@ -168,13 +189,13 @@ export const TempleExperienceView: React.FC<TempleExperienceViewProps> = ({
               }}
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-sky-700 uppercase">Periya Thiruvadi</span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-sky-100 text-sky-900 font-semibold">Facing Sanctum</span>
+                <span className="text-xs font-mono font-bold uppercase" style={{ color: activeTheme.colors.primarySkyBlue }}>Periya Thiruvadi</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ backgroundColor: `${activeTheme.colors.primarySkyBlue}20`, color: activeTheme.colors.primarySkyBlue }}>Facing Sanctum</span>
               </div>
-              <h3 className="text-lg font-serif font-bold text-slate-900">
+              <h3 className="text-lg font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
                 Sri Garuda Alwar
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
                 The divine eagle mount standing in prayerful devotion facing the moolasthanam. Special butter and kozhukattai archanai offered during Swathi nakshatram.
               </p>
             </div>
@@ -188,13 +209,13 @@ export const TempleExperienceView: React.FC<TempleExperienceViewProps> = ({
               }}
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-emerald-700 uppercase">Siriya Thiruvadi</span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-semibold">South Corridor</span>
+                <span className="text-xs font-mono font-bold uppercase" style={{ color: activeTheme.colors.sacredGold }}>Siriya Thiruvadi</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ backgroundColor: `${activeTheme.colors.sacredGold}20`, color: activeTheme.colors.textGold }}>South Corridor</span>
               </div>
-              <h3 className="text-lg font-serif font-bold text-slate-900">
+              <h3 className="text-lg font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>
                 Sri Veera Anjaneyar
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
                 Revered guardian deity protecting devotees from fear and negative influences. Devotees offer sindhooram and vadamala on Saturdays.
               </p>
             </div>
@@ -208,11 +229,11 @@ export const TempleExperienceView: React.FC<TempleExperienceViewProps> = ({
               borderColor: activeTheme.colors.borderSubtle
             }}
           >
-            <h3 className="text-lg font-serif font-bold text-slate-900 flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-amber-600" />
+            <h3 className="text-lg font-serif font-bold flex items-center gap-2" style={{ color: activeTheme.colors.textPrimary }}>
+              <BookOpen className="w-5 h-5" style={{ color: activeTheme.colors.sacredGold }} />
               <span>The Legend of Parakkai & Sri Madhusoodhana Perumal</span>
             </h3>
-            <p className="text-sm text-slate-700 leading-relaxed">
+            <p className="text-sm leading-relaxed" style={{ color: activeTheme.colors.textSecondary }}>
               Legend recounts that Lord Vishnu, in His compassion to eradicate ignorance and demonic burdens represented by the demon Madhu, manifested here as Sri Madhusoodhana. The temple town of Parakkai derives its celestial aura from the ancient Nanjil Nadu wetland eco-system, where pristine freshwater tanks, lotus ponds, and fertile paddy fields surround the sanctuary, reflecting both nature and divinity.
             </p>
           </div>
@@ -249,18 +270,25 @@ export const TempleExperienceView: React.FC<TempleExperienceViewProps> = ({
               borderColor: activeTheme.colors.borderSubtle
             }}
           >
-            <h3 className="text-base font-serif font-bold text-slate-900 mb-3 flex items-center gap-2">
-              <Clock className="w-4 h-4 text-amber-600" />
+            <h3 className="text-base font-serif font-bold mb-3 flex items-center gap-2" style={{ color: activeTheme.colors.textPrimary }}>
+              <Clock className="w-4 h-4" style={{ color: activeTheme.colors.sacredGold }} />
               <span>Temple Daily Timings & Pooja Kalams</span>
             </h3>
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y" style={{ borderColor: activeTheme.colors.borderSubtle }}>
               {schedules.map((schedule) => (
-                <div key={schedule.id} className="py-2.5 flex items-center justify-between text-xs">
+                <div key={schedule.id} className="py-2.5 flex items-center justify-between text-xs" style={{ borderColor: activeTheme.colors.borderSubtle }}>
                   <div>
-                    <div className="font-serif font-bold text-slate-900">{schedule.title}</div>
-                    <div className="text-slate-500">{schedule.description}</div>
+                    <div className="font-serif font-bold" style={{ color: activeTheme.colors.textPrimary }}>{schedule.title}</div>
+                    <div style={{ color: activeTheme.colors.textSecondary }}>{schedule.description}</div>
                   </div>
-                  <div className="font-mono font-bold text-sky-800 px-2 py-0.5 rounded bg-sky-50 border border-sky-100">
+                  <div
+                    className="font-mono font-bold px-2 py-0.5 rounded border"
+                    style={{
+                      backgroundColor: `${activeTheme.colors.primarySkyBlue}18`,
+                      borderColor: `${activeTheme.colors.primarySkyBlue}35`,
+                      color: activeTheme.colors.primarySkyBlue
+                    }}
+                  >
                     {schedule.timeSlot}
                   </div>
                 </div>
