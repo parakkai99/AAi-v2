@@ -22,12 +22,16 @@ export interface ApplicationRuntimeProps {
   applicationId?: string;
   onExitToAAi?: () => void;
   previewDraft?: boolean;
+  previewThemeId?: string;
+  previewLayoutId?: string;
 }
 
 export const ApplicationRuntime: React.FC<ApplicationRuntimeProps> = ({
   applicationId,
   onExitToAAi,
   previewDraft = false,
+  previewThemeId,
+  previewLayoutId,
 }) => {
   const definition = applicationId
     ? getApplicationDefinition(applicationId) ?? getDefaultApplicationDefinition()
@@ -36,16 +40,25 @@ export const ApplicationRuntime: React.FC<ApplicationRuntimeProps> = ({
   const resolvedApplicationId = definition.id;
   const Experience = definition.component;
 
-  const experienceDefinition = useMemo(
-    () => getSolutionExperienceDefinition(resolvedApplicationId, { includeDraft: previewDraft }),
-    [resolvedApplicationId, previewDraft],
-  );
+  const experienceDefinition = useMemo(() => {
+    const base = getSolutionExperienceDefinition(resolvedApplicationId, {
+      includeDraft: previewDraft,
+    });
+
+    return {
+      ...base,
+      themeId: previewThemeId ?? base.themeId,
+      layoutId: previewLayoutId ?? base.layoutId,
+    };
+  }, [resolvedApplicationId, previewDraft, previewThemeId, previewLayoutId]);
 
   return (
     <ExperienceRuntime
       applicationId={resolvedApplicationId}
       scope="solution"
       definition={experienceDefinition}
+      defaultThemeId={previewThemeId ?? 'aai-live'}
+      defaultLayoutId={previewLayoutId ?? 'aai-live'}
     >
       <Experience onExitToAAi={onExitToAAi} />
     </ExperienceRuntime>
