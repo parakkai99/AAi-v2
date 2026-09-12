@@ -7,7 +7,7 @@ import type { SolutionAdminConfig } from '@/src/contracts/solutionAdmin';
 
 export interface SolutionAdminProps {
   solutionId: string;
-  onPreviewSolution: () => void;
+  onPreviewSolution: (config: SolutionAdminConfig) => void;
 }
 
 const solutionNames: Record<string, string> = { parakkai: 'Parakkai', ngliving: 'NGLiving' };
@@ -84,7 +84,7 @@ export const SolutionAdmin: React.FC<SolutionAdminProps> = ({ solutionId, onPrev
           </div>
           <div className="flex items-center gap-2">
             {notice && <span className="text-xs text-emerald-300 font-mono">{notice}</span>}
-            <button type="button" onClick={() => { saveSolutionAdminConfig(config); onPreviewSolution(); }} className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/30 bg-[#031c33] px-3 py-2 text-xs font-mono text-cyan-300 hover:bg-[#052b4f]">
+            <button type="button" onClick={() => { saveSolutionAdminConfig(config); onPreviewSolution(config); }} className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/30 bg-[#031c33] px-3 py-2 text-xs font-mono text-cyan-300 hover:bg-[#052b4f]">
               <ArrowLeft className="w-4 h-4" /> Preview {name}
             </button>
           </div>
@@ -105,7 +105,7 @@ export const SolutionAdmin: React.FC<SolutionAdminProps> = ({ solutionId, onPrev
           <main className="space-y-5">
             {activeSection === 'Overview' && <Overview config={config} name={name} theme={selectedTheme.name} layout={selectedLayout.name} onNavigate={setActiveSection} onPublish={publish} />}
             {activeSection === 'Identity' && <Identity solutionId={solutionId} name={name} />}
-            {activeSection === 'Experience' && <Experience config={config} onUpdate={update} onPreview={() => { saveSolutionAdminConfig(config); onPreviewSolution(); }} />}
+            {activeSection === 'Experience' && <Experience config={config} onUpdate={update} onPreview={() => { saveSolutionAdminConfig(config); onPreviewSolution(config); }} />}
             {activeSection === 'Content' && <JsonEditor title="Content" value={config.contentJson} onChange={(value) => update({ contentJson: value })} onSave={save} action="Save Content" />}
             {activeSection === 'Assets' && <JsonEditor title="Asset Manifest" value={config.assetManifest} onChange={(value) => update({ assetManifest: value })} onSave={save} action="Save Assets" />}
             {activeSection === 'JSON / Data' && <JsonEditor title="Solution JSON / Data" value={config.contentJson} onChange={(value) => update({ contentJson: value })} onSave={save} action="Save JSON" onImport={() => fileRef.current?.click()} />}
@@ -116,7 +116,7 @@ export const SolutionAdmin: React.FC<SolutionAdminProps> = ({ solutionId, onPrev
             {activeSection === 'Animation' && <Capability title="Animation" icon={Sparkles} items={['Select reusable motion capability', 'Configure solution scene mappings', 'Keep animation engine domain-neutral']} />}
             {activeSection === 'Integrations' && <Capability title="Integrations" icon={Workflow} items={['Configure external data sources', 'Configure service/provider references', 'Keep credentials in secure references, never raw configuration']} />}
             {activeSection === 'Users & Access' && <Capability title="Users & Access" icon={Settings2} items={['Solution owner and operators', 'Roles and permissions', 'Solution-level access policy', 'AAi platform authority remains separate']} />}
-            {activeSection === 'Publish' && <PublishPanel config={config} onSave={save} onPublish={publish} onPreview={onPreviewSolution} name={name} />}
+            {activeSection === 'Publish' && <PublishPanel config={config} onSave={save} onPublish={publish} onPreview={(draft) => onPreviewSolution(draft)} name={name} />}
             {activeSection === 'Audit' && <Audit config={config} />}
           </main>
         </div>
@@ -594,7 +594,7 @@ function PromptEditor({ value, onChange, onSave }: { value: string; onChange: (v
 
 function Capability({ title, icon: Icon, items }: { title: string; icon: React.ComponentType<{ className?: string }>; items: string[] }) { return <Panel title={title} icon={Icon}><div className="grid grid-cols-1 md:grid-cols-2 gap-3">{items.map(item => <div key={item} className="rounded-xl border border-white/10 bg-[#020914]/60 p-4"><CheckCircle2 className="w-4 h-4 text-emerald-300"/><div className="mt-2 text-sm">{item}</div></div>)}</div></Panel>; }
 
-function PublishPanel({ config, onSave, onPublish, onPreview, name }: { config: SolutionAdminConfig; onSave: () => void; onPublish: () => void; onPreview: () => void; name: string }) { return <Panel title="Publish & Lifecycle" icon={Send}><div className="grid grid-cols-2 md:grid-cols-4 gap-3"><Metric label="State" value={config.publishState}/><Metric label="Version" value={`v${config.version}`}/><Metric label="Theme" value={config.themeId}/><Metric label="Layout" value={config.layoutId}/></div><div className="flex flex-wrap gap-2 mt-5"><button type="button" onClick={onSave} className="inline-flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-xs"><Save className="w-4 h-4"/> Save Draft</button><button type="button" onClick={onPublish} className="inline-flex items-center gap-2 rounded-lg bg-emerald-400 px-3 py-2 text-xs font-bold text-[#001a10]"><Send className="w-4 h-4"/> Publish</button><button type="button" onClick={() => { saveSolutionAdminConfig(config); onPreview(); }} className="inline-flex items-center gap-2 rounded-lg border border-cyan-400/30 px-3 py-2 text-xs text-cyan-300"><ArrowLeft className="w-4 h-4"/> Preview {name}</button></div></Panel>; }
+function PublishPanel({ config, onSave, onPublish, onPreview, name }: { config: SolutionAdminConfig; onSave: () => void; onPublish: () => void; onPreview: (config: SolutionAdminConfig) => void; name: string }) { return <Panel title="Publish & Lifecycle" icon={Send}><div className="grid grid-cols-2 md:grid-cols-4 gap-3"><Metric label="State" value={config.publishState}/><Metric label="Version" value={`v${config.version}`}/><Metric label="Theme" value={config.themeId}/><Metric label="Layout" value={config.layoutId}/></div><div className="flex flex-wrap gap-2 mt-5"><button type="button" onClick={onSave} className="inline-flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-xs"><Save className="w-4 h-4"/> Save Draft</button><button type="button" onClick={onPublish} className="inline-flex items-center gap-2 rounded-lg bg-emerald-400 px-3 py-2 text-xs font-bold text-[#001a10]"><Send className="w-4 h-4"/> Publish</button><button type="button" onClick={() => { saveSolutionAdminConfig(config); onPreview(config); }} className="inline-flex items-center gap-2 rounded-lg border border-cyan-400/30 px-3 py-2 text-xs text-cyan-300"><ArrowLeft className="w-4 h-4"/> Preview {name}</button></div></Panel>; }
 
 function Audit({ config }: { config: SolutionAdminConfig }) { return <Panel title="Solution Audit" icon={CheckCircle2}><div className="grid grid-cols-1 md:grid-cols-3 gap-3"><Info label="Solution" value={config.solutionId}/><Info label="Version" value={`v${config.version}`}/><Info label="Last Updated" value={new Date(config.updatedAt).toLocaleString()}/></div><div className="mt-4 rounded-xl border border-emerald-400/20 bg-emerald-400/5 p-4 text-xs text-emerald-200">Configuration changes are solution-scoped. Platform framework governance remains in AAi-Admin.</div></Panel>; }
 
