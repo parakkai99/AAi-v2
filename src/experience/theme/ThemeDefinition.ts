@@ -4,10 +4,16 @@
  * Platform: ArchitectAny (AAi)
  * Contract: EXPERIENCE-THEME-001
  * Status: ACTIVE
- * Version: 1.0.0
+ * Version: 1.1.0
  *
  * Domain-neutral visual tokens. Applications select identity/content separately.
  */
+
+export interface ExperienceThemeBackground {
+  mode: 'color' | 'gradient' | 'image';
+  value: string;
+  overlay?: string;
+}
 
 export interface ExperienceTheme {
   id: string;
@@ -19,6 +25,7 @@ export interface ExperienceTheme {
     body: string;
     mono: string;
   };
+  background: ExperienceThemeBackground;
   tokens: {
     background: string;
     surface: string;
