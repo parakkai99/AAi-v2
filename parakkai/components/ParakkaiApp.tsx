@@ -194,6 +194,15 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
         ["--aai-solution-accent"]: experienceTheme.tokens.accent,
         ["--aai-solution-border"]: experienceTheme.tokens.border,
         ["--aai-solution-radius"]: experienceTheme.tokens.radius,
+        ["--aai-bg"]: experienceTheme.tokens.background,
+        ["--aai-surface"]: experienceTheme.tokens.surface,
+        ["--aai-surface-alt"]: experienceTheme.tokens.surfaceAlt,
+        ["--aai-text"]: experienceTheme.tokens.text,
+        ["--aai-text-muted"]: experienceTheme.tokens.textMuted,
+        ["--aai-primary"]: experienceTheme.tokens.primary,
+        ["--aai-secondary"]: experienceTheme.tokens.secondary,
+        ["--aai-accent"]: experienceTheme.tokens.accent,
+        ["--aai-border"]: experienceTheme.tokens.border,
         ["--aai-font-display"]: experienceTheme.typography.display,
         ["--aai-font-body"]: experienceTheme.typography.body,
         ["--aai-font-mono"]: experienceTheme.typography.mono,
@@ -209,6 +218,21 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
 #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .border-slate-800, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .border-white\/10, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .border-white\/15, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .border-white\/20 { border-color: var(--aai-border) !important; }
 #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .bg-slate-950, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .bg-slate-900, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .bg-\\[\\#020914\\], #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .bg-\\[\\#03162b\\], #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .bg-\\[\\#031527\\] { background-color: var(--aai-surface) !important; }
 #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-amber-300, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-amber-400 { color: var(--aai-accent) !important; }
+
+#parakkai-app-root[data-aai-theme-tone="dark"]:not([data-aai-view="home"]) .font-serif { font-family: var(--aai-font-display) !important; }
+#parakkai-app-root[data-aai-theme-tone="dark"]:not([data-aai-view="home"]) .font-mono { font-family: var(--aai-font-mono) !important; }
+#parakkai-app-root[data-aai-theme-tone="dark"]:not([data-aai-view="home"]) .text-slate-100,
+#parakkai-app-root[data-aai-theme-tone="dark"]:not([data-aai-view="home"]) .text-slate-200,
+#parakkai-app-root[data-aai-theme-tone="dark"]:not([data-aai-view="home"]) .text-slate-300 { color: var(--aai-text) !important; }
+#parakkai-app-root[data-aai-theme-tone="dark"]:not([data-aai-view="home"]) .text-slate-400,
+#parakkai-app-root[data-aai-theme-tone="dark"]:not([data-aai-view="home"]) .text-slate-500,
+#parakkai-app-root[data-aai-theme-tone="dark"]:not([data-aai-view="home"]) .text-white\/55,
+#parakkai-app-root[data-aai-theme-tone="dark"]:not([data-aai-view="home"]) .text-white\/45,
+#parakkai-app-root[data-aai-theme-tone="dark"]:not([data-aai-view="home"]) .text-white\/40 { color: var(--aai-text-muted) !important; }
+#parakkai-app-root[data-aai-theme-tone="dark"]:not([data-aai-view="home"]) .border-slate-800,
+#parakkai-app-root[data-aai-theme-tone="dark"]:not([data-aai-view="home"]) .border-white\/10,
+#parakkai-app-root[data-aai-theme-tone="dark"]:not([data-aai-view="home"]) .border-white\/15,
+#parakkai-app-root[data-aai-theme-tone="dark"]:not([data-aai-view="home"]) .border-white\/20 { border-color: var(--aai-border) !important; }
 `}</style>
       {/* 1. Header (Sticky Top-0) */}
       <ParakkaiHeader
