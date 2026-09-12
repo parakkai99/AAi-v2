@@ -174,7 +174,7 @@ export default function SpatialScene({
   return (
     <section
       ref={stageRef}
-      className="absolute inset-0 overflow-hidden bg-[#020914]"
+      className="absolute inset-0 overflow-hidden" style={{ backgroundColor: "var(--aai-bg)", color: "var(--aai-text)" }}
       aria-label={`${scene.number} ${scene.title}`}
       data-scene-index={sceneIndex}
       data-scene-id={scene.id}
@@ -309,7 +309,7 @@ export default function SpatialScene({
           ============================================================ */}
 
       {!imageReady && !imageError && imageSource && (
-        <div className="absolute inset-0 z-50 grid place-items-center bg-[#020914]">
+        <div className="absolute inset-0 z-50 grid place-items-center" style={{ backgroundColor: "var(--aai-bg)", color: "var(--aai-text)" }}>
           <div
             className="h-4 w-4 rounded-full border border-white/20 border-t-white/70"
             aria-label="Loading scene"
@@ -323,7 +323,7 @@ export default function SpatialScene({
 
       {!imageSource ||
         (imageError && (
-          <div className="absolute inset-0 z-40 grid place-items-center bg-[#020914]">
+          <div className="absolute inset-0 z-40 grid place-items-center" style={{ backgroundColor: "var(--aai-bg)", color: "var(--aai-text)" }}>
             <div className="text-center">
               <div className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/35">
                 Scene {scene.number}
