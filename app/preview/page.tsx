@@ -118,9 +118,6 @@ export default function PreviewPage() {
       const params = new URLSearchParams(window.location.search);
       const app = params.get("app")?.toLowerCase();
       const tab = params.get("tab")?.toLowerCase();
-      setPreviewDraft(params.get("preview") === "1");
-      setPreviewThemeId(params.get("theme") || undefined);
-      setPreviewLayoutId(params.get("layout") || undefined);
       if (app === "ngliving" || tab === "ngliving") return "NGLiving";
       if (app === "parakkai" || tab === "parakkai" || params.get("project") === "P-PARAKKAI-001") return "Parakkai";
       if (tab === "universe") return "Universe";
@@ -133,6 +130,13 @@ export default function PreviewPage() {
   const [mapModalPrefill, setMapModalPrefill] = useState<string | undefined>();
   const [isInspectorOpen, setIsInspectorOpen] = useState(false);
   const [pendingIntentRef, setPendingIntentRef] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setPreviewDraft(params.get("preview") === "1");
+    setPreviewThemeId(params.get("theme") || undefined);
+    setPreviewLayoutId(params.get("layout") || undefined);
+  }, []);
 
   useEffect(() => {
     const handleToggleInspector = () => setIsInspectorOpen((prev) => !prev);
