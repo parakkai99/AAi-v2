@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { 
   MapPin, Search, Plus, Edit, Trash2, X, Image as ImageIcon, 
   Map as MapIcon, Grid, List as ListIcon, Shield, LogOut, Check
