@@ -113,13 +113,14 @@ export default function PreviewPage() {
   const [previewThemeId, setPreviewThemeId] = useState<string | undefined>();
   const [previewLayoutId, setPreviewLayoutId] = useState<string | undefined>();
 
-  const [currentTab, setCurrentTab] = useState(() => { return "Jaico"; 
+  const [currentTab, setCurrentTab] = useState(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       const app = params.get("app")?.toLowerCase();
       const tab = params.get("tab")?.toLowerCase();
       if (app === "ngliving" || tab === "ngliving") return "NGLiving";
       if (app === "parakkai" || tab === "parakkai" || params.get("project") === "P-PARAKKAI-001") return "Parakkai";
+      if (app === "jaico" || tab === "jaico") return "Jaico";
       if (tab === "universe") return "Universe";
       if (tab === "agentos") return "AgentOS";
     }
