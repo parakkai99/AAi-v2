@@ -311,7 +311,7 @@ function Experience({
           </div>
         </div>
 
-        <div className="min-w-0">
+        <div className="min-w-0 max-h-[calc(100vh-230px)] overflow-y-auto pr-2 overscroll-contain">
           {openLibrary === 'theme' ? (
             <ThemeDetail theme={selectedTheme} />
           ) : (
