@@ -1,11 +1,8 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
 
 export default function SolutionAdminRootPage() {
-  const router = useRouter();
-
   return (
     <div className="min-h-screen bg-[#020914] text-[#eaf7ff] flex items-center justify-center p-6">
       <div className="w-full max-w-2xl rounded-2xl border border-cyan-400/20 bg-[#061525]/90 p-6 shadow-2xl">
@@ -20,7 +17,7 @@ export default function SolutionAdminRootPage() {
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
           <button
             type="button"
-            onClick={() => router.push("/solution-admin/parakkai")}
+            onClick={() => window.location.assign("/solution-admin/parakkai")}
             className="rounded-xl border border-white/10 bg-[#020914]/60 p-4 text-left hover:border-cyan-400/40"
           >
             <div className="text-sm font-semibold">Parakkai</div>
@@ -29,7 +26,7 @@ export default function SolutionAdminRootPage() {
 
           <button
             type="button"
-            onClick={() => router.push("/solution-admin/ngliving")}
+            onClick={() => window.location.assign("/solution-admin/ngliving")}
             className="rounded-xl border border-white/10 bg-[#020914]/60 p-4 text-left hover:border-cyan-400/40"
           >
             <div className="text-sm font-semibold">NGLiving</div>
@@ -38,7 +35,7 @@ export default function SolutionAdminRootPage() {
 
           <button
             type="button"
-            onClick={() => router.push("/solution-admin/jaico")}
+            onClick={() => window.location.assign("/solution-admin/jaico")}
             className="rounded-xl border border-cyan-400/10 bg-[#06201d]/50 p-4 text-left hover:border-cyan-400/40"
           >
             <div className="text-sm font-semibold text-emerald-200">Jaico-Mart</div>
