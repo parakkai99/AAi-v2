@@ -177,6 +177,7 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
       id="parakkai-app-root"
       data-aai-layout={experienceLayout.id}
       data-aai-layout-navigation={experienceLayout.navigation}
+      data-aai-view={activeView}
       data-aai-theme-tone={experienceTheme.category === "dark" || experienceTheme.id === "ai-era" ? "dark" : "light"}
       className={`font-sans transition-colors duration-300 ${
         isHomeView
@@ -200,14 +201,14 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
       } as React.CSSProperties & Record<`--aai-${string}`, string>}
     >
       <style>{`
-#parakkai-app-root[data-aai-theme-tone="light"] { font-family: var(--aai-font-body) !important; }
-#parakkai-app-root[data-aai-theme-tone="light"] .font-serif { font-family: var(--aai-font-display) !important; }
-#parakkai-app-root[data-aai-theme-tone="light"] .font-mono { font-family: var(--aai-font-mono) !important; }
-#parakkai-app-root[data-aai-theme-tone="light"] .text-white, #parakkai-app-root[data-aai-theme-tone="light"] .text-white\/95, #parakkai-app-root[data-aai-theme-tone="light"] .text-white\/90, #parakkai-app-root[data-aai-theme-tone="light"] .text-slate-100, #parakkai-app-root[data-aai-theme-tone="light"] .text-slate-200, #parakkai-app-root[data-aai-theme-tone="light"] .text-slate-300, #parakkai-app-root[data-aai-theme-tone="light"] .text-slate-400, #parakkai-app-root[data-aai-theme-tone="light"] .text-slate-500 { color: var(--aai-text) !important; }
-#parakkai-app-root[data-aai-theme-tone="light"] .text-white\/80, #parakkai-app-root[data-aai-theme-tone="light"] .text-white\/65, #parakkai-app-root[data-aai-theme-tone="light"] .text-white\/55, #parakkai-app-root[data-aai-theme-tone="light"] .text-white\/45, #parakkai-app-root[data-aai-theme-tone="light"] .text-white\/40 { color: var(--aai-text-muted) !important; }
-#parakkai-app-root[data-aai-theme-tone="light"] .border-slate-800, #parakkai-app-root[data-aai-theme-tone="light"] .border-white\/10, #parakkai-app-root[data-aai-theme-tone="light"] .border-white\/15, #parakkai-app-root[data-aai-theme-tone="light"] .border-white\/20 { border-color: var(--aai-border) !important; }
-#parakkai-app-root[data-aai-theme-tone="light"] .bg-slate-950, #parakkai-app-root[data-aai-theme-tone="light"] .bg-slate-900, #parakkai-app-root[data-aai-theme-tone="light"] .bg-\\[\\#020914\\], #parakkai-app-root[data-aai-theme-tone="light"] .bg-\\[\\#03162b\\], #parakkai-app-root[data-aai-theme-tone="light"] .bg-\\[\\#031527\\] { background-color: var(--aai-surface) !important; }
-#parakkai-app-root[data-aai-theme-tone="light"] .text-amber-300, #parakkai-app-root[data-aai-theme-tone="light"] .text-amber-400 { color: var(--aai-accent) !important; }
+#parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) { font-family: var(--aai-font-body) !important; }
+#parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .font-serif { font-family: var(--aai-font-display) !important; }
+#parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .font-mono { font-family: var(--aai-font-mono) !important; }
+#parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-white, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-white\/95, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-white\/90, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-slate-100, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-slate-200, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-slate-300, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-slate-400, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-slate-500 { color: var(--aai-text) !important; }
+#parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-white\/80, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-white\/65, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-white\/55, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-white\/45, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-white\/40 { color: var(--aai-text-muted) !important; }
+#parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .border-slate-800, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .border-white\/10, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .border-white\/15, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .border-white\/20 { border-color: var(--aai-border) !important; }
+#parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .bg-slate-950, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .bg-slate-900, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .bg-\\[\\#020914\\], #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .bg-\\[\\#03162b\\], #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .bg-\\[\\#031527\\] { background-color: var(--aai-surface) !important; }
+#parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-amber-300, #parakkai-app-root[data-aai-theme-tone="light"]:not([data-aai-view="home"]) .text-amber-400 { color: var(--aai-accent) !important; }
 `}</style>
       {/* 1. Header (Sticky Top-0) */}
       <ParakkaiHeader
