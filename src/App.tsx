@@ -54,6 +54,7 @@ export default function App() {
   }, []);
 
   const isAdminRoute = pathname === "/admin" || pathname.startsWith("/admin/");
+  const isSolutionAdminRootRoute = pathname === "/solution-admin" || pathname === "/solution-admin/";
   const solutionId = getSolutionId(pathname);
   const isSolutionAdminRoute = Boolean(solutionId);
 
@@ -62,7 +63,13 @@ export default function App() {
       <ArchitectAnyProvider>
         <CinematicNavigationProvider>
           <UniversalNavigationProvider>
-            {isSolutionAdminRoute ? <SolutionAdminPage solutionId={solutionId!} /> : isAdminRoute ? <AdminPage /> : <PreviewPage />}
+            {isSolutionAdminRootRoute
+              ? <SolutionAdminPage />
+              : isSolutionAdminRoute
+                ? <SolutionAdminPage solutionId={solutionId!} />
+                : isAdminRoute
+                  ? <AdminPage />
+                  : <PreviewPage />}
           </UniversalNavigationProvider>
         </CinematicNavigationProvider>
       </ArchitectAnyProvider>
