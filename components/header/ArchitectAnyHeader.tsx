@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Cpu, Grid2X2, Settings2, Database, Sparkles, Globe2 } from 'lucide-react';
+import { Cpu, Grid2X2, Settings2, Database, Sparkles, Globe2, Package } from 'lucide-react';
 import { HeaderLogo } from './HeaderLogo';
 import { IntentSearch } from './IntentSearch';
 import { LocationSelector } from './LocationSelector';
