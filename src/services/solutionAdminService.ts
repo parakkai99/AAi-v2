@@ -6,7 +6,7 @@ const key = (solutionId: string) => 'aai-solution-admin:' + solutionId;
 const defaults = (solutionId: string): SolutionAdminConfig => ({
   solutionId,
   themeId: 'aai-live',
-  layoutId: 'aai-live-full',
+  layoutId: 'aai-live',
   navigationMode: 'configured',
   contentJson: '{\n  "version": 1,\n  "content": {}\n}',
   aiPrompt: 'Describe the intended content, tone, audience and outcome for this solution.',
