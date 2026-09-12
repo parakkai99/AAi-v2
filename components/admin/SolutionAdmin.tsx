@@ -243,6 +243,7 @@ function Experience({
             onToggle={() => toggleLibrary('theme')}
             count={experienceThemes.length}
             selectedLabel={selectedTheme.name}
+            tone="cyan"
           >
             <div className="grid grid-cols-1 gap-2">
               {experienceThemes.map((theme, index) => (
@@ -293,6 +294,7 @@ function Experience({
             onToggle={() => toggleLibrary('layout')}
             count={experienceLayouts.length}
             selectedLabel={selectedLayout.name}
+            tone="violet"
           >
             <div className="grid grid-cols-1 gap-2">
               {experienceLayouts.map((layout, index) => (
@@ -368,6 +370,7 @@ function ExperienceLibraryCard({
   onToggle,
   count,
   selectedLabel,
+  tone,
   children,
 }: {
   title: string;
@@ -377,13 +380,26 @@ function ExperienceLibraryCard({
   onToggle: () => void;
   count: number;
   selectedLabel: string;
+  tone: 'cyan' | 'violet';
   children: React.ReactNode;
 }) {
+  const accent = tone === 'cyan'
+    ? {
+        border: 'border-cyan-400/30',
+        icon: 'border-cyan-400/20 bg-cyan-400/5 text-cyan-300',
+        label: 'text-cyan-200',
+        count: 'border-cyan-400/20 text-cyan-300',
+      }
+    : {
+        border: 'border-violet-400/30',
+        icon: 'border-violet-400/20 bg-violet-400/5 text-violet-300',
+        label: 'text-violet-200',
+        count: 'border-violet-400/20 text-violet-300',
+      };
+
   return (
     <section className={`rounded-2xl border transition-all cursor-pointer ${
-      open
-        ? 'border-cyan-400/30 bg-[#061525]/90'
-        : 'border-white/10 bg-[#061525]/60'
+      open ? accent.border + ' bg-[#061525]/90' : 'border-white/10 bg-[#061525]/60'
     }`}>
       <button
         type="button"
@@ -391,13 +407,13 @@ function ExperienceLibraryCard({
         className="w-full flex items-center gap-3 px-4 py-3 text-left"
         aria-expanded={open}
       >
-        <div className="w-9 h-9 rounded-xl border border-cyan-400/20 bg-cyan-400/5 flex items-center justify-center shrink-0">
-          <Icon className="w-4 h-4 text-cyan-300" />
+        <div className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 ${accent.icon}`}>
+          <Icon className="w-4 h-4" />
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <span className="text-sm font-semibold">{title}</span>
-            <span className="text-[9px] rounded-full border border-white/10 px-1.5 py-0.5 font-mono text-[#6e91a6]">
+            <span className={`text-[9px] rounded-full border px-1.5 py-0.5 font-mono ${accent.count}`}>
               {count}
             </span>
           </div>
