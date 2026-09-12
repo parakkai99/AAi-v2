@@ -82,7 +82,24 @@ export const SolutionAdmin: React.FC<SolutionAdminProps> = ({ solutionId, onPrev
             </div>
             <p className="mt-2 text-sm text-[#82a5bb]">Configure this solution without changing the shared AAi framework.</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            <label className="flex items-center gap-2 rounded-xl border border-white/10 bg-[#061525]/80 px-3 py-2">
+              <span className="text-[9px] font-mono uppercase tracking-wider text-[#6e91a6]">Solution</span>
+              <select
+                value={solutionId}
+                onChange={(event) => {
+                  window.location.assign('/solution-admin/' + event.target.value);
+                }}
+                className="bg-transparent text-xs font-semibold text-[#eaf7ff] outline-none"
+                aria-label="Select solution"
+              >
+                {Object.entries(solutionNames).map(([id, label]) => (
+                  <option key={id} value={id} className="bg-[#061525]">
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </label>
             {notice && <span className="text-xs text-emerald-300 font-mono">{notice}</span>}
             <button type="button" onClick={() => { saveSolutionAdminConfig(config); onPreviewSolution(config); }} className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/30 bg-[#031c33] px-3 py-2 text-xs font-mono text-cyan-300 hover:bg-[#052b4f]">
               <ArrowLeft className="w-4 h-4" /> Preview {name}
