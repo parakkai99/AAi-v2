@@ -211,7 +211,6 @@ export default function PreviewPage() {
       <LocationPromptModal />
       <CinematicJourneyOverlay />
       <CatalogInspector isOpen={isInspectorOpen} onClose={() => setIsInspectorOpen(false)} onSendToAgentOS={(ref) => { setPendingIntentRef(ref); setCurrentTab("AgentOS"); setIsInspectorOpen(false); }} />
-      <AAiJsonStickyTrigger isInspectorOpen={isInspectorOpen} onToggle={() => setIsInspectorOpen((prev) => !prev)} />
     </div>
   );
 }
