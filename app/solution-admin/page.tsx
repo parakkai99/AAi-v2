@@ -18,7 +18,9 @@ export default function SolutionAdminPage({ solutionId }: { solutionId: string }
     <SolutionAdmin
       solutionId={solutionId}
       onPreviewSolution={() => {
-        window.location.assign(`/?app=${encodeURIComponent(solutionId)}&preview=1`);
+        const previewUrl = new URL('/?app=' + encodeURIComponent(solutionId) + '&preview=1', window.location.origin).toString();
+        const previewWindow = window.open(previewUrl, '_blank', 'noopener,noreferrer');
+        previewWindow?.focus();
       }}
     />
   );
