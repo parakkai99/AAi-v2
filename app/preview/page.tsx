@@ -140,6 +140,15 @@ export default function PreviewPage() {
   }, []);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const hasExplicitApp = Boolean(params.get("app") || params.get("tab") || params.get("project"));
+    if (!hasExplicitApp && window.location.pathname === "/") {
+      setCurrentTab("Universe");
+      navigateTo({ layer: 1 });
+    }
+  }, [navigateTo]);
+
+  useEffect(() => {
     const handleToggleInspector = () => setIsInspectorOpen((prev) => !prev);
     const handleOpenInspector = () => setIsInspectorOpen(true);
     const handleCloseInspector = () => setIsInspectorOpen(false);
