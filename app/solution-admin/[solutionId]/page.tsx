@@ -1,13 +1,22 @@
 "use client";
 
 import React from 'react';
-import { useParams } from 'next/navigation';
 import { SolutionAdmin } from '@/components/admin/SolutionAdmin';
 import type { SolutionAdminConfig } from '@/src/contracts/solutionAdmin';
 
+function readSolutionId(): string {
+  if (typeof window === 'undefined') return 'parakkai';
+
+  const segments = window.location.pathname.split('/').filter(Boolean);
+  const index = segments.indexOf('solution-admin');
+
+  return index >= 0 && segments[index + 1]
+    ? decodeURIComponent(segments[index + 1]).toLowerCase()
+    : 'parakkai';
+}
+
 export default function SolutionAdminDynamicPage() {
-  const params = useParams<{ solutionId: string }>();
-  const solutionId = params?.solutionId || 'parakkai';
+  const solutionId = readSolutionId();
 
   return (
     <SolutionAdmin
