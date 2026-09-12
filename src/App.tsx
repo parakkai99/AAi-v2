@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import PreviewPage from "@/app/preview/page";
 import AdminPage from "@/app/admin/page";
 import SolutionAdminPage from "@/app/solution-admin/page";
+import SolutionAdminDynamicPage from "@/app/solution-admin/[solutionId]/page";
 import { ArchitectAnyProvider } from "@/src/context/ArchitectAnyContext";
 import { CinematicNavigationProvider } from "@/src/context/CinematicNavigationContext";
 import { UniversalNavigationProvider } from "@/src/context/UniversalNavigationContext";
@@ -66,7 +67,7 @@ export default function App() {
             {isSolutionAdminRootRoute
               ? <SolutionAdminPage />
               : isSolutionAdminRoute
-                ? <SolutionAdminPage solutionId={solutionId!} />
+                ? <SolutionAdminDynamicPage />
                 : isAdminRoute
                   ? <AdminPage />
                   : <PreviewPage />}
