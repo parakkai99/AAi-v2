@@ -184,7 +184,7 @@ export default function PreviewPage() {
       rightRail: { profileRef: "universal-intelligence", expandOn: "hover", collapsed: true },
       topNavigation: { profileRef: "universal-top-shell", expandOn: "click", collapsed: false },
     },
-    themeId: isDark ? "midnight-dark" : "pure-white", layoutId: "drilldown-4", compositionId: "universe-default", behaviorProfileId: "universe-default",
+    themeId: "aai-live", layoutId: "aai-live", compositionId: "universe-default", behaviorProfileId: "universe-default",
     infrastructure: { authProfileRef: "universe-default-auth", dataProfileRef: "universe-catalog", storeProfileRef: "universe-default-store", assetLibraryRef: "universe-default-assets", integrationProfileRef: "universe-default-integrations" },
   }), [isDark]);
 
@@ -197,7 +197,7 @@ export default function PreviewPage() {
   );
 
   const universeView = (
-    <ExperienceRuntime applicationId={selectedSolutionId ?? "aai-universe"} scope={selectedSolutionId ? "solution" : "universe"} definition={selectedSolutionExperienceDefinition} parentDefinitions={[universeExperienceDefinition]} defaultThemeId={isDark ? "midnight-dark" : "pure-white"} defaultLayoutId="drilldown-4">
+    <ExperienceRuntime applicationId={selectedSolutionId ?? "aai-universe"} scope={selectedSolutionId ? "solution" : "universe"} definition={selectedSolutionExperienceDefinition} parentDefinitions={[universeExperienceDefinition]} defaultThemeId="aai-live" defaultLayoutId="aai-live">
       <ExperienceSurface currentTab={currentTab} onTabChange={(tab) => { setCurrentTab(tab); if (tab === "Universe") navigateTo({ layer: 1 }); }} onHome={() => navigateTo({ layer: 1 })} searchQuery={searchQuery} onSearchChange={setSearchQuery} onSelectSolution={(solutionId) => navigateTo({ layer: 5, solutionId })} onOpenMapModal={(prefill) => { setMapModalPrefill(prefill); setIsMapModalOpen(true); }} selectedSolutionId={selectedSolutionId} activeSolution={activeSolution} domains={domains} subdomains={subdomains} capabilities={capabilities} solutions={solutions} isIntentCoreActive={isIntentCoreActive} intentCoreQuery={intentCoreQuery} onSetIntentCoreQuery={setIntentCoreQuery} navigateTo={navigateTo} />
     </ExperienceRuntime>
   );
