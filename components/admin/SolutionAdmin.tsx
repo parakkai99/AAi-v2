@@ -11,7 +11,7 @@ export interface SolutionAdminProps {
   onPreviewSolution: (config: SolutionAdminConfig) => void;
 }
 
-const solutionNames: Record<string, string> = { parakkai: 'Parakkai', ngliving: 'NGLiving' };
+const solutionNames: Record<string, string> = { parakkai: 'Parakkai', ngliving: 'NGLiving', jaico: 'Jaico-Mart' };
 
 type AdminSection = readonly [label: string, icon: React.ComponentType<{ className?: string }>];
 
