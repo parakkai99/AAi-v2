@@ -38,7 +38,7 @@ export const ParakkaiFooter: React.FC<ParakkaiFooterProps> = ({
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Top Brand Banner & Slogan */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-slate-800">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b" style={{ borderColor: activeTheme.colors.borderSubtle }}>
           <div className="flex items-center gap-3">
             <div
               className="w-12 h-12 rounded-xl flex items-center justify-center font-serif text-2xl border shadow-lg"
@@ -59,21 +59,21 @@ export const ParakkaiFooter: React.FC<ParakkaiFooterProps> = ({
                   v0.1.0 Commercial
                 </span>
               </div>
-              <p className="text-xs text-slate-300 mt-0.5">
+              <p className="text-xs mt-0.5" style={{ color: activeTheme.colors.textPrimary }}>
                 {siteConfig.displayName}
               </p>
-              <p className="text-[11px] text-slate-400 font-sans">
+              <p className="text-[11px] font-sans" style={{ color: activeTheme.colors.textSecondary }}>
                 {siteConfig.tamilDisplayName}
               </p>
             </div>
           </div>
 
           <div className="flex flex-col md:items-end text-left md:text-right">
-            <div className="text-xs font-serif italic text-amber-400 flex items-center gap-1.5">
+            <div className="text-xs font-serif italic flex items-center gap-1.5" style={{ color: activeTheme.colors.textGold }}>
               <Sparkles className="w-3.5 h-3.5" />
               <span>"Daily at 6:30 AM the Sunlight directly falls on the Feet of the Lord"</span>
             </div>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-xs mt-1" style={{ color: activeTheme.colors.textSecondary }}>
               Devotion • Heritage • Community • A Brighter Tomorrow
             </p>
           </div>
@@ -83,11 +83,11 @@ export const ParakkaiFooter: React.FC<ParakkaiFooterProps> = ({
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-10">
           {footerSections.map((section, idx) => (
             <div key={idx} className="space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider font-mono text-slate-400">
+              <h4 className="text-xs font-bold uppercase tracking-wider font-mono" style={{ color: activeTheme.colors.textSecondary }}>
                 {section.title}
               </h4>
               {section.tamilTitle && (
-                <span className="block text-[10px] text-amber-400/80 font-sans">
+                <span className="block text-[10px] font-sans" style={{ color: activeTheme.colors.textGold }}>
                   {section.tamilTitle}
                 </span>
               )}
@@ -97,7 +97,7 @@ export const ParakkaiFooter: React.FC<ParakkaiFooterProps> = ({
                     <button
                       type="button"
                       onClick={() => onNavigate(item.targetView)}
-                      className="text-xs text-slate-400 hover:text-amber-300 transition-colors cursor-pointer text-left"
+                      className="text-xs transition-colors cursor-pointer text-left" style={{ color: activeTheme.colors.textSecondary }}
                     >
                       {item.label}
                     </button>
@@ -109,13 +109,13 @@ export const ParakkaiFooter: React.FC<ParakkaiFooterProps> = ({
         </div>
 
         {/* Bottom Bar: Copyright, Contract, Architect Signature */}
-        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-sans">
+        <div className="pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans" style={{ borderColor: activeTheme.colors.borderSubtle, color: activeTheme.colors.textSecondary }}>
           <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
             <span>
               © 2026 <strong>ArchitectAny (AAi)</strong> / Vijay Kumar K. All rights reserved.
             </span>
             <span className="hidden sm:inline opacity-30">•</span>
-            <span className="font-mono text-[11px] text-amber-400/90">
+            <span className="font-mono text-[11px]" style={{ color: activeTheme.colors.textGold }}>
               Contract P-PARAKKAI-001 (Active)
             </span>
           </div>
@@ -124,13 +124,13 @@ export const ParakkaiFooter: React.FC<ParakkaiFooterProps> = ({
             <button
               type="button"
               onClick={onOpenAdmin}
-              className="hover:text-amber-300 transition-colors flex items-center gap-1 font-mono text-[11px] cursor-pointer"
+              className="transition-colors flex items-center gap-1 font-mono text-[11px] cursor-pointer" style={{ color: activeTheme.colors.textSecondary }}
             >
               <Shield className="w-3.5 h-3.5" />
               <span>Admin Console</span>
             </button>
             <span className="opacity-30">•</span>
-            <span className="text-[11px] flex items-center gap-1 text-slate-400">
+            <span className="text-[11px] flex items-center gap-1" style={{ color: activeTheme.colors.textSecondary }}>
               Made with <Heart className="w-3 h-3 text-rose-500 fill-rose-500" /> for Parakkai
             </span>
           </div>
