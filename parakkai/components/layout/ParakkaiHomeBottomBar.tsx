@@ -73,7 +73,7 @@ export const ParakkaiHomeBottomBar: React.FC<ParakkaiHomeBottomBarProps> = ({
   return (
     <footer
       id="parakkai-home-compact-bar"
-      className="w-full shrink-0 border-t select-none z-30 transition-colors px-3 sm:px-6 py-1.5 flex items-center justify-between gap-3 text-xs bg-[#020914]/95 border-[#00e3fd]/20 text-slate-300"
+      className="w-full shrink-0 border-t select-none z-30 transition-colors px-3 sm:px-6 py-1.5 flex items-center justify-between gap-3 text-xs" style={{ backgroundColor: activeTheme.colors.surfaceCanvas, borderColor: activeTheme.colors.borderSubtle, color: activeTheme.colors.textSecondary }}
     >
       {/* 1. Left: 6:30 AM Miracle Indicator & Scene Switcher */}
       <div className="flex items-center gap-2 sm:gap-3 shrink-0">
@@ -98,13 +98,13 @@ export const ParakkaiHomeBottomBar: React.FC<ParakkaiHomeBottomBarProps> = ({
         </button>
 
         {/* Scene Switcher (Façade / Aerial / Lake) */}
-        <div className="hidden md:flex items-center p-0.5 rounded-lg bg-[#03162b] border border-[#00e3fd]/20 text-[11px]">
+        <div className="hidden md:flex items-center p-0.5 rounded-lg border text-[11px]" style={{ backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderSubtle }}>
           <button
             type="button"
             onClick={() => onSceneChange('facade')}
             className={`px-2 py-0.5 rounded-md transition-all cursor-pointer font-medium ${
               sceneMode === 'facade'
-                ? 'bg-[#052b4f] text-[#00e3fd] border border-[#00e3fd]/40 font-semibold shadow-xs'
+                ? 'font-semibold'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
             title="Temple Façade View (Approved Artwork)"
@@ -145,7 +145,7 @@ export const ParakkaiHomeBottomBar: React.FC<ParakkaiHomeBottomBarProps> = ({
             key={node.id}
             type="button"
             onClick={() => onNavigate(node.id)}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-slate-300 hover:text-white hover:bg-[#052b4f] transition-all cursor-pointer font-medium text-[11px] whitespace-nowrap border border-transparent hover:border-[#00e3fd]/30"
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all cursor-pointer font-medium text-[11px] whitespace-nowrap border border-transparent" style={{ color: activeTheme.colors.textSecondary }}
             title={`Go to ${node.label}`}
           >
             <span>{node.icon}</span>
@@ -159,7 +159,7 @@ export const ParakkaiHomeBottomBar: React.FC<ParakkaiHomeBottomBarProps> = ({
         <button
           type="button"
           onClick={onToggleSound}
-          className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-[#052b4f] transition-colors cursor-pointer border border-transparent hover:border-[#00e3fd]/30"
+          className="p-1 rounded-lg transition-colors cursor-pointer border border-transparent" style={{ color: activeTheme.colors.textSecondary }}
           title={isSoundMuted ? 'Unmute Temple Chime Synthesizer' : 'Mute Temple Chime Synthesizer'}
         >
           {isSoundMuted ? (
@@ -169,7 +169,7 @@ export const ParakkaiHomeBottomBar: React.FC<ParakkaiHomeBottomBarProps> = ({
           )}
         </button>
 
-        <div className="hidden sm:flex items-center gap-1 text-[11px] text-slate-400 font-sans">
+        <div className="hidden sm:flex items-center gap-1 text-[11px] font-sans" style={{ color: activeTheme.colors.textSecondary }}>
           <MapPin className="w-3 h-3 text-[#00e3fd]" />
           <span className="truncate">Sannadhi St, Parakkai • 629601</span>
         </div>
@@ -178,7 +178,7 @@ export const ParakkaiHomeBottomBar: React.FC<ParakkaiHomeBottomBarProps> = ({
           <button
             type="button"
             onClick={onOpenQuickInfo}
-            className="px-2 py-0.5 rounded text-[11px] font-medium text-slate-300 hover:text-white bg-[#03162b] hover:bg-[#052b4f] border border-[#00e3fd]/30 flex items-center gap-1 cursor-pointer transition-colors"
+            className="px-2 py-0.5 rounded text-[11px] font-medium border flex items-center gap-1 cursor-pointer transition-colors" style={{ color: activeTheme.colors.textSecondary, backgroundColor: activeTheme.colors.surfaceCard, borderColor: activeTheme.colors.borderSubtle }}
             title="Temple Information & Sthala Puranam"
           >
             <span>Temple Info</span>
