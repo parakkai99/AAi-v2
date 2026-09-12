@@ -200,7 +200,7 @@ export default function PreviewPage() {
 
   const applicationView = (
     <ErrorBoundary fallbackTitle="Application Experience">
-      <ApplicationRuntime applicationId={currentTab === "NGLiving" ? "ngliving" : currentTab === "Jaico" ? "jaico" : "parakkai"} previewDraft={previewDraft} previewThemeId={previewThemeId} previewLayoutId={previewLayoutId} onExitToAAi={() => setCurrentTab("Universe")} />
+      <ApplicationRuntime applicationId={currentTab === "NGLiving" ? "ngliving" : currentTab === "Jaico" ? "jaico" : currentTab === "JiLink" ? "jilink" : "parakkai"} previewDraft={previewDraft} previewThemeId={previewThemeId} previewLayoutId={previewLayoutId} onExitToAAi={() => setCurrentTab("Universe")} />
     </ErrorBoundary>
   );
 
@@ -214,7 +214,7 @@ export default function PreviewPage() {
     <div className={`font-sans min-h-screen flex flex-col overflow-x-hidden transition-colors duration-300 ${isDark ? "bg-[#020914] text-[#eaf7ff] selection:bg-[#00e3fd] selection:text-[#001f24]" : "bg-[#f1f5f9] text-slate-900 selection:bg-indigo-500 selection:text-white"}`}>
       {currentTab === "AgentOS" ? (
         <ErrorBoundary fallbackTitle="Agent OS Command Center"><AgentOSCommandCenter onReturnToUniverse={() => setCurrentTab("Universe")} initialIntentRef={pendingIntentRef} onClearInitialIntentRef={() => setPendingIntentRef(null)} /></ErrorBoundary>
-      ) : currentTab === "Parakkai" || currentTab === "NGLiving" || currentTab === "Jaico" ? applicationView : universeView}
+      ) : currentTab === "Parakkai" || currentTab === "NGLiving" || currentTab === "Jaico" || currentTab === "JiLink" ? applicationView : universeView}
       <SpatialMapModal isOpen={isMapModalOpen} initialQuery={mapModalPrefill} onClose={() => setIsMapModalOpen(false)} />
       <LocationPromptModal />
       <CinematicJourneyOverlay />

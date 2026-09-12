@@ -5,6 +5,7 @@ import type { ApplicationDefinition } from "./ApplicationDefinition";
 import { NGLivingApp } from "@/ngliving/components/NGLivingApp";
 import { ParakkaiApp } from "@/parakkai/components/ParakkaiApp";
 import { JaicoApp } from "@/jaico/components/JaicoApp";
+import { JiLinkApp } from "@/jilink/components/JiLinkApp";
 
 const APPLICATIONS: Record<string, ApplicationDefinition> = {
   jaico: {
@@ -18,6 +19,10 @@ const APPLICATIONS: Record<string, ApplicationDefinition> = {
   ngliving: {
     id: "ngliving",
     component: NGLivingApp,
+  },
+  jilink: {
+    id: "jilink",
+    component: JiLinkApp,
   }
 };
 
