@@ -2,6 +2,7 @@ import React from "react";
 import { ApplicationContext, ApplicationDefinition } from "./ApplicationDefinition";
 import { getApplicationDefinition } from "./ApplicationRegistry";
 import { ExperienceRuntime } from "@/src/experience/ExperienceRuntime";
+import { getSolutionExperienceDefinition } from "@/src/services/solutionAdminService";
 
 export function ApplicationRuntime({
   applicationId,
@@ -26,12 +27,12 @@ export function ApplicationRuntime({
   }
 
   const App = appDef.component;
+  const baseDefinition = getSolutionExperienceDefinition(applicationId);
 
   const definition = {
-    id: applicationId,
-    scope: "solution" as const,
-    themeId: previewThemeId,
-    layoutId: previewLayoutId,
+    ...baseDefinition,
+    themeId: previewThemeId ?? baseDefinition.themeId,
+    layoutId: previewLayoutId ?? baseDefinition.layoutId,
   };
 
   return (
@@ -39,8 +40,8 @@ export function ApplicationRuntime({
       applicationId={applicationId}
       scope="solution"
       definition={definition}
-      defaultThemeId={previewThemeId ?? "aai-live"}
-      defaultLayoutId={previewLayoutId ?? "aai-live"}
+      defaultThemeId={previewThemeId ?? baseDefinition.themeId ?? "aai-live"}
+      defaultLayoutId={previewLayoutId ?? baseDefinition.layoutId ?? "aai-live"}
     >
       <App
         context={{
