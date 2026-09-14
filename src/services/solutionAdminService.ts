@@ -8,7 +8,6 @@ type StoredConfigMap = Record<string, SolutionAdminConfig>;
 const DEFAULTS: Record<string, Pick<SolutionAdminConfig, "themeId" | "layoutId">> = {
   parakkai: { themeId: "aai-live", layoutId: "aai-live-left" },
   ngliving: { themeId: "aai-live", layoutId: "aai-live-left" },
-  jaico: { themeId: "aai-live", layoutId: "aai-live" },
 };
 
 function normalizeId(id: string): string {
@@ -42,7 +41,7 @@ function createDefaultConfig(solutionId: string): SolutionAdminConfig {
 
   return {
     solutionId: id,
-    name: id === "jaico" ? "Jaico-Mart" : id === "parakkai" ? "Parakkai" : id === "ngliving" ? "NGLiving" : id,
+    name: id === "parakkai" ? "Parakkai" : id === "ngliving" ? "NGLiving" : id,
     version: 1,
     publishState: "draft",
     updatedAt: new Date().toISOString(),
