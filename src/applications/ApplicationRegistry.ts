@@ -4,14 +4,9 @@
 import type { ApplicationDefinition } from "./ApplicationDefinition";
 import { NGLivingApp } from "@/ngliving/components/NGLivingApp";
 import { ParakkaiApp } from "@/parakkai/components/ParakkaiApp";
-import { JaicoApp } from "@/jaico/components/JaicoApp";
 import { JiLinkApp } from "@/jilink/components/JiLinkApp";
 
 const APPLICATIONS: Record<string, ApplicationDefinition> = {
-  jaico: {
-    id: "jaico",
-    component: JaicoApp,
-  },
   parakkai: {
     id: "parakkai",
     component: ParakkaiApp,
@@ -35,5 +30,5 @@ export function getRegisteredApplicationDefinitions(): ApplicationDefinition[] {
 }
 
 export function getDefaultApplicationDefinition(): ApplicationDefinition {
-  return APPLICATIONS.jaico;
+  return APPLICATIONS.parakkai;
 }
