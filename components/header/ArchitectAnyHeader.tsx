@@ -163,18 +163,6 @@ export const ArchitectAnyHeader: React.FC<ArchitectAnyHeaderProps> = ({
 
           <ThemeToggle variant="header" />
 
-          <div
-            className={`hidden sm:flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-mono border ${
-              isDark
-                ? 'bg-[#031c33]/70 text-[#b8e8f5] border-[#00dfff]/20'
-                : 'bg-white text-slate-700 border-slate-300'
-            }`}
-            title="Current ArchitectAny context"
-          >
-            <span className={isDark ? 'text-cyan-300' : 'text-slate-500'}>Context</span>
-            <span>{contextLabel}</span>
-          </div>
-
           <UserMenu />
         </div>
       </div>
