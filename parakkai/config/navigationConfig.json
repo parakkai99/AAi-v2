@@ -39,6 +39,7 @@
       "tamilTitle": "திருக்கோவில் & தரிசனம்",
       "items": [
         { "id": "f-moolavar", "label": "Madhusoodhana Perumal", "iconName": "Sparkles", "targetView": "darshan" },
+        { "id": "f-vinayakar", "label": "Arasamotu Sakthi Vinayakar Live", "iconName": "Video", "targetView": "vinayakar" },
         { "id": "f-kodimaram", "label": "Golden Kodimaram & 6:30 AM Sunlight", "iconName": "Sun", "targetView": "today" },
         { "id": "f-pooja", "label": "Pooja Offerings & Archanai", "iconName": "Sparkles", "targetView": "darshan" },
         { "id": "f-gopuram", "label": "Dasavataram Gopuram Arch", "iconName": "Landmark", "targetView": "home" }
