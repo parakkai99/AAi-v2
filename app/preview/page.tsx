@@ -143,9 +143,15 @@ export default function PreviewPage() {
     const hasExplicitApp = Boolean(params.get("app") || params.get("tab") || params.get("project"));
     if (!hasExplicitApp && window.location.pathname === "/") {
       setCurrentTab("Universe");
-      navigateTo({ layer: 1 });
+      // Initialize the root Universe once on first mount only.
+      // Do not depend on navigateTo here: its identity changes as navigation
+      // state changes, and re-running this effect would reset every destination
+      // back to L1 after each click/transition.
+      void navigateTo({ layer: 1 }, { skipCinematic: true });
     }
-  }, [navigateTo]);
+    // Intentionally mount-only. Navigation state owns subsequent transitions.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const handleToggleInspector = () => setIsInspectorOpen((prev) => !prev);
