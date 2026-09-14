@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Cpu, Grid2X2, Settings2, Database, Sparkles, Globe2, Package } from 'lucide-react';
+import { Cpu, Grid2X2, Settings2, Database, Sparkles, Globe2 } from 'lucide-react';
 import { HeaderLogo } from './HeaderLogo';
 import { IntentSearch } from './IntentSearch';
 import { LocationSelector } from './LocationSelector';
@@ -126,7 +126,6 @@ export const ArchitectAnyHeader: React.FC<ArchitectAnyHeaderProps> = ({
                   <StackButton icon={Globe2} label="AAi Universe" active={currentTab === 'Universe'} onClick={() => openContext('Universe')} isDark={isDark} />
                   <StackButton icon={Sparkles} label="Parakkai" active={currentTab === 'Parakkai'} onClick={() => openContext('Parakkai')} isDark={isDark} />
                   <StackButton icon={Globe2} label="NGLiving" active={currentTab === 'NGLiving'} onClick={() => openContext('NGLiving')} isDark={isDark} />
-                  <StackButton icon={Package} label="Jaico-Mart" active={currentTab === 'Jaico'} onClick={() => openContext('Jaico')} isDark={isDark} />
                   <StackButton icon={Cpu} label="AAi Agent OS" active={currentTab === 'AgentOS'} onClick={() => openContext('AgentOS')} isDark={isDark} />
                   <StackButton icon={Database} label="JSON / Data" onClick={() => { setIsAppStackOpen(false); window.dispatchEvent(new CustomEvent('aai:toggle-json-inspector')); }} isDark={isDark} />
                   <StackButton
@@ -139,9 +138,7 @@ export const ArchitectAnyHeader: React.FC<ArchitectAnyHeaderProps> = ({
                           ? 'ngliving'
                           : currentTab === 'Parakkai'
                             ? 'parakkai'
-                            : currentTab === 'Jaico'
-                              ? 'jaico'
-                              : new URLSearchParams(window.location.search).get('app') || 'jaico';
+                            : new URLSearchParams(window.location.search).get('app') || 'parakkai';
                       window.location.assign('/solution-admin/' + solutionId);
                     }}
                     isDark={isDark}
