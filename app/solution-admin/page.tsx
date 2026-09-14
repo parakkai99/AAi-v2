@@ -14,7 +14,7 @@ export default function SolutionAdminRootPage() {
           Select the solution control plane to configure. The shared AAi framework remains platform-owned.
         </p>
 
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
           <button
             type="button"
             onClick={() => window.location.assign("/solution-admin/parakkai")}
@@ -33,14 +33,6 @@ export default function SolutionAdminRootPage() {
             <div className="mt-1 text-xs text-[#6e91a6]">Solution control plane</div>
           </button>
 
-          <button
-            type="button"
-            onClick={() => window.location.assign("/solution-admin/jaico")}
-            className="rounded-xl border border-cyan-400/10 bg-[#06201d]/50 p-4 text-left hover:border-cyan-400/40"
-          >
-            <div className="text-sm font-semibold text-emerald-200">Jaico-Mart</div>
-            <div className="mt-1 text-xs text-[#6e91a6]">Marketplace model solution</div>
-          </button>
         </div>
       </div>
     </div>
