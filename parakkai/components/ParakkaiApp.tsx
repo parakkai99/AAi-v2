@@ -38,6 +38,7 @@ import { CommunityView } from "./community/CommunityView";
 import { HyperlocalDirectoryView } from "./nearby/HyperlocalDirectoryView";
 import { HypermarketView } from "./marketplace/HypermarketView";
 import { SacredMapView } from "./map/SacredMapView";
+import { ArasamotuSakthiVinayakarView } from "./sacred/ArasamotuSakthiVinayakarView";
 
 // Modals
 import { PoojaBookingModal } from "./pooja/PoojaBookingModal";
@@ -426,6 +427,11 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
               activeTheme={activeTheme}
               onSelectStation={() => setActiveView("journey")}
             />
+          )}
+
+          {/* ARASAMOTU SAKTHI VINAYAKAR */}
+          {activeView === "vinayakar" && (
+            <ArasamotuSakthiVinayakarView activeTheme={activeTheme} />
           )}
         </main>
 
