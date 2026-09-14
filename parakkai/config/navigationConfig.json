@@ -2,6 +2,7 @@
   "headerLinks": [
     { "id": "home", "label": "Home", "tamilLabel": "முகப்பு", "iconName": "Home", "targetView": "home" },
     { "id": "darshan", "label": "Darshan", "tamilLabel": "தரிசனம்", "iconName": "Sparkles", "targetView": "darshan" },
+    { "id": "vinayakar", "label": "Sakthi Vinayakar", "tamilLabel": "சக்தி விநாயகர்", "iconName": "Sparkles", "targetView": "vinayakar", "badge": "Live" },
     { "id": "today", "label": "Today", "tamilLabel": "இன்று", "iconName": "Calendar", "targetView": "today", "badge": "6:30 AM" },
     { "id": "events", "label": "Events & Festival", "tamilLabel": "திருவிழா", "iconName": "Flame", "targetView": "events" },
     { "id": "media", "label": "Videos / Media", "tamilLabel": "காணொளிகள்", "iconName": "PlaySquare", "targetView": "media" },
@@ -13,6 +14,7 @@
   "leftRailItems": [
     { "id": "rail-temple", "label": "Temple Sanctum", "tamilLabel": "திருக்கோவில்", "iconName": "Landmark", "targetView": "darshan", "description": "Madhusoodhana Perumal & Gopuram" },
     { "id": "rail-darshan", "label": "Sacred Darshan", "tamilLabel": "தரிசனம்", "iconName": "Sparkles", "targetView": "darshan", "description": "Timings & Moolavar Alankaram" },
+    { "id": "rail-vinayakar", "label": "Sakthi Vinayakar", "tamilLabel": "சக்தி விநாயகர்", "iconName": "Sparkles", "targetView": "vinayakar", "badge": "Live", "description": "Arasamotu shrine & YouTube darshan" },
     { "id": "rail-today", "label": "Today at Parakkai", "tamilLabel": "இன்றைய நிகழ்வு", "iconName": "Sun", "targetView": "today", "badge": "6:30 AM", "description": "Sunlight Miracle on Lord's Feet" },
     { "id": "rail-events", "label": "Festival & Events", "tamilLabel": "திருவிழாக்கள்", "iconName": "Flame", "targetView": "events", "description": "Panguni Brahmotsavam & Calendar" },
     { "id": "rail-media", "label": "Devotional Media", "tamilLabel": "பக்தி கானங்கள்", "iconName": "Video", "targetView": "media", "description": "YouTube-style slokas & darshan" },
