@@ -34,5 +34,4 @@ export * from './composition';
 export * from './resolver';
 export * from './runtime';
 export * from './asset';
-
-export const ExperienceShell: React.FC<any> = ({ children, ...props }) => children;
+export { ExperienceShell } from './runtime/ExperienceShell';
