@@ -100,9 +100,9 @@ export const ArchitectAnyHeader: React.FC<ArchitectAnyHeaderProps> = ({
               id="header-app-stack-btn"
               type="button"
               onClick={() => setIsAppStackOpen((open) => !open)}
-              className={\`relative w-9 h-9 rounded-xl transition-all cursor-pointer flex items-center justify-center \${isDark
+              className={`relative w-9 h-9 rounded-xl transition-all cursor-pointer flex items-center justify-center ${isDark
                 ? 'bg-[#031c33]/90 text-[#00dfff] hover:text-white hover:bg-[#052b4f] border border-[#00dfff]/40 shadow-[0_0_14px_rgba(0,227,253,0.22)]'
-                : 'bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-100 border border-slate-300 shadow-sm'}\`}
+                : 'bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-100 border border-slate-300 shadow-sm'}`}
               title="ArchitectAny Solution Model Stack"
               aria-label="Open ArchitectAny Solution Model Stack"
               aria-expanded={isAppStackOpen}
@@ -112,9 +112,9 @@ export const ArchitectAnyHeader: React.FC<ArchitectAnyHeaderProps> = ({
 
             {isAppStackOpen && (
               <div
-                className={\`absolute left-0 mt-2 w-72 rounded-2xl border shadow-2xl p-3 backdrop-blur-xl \${isDark
+                className={`absolute left-0 mt-2 w-72 rounded-2xl border shadow-2xl p-3 backdrop-blur-xl ${isDark
                   ? 'bg-[#031323]/98 border-[#00dfff]/25'
-                  : 'bg-white border-slate-200'}\`}
+                  : 'bg-white border-slate-200'}`}
                 role="menu"
               >
                 <div className="px-2 pb-2">
