@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ArchitectAny</string>
+    <string name="title_activity_main">ArchitectAny</string>
+    <string name="package_name">in.architectany.aai</string>
+    <string name="custom_url_scheme">in.architectany.aai</string>
+</resources>
