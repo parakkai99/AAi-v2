@@ -73,7 +73,7 @@ export const ParakkaiHomeBottomBar: React.FC<ParakkaiHomeBottomBarProps> = ({
   return (
     <footer
       id="parakkai-home-compact-bar"
-      className="w-full shrink-0 border-t select-none z-30 transition-colors px-3 sm:px-6 py-1.5 flex items-center justify-between gap-3 text-xs" style={{ backgroundColor: activeTheme.colors.surfaceCanvas, borderColor: activeTheme.colors.borderSubtle, color: activeTheme.colors.textSecondary }}
+      className="hidden sm:flex w-full shrink-0 border-t select-none z-30 transition-colors px-3 sm:px-6 py-1.5 items-center justify-between gap-3 text-xs" style={{ backgroundColor: activeTheme.colors.surfaceCanvas, borderColor: activeTheme.colors.borderSubtle, color: activeTheme.colors.textSecondary }}
     >
       {/* 1. Left: 6:30 AM Miracle Indicator & Scene Switcher */}
       <div className="flex items-center gap-2 sm:gap-3 shrink-0">
