@@ -16,7 +16,7 @@
  * ANY USER NAVIGATION -> CANONICAL TARGET -> RESOLVE FROM & TO WAYPOINTS -> CINEMATIC ENGINE -> DESTINATION STATE
  */
 
-import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
+import React, { createContext, useContext, useState, useCallback, useMemo, useRef } from 'react';
 import { useArchitectAny } from './ArchitectAnyContext';
 import { useCinematicNavigation } from './CinematicNavigationContext';
 import {
@@ -82,9 +82,18 @@ export interface UniversalNavigationContextValue {
   intentCoreQuery: string;
   setIntentCoreQuery: (query: string) => void;
   currentWaypoint: CinematicWaypoint;
+  canGoBack: boolean;
+  canGoForward: boolean;
+  goBack: () => Promise<void>;
+  goForward: () => Promise<void>;
+  goHome: () => Promise<void>;
   navigateTo: (
     target: UniversalNavigationTarget,
-    options?: { skipCinematic?: boolean; onComplete?: () => void }
+    options?: {
+      skipCinematic?: boolean;
+      onComplete?: () => void;
+      historyMode?: 'push' | 'none';
+    }
   ) => Promise<void>;
 }
 
@@ -115,6 +124,9 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
   const [isIntentCoreActive, setIsIntentCoreActive] = useState<boolean>(false);
   const [selectedSolutionId, setSelectedSolutionId] = useState<string | null>(null);
   const [intentCoreQuery, setIntentCoreQuery] = useState<string>('');
+  const navigationPastRef = useRef<UniversalNavigationTarget[]>([]);
+  const navigationFutureRef = useRef<UniversalNavigationTarget[]>([]);
+  const [navigationRevision, setNavigationRevision] = useState(0);
 
   // Canonical domain metadata is resolved from the catalog repository.
   // This keeps universal navigation independent from legacy domains.json data.
@@ -232,12 +244,65 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
     };
   }, [isIntentCoreActive, selectedSolutionId, intent]);
 
-  // 2. Canonical Navigation Handler: Routes all 7 entry points through the same pipeline
+  const getCurrentTarget = useCallback((): UniversalNavigationTarget => {
+    if (isIntentCoreActive) {
+      return { layer: 0, query: intentCoreQuery };
+    }
+
+    if (selectedSolutionId) {
+      return {
+        layer: 5,
+        solutionId: selectedSolutionId,
+        domainId: intent.domainId || undefined,
+        name: intent.category || 'Solution Workspace',
+      };
+    }
+
+    if (intent.solutionBundleId) {
+      return {
+        layer: 4,
+        domainId: intent.domainId || undefined,
+        subdomainId: intent.subdomainId || undefined,
+        capabilityId: intent.capabilityId || undefined,
+        bundleId: intent.solutionBundleId,
+      };
+    }
+
+    if (intent.capabilityId) {
+      return {
+        layer: 3,
+        domainId: intent.domainId || 'D06',
+        subdomainId: intent.subdomainId || undefined,
+        capabilityId: intent.capabilityId,
+      };
+    }
+
+    if (intent.subdomainId) {
+      return {
+        layer: 2,
+        domainId: intent.domainId || 'D06',
+        subdomainId: intent.subdomainId,
+      };
+    }
+
+    if (intent.domainId) {
+      return {
+        layer: 2,
+        domainId: intent.domainId,
+      };
+    }
+
+    return { layer: 1 };
+  }, [intent, intentCoreQuery, isIntentCoreActive, selectedSolutionId]);
+
+  // 3. Canonical Navigation Handler: Routes all entry points through the same pipeline
+
   const navigateTo = useCallback(
     async (
       target: UniversalNavigationTarget,
       options?: { skipCinematic?: boolean; onComplete?: () => void }
     ) => {
+      const historyMode = options?.historyMode ?? 'push';
       let destWaypoint: CinematicWaypoint;
       let applyState: () => void;
 
@@ -682,6 +747,12 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
 
       // Check if origin and destination are identical
       const isIdentical = currentWaypoint.id === destWaypoint.id && currentWaypoint.layer === destWaypoint.layer;
+
+      if (!isIdentical && historyMode === 'push') {
+        navigationPastRef.current.push(getCurrentTarget());
+        navigationFutureRef.current = [];
+        setNavigationRevision((value) => value + 1);
+      }
       if (isIdentical) {
         applyState();
         options?.onComplete?.();
@@ -701,6 +772,8 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
     },
     [
       currentWaypoint,
+      getCurrentTarget,
+
       intent,
       selectedSolutionId,
       isIntentCoreActive,
@@ -713,6 +786,32 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
     ]
   );
 
+  const canGoBack = navigationPastRef.current.length > 0;
+  const canGoForward = navigationFutureRef.current.length > 0;
+
+  const goBack = useCallback(async () => {
+    const target = navigationPastRef.current.pop();
+    if (!target) return;
+
+    navigationFutureRef.current.push(getCurrentTarget());
+    setNavigationRevision((value) => value + 1);
+    await navigateTo(target, { historyMode: 'none' });
+  }, [getCurrentTarget, navigateTo]);
+
+  const goForward = useCallback(async () => {
+    const target = navigationFutureRef.current.pop();
+    if (!target) return;
+
+    navigationPastRef.current.push(getCurrentTarget());
+    setNavigationRevision((value) => value + 1);
+    await navigateTo(target, { historyMode: 'none' });
+  }, [getCurrentTarget, navigateTo]);
+
+  const goHome = useCallback(async () => {
+    await navigateTo({ layer: 1 }, { historyMode: 'push' });
+  }, [navigateTo]);
+
+  void navigationRevision;
   return (
     <UniversalNavigationContext.Provider
       value={{
@@ -723,6 +822,11 @@ export const UniversalNavigationProvider: React.FC<{ children: React.ReactNode }
         intentCoreQuery,
         setIntentCoreQuery,
         currentWaypoint,
+        canGoBack,
+        canGoForward,
+        goBack,
+        goForward,
+        goHome,
         navigateTo,
       }}
     >
