@@ -42,6 +42,12 @@ export const ArchitectAnyHeader: React.FC<ArchitectAnyHeaderProps> = ({
   const [isAppStackOpen, setIsAppStackOpen] = useState(false);
 
   useEffect(() => {
+    const handleAppStackToggle = () => setIsAppStackOpen((open) => !open);
+    window.addEventListener('aai:toggle-app-stack', handleAppStackToggle);
+    return () => window.removeEventListener('aai:toggle-app-stack', handleAppStackToggle);
+  }, []);
+
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'j') {
         e.preventDefault();
