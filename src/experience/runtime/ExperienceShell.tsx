@@ -40,13 +40,13 @@ export function ExperienceShell({
       data-aai-experience-scope={definition.scope}
       data-aai-layout={layout.id}
       data-aai-navigation={layout.navigation}
-      className="min-h-screen w-full flex flex-col overflow-visible"
+      className="min-h-screen min-h-[100dvh] w-full min-w-0 flex flex-col overflow-visible"
     >
       {header}
 
       <div
         data-aai-experience-body
-        className="relative w-full min-w-0 flex-none overflow-visible"
+        className="relative w-full min-w-0 flex-1 overflow-visible"
       >
         {leftRail}
         <div data-aai-experience-main className="w-full min-w-0 overflow-visible">
