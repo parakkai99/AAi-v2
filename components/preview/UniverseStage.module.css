@@ -25,7 +25,8 @@
   position: relative;
   width: 100%;
   max-width: 1200px;
-  height: 440px;
+  height: clamp(440px, calc(100dvh - 150px), 720px);
+  min-height: 440px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -36,13 +37,14 @@
 
 @media (min-width: 1024px) {
   .universeFieldContainer {
-    height: 480px;
+    height: clamp(480px, calc(100dvh - 150px), 720px);
+    min-height: 480px;
   }
 }
 
 @media (max-width: 640px) {
   .universeFieldContainer {
-    height: clamp(320px, 58vw, 380px);
+    height: clamp(320px, calc(100dvh - 150px), 560px);
     min-height: 320px;
   }
 }
@@ -114,11 +116,10 @@
   pointer-events: none;
 }
 
-
-
 @media (max-width: 420px) {
   .universeFieldContainer {
-    height: clamp(300px, 70vw, 340px);
+    height: clamp(300px, calc(100dvh - 150px), 520px);
+    min-height: 300px;
     max-width: 100%;
   }
 
