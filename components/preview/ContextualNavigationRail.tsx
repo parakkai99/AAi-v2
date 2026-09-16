@@ -1,32 +1,27 @@
 /**
  * Architect: Vijay Kumar K.
  * Platform: ArchitectAny (AAi)
- *
- * Contract: Contextual Navigation Rail
+ * Contract: QUICK-RAIL-002
  * Status: ACTIVE
- * Version: 1.1.1
  *
- * Purpose:
- * - Keep the Left Rail synchronized with the current main-screen context.
- * - L1 shows all Domains.
- * - L2+ shows only Business Worlds belonging to the active Domain.
- * - Never display unrelated domain content while operating inside another domain.
- * - Preserve the existing compact floating / expandable visual design.
+ * One global Quick entry point for every viewport.
+ * Navigation, context and universe controls stay behind this rail so the
+ * top content area remains available for the experience itself.
  */
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  Boxes,
-  CheckSquare,
-  ChevronRight,
+  ArrowLeft,
+  ArrowRight,
+  Check,
   Compass,
-  Globe,
   Home,
   Layers,
+  SlidersHorizontal,
   X,
 } from "lucide-react";
-
 import { useArchitectAny } from "@/src/context/ArchitectAnyContext";
+import { useUniversalNavigation } from "@/src/context/UniversalNavigationContext";
 import type { Domain, Subdomain } from "@/src/types";
 
 export interface ContextualNavigationRailProps {
@@ -51,10 +46,16 @@ export const ContextualNavigationRail = ({
   className = "",
 }: ContextualNavigationRailProps) => {
   const { intent, theme } = useArchitectAny();
+  const {
+    currentWaypoint,
+    canGoBack,
+    canGoForward,
+    goBack,
+    goForward,
+    goHome,
+  } = useUniversalNavigation();
   const isDark = theme === "dark";
-
   const [isExpanded, setIsExpanded] = useState(false);
-
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
@@ -71,44 +72,28 @@ export const ContextualNavigationRail = ({
             : "L1";
 
   const activeDomainId = intent.domainId ?? null;
-
   const activeDomain = useMemo(
-    () =>
-      activeDomainId
-        ? (domains.find((domain) => domain.id === activeDomainId) ?? null)
-        : null,
+    () => activeDomainId
+      ? domains.find((domain) => domain.id === activeDomainId) ?? null
+      : null,
     [activeDomainId, domains],
   );
-
-  const contextualSubdomains = useMemo(() => {
-    if (!activeDomainId) {
-      return [];
-    }
-
-    return subdomains.filter(
-      (subdomain) => subdomain.domainId === activeDomainId,
-    );
-  }, [activeDomainId, subdomains]);
-
-  const showDomainList = !activeDomainId;
+  const contextualSubdomains = useMemo(
+    () => activeDomainId
+      ? subdomains.filter((subdomain) => subdomain.domainId === activeDomainId)
+      : [],
+    [activeDomainId, subdomains],
+  );
 
   useEffect(() => {
-    if (!isExpanded) {
-      return;
-    }
+    if (!isExpanded) return;
 
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+    const handlePointerDown = (event: MouseEvent | TouchEvent) => {
       const target = event.target as Node | null;
-
-      if (!target) {
-        return;
-      }
-
-      if (panelRef.current && !panelRef.current.contains(target)) {
+      if (target && panelRef.current && !panelRef.current.contains(target)) {
         setIsExpanded(false);
       }
     };
-
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsExpanded(false);
@@ -116,374 +101,157 @@ export const ContextualNavigationRail = ({
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside, true);
-    document.addEventListener("touchstart", handleClickOutside, true);
+    document.addEventListener("mousedown", handlePointerDown, true);
+    document.addEventListener("touchstart", handlePointerDown, true);
     document.addEventListener("keydown", handleKeyDown);
-
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside, true);
-      document.removeEventListener("touchstart", handleClickOutside, true);
+      document.removeEventListener("mousedown", handlePointerDown, true);
+      document.removeEventListener("touchstart", handlePointerDown, true);
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [isExpanded]);
 
-  const handleSelectBusinessWorld = (subdomain: Subdomain) => {
-    onSelectDomain(subdomain.domainId);
-    setIsExpanded(false);
-  };
+  const close = () => setIsExpanded(false);
 
   return (
     <nav
-      aria-label="Contextual Navigation Rail"
-      className={`fixed left-2 sm:left-4 top-1/2 -translate-y-1/2 z-40 flex items-center select-none ${className}`}
+      aria-label="AAi Quick navigation"
+      className={`fixed left-2 sm:left-4 top-1/2 -translate-y-1/2 z-[70] select-none ${className}`}
     >
-      {!isExpanded && (
+      {!isExpanded ? (
         <button
           ref={triggerRef}
           type="button"
           onClick={() => setIsExpanded(true)}
-          aria-expanded={isExpanded}
-          aria-label="Open Contextual Navigation Rail"
-          title={`Navigation Rail • Active: ${activeLevel}`}
-          className={`group flex flex-col items-center gap-2.5 py-3.5 px-2 rounded-2xl border transition-all duration-300 shadow-2xl cursor-pointer ${
+          aria-label="Open AAi Quick navigation"
+          aria-expanded={false}
+          title={`AAi Quick • ${activeLevel}`}
+          className={`group flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl border shadow-2xl backdrop-blur-xl transition-all duration-200 ${
             isDark
-              ? "bg-[#020d1c]/90 hover:bg-[#041a33] border-[#00dfff]/30 text-[#82a5bb] shadow-[0_10px_30px_rgba(0,0,0,0.8)] hover:border-[#00e3fd]/80 hover:text-white"
-              : "bg-white/95 hover:bg-slate-50 border-slate-300 text-slate-600 shadow-xl hover:border-indigo-400 hover:text-indigo-600"
+              ? "border-cyan-400/30 bg-[#020d1c]/90 text-cyan-300 hover:border-cyan-300/70 hover:bg-[#041a33]"
+              : "border-slate-300 bg-white/95 text-slate-600 hover:border-cyan-400"
           }`}
         >
-          <div
-            className={`p-1 rounded-lg transition-colors ${
-              activeLevel === "L1"
-                ? isDark
-                  ? "bg-[#00e3fd]/20 text-[#00e3fd]"
-                  : "bg-indigo-100 text-indigo-700"
-                : "opacity-70 group-hover:opacity-100"
-            }`}
-            title="L1: Universe Root"
-          >
-            <Home className="w-4 h-4" />
-          </div>
-
-          <div
-            className={`p-1 rounded-lg transition-colors ${
-              activeLevel === "L2"
-                ? isDark
-                  ? "bg-[#00e3fd]/20 text-[#00e3fd]"
-                  : "bg-indigo-100 text-indigo-700"
-                : "opacity-70 group-hover:opacity-100"
-            }`}
-            title="L2: Business Worlds"
-          >
-            <Globe className="w-4 h-4" />
-          </div>
-
-          <div
-            className={`p-1 rounded-lg transition-colors ${
-              activeLevel === "L3"
-                ? isDark
-                  ? "bg-[#00e3fd]/20 text-[#00e3fd]"
-                  : "bg-indigo-100 text-indigo-700"
-                : "opacity-70 group-hover:opacity-100"
-            }`}
-            title="L3: Capabilities"
-          >
-            <Layers className="w-4 h-4" />
-          </div>
-
-          <div
-            className={`p-1 rounded-lg transition-colors ${
-              activeLevel === "L4"
-                ? isDark
-                  ? "bg-[#00e3fd]/20 text-[#00e3fd]"
-                  : "bg-indigo-100 text-indigo-700"
-                : "opacity-70 group-hover:opacity-100"
-            }`}
-            title="L4: Solution Bundles"
-          >
-            <Boxes className="w-4 h-4" />
-          </div>
-
-          <div
-            className={`p-1 rounded-lg transition-colors ${
-              activeLevel === "L5"
-                ? isDark
-                  ? "bg-[#00e3fd]/20 text-[#00e3fd]"
-                  : "bg-indigo-100 text-indigo-700"
-                : "opacity-70 group-hover:opacity-100"
-            }`}
-            title="L5: Solutions"
-          >
-            <CheckSquare className="w-4 h-4" />
-          </div>
-
-          <span
-            className={`px-1 py-0.5 rounded text-[9px] font-mono font-bold tracking-tight mt-1 ${
-              isDark
-                ? "bg-[#00e3fd]/15 text-[#00e3fd]"
-                : "bg-indigo-100 text-indigo-700"
-            }`}
-          >
-            {activeLevel}
-          </span>
+          <SlidersHorizontal className="h-5 w-5 transition-transform group-hover:rotate-90" />
         </button>
-      )}
-
-      {isExpanded && (
+      ) : (
         <div
           ref={panelRef}
           role="dialog"
-          aria-modal="false"
-          aria-label="Contextual Navigation Panel"
-          className={`w-[300px] sm:w-[320px] max-w-[calc(100vw-24px)] max-h-[calc(100vh-120px)] flex flex-col rounded-3xl border transition-all duration-300 shadow-[0_25px_60px_rgba(0,0,0,0.85)] backdrop-blur-2xl overflow-hidden ${
+          aria-label="AAi Quick navigation panel"
+          className={`w-[310px] max-w-[calc(100vw-64px)] max-h-[calc(100dvh-32px)] overflow-hidden rounded-3xl border shadow-[0_25px_70px_rgba(0,0,0,0.8)] backdrop-blur-2xl ${
             isDark
-              ? "bg-[#020d1c]/95 border-[#00dfff]/35 text-[#d4e4fa]"
-              : "bg-white/98 border-slate-300 text-slate-900 shadow-2xl"
+              ? "border-cyan-400/30 bg-[#020d1c]/96 text-[#eaf7ff]"
+              : "border-slate-200 bg-white/98 text-slate-900"
           }`}
         >
-          <div
-            className={`flex items-center justify-between px-4 py-3 border-b shrink-0 ${
-              isDark
-                ? "bg-[#04152a]/90 border-[#00e3fd]/20"
-                : "bg-slate-50 border-slate-200"
-            }`}
-          >
-            <div className="flex items-center gap-2 min-w-0">
-              <Compass
-                className={`w-4 h-4 shrink-0 ${
-                  isDark ? "text-[#00e3fd]" : "text-indigo-600"
-                }`}
-              />
-
+          <div className="flex items-center justify-between gap-2 border-b border-white/10 px-4 py-3">
+            <div className="flex min-w-0 items-center gap-2">
+              <SlidersHorizontal className="h-4 w-4 shrink-0 text-cyan-300" />
               <div className="min-w-0">
-                <span className="font-mono text-xs font-bold uppercase tracking-wider block">
-                  Solution Navigation
-                </span>
-
-                {activeDomain && activeLevel !== "L1" && (
-                  <span
-                    className={`block mt-0.5 text-[9px] font-mono truncate ${
-                      isDark ? "text-[#00e3fd]" : "text-indigo-600"
-                    }`}
-                  >
-                    {activeDomain.id} • {activeDomain.name}
-                  </span>
-                )}
+                <div className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-cyan-300">AAi Quick</div>
+                <div className="truncate text-xs text-slate-400">{currentWaypoint.layerLabel} • {currentWaypoint.name}</div>
               </div>
             </div>
-
-            <button
-              type="button"
-              onClick={() => setIsExpanded(false)}
-              aria-label="Collapse Navigation Panel"
-              className={`p-1.5 rounded-lg border transition-colors cursor-pointer ${
-                isDark
-                  ? "border-[#00e3fd]/20 text-[#82a5bb] hover:text-white hover:bg-[#00e3fd]/15"
-                  : "border-slate-200 text-slate-500 hover:text-slate-900 hover:bg-slate-100"
-              }`}
-            >
-              <X className="w-4 h-4" />
+            <button type="button" onClick={close} aria-label="Close Quick" className="rounded-lg p-1.5 text-slate-400 hover:bg-white/10 hover:text-white">
+              <X className="h-4 w-4" />
             </button>
           </div>
 
-          <div className="p-3 border-b border-white/5 shrink-0 space-y-1.5">
+          <div className="grid grid-cols-3 gap-1.5 border-b border-white/10 p-3">
+            <QuickButton label="Back" icon={<ArrowLeft className="h-4 w-4" />} disabled={!canGoBack} onClick={goBack} />
+            <QuickButton label="Home" icon={<Home className="h-4 w-4" />} active={currentWaypoint.layer === 1} onClick={() => { goHome(); close(); }} />
+            <QuickButton label="Forward" icon={<ArrowRight className="h-4 w-4" />} disabled={!canGoForward} onClick={goForward} />
+          </div>
+
+          <div className="max-h-[calc(100dvh-150px)] overflow-y-auto p-3 space-y-2">
             <button
               type="button"
-              onClick={() => {
-                onResetRoot();
-                setIsExpanded(false);
-              }}
-              className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer border ${
+              onClick={() => { onResetRoot(); close(); }}
+              className={`w-full flex items-center justify-between rounded-xl border px-3 py-2.5 text-left text-xs font-mono font-bold ${
                 activeLevel === "L1"
-                  ? isDark
-                    ? "bg-[#00e3fd]/20 text-[#00e3fd] border-[#00e3fd]/40"
-                    : "bg-indigo-100 text-indigo-700 border-indigo-200"
-                  : isDark
-                    ? "bg-[#031526] text-[#82a5bb] border-[#00e3fd]/15 hover:text-white hover:border-[#00e3fd]/40"
-                    : "bg-slate-100 text-slate-700 border-slate-200 hover:text-indigo-600"
+                  ? "border-cyan-400/50 bg-cyan-400/15 text-cyan-200"
+                  : "border-white/10 bg-white/[0.03] text-slate-300 hover:border-cyan-400/40"
               }`}
             >
-              <span className="flex items-center gap-2">
-                <Home className="w-3.5 h-3.5" />
-                <span>M01 Universe Root</span>
-              </span>
-
-              <span className="text-[10px] opacity-70">L1 Orbit</span>
+              <span className="flex items-center gap-2"><Compass className="h-3.5 w-3.5" /> M01 Solution Universe</span>
+              <span className="text-[9px] opacity-60">L1</span>
             </button>
 
             {onOpenIntentCore && (
               <button
                 type="button"
-                onClick={() => {
-                  onOpenIntentCore();
-                  setIsExpanded(false);
-                }}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer border ${
-                  isDark
-                    ? "bg-[#031526] text-[#7dd3fc] border-[#00e3fd]/25 hover:text-white hover:border-[#00e3fd]"
-                    : "bg-slate-100 text-slate-700 border-slate-200 hover:text-indigo-600"
-                }`}
+                onClick={() => { onOpenIntentCore(); close(); }}
+                className="w-full flex items-center justify-between rounded-xl border border-cyan-400/20 bg-cyan-400/[0.04] px-3 py-2.5 text-left text-xs font-mono text-cyan-200 hover:border-cyan-400/50"
               >
-                <span className="flex items-center gap-2">
-                  <Compass className="w-3.5 h-3.5 text-[#00e3fd]" />
-                  <span>AAi Intent Core</span>
-                </span>
-
-                <span className="text-[10px] text-[#00e3fd] font-bold">
-                  Center
-                </span>
+                <span className="flex items-center gap-2"><Layers className="h-3.5 w-3.5" /> AAi Intent Core</span>
+                <span className="text-[9px] opacity-60">CENTER</span>
               </button>
             )}
-          </div>
 
-          {showDomainList ? (
-            <div className="flex-1 overflow-y-auto p-3 space-y-1.5 text-xs">
-              <span
-                className={`text-[10px] font-mono uppercase tracking-wider font-bold block px-1 py-1 ${
-                  isDark ? "text-[#82a5bb]" : "text-slate-500"
-                }`}
-              >
-                Business Worlds ({domains.length})
-              </span>
-
-              {domains.map((domain) => {
-                const isSelected = intent.domainId === domain.id;
-
-                return (
-                  <button
-                    type="button"
-                    key={domain.id}
-                    onClick={() => {
-                      onSelectDomain(domain.id);
-                      setIsExpanded(false);
-                    }}
-                    className={`w-full flex items-center justify-between p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
-                      isSelected
-                        ? isDark
-                          ? "bg-[#00e3fd]/15 border-[#00e3fd]/50 text-white font-bold"
-                          : "bg-indigo-50 border-indigo-300 text-indigo-900 font-bold"
-                        : isDark
-                          ? "bg-[#03182c]/50 hover:bg-[#062444] border-transparent text-[#9ec5de] hover:text-white"
-                          : "bg-white hover:bg-slate-50 border-slate-100 text-slate-700 hover:text-slate-900"
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <span
-                        className="w-2 h-2 rounded-full shrink-0"
-                        style={{
-                          backgroundColor: domain.visual?.color || "#00e3fd",
-                        }}
-                      />
-
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-1.5">
-                          <span className="font-mono text-[10px] opacity-70">
-                            {domain.id}
-                          </span>
-
-                          <span className="font-medium truncate">
-                            {domain.name}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <ChevronRight className="w-3.5 h-3.5 opacity-40 shrink-0" />
-                  </button>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="flex-1 overflow-y-auto p-3 space-y-1.5 text-xs">
-              <div className="flex items-center justify-between px-1 py-1">
-                <span
-                  className={`text-[10px] font-mono uppercase tracking-wider font-bold ${
-                    isDark ? "text-[#82a5bb]" : "text-slate-500"
-                  }`}
-                >
-                  {activeDomain?.name || "Current Domain"}
-                </span>
-
-                <span
-                  className={`text-[9px] font-mono font-bold ${
-                    isDark ? "text-[#00e3fd]" : "text-indigo-600"
-                  }`}
-                >
-                  L2
-                </span>
+            <section className="rounded-xl border border-white/10 bg-white/[0.02] p-2">
+              <div className="px-1 pb-2 text-[9px] font-mono uppercase tracking-widest text-slate-500">
+                {activeDomain ? `${activeDomain.id} • ${activeDomain.name}` : `Business Worlds (${domains.length})`}
               </div>
-
-              {contextualSubdomains.length > 0 ? (
-                contextualSubdomains.map((subdomain) => {
-                  const isSelected = intent.subdomainId === subdomain.id;
-
+              <div className="space-y-1">
+                {(activeDomain ? contextualSubdomains : domains).map((item) => {
+                  const id = item.id;
+                  const name = item.name;
+                  const active = id === (activeDomain?.id ?? intent.domainId ?? "");
                   return (
                     <button
+                      key={id}
                       type="button"
-                      key={subdomain.id}
-                      onClick={() => handleSelectBusinessWorld(subdomain)}
-                      className={`w-full flex items-center justify-between p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
-                        isSelected
-                          ? isDark
-                            ? "bg-[#00e3fd]/15 border-[#00e3fd]/50 text-white font-bold"
-                            : "bg-indigo-50 border-indigo-300 text-indigo-900 font-bold"
-                          : isDark
-                            ? "bg-[#03182c]/50 hover:bg-[#062444] border-transparent text-[#9ec5de] hover:text-white"
-                            : "bg-white hover:bg-slate-50 border-slate-100 text-slate-700 hover:text-slate-900"
+                      onClick={() => { onSelectDomain(activeDomain ? activeDomain.id : id); close(); }}
+                      className={`w-full flex items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-left text-[11px] ${
+                        active ? "bg-cyan-400/15 text-cyan-200" : "text-slate-300 hover:bg-white/[0.05]"
                       }`}
                     >
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-1.5">
-                          <span className="font-mono text-[10px] opacity-70">
-                            {subdomain.id}
-                          </span>
-
-                          <span className="font-medium truncate">
-                            {subdomain.name}
-                          </span>
-                        </div>
-
-                        {subdomain.description && (
-                          <div
-                            className={`mt-1 text-[9px] leading-4 line-clamp-2 ${
-                              isDark ? "text-[#6f9ab2]" : "text-slate-500"
-                            }`}
-                          >
-                            {subdomain.description}
-                          </div>
-                        )}
-                      </div>
-
-                      <ChevronRight className="w-3.5 h-3.5 opacity-40 shrink-0 ml-2" />
+                      <span className="flex min-w-0 items-center gap-2">
+                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
+                        <span className="truncate"><span className="mr-1 font-mono text-[9px] opacity-50">{id}</span>{name}</span>
+                      </span>
+                      {active && <Check className="h-3.5 w-3.5 shrink-0" />}
                     </button>
                   );
-                })
-              ) : (
-                <div
-                  className={`rounded-xl border border-dashed p-4 text-center font-mono text-[10px] ${
-                    isDark
-                      ? "border-[#00e3fd]/20 text-[#6f9ab2]"
-                      : "border-slate-200 text-slate-500"
-                  }`}
-                >
-                  No Business Worlds found for this Domain.
-                </div>
-              )}
-            </div>
-          )}
-
-          <div
-            className={`px-3 py-2 border-t text-[10px] font-mono text-center shrink-0 ${
-              isDark
-                ? "bg-[#030e1d] border-[#00e3fd]/20 text-[#6e9bb3]"
-                : "bg-slate-50 border-slate-200 text-slate-500"
-            }`}
-          >
-            {showDomainList
-              ? "Select a Business World to enter its context"
-              : `Context: ${activeDomain?.id || "Unknown Domain"}`}
+                })}
+              </div>
+            </section>
           </div>
         </div>
       )}
     </nav>
   );
 };
+
+function QuickButton({
+  label,
+  icon,
+  disabled = false,
+  active = false,
+  onClick,
+}: {
+  label: string;
+  icon: React.ReactNode;
+  disabled?: boolean;
+  active?: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      onClick={onClick}
+      className={`flex min-h-11 flex-col items-center justify-center gap-0.5 rounded-xl border text-[9px] font-medium ${
+        disabled
+          ? "border-white/5 text-slate-600"
+          : active
+            ? "border-cyan-400/50 bg-cyan-400/10 text-cyan-200"
+            : "border-white/10 bg-white/[0.03] text-slate-300 hover:border-cyan-400/40 hover:text-cyan-200"
+      }`}
+    >
+      {icon}
+      <span>{label}</span>
+    </button>
+  );
+}
