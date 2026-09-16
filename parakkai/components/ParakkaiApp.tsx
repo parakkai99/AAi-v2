@@ -206,8 +206,8 @@ export const ParakkaiApp: React.FC<ParakkaiAppProps> = ({
       }
       className={`font-sans transition-colors duration-300 ${
         isHomeView
-          ? "h-screen max-h-screen overflow-hidden flex flex-col"
-          : "min-h-screen flex flex-col"
+          ? "h-[100dvh] max-h-[100dvh] min-h-[100dvh] overflow-hidden flex flex-col"
+          : "min-h-screen min-h-[100dvh] flex flex-col"
       }`}
       style={{
         backgroundColor: experienceTheme.tokens.background,
