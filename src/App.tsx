@@ -19,6 +19,7 @@ import { ArchitectAnyProvider } from "@/src/context/ArchitectAnyContext";
 import { CinematicNavigationProvider } from "@/src/context/CinematicNavigationContext";
 import { UniversalNavigationProvider } from "@/src/context/UniversalNavigationContext";
 import { ErrorBoundary } from "@/components/common/ErrorBoundary";
+import { MobileNavigationBar } from "@/components/navigation/MobileNavigationBar";
 
 function getPathname() {
   return typeof window === "undefined" ? "/" : window.location.pathname;
@@ -71,6 +72,7 @@ export default function App() {
                 : isAdminRoute
                   ? <AdminPage />
                   : <PreviewPage />}
+            <MobileNavigationBar />
           </UniversalNavigationProvider>
         </CinematicNavigationProvider>
       </ArchitectAnyProvider>
