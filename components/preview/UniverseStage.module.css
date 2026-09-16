@@ -6,6 +6,7 @@
   align-items: center;
   overflow-x: clip;
   overflow-y: visible;
+  min-height: 100%;
   background: radial-gradient(circle at 50% 45%, #0a1f38 0%, #051424 60%, #020a14 100%);
 }
 
@@ -41,7 +42,8 @@
 
 @media (max-width: 640px) {
   .universeFieldContainer {
-    height: 380px;
+    height: clamp(320px, 58vw, 380px);
+    min-height: 320px;
   }
 }
 
@@ -112,3 +114,21 @@
   pointer-events: none;
 }
 
+
+
+@media (max-width: 420px) {
+  .universeFieldContainer {
+    height: clamp(300px, 70vw, 340px);
+    max-width: 100%;
+  }
+
+  .glowBackdrop {
+    width: 620px;
+    height: 380px;
+  }
+
+  .galaxyArmGlow {
+    width: 700px;
+    height: 420px;
+  }
+}
