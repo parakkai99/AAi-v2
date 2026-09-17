@@ -3,7 +3,7 @@
  * Platform: ArchitectAny (AAi)
  * Context: P1.3 — M01 Solution Universe
  * Status: ACTIVE
- * Version: 1.0.1
+ * Version: 1.0.2
  */
 
 import React, { useState, useMemo, useEffect, useRef } from "react";
@@ -53,9 +53,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
     (capabilitiesData as unknown as SolutionCapability[]) || [];
   const solutions: Solution[] = (solutionsData as unknown as Solution[]) || [];
 
-  // Compatibility bridge: DomainContextBanner consumes canonical DomainItem shape,
-  // while this legacy UniverseStage still exposes the legacy Domain shape to its
-  // existing galaxy/rail components. Keep the visual/domain behavior unchanged.
   const bannerDomains = useMemo<DomainItem[]>(
     () =>
       allDomains.map((domain) => ({
@@ -91,7 +88,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
     return filtered.length > 0 ? filtered : allDomains;
   }, [allDomains, searchQuery]);
 
-  // Selected & Hovered State
   const [selectedDomain, setSelectedDomain] = useState<Domain | null>(() => {
     if (intent.domainId) {
       return allDomains.find((d) => d.id === intent.domainId) || null;
@@ -102,7 +98,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
     return null;
   });
 
-  // Synchronize domain when intent changes externally (e.g. from Global Search, Logo Home, or Reset Root)
   useEffect(() => {
     if (intent.domainId) {
       if (selectedDomain?.id !== intent.domainId) {
@@ -121,7 +116,7 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
 
   // Galaxy Orbit Animation State
   const [isOrbiting, setIsOrbiting] = useState<boolean>(true);
-  const [orbitSpeed, setOrbitSpeed] = useState<number>(1); // 0.5x, 1x, 2x
+  const [orbitSpeed, setOrbitSpeed] = useState<number>(1);
   const [rotationAngle, setRotationAngle] = useState<number>(0);
   const [layoutMode, setLayoutMode] = useState<"single-oval" | "dual-ring">(
     "single-oval",
@@ -130,18 +125,53 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
   const animationFrameRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number | null>(null);
   const isHoveredStageRef = useRef<boolean>(false);
+  const canHoverStageRef = useRef<boolean>(false);
+  const lastMobileStateUpdateRef = useRef<number>(0);
 
-  // Smooth galaxy orbit animation loop
+  // Touch devices must never enter the desktop hover-pause state. Some Android
+  // WebViews synthesize mouse-enter after a tap and otherwise leave the galaxy
+  // frozen until another pointer event occurs.
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const updateHoverCapability = () => {
+      canHoverStageRef.current = mediaQuery.matches;
+      if (!mediaQuery.matches) {
+        isHoveredStageRef.current = false;
+      }
+    };
+
+    updateHoverCapability();
+    mediaQuery.addEventListener("change", updateHoverCapability);
+    return () => mediaQuery.removeEventListener("change", updateHoverCapability);
+  }, []);
+
+  // Smooth galaxy orbit animation loop. Mobile updates are capped at 30fps so
+  // React does not reconcile the entire domain-node layer on every display frame.
+  useEffect(() => {
+    const isMobileViewport =
+      typeof window !== "undefined" &&
+      (window.matchMedia("(max-width: 640px)").matches ||
+        window.matchMedia("(pointer: coarse)").matches);
+    const mobileUpdateInterval = 1000 / 30;
+
     const animate = (time: number) => {
       if (lastTimeRef.current !== null) {
         const delta = (time - lastTimeRef.current) / 1000;
-        // Slow gentle cosmic rotation: ~0.04 rad/s at 1x
-        if (isOrbiting && !isHoveredStageRef.current) {
-          const speedMultiplier = orbitSpeed * 0.045;
-          setRotationAngle(
-            (prev) => (prev + delta * speedMultiplier) % (Math.PI * 2),
-          );
+        const hoverPaused = canHoverStageRef.current && isHoveredStageRef.current;
+
+        if (isOrbiting && !hoverPaused) {
+          if (
+            !isMobileViewport ||
+            time - lastMobileStateUpdateRef.current >= mobileUpdateInterval
+          ) {
+            const speedMultiplier = orbitSpeed * 0.045;
+            setRotationAngle(
+              (prev) => (prev + delta * speedMultiplier) % (Math.PI * 2),
+            );
+            lastMobileStateUpdateRef.current = time;
+          }
         }
       }
       lastTimeRef.current = time;
@@ -178,30 +208,30 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
   const handleResetToRoot = () => {
     setSelectedDomain(null);
     clearIntent();
+    setIsOrbiting(true);
+    isHoveredStageRef.current = false;
+    lastTimeRef.current = null;
+    lastMobileStateUpdateRef.current = 0;
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Mathematical Ellipse Parameters for Perfect 3D Galaxy Alignment
-  // Center is exactly (50%, 50%)
   const orbitGeometry = useMemo(() => {
     if (layoutMode === "single-oval") {
       return {
-        outerRx: 45.0, // 45.0% of container width (broad horizontal coverage)
-        outerRy: 33.5, // 33.5% of container height (expanded vertical gap from center Intent Core)
+        outerRx: 45.0,
+        outerRy: 33.5,
         innerRx: 45.0,
         innerRy: 33.5,
       };
     }
-    // Dual concentric galaxy rings / dual spiral
     return {
       outerRx: 46.5,
-      outerRy: 35.0, // Expanded outer spiral height
+      outerRy: 35.0,
       innerRx: 33.5,
-      innerRy: 23.5, // Expanded inner spiral height
+      innerRy: 23.5,
     };
   }, [layoutMode]);
 
-  // Compute node coordinates along the 3D galaxy ellipse dynamically
   const nodePositions = useMemo(() => {
     const total = domains.length;
     const centerX = 50;
@@ -209,7 +239,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
     const { outerRx, outerRy, innerRx, innerRy } = orbitGeometry;
 
     return domains.map((domain, index) => {
-      // Base angle evenly spaced clockwise from the top (-PI/2)
       const baseAngle = (index / total) * (Math.PI * 2) - Math.PI / 2;
       const currentAngle = baseAngle + rotationAngle;
 
@@ -222,16 +251,9 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
 
       const x = centerX + rx * Math.cos(currentAngle);
       const y = centerY + ry * Math.sin(currentAngle);
-
-      // 3D Perspective Depth Factor based on sin(currentAngle)
-      // sin = -1 (top / deep background) -> sin = +1 (bottom / closest foreground)
       const depthZ = Math.sin(currentAngle);
-
-      // Scale: 0.86 (back) to 1.14 (front)
       const depthScale = 0.86 + (depthZ + 1) * 0.14;
-      // Opacity: 0.72 (back) to 1.0 (front)
       const depthOpacity = 0.72 + (depthZ + 1) * 0.14;
-      // Z-Index: 12 (back) to 48 (front, passing in front of core at z=25)
       const zIndex = Math.round(15 + (depthZ + 1) * 16);
 
       return {
@@ -248,7 +270,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
     });
   }, [domains, rotationAngle, orbitGeometry, layoutMode]);
 
-  // Active domain's current coordinates for the laser energy beam
   const activeNodePos = useMemo(() => {
     const target = hoveredDomain || selectedDomain;
     if (!target) return null;
@@ -258,7 +279,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
   const activeColor =
     hoveredDomain?.visual?.color || selectedDomain?.visual?.color || "#00e3fd";
 
-  // If a Business World (Domain) is selected, render the dedicated single-scroll Business World experience
   if (selectedDomain) {
     return (
       <div className="w-full bg-[#020a14] text-[#d4e4fa] flex flex-col">
@@ -281,15 +301,12 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
     );
   }
 
-  // M01 Solution Universe Root View: 3D Galaxy Orbit + L1 Domain Explorer
   return (
     <div className={styles.stageWrapper}>
-      {/* 3D WebGL Background Layer */}
       <div className={styles.threeCanvasContainer}>
         <UniversePlane activeColor={activeColor} isOrbiting={isOrbiting} />
       </div>
 
-      {/* Single Unified Sticky Navigation & Galaxy HUD Banner */}
       <div className="sticky top-0 z-40 w-full">
         <DomainContextBanner
           domain={null}
@@ -302,7 +319,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
           onResetRoot={handleResetToRoot}
           rightExtra={
             <div className="flex items-center gap-1.5 sm:gap-2 mr-1">
-              {/* Orbit Play / Pause */}
               <button
                 onClick={() => setIsOrbiting((prev) => !prev)}
                 aria-label={
@@ -324,7 +340,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
                 </span>
               </button>
 
-              {/* Speed Presets */}
               <div className="hidden md:flex items-center bg-[#07192c] rounded border border-[#00dfff]/20 p-0.5">
                 {[0.5, 1, 2].map((spd) => (
                   <button
@@ -341,7 +356,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
                 ))}
               </div>
 
-              {/* Layout Mode (Single Oval / Dual Ring) */}
               <button
                 onClick={() =>
                   setLayoutMode((prev) =>
@@ -362,22 +376,21 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
         />
       </div>
 
-      {/* 2. Central Universe Body (Top-aligned with compact breathing space) */}
       <div className="relative w-full flex-1 flex flex-col items-center justify-start pt-1 sm:pt-2 pb-6 px-4 z-20 overflow-hidden">
         <div
           className={styles.universeFieldContainer}
           onMouseEnter={() => {
-            isHoveredStageRef.current = true;
+            if (canHoverStageRef.current) {
+              isHoveredStageRef.current = true;
+            }
           }}
           onMouseLeave={() => {
             isHoveredStageRef.current = false;
           }}
         >
-          {/* Glowing Atmospheric Backplane & Galaxy Dust */}
           <div className={styles.glowBackdrop} />
           <div className={styles.galaxyArmGlow} />
 
-          {/* Precision SVG Galaxy Orbits & Laser Synapses */}
           <svg
             className={styles.svgGalaxyLayer}
             viewBox="0 0 100 100"
@@ -427,7 +440,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
               </filter>
             </defs>
 
-            {/* Galaxy Coordinate Radial Guides */}
             <line
               x1="50"
               y1="50"
@@ -461,7 +473,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
               strokeDasharray="1,2"
             />
 
-            {/* Primary Galaxy Outer Orbit Ellipse (Exact Mathematical Alignment) */}
             <ellipse
               cx="50"
               cy="50"
@@ -474,7 +485,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
               className="transition-all duration-700"
             />
 
-            {/* Outer Orbit Glowing Halo Ring */}
             <ellipse
               cx="50"
               cy="50"
@@ -487,7 +497,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
               filter="blur(1px)"
             />
 
-            {/* Secondary Inner Orbit Ellipse if in dual-ring mode */}
             {layoutMode === "dual-ring" && (
               <ellipse
                 cx="50"
@@ -502,10 +511,8 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
               />
             )}
 
-            {/* Dynamic Energy Laser Synapse connecting Intent Core (50, 50) to Active Node */}
             {activeNodePos && (
               <g filter="url(#laserGlow)">
-                {/* Laser Glow Path */}
                 <line
                   x1="50"
                   y1="50"
@@ -517,7 +524,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
                   strokeDasharray="2, 1"
                   strokeDashoffset={-rotationAngle * 20}
                 />
-                {/* Core connection pulse point */}
                 <circle
                   cx="50"
                   cy="50"
@@ -525,7 +531,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
                   fill={activeColor}
                   opacity="0.8"
                 />
-                {/* Node connection target point */}
                 <circle
                   cx={activeNodePos.xPercent}
                   cy={activeNodePos.yPercent}
@@ -537,7 +542,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
             )}
           </svg>
 
-          {/* Center: Intent Core Component with 3D Depth Pinning */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-25 pointer-events-auto">
             <IntentCore
               activeDomainColor={activeColor}
@@ -546,7 +550,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
             />
           </div>
 
-          {/* Dynamically Placed Domain Worlds Aligned in Perfect 3D Galaxy Oval */}
           <div className="absolute inset-0 w-full h-full pointer-events-none">
             {nodePositions.map(
               ({
@@ -577,7 +580,6 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
         </div>
       </div>
 
-      {/* 3. L1 Domain Universe Explorer Grid */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 z-30">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-3 border-b border-[#00dfff]/20">
           <div className="flex items-center gap-2">
