@@ -6,205 +6,52 @@
    ========================================================================= */
 
 @keyframes parakkaiSunbeam {
-  0% {
-    opacity: 0.15;
-    transform: rotate(-15deg) translateY(-2%) scale(0.98);
-  }
-  50% {
-    opacity: 0.45;
-    transform: rotate(-12deg) translateY(0%) scale(1.02);
-  }
-  100% {
-    opacity: 0.15;
-    transform: rotate(-15deg) translateY(-2%) scale(0.98);
-  }
+  0% { opacity: 0.15; transform: rotate(-15deg) translateY(-2%) scale(0.98); }
+  50% { opacity: 0.45; transform: rotate(-12deg) translateY(0%) scale(1.02); }
+  100% { opacity: 0.15; transform: rotate(-15deg) translateY(-2%) scale(0.98); }
 }
-
 @keyframes parakkaiDeepamFlicker {
-  0%, 100% {
-    opacity: 0.9;
-    transform: scale(1) translateY(0);
-    filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.7));
-  }
-  25% {
-    opacity: 1;
-    transform: scale(1.05) translateY(-1px);
-    filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.9));
-  }
-  50% {
-    opacity: 0.85;
-    transform: scale(0.98) translateY(0.5px);
-    filter: drop-shadow(0 0 5px rgba(217, 119, 6, 0.6));
-  }
-  75% {
-    opacity: 0.95;
-    transform: scale(1.02) translateY(-0.5px);
-    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.8));
-  }
+  0%, 100% { opacity: 0.9; transform: scale(1) translateY(0); filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.7)); }
+  25% { opacity: 1; transform: scale(1.05) translateY(-1px); filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.9)); }
+  50% { opacity: 0.85; transform: scale(0.98) translateY(0.5px); filter: drop-shadow(0 0 5px rgba(217, 119, 6, 0.6)); }
+  75% { opacity: 0.95; transform: scale(1.02) translateY(-0.5px); filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.8)); }
 }
+@keyframes parakkaiPalmBreeze { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(1.2deg) skewX(0.8deg); } }
+@keyframes parakkaiWaterShimmer { 0%, 100% { opacity: 0.6; background-position: 0% 50%; } 50% { opacity: 0.85; background-position: 100% 50%; } }
+@keyframes parakkaiDoorSwingLeft { 0% { transform: perspective(1000px) rotateY(0deg); } 100% { transform: perspective(1000px) rotateY(-75deg); } }
+@keyframes parakkaiDoorSwingRight { 0% { transform: perspective(1000px) rotateY(0deg); } 100% { transform: perspective(1000px) rotateY(75deg); } }
+@keyframes parakkaiPulseGlow { 0%, 100% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.3), inset 0 0 10px rgba(245, 158, 11, 0.1); } 50% { box-shadow: 0 0 30px rgba(245, 158, 11, 0.6), inset 0 0 20px rgba(245, 158, 11, 0.25); } }
+@keyframes parakkaiFloatMote { 0% { transform: translateY(0) translateX(0); opacity: 0; } 30% { opacity: 0.7; } 80% { opacity: 0.5; } 100% { transform: translateY(-80px) translateX(25px); opacity: 0; } }
 
-@keyframes parakkaiPalmBreeze {
-  0%, 100% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(1.2deg) skewX(0.8deg);
-  }
-}
+.animate-sunbeam { animation: parakkaiSunbeam 8s ease-in-out infinite; }
+.animate-deepam { animation: parakkaiDeepamFlicker 3s ease-in-out infinite; }
+.animate-palm-breeze { animation: parakkaiPalmBreeze 6s ease-in-out infinite; }
+.animate-water-shimmer { animation: parakkaiWaterShimmer 7s ease-in-out infinite; }
+.animate-pulse-glow { animation: parakkaiPulseGlow 4s ease-in-out infinite; }
+.parakkai-gold-gradient { background: linear-gradient(135deg, #fbbf24 0%, #d97706 50%, #92400e 100%); }
+.parakkai-sky-gradient { background: linear-gradient(180deg, #38bdf8 0%, #0284c7 50%, #0369a1 100%); }
+.parakkai-terracotta-gradient { background: linear-gradient(135deg, #ea580c 0%, #c2410c 60%, #7c2d12 100%); }
 
-@keyframes parakkaiWaterShimmer {
-  0%, 100% {
-    opacity: 0.6;
-    background-position: 0% 50%;
-  }
-  50% {
-    opacity: 0.85;
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes parakkaiDoorSwingLeft {
-  0% {
-    transform: perspective(1000px) rotateY(0deg);
-  }
-  100% {
-    transform: perspective(1000px) rotateY(-75deg);
-  }
-}
-
-@keyframes parakkaiDoorSwingRight {
-  0% {
-    transform: perspective(1000px) rotateY(0deg);
-  }
-  100% {
-    transform: perspective(1000px) rotateY(75deg);
-  }
-}
-
-@keyframes parakkaiPulseGlow {
-  0%, 100% {
-    box-shadow: 0 0 15px rgba(245, 158, 11, 0.3), inset 0 0 10px rgba(245, 158, 11, 0.1);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(245, 158, 11, 0.6), inset 0 0 20px rgba(245, 158, 11, 0.25);
-  }
-}
-
-@keyframes parakkaiFloatMote {
-  0% {
-    transform: translateY(0) translateX(0);
-    opacity: 0;
-  }
-  30% {
-    opacity: 0.7;
-  }
-  80% {
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateY(-80px) translateX(25px);
-    opacity: 0;
-  }
-}
-
-.animate-sunbeam {
-  animation: parakkaiSunbeam 8s ease-in-out infinite;
-}
-
-.animate-deepam {
-  animation: parakkaiDeepamFlicker 3s ease-in-out infinite;
-}
-
-.animate-palm-breeze {
-  animation: parakkaiPalmBreeze 6s ease-in-out infinite;
-}
-
-.animate-water-shimmer {
-  animation: parakkaiWaterShimmer 7s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: parakkaiPulseGlow 4s ease-in-out infinite;
-}
-
-.parakkai-gold-gradient {
-  background: linear-gradient(135deg, #fbbf24 0%, #d97706 50%, #92400e 100%);
-}
-
-.parakkai-sky-gradient {
-  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 50%, #0369a1 100%);
-}
-
-.parakkai-terracotta-gradient {
-  background: linear-gradient(135deg, #ea580c 0%, #c2410c 60%, #7c2d12 100%);
-}
-
-
-/* =========================================================================
-   AAi GLOBAL MOBILE EXPERIENCE BASE
-   Keeps every experience usable inside narrow Android/iOS viewports without
-   changing solution-owned visual composition.
-   ========================================================================= */
-
-html,
-body,
-#root {
-  width: 100%;
-  min-width: 0;
-  min-height: 100%;
-  margin: 0;
-}
-
-html {
-  min-height: 100%;
-  background: var(--aai-bg, #020914);
-  overscroll-behavior-y: none;
-}
-
-body {
-  min-height: 100dvh;
-  width: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-text-size-adjust: 100%;
-  text-rendering: optimizeLegibility;
-}
-
-button,
-a,
-input,
-select,
-textarea {
-  -webkit-tap-highlight-color: transparent;
-}
+/* AAi GLOBAL MOBILE EXPERIENCE BASE */
+html, body, #root { width: 100%; min-width: 0; min-height: 100%; margin: 0; }
+html { min-height: 100%; background: var(--aai-bg, #020914); overscroll-behavior-y: none; }
+body { min-height: 100dvh; width: 100%; overflow-x: hidden; overflow-y: auto; -webkit-text-size-adjust: 100%; text-rendering: optimizeLegibility; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 
 @supports (padding: env(safe-area-inset-top)) {
-  [data-aai-experience-shell],
-  #parakkai-app-root {
-    --aai-safe-top: env(safe-area-inset-top);
-    --aai-safe-right: env(safe-area-inset-right);
-    --aai-safe-bottom: env(safe-area-inset-bottom);
-    --aai-safe-left: env(safe-area-inset-left);
-  }
+  [data-aai-experience-shell], #parakkai-app-root { --aai-safe-top: env(safe-area-inset-top); --aai-safe-right: env(safe-area-inset-right); --aai-safe-bottom: env(safe-area-inset-bottom); --aai-safe-left: env(safe-area-inset-left); }
 }
 
 @media (max-width: 640px) {
-  [data-aai-experience-shell] {
-    min-height: 100dvh;
-    width: 100%;
-    max-width: 100%;
-  }
+  [data-aai-experience-shell] { min-height: 100dvh; width: 100%; max-width: 100%; padding-bottom: 5.5rem; }
+  [data-aai-experience-body], [data-aai-experience-main] { min-width: 0; width: 100%; max-width: 100%; }
+  #parakkai-app-root { width: 100%; min-width: 0; max-width: 100%; }
 
-  [data-aai-experience-body],
-  [data-aai-experience-main] {
-    min-width: 0;
-    width: 100%;
-    max-width: 100%;
-  }
+  /* Keep the global intent search visible on phones as a dedicated second row. */
+  header[role="banner"] { height: auto !important; min-height: 72px; }
+  header[role="banner"] > div { flex-wrap: wrap; height: auto !important; padding-top: 0.45rem; padding-bottom: 0.45rem; }
+  header[role="banner"] > div > div:nth-child(3) { flex-basis: 100%; width: 100%; order: 10; margin: 0.35rem 0 0 !important; }
+  header[role="banner"] > div > div:nth-child(3) input { min-height: 42px; font-size: 0.82rem; }
 
-  #parakkai-app-root {
-    width: 100%;
-    min-width: 0;
-    max-width: 100%;
-  }
+  [data-aai-mobile-navigation] { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max(0.75rem, env(safe-area-inset-right)); }
 }
