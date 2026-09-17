@@ -4,6 +4,7 @@ import { IntentSearch } from './IntentSearch';
 import { LocationSelector } from './LocationSelector';
 import { LanguageSelector } from './LanguageSelector';
 import { UserMenu } from './UserMenu';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { SearchResultItem } from '@/src/contracts/intent';
 import { useArchitectAny } from '@/src/context/ArchitectAnyContext';
 
@@ -97,3 +98,4 @@ export const ArchitectAnyHeader: React.FC<ArchitectAnyHeaderProps> = ({
     </header>
   );
 };
+
