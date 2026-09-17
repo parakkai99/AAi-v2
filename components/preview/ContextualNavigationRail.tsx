@@ -22,7 +22,6 @@ export interface ContextualNavigationRailProps {
   onSelectDomain: (domainId: string) => void;
   onResetRoot: () => void;
   onOpenIntentCore?: () => void;
-  onTabChange?: (tab: string) => void;
   className?: string;
 }
 
@@ -34,7 +33,6 @@ export const ContextualNavigationRail = ({
   onSelectDomain,
   onResetRoot,
   onOpenIntentCore,
-  onTabChange,
   className = "",
 }: ContextualNavigationRailProps) => {
   const { intent, theme } = useArchitectAny();
@@ -56,12 +54,8 @@ export const ContextualNavigationRail = ({
     if (!isAppStackOpen && !isExpanded) return;
     const handlePointerDown = (event: MouseEvent | TouchEvent) => {
       const target = event.target as Node | null;
-      if (isAppStackOpen && target && appStackPanelRef.current && !appStackPanelRef.current.contains(target) && target !== appStackTriggerRef.current) {
-        setIsAppStackOpen(false);
-      }
-      if (isExpanded && target && panelRef.current && !panelRef.current.contains(target) && target !== triggerRef.current) {
-        setIsExpanded(false);
-      }
+      if (isAppStackOpen && target && appStackPanelRef.current && !appStackPanelRef.current.contains(target) && target !== appStackTriggerRef.current) setIsAppStackOpen(false);
+      if (isExpanded && target && panelRef.current && !panelRef.current.contains(target) && target !== triggerRef.current) setIsExpanded(false);
     };
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -88,7 +82,7 @@ export const ContextualNavigationRail = ({
       onResetRoot();
       return;
     }
-    onTabChange?.(tab);
+    window.location.assign(`/preview?tab=${tab}`);
   };
 
   const openJson = () => {
@@ -137,8 +131,8 @@ export const ContextualNavigationRail = ({
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <StackButton icon={Globe2} label="AAi Universe" active={activeLevel === "L1"} onClick={() => openApp("Universe")} isDark={isDark} />
-                <StackButton icon={Sparkles} label="Parakkai" active={intent.domainId === "Parakkai"} onClick={() => openApp("Parakkai")} isDark={isDark} />
-                <StackButton icon={Globe2} label="NGLiving" active={intent.domainId === "NGLiving"} onClick={() => openApp("NGLiving")} isDark={isDark} />
+                <StackButton icon={Sparkles} label="Parakkai" active={false} onClick={() => openApp("Parakkai")} isDark={isDark} />
+                <StackButton icon={Globe2} label="NGLiving" active={false} onClick={() => openApp("NGLiving")} isDark={isDark} />
                 <StackButton icon={Cpu} label="AAi Agent OS" active={false} onClick={() => openApp("AgentOS")} isDark={isDark} />
                 <StackButton icon={Database} label="JSON / Data" onClick={openJson} isDark={isDark} />
                 <StackButton icon={Settings2} label="Solution Admin" onClick={openSolutionAdmin} isDark={isDark} />
