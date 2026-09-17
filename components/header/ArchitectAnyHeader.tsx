@@ -4,7 +4,6 @@ import { IntentSearch } from './IntentSearch';
 import { LocationSelector } from './LocationSelector';
 import { LanguageSelector } from './LanguageSelector';
 import { UserMenu } from './UserMenu';
-import { ThemeToggle } from '../theme/ThemeToggle';
 import { SearchResultItem } from '@/src/contracts/intent';
 import { useArchitectAny } from '@/src/context/ArchitectAnyContext';
 
@@ -63,10 +62,10 @@ export const ArchitectAnyHeader: React.FC<ArchitectAnyHeaderProps> = ({
 
   return (
     <header
-      className={`bg-[#020914]/90 backdrop-blur-2xl sticky top-0 left-0 right-0 h-[72px] sm:h-[74px] z-[100] border-b border-[#00e3fd]/20 shadow-[0_4px_30px_rgba(0,0,0,0.6)] ${className}`}
+      className={`bg-[#020914]/90 backdrop-blur-2xl sticky top-0 left-0 right-0 h-[64px] sm:h-[74px] z-[100] border-b border-[#00e3fd]/20 shadow-[0_4px_30px_rgba(0,0,0,0.6)] ${className}`}
       role="banner"
     >
-      <div className="flex items-center px-3 sm:px-5 lg:px-8 h-full max-w-[1600px] mx-auto gap-2 sm:gap-4">
+      <div className="flex items-center px-2.5 sm:px-5 lg:px-8 h-full max-w-[1600px] mx-auto gap-1.5 sm:gap-4">
         <HeaderLogo
           animated={true}
           onClick={() => {
@@ -75,7 +74,7 @@ export const ArchitectAnyHeader: React.FC<ArchitectAnyHeaderProps> = ({
           }}
         />
 
-        <div className="flex-1 min-w-0 mx-1 sm:mx-3">
+        <div className="flex-1 min-w-0 mx-0.5 sm:mx-3">
           <IntentSearch onSelectResult={handleSelectSearchResult} />
         </div>
 
@@ -88,7 +87,9 @@ export const ArchitectAnyHeader: React.FC<ArchitectAnyHeaderProps> = ({
             <LanguageSelector />
           </div>
 
-          <ThemeToggle variant="header" />
+          <div className="hidden sm:block">
+            <ThemeToggle variant="header" />
+          </div>
 
           <UserMenu />
         </div>
