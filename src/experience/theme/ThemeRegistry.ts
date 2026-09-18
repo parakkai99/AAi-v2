@@ -17,6 +17,54 @@ export const experienceThemes: ExperienceTheme[] = [
     componentDefaults: { buttonRadius: '12px', cardBorder: 'rgba(0,227,253,.18)', railBackground: '#030e1a' },
   },
 
+  // 2. Mysore 1 — Royal Teal & Antique Gold
+  {
+    id: 'mysore1',
+    name: 'Mysore 1 — Royal Teal',
+    category: 'creative',
+    description: 'Mysore-inspired royal teal, deep navy and antique gold palette. Presentation structure, assets, fonts and SVG remain unchanged.',
+    typography: { display: 'Inter, ui-sans-serif, system-ui, sans-serif', body: 'Inter, ui-sans-serif, system-ui, sans-serif', mono: 'ui-monospace, SFMono-Regular, Menlo, monospace' },
+    background: { mode: 'gradient', value: 'linear-gradient(135deg,#03181b 0%,#062f32 48%,#071b24 100%)', overlay: 'radial-gradient(circle at 50% 20%,rgba(24,184,170,.14),transparent 45%)' },
+    tokens: { background: '#03181b', surface: '#06252a', surfaceAlt: '#0a3940', text: '#f7f3e8', textMuted: '#a9c2c0', primary: '#17c6b2', secondary: '#0f8f91', accent: '#d4af37', border: 'rgba(212,175,55,.34)', radius: '14px', shadow: '0 20px 60px rgba(0,0,0,.42)', heroOverlay: 'linear-gradient(135deg,rgba(3,24,27,.18),rgba(212,175,55,.12))' },
+    motionLanguage: { curve: 'cubic-bezier(0.16,1,0.3,1)', speed: 'balanced', feel: 'precise', durationMs: 280 },
+    surfaces: { card: '#06252a', elevated: '#0a3940', glass: 'rgba(6,37,42,.86)', rail: '#04191d' },
+    elevation: { sm: '0 2px 8px rgba(0,0,0,.32)', md: '0 8px 24px rgba(0,0,0,.42)', lg: '0 20px 60px rgba(212,175,55,.12)', spatialGlow: '0 0 35px rgba(23,198,178,.20)' },
+    radii: { sm: '6px', md: '10px', lg: '14px', xl: '20px', pill: '9999px' },
+    componentDefaults: { buttonRadius: '12px', cardBorder: 'rgba(212,175,55,.28)', railBackground: '#04191d' },
+  },
+
+  // 3. Mysore 2 — Peacock Teal & Champagne Gold
+  {
+    id: 'mysore2',
+    name: 'Mysore 2 — Peacock Royal',
+    category: 'dark',
+    description: 'Deeper peacock teal with champagne gold and restrained cyan highlights. Presentation structure, assets, fonts and SVG remain unchanged.',
+    typography: { display: 'Inter, ui-sans-serif, system-ui, sans-serif', body: 'Inter, ui-sans-serif, system-ui, sans-serif', mono: 'ui-monospace, SFMono-Regular, Menlo, monospace' },
+    background: { mode: 'gradient', value: 'linear-gradient(135deg,#021114 0%,#063d3c 52%,#08262a 100%)', overlay: 'radial-gradient(circle at 55% 30%,rgba(47,207,193,.13),transparent 42%)' },
+    tokens: { background: '#021114', surface: '#06302f', surfaceAlt: '#0a4744', text: '#fffaf0', textMuted: '#b9cbc7', primary: '#2fcfc1', secondary: '#159e99', accent: '#d6c28f', border: 'rgba(214,194,143,.34)', radius: '14px', shadow: '0 20px 60px rgba(0,0,0,.48)', heroOverlay: 'linear-gradient(135deg,rgba(2,17,20,.18),rgba(214,194,143,.10))' },
+    motionLanguage: { curve: 'cubic-bezier(0.16,1,0.3,1)', speed: 'cinematic', feel: 'expressive', durationMs: 320 },
+    surfaces: { card: '#06302f', elevated: '#0a4744', glass: 'rgba(6,48,47,.88)', rail: '#031a1c' },
+    elevation: { sm: '0 2px 8px rgba(0,0,0,.34)', md: '0 8px 24px rgba(0,0,0,.46)', lg: '0 20px 60px rgba(47,207,193,.14)', spatialGlow: '0 0 35px rgba(47,207,193,.24)' },
+    radii: { sm: '6px', md: '10px', lg: '14px', xl: '20px', pill: '9999px' },
+    componentDefaults: { buttonRadius: '12px', cardBorder: 'rgba(214,194,143,.25)', railBackground: '#031a1c' },
+  },
+
+  // 4. Mysore 3 — Ivory & Emerald Heritage
+  {
+    id: 'mysore3',
+    name: 'Mysore 3 — Ivory Heritage',
+    category: 'light',
+    description: 'Pure ivory canvas with emerald teal and antique gold controls. No imagery or structural changes; only presentation tokens change.',
+    typography: { display: 'Inter, ui-sans-serif, system-ui, sans-serif', body: 'Inter, ui-sans-serif, system-ui, sans-serif', mono: 'ui-monospace, SFMono-Regular, Menlo, monospace' },
+    background: { mode: 'gradient', value: 'linear-gradient(135deg,#fffdf7 0%,#f7f5ec 54%,#edf7f2 100%)', overlay: 'radial-gradient(circle at 55% 18%,rgba(23,140,118,.10),transparent 44%)' },
+    tokens: { background: '#fffdf7', surface: '#ffffff', surfaceAlt: '#f1f5ed', text: '#10251f', textMuted: '#53655e', primary: '#087f6b', secondary: '#176b5c', accent: '#b38a2e', border: 'rgba(8,127,107,.22)', radius: '14px', shadow: '0 8px 28px rgba(16,37,31,.10)', heroOverlay: 'linear-gradient(135deg,rgba(255,253,247,.90),rgba(237,247,242,.72))' },
+    motionLanguage: { curve: 'cubic-bezier(0.2,0.8,0.2,1)', speed: 'balanced', feel: 'crisp', durationMs: 240 },
+    surfaces: { card: '#ffffff', elevated: '#ffffff', glass: 'rgba(255,255,255,.94)', rail: '#f8faf6' },
+    elevation: { sm: '0 1px 3px rgba(16,37,31,.08)', md: '0 5px 16px rgba(16,37,31,.10)', lg: '0 14px 34px rgba(16,37,31,.13)', spatialGlow: '0 0 28px rgba(8,127,107,.14)' },
+    radii: { sm: '6px', md: '10px', lg: '14px', xl: '20px', pill: '9999px' },
+    componentDefaults: { buttonRadius: '12px', cardBorder: 'rgba(8,127,107,.20)', railBackground: '#f8faf6' },
+  },
+
   // 2. Foundation: AI Era (Preserved)
   {
     id: 'ai-era',
