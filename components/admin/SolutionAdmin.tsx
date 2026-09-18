@@ -221,7 +221,15 @@ function Experience({
   const chooseTheme = (themeId: string) => {
     setSelectedThemeId(themeId);
     setActiveLibrary('theme');
-    onUpdate({ themeId });
+    const keepCustomTheme = config.themeOverrideBaseId === themeId && config.themeOverride;
+    onUpdate({
+      themeId,
+      ...(keepCustomTheme ? {} : {
+        themeOverride: undefined,
+        themeOverrideBaseId: undefined,
+        customThemeName: undefined,
+      }),
+    });
   };
 
   const chooseLayout = (layoutId: string) => {
@@ -260,7 +268,7 @@ function Experience({
             open={openLibraries.theme}
             onToggle={() => toggleLibrary('theme')}
             count={experienceThemes.length}
-            selectedLabel={selectedTheme.name}
+            selectedLabel={config.customThemeName || selectedTheme.name}
             tone="cyan"
           >
             <div className="grid grid-cols-1 gap-2 max-h-[440px] overflow-y-auto pr-1">
@@ -365,7 +373,7 @@ function Experience({
         <div>
           <div className="font-semibold text-cyan-200">Live Draft Experience</div>
           <div className="mt-0.5 text-[#82a5bb]">
-            {selectedTheme.name} · {selectedLayout.name}
+            {config.customThemeName || selectedTheme.name} · {selectedLayout.name}
           </div>
         </div>
         <button
