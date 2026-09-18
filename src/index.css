@@ -70,12 +70,12 @@ body, #root {
 }
 
 [data-aai-experience-shell] {
-  background: var(--aai-bg, #020914);
+  background: var(--aai-theme-background, var(--aai-bg, #020914));
   color: var(--aai-text, #eaf7ff);
 }
 
 [data-aai-experience-main] {
-  background: var(--aai-bg, #020914);
+  background: var(--aai-theme-background, var(--aai-bg, #020914));
   color: var(--aai-text, #eaf7ff);
 }
 
