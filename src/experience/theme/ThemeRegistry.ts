@@ -65,6 +65,22 @@ export const experienceThemes: ExperienceTheme[] = [
     componentDefaults: { buttonRadius: '12px', cardBorder: 'rgba(8,127,107,.20)', railBackground: '#f8faf6' },
   },
 
+  // 5. Mysore 4 — Palace Artwork Royal Maroon & Turquoise
+  {
+    id: 'mysore4',
+    name: 'Mysore 4 — Palace Artwork',
+    category: 'creative',
+    description: 'Mysore palace artwork-inspired royal maroon, turquoise, warm ivory and antique gold presentation palette. No artwork asset is used; the visual language is applied through theme tokens.',
+    typography: { display: 'Inter, ui-sans-serif, system-ui, sans-serif', body: 'Inter, ui-sans-serif, system-ui, sans-serif', mono: 'ui-monospace, SFMono-Regular, Menlo, monospace' },
+    background: { mode: 'gradient', value: 'linear-gradient(135deg,#250b13 0%,#4b1723 46%,#173b3c 100%)', overlay: 'radial-gradient(circle at 58% 20%,rgba(24,176,171,.16),transparent 42%)' },
+    tokens: { background: '#250b13', surface: '#3a121d', surfaceAlt: '#561c2a', text: '#fff7e6', textMuted: '#d8c3b7', primary: '#16a6a0', secondary: '#0d7777', accent: '#d4af37', border: 'rgba(212,175,55,.34)', radius: '14px', shadow: '0 20px 60px rgba(0,0,0,.48)', heroOverlay: 'linear-gradient(135deg,rgba(37,11,19,.16),rgba(22,166,160,.12),rgba(212,175,55,.10))' },
+    motionLanguage: { curve: 'cubic-bezier(0.16,1,0.3,1)', speed: 'cinematic', feel: 'expressive', durationMs: 320 },
+    surfaces: { card: '#3a121d', elevated: '#561c2a', glass: 'rgba(58,18,29,.88)', rail: '#1c080f' },
+    elevation: { sm: '0 2px 8px rgba(0,0,0,.34)', md: '0 8px 24px rgba(0,0,0,.46)', lg: '0 20px 60px rgba(212,175,55,.12)', spatialGlow: '0 0 35px rgba(22,166,160,.24)' },
+    radii: { sm: '6px', md: '10px', lg: '14px', xl: '20px', pill: '9999px' },
+    componentDefaults: { buttonRadius: '12px', cardBorder: 'rgba(212,175,55,.28)', railBackground: '#1c080f' },
+  },
+
   // 2. Foundation: AI Era (Preserved)
   {
     id: 'ai-era',
