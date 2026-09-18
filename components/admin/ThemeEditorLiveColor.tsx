@@ -218,9 +218,9 @@ export function ThemeEditorLiveColor({ theme, config, onUpdate, onSaveCopy, onPr
             <ThemeColorField label="Background Token" value={draft.backgroundToken} onChange={(v) => updateDraft("backgroundToken", v)} activeField="backgroundToken" />
             <ThemeColorField label="Surface" value={draft.surface} onChange={(v) => updateDraft("surface", v)} activeField="surface" />
             <ThemeColorField label="Alternate Surface" value={draft.surfaceAlt} onChange={(v) => updateDraft("surfaceAlt", v)} activeField="surfaceAlt" />
-            <ThemeColorField label="Card Surface" value={draft.card} onChange={(v) => updateDraft("card", v)} />
-            <ThemeColorField label="Elevated Surface" value={draft.elevated} onChange={(v) => updateDraft("elevated", v)} />
-            <ThemeColorField label="Rail Surface" value={draft.rail} onChange={(v) => updateDraft("rail", v)} />
+            <ThemeColorField label="Card Surface" value={draft.card} onChange={(v) => updateDraft("card", v)} activeField="card" />
+            <ThemeColorField label="Elevated Surface" value={draft.elevated} onChange={(v) => updateDraft("elevated", v)} activeField="elevated" />
+            <ThemeColorField label="Rail Surface" value={draft.rail} onChange={(v) => updateDraft("rail", v)} activeField="rail" />
             <ThemeColorField label="Text" value={draft.text} onChange={(v) => updateDraft("text", v)} activeField="text" />
             <ThemeColorField label="Muted Text" value={draft.textMuted} onChange={(v) => updateDraft("textMuted", v)} activeField="textMuted" />
             <ThemeColorField label="Primary" value={draft.primary} onChange={(v) => updateDraft("primary", v)} activeField="primary" />
