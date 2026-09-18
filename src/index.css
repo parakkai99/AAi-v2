@@ -111,3 +111,147 @@ body, #root {
 [data-aai-experience-shell] [class~="border-[#00dfff]/30"] {
   border-color: var(--aai-border, rgba(0,227,253,.22)) !important;
 }
+
+
+/* =========================================================================
+   AAi-V2.0.2 — COMPLETE EXPERIENCE COLOR ADAPTER
+   Existing components still contain legacy Tailwind color utilities.
+   These selectors make every rendered AAi surface follow the active
+   Experience Theme without changing structure, assets, SVGs, typography
+   or interaction logic.
+   ========================================================================= */
+
+/* Page and application surfaces */
+[data-aai-theme] [class*="bg-[#"],
+[data-aai-theme] [class*="bg-slate-"],
+[data-aai-theme] [class*="bg-gray-"],
+[data-aai-theme] [class*="bg-zinc-"],
+[data-aai-theme] [class*="bg-neutral-"] {
+  background-color: var(--aai-surface) !important;
+}
+
+[data-aai-theme] [class~="bg-white"],
+[data-aai-theme] [class~="bg-white/95"],
+[data-aai-theme] [class~="bg-white/98"] {
+  background-color: var(--aai-surface-card, var(--aai-surface)) !important;
+}
+
+[data-aai-theme] [class~="bg-black"],
+[data-aai-theme] [class~="bg-black/80"],
+[data-aai-theme] [class~="bg-black/75"],
+[data-aai-theme] [class~="bg-black/60"] {
+  background-color: color-mix(in srgb, var(--aai-surface) 92%, #000 8%) !important;
+}
+
+[data-aai-theme] [class*="bg-cyan-"],
+[data-aai-theme] [class*="bg-sky-"],
+[data-aai-theme] [class*="bg-blue-"] {
+  background-color: color-mix(in srgb, var(--aai-primary) 14%, transparent) !important;
+}
+
+[data-aai-theme] [class*="bg-emerald-"],
+[data-aai-theme] [class*="bg-green-"] {
+  background-color: color-mix(in srgb, var(--aai-secondary) 16%, transparent) !important;
+}
+
+[data-aai-theme] [class*="bg-purple-"],
+[data-aai-theme] [class*="bg-violet-"],
+[data-aai-theme] [class*="bg-indigo-"] {
+  background-color: color-mix(in srgb, var(--aai-accent) 14%, transparent) !important;
+}
+
+[data-aai-theme] [class*="bg-amber-"],
+[data-aai-theme] [class*="bg-orange-"],
+[data-aai-theme] [class*="bg-yellow-"] {
+  background-color: color-mix(in srgb, var(--aai-accent) 16%, transparent) !important;
+}
+
+/* Text */
+[data-aai-theme] [class*="text-[#"],
+[data-aai-theme] [class*="text-slate-"],
+[data-aai-theme] [class*="text-gray-"],
+[data-aai-theme] [class*="text-zinc-"],
+[data-aai-theme] [class*="text-neutral-"] {
+  color: var(--aai-text-muted) !important;
+}
+
+[data-aai-theme] [class~="text-white"] {
+  color: var(--aai-text) !important;
+}
+
+[data-aai-theme] [class*="text-cyan-"],
+[data-aai-theme] [class*="text-sky-"],
+[data-aai-theme] [class*="text-blue-"] {
+  color: var(--aai-primary) !important;
+}
+
+[data-aai-theme] [class*="text-emerald-"],
+[data-aai-theme] [class*="text-green-"] {
+  color: var(--aai-secondary) !important;
+}
+
+[data-aai-theme] [class*="text-purple-"],
+[data-aai-theme] [class*="text-violet-"],
+[data-aai-theme] [class*="text-indigo-"],
+[data-aai-theme] [class*="text-amber-"],
+[data-aai-theme] [class*="text-orange-"],
+[data-aai-theme] [class*="text-yellow-"],
+[data-aai-theme] [class*="text-red-"] {
+  color: var(--aai-accent) !important;
+}
+
+/* Borders */
+[data-aai-theme] [class*="border-[#"],
+[data-aai-theme] [class*="border-slate-"],
+[data-aai-theme] [class*="border-gray-"],
+[data-aai-theme] [class*="border-zinc-"],
+[data-aai-theme] [class*="border-neutral-"],
+[data-aai-theme] [class*="border-white/"] {
+  border-color: var(--aai-border) !important;
+}
+
+[data-aai-theme] [class*="border-cyan-"],
+[data-aai-theme] [class*="border-sky-"],
+[data-aai-theme] [class*="border-blue-"] {
+  border-color: color-mix(in srgb, var(--aai-primary) 55%, var(--aai-border)) !important;
+}
+
+[data-aai-theme] [class*="border-emerald-"],
+[data-aai-theme] [class*="border-green-"] {
+  border-color: color-mix(in srgb, var(--aai-secondary) 55%, var(--aai-border)) !important;
+}
+
+[data-aai-theme] [class*="border-purple-"],
+[data-aai-theme] [class*="border-violet-"],
+[data-aai-theme] [class*="border-indigo-"],
+[data-aai-theme] [class*="border-amber-"],
+[data-aai-theme] [class*="border-orange-"],
+[data-aai-theme] [class*="border-yellow-"] {
+  border-color: color-mix(in srgb, var(--aai-accent) 55%, var(--aai-border)) !important;
+}
+
+/* Common legacy shadows/glows follow the selected theme. */
+[data-aai-theme] [class*="shadow-"] {
+  --tw-shadow-color: var(--aai-primary) !important;
+}
+
+/* Inputs and controls that otherwise retain a fixed white/dark fill. */
+[data-aai-theme] input,
+[data-aai-theme] textarea,
+[data-aai-theme] select {
+  background-color: var(--aai-surface-card, var(--aai-surface));
+  color: var(--aai-text);
+  border-color: var(--aai-border);
+}
+
+[data-aai-theme] input::placeholder,
+[data-aai-theme] textarea::placeholder {
+  color: var(--aai-text-muted);
+}
+
+/* Theme-controlled page-level typography tokens; existing font files stay untouched. */
+[data-aai-theme] {
+  --aai-theme-font-body: var(--aai-font-body);
+  --aai-theme-font-display: var(--aai-font-display);
+  --aai-theme-font-mono: var(--aai-font-mono);
+}
