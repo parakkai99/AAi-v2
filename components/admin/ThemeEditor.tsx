@@ -113,6 +113,8 @@ export function ThemeEditor({ theme, config, onUpdate, onSave, onPreview }: Them
   const [draft, setDraft] = useState<ThemeDraft>(() =>
     createDraft(theme, savedOverride),
   );
+  const [activeField, setActiveField] = useState<keyof ThemeDraft | null>(null);
+  const [flashNonce, setFlashNonce] = useState(0);
 
   useEffect(() => {
     setDraft(createDraft(theme, savedOverride));
@@ -131,6 +133,8 @@ export function ThemeEditor({ theme, config, onUpdate, onSave, onPreview }: Them
   const updateDraft = <K extends keyof ThemeDraft>(key: K, value: ThemeDraft[K]) => {
     const next = { ...draft, [key]: value };
     setDraft(next);
+    setActiveField(key);
+    setFlashNonce((value) => value + 1);
     onUpdate({
       themeOverrideBaseId: theme.id,
       customThemeName: next.name,
@@ -202,20 +206,20 @@ export function ThemeEditor({ theme, config, onUpdate, onSave, onPreview }: Them
           </p>
 
           <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
-            <ThemeField label="Background" value={draft.background} onChange={(v) => updateDraft("background", v)} />
-            <ThemeField label="Background Token" value={draft.backgroundToken} onChange={(v) => updateDraft("backgroundToken", v)} />
-            <ThemeField label="Surface" value={draft.surface} onChange={(v) => updateDraft("surface", v)} />
-            <ThemeField label="Alternate Surface" value={draft.surfaceAlt} onChange={(v) => updateDraft("surfaceAlt", v)} />
-            <ThemeField label="Card Surface" value={draft.card} onChange={(v) => updateDraft("card", v)} />
-            <ThemeField label="Elevated Surface" value={draft.elevated} onChange={(v) => updateDraft("elevated", v)} />
-            <ThemeField label="Rail Surface" value={draft.rail} onChange={(v) => updateDraft("rail", v)} />
-            <ThemeField label="Text" value={draft.text} onChange={(v) => updateDraft("text", v)} />
-            <ThemeField label="Muted Text" value={draft.textMuted} onChange={(v) => updateDraft("textMuted", v)} />
-            <ThemeField label="Primary" value={draft.primary} onChange={(v) => updateDraft("primary", v)} />
-            <ThemeField label="Secondary" value={draft.secondary} onChange={(v) => updateDraft("secondary", v)} />
-            <ThemeField label="Accent" value={draft.accent} onChange={(v) => updateDraft("accent", v)} />
-            <ThemeField label="Border" value={draft.border} onChange={(v) => updateDraft("border", v)} />
-            <ThemeField label="Overlay" value={draft.overlay} onChange={(v) => updateDraft("overlay", v)} />
+            <ThemeTextField label="Background" value={draft.background} onChange={(v) => updateDraft("background", v)} hint="Gradient / CSS background" />
+            <ThemeColorField label="Background Token" value={draft.backgroundToken} onChange={(v) => updateDraft("backgroundToken", v)} />
+            <ThemeColorField label="Surface" value={draft.surface} onChange={(v) => updateDraft("surface", v)} />
+            <ThemeColorField label="Alternate Surface" value={draft.surfaceAlt} onChange={(v) => updateDraft("surfaceAlt", v)} />
+            <ThemeColorField label="Card Surface" value={draft.card} onChange={(v) => updateDraft("card", v)} />
+            <ThemeColorField label="Elevated Surface" value={draft.elevated} onChange={(v) => updateDraft("elevated", v)} />
+            <ThemeColorField label="Rail Surface" value={draft.rail} onChange={(v) => updateDraft("rail", v)} />
+            <ThemeColorField label="Text" value={draft.text} onChange={(v) => updateDraft("text", v)} />
+            <ThemeColorField label="Muted Text" value={draft.textMuted} onChange={(v) => updateDraft("textMuted", v)} />
+            <ThemeColorField label="Primary" value={draft.primary} onChange={(v) => updateDraft("primary", v)} />
+            <ThemeColorField label="Secondary" value={draft.secondary} onChange={(v) => updateDraft("secondary", v)} />
+            <ThemeColorField label="Accent" value={draft.accent} onChange={(v) => updateDraft("accent", v)} />
+            <ThemeColorField label="Border" value={draft.border} onChange={(v) => updateDraft("border", v)} />
+            <ThemeTextField label="Overlay" value={draft.overlay} onChange={(v) => updateDraft("overlay", v)} hint="Optional overlay / gradient" />
             <label className="block">
               <span className="text-[10px] text-[#82a5bb]">Motion speed</span>
               <select
@@ -238,28 +242,29 @@ export function ThemeEditor({ theme, config, onUpdate, onSave, onPreview }: Them
           </div>
         </section>
 
-        <ThemeLivePreview theme={liveTheme} />
+        <ThemeLivePreview theme={liveTheme} activeField={activeField} flashNonce={flashNonce} />
       </div>
     </div>
   );
 }
 
-function ThemeField({
+function ThemeTextField({
   label,
   value,
   onChange,
-  type = "text",
+  hint,
 }: {
   label: string;
   value: string;
   onChange: (value: string) => void;
-  type?: "text" | "number";
+  hint?: string;
 }) {
   return (
     <label className="block">
       <span className="text-[10px] text-[#82a5bb]">{label}</span>
+      {hint && <span className="ml-2 text-[9px] text-[#536f84]">{hint}</span>}
       <input
-        type={type}
+        type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="mt-1 w-full rounded-lg border border-white/10 bg-[#020914] px-3 py-2 text-xs font-mono text-[#eaf7ff] outline-none focus:border-cyan-400/50"
@@ -268,7 +273,66 @@ function ThemeField({
   );
 }
 
-function ThemeLivePreview({ theme }: { theme: ExperienceTheme }) {
+function normalizePickerColor(value: string): string {
+  const hex = value.trim();
+  if (/^#[0-9a-fA-F]{6}$/.test(hex)) return hex.toLowerCase();
+  if (/^#[0-9a-fA-F]{3}$/.test(hex)) {
+    return "#" + hex.slice(1).split("").map((part) => part + part).join("").toLowerCase();
+  }
+
+  const rgb = hex.match(/^rgba?\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})/i);
+  if (rgb) {
+    return "#" + [rgb[1], rgb[2], rgb[3]]
+      .map((part) => Math.max(0, Math.min(255, Number(part))).toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  return "#000000";
+}
+
+function ThemeColorField({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <label className="block cursor-pointer">
+      <span className="text-[10px] text-[#82a5bb]">{label}</span>
+      <div className="mt-1 flex h-[42px] items-center gap-3 rounded-lg border border-white/10 bg-[#020914] px-2">
+        <span
+          className="h-7 w-10 shrink-0 rounded-md border border-white/20 shadow-inner"
+          style={{ backgroundColor: normalizePickerColor(value) }}
+        />
+        <input
+          type="color"
+          value={normalizePickerColor(value)}
+          onChange={(e) => onChange(e.target.value)}
+          aria-label={`Pick ${label} color`}
+          className="h-8 w-12 cursor-pointer rounded-md border-0 bg-transparent p-0"
+        />
+        <span className="text-xs text-[#cfeaf5]">Pick color</span>
+      </div>
+    </label>
+  );
+}
+
+function ThemeLivePreview({
+  theme,
+  activeField,
+  flashNonce,
+}: {
+  theme: ExperienceTheme;
+  activeField: keyof ThemeDraft | null;
+  flashNonce: number;
+}) {
+  const blinkStyle = (field: keyof ThemeDraft): React.CSSProperties =>
+    activeField === field
+      ? { animation: "aaiThemeBlink 650ms ease-in-out 2" }
+      : {};
   const bg = theme.background.value;
   const text = theme.tokens.text;
   const muted = theme.tokens.textMuted;
@@ -277,9 +341,16 @@ function ThemeLivePreview({ theme }: { theme: ExperienceTheme }) {
 
   return (
     <section
+      key={flashNonce}
       className="min-h-[520px] rounded-2xl overflow-hidden border p-4"
-      style={{ background: bg, color: text, borderColor: theme.tokens.border }}
+      style={{ background: bg, color: text, borderColor: theme.tokens.border, ...blinkStyle("background") }}
     >
+      <style>{`
+        @keyframes aaiThemeBlink {
+          0%, 100% { filter: none; }
+          35%, 70% { filter: brightness(1.35); }
+        }
+      `}</style>
       {theme.background.overlay && (
         <div className="absolute" />
       )}
@@ -292,7 +363,14 @@ function ThemeLivePreview({ theme }: { theme: ExperienceTheme }) {
       </div>
 
       <div className="mt-3 grid grid-cols-[74px_1fr] gap-3 min-h-[410px]">
-        <aside className="rounded-xl p-2" style={{ background: theme.surfaces?.rail ?? elevated, border: `1px solid ${theme.tokens.border}` }}>
+        <aside
+          className="rounded-xl p-2"
+          style={{
+            background: theme.surfaces?.rail ?? elevated,
+            border: `1px solid ${theme.tokens.border}`,
+            ...blinkStyle("rail"),
+          }}
+        >
           {["HOME", "DISCOVER", "SERVICES", "OUTCOME"].map((item, index) => (
             <div key={item} className="rounded-lg px-2 py-3 text-[8px] mb-1" style={{ background: index === 1 ? theme.tokens.primary : "transparent", color: index === 1 ? "#fff" : text }}>
               {item}
@@ -301,22 +379,54 @@ function ThemeLivePreview({ theme }: { theme: ExperienceTheme }) {
         </aside>
 
         <div className="space-y-3">
-          <div className="rounded-xl p-4" style={{ background: surface, border: `1px solid ${theme.tokens.border}`, boxShadow: theme.tokens.shadow }}>
-            <div className="text-[8px] uppercase tracking-[0.18em]" style={{ color: theme.tokens.accent }}>OBJECTIVE → OUTCOME</div>
-            <div className="mt-2 text-2xl font-bold">A coordinated solution experience</div>
-            <div className="mt-1 text-xs" style={{ color: muted }}>Cards, bands, controls and typography follow the selected theme.</div>
+          <div
+            className="rounded-xl p-4"
+            style={{
+              background: surface,
+              border: `1px solid ${theme.tokens.border}`,
+              boxShadow: theme.tokens.shadow,
+              ...blinkStyle("card"),
+            }}
+          >
+            <div
+              className="text-[8px] uppercase tracking-[0.18em]"
+              style={{ color: theme.tokens.accent, ...blinkStyle("accent") }}
+            >OBJECTIVE → OUTCOME</div>
+            <div
+              className="mt-2 text-2xl font-bold"
+              style={blinkStyle("text")}
+            >A coordinated solution experience</div>
+            <div
+              className="mt-1 text-xs"
+              style={{ color: muted, ...blinkStyle("textMuted") }}
+            >Cards, bands, controls and typography follow the selected theme.</div>
             <div className="mt-4 grid grid-cols-3 gap-2">
               {["Capability", "Service", "Outcome"].map((item) => (
-                <div key={item} className="rounded-lg p-3 text-[9px]" style={{ background: elevated, border: `1px solid ${theme.tokens.border}` }}>
-                  <div style={{ color: theme.tokens.primary }}>{item}</div>
+                <div
+                  key={item}
+                  className="rounded-lg p-3 text-[9px]"
+                  style={{
+                    background: elevated,
+                    border: `1px solid ${theme.tokens.border}`,
+                    ...blinkStyle("surfaceAlt"),
+                  }}
+                >
+                  <div style={{ color: theme.tokens.primary, ...blinkStyle("primary") }}>{item}</div>
                   <div className="mt-2" style={{ color: muted }}>Live card surface</div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="rounded-xl p-3" style={{ background: elevated, border: `1px solid ${theme.tokens.border}` }}>
-            <div className="text-[9px] uppercase" style={{ color: theme.tokens.secondary }}>Band / Section</div>
-            <div className="mt-1 text-xs" style={{ color: muted }}>This area changes immediately as you edit the theme.</div>
+          <div
+            className="rounded-xl p-3"
+            style={{
+              background: elevated,
+              border: `1px solid ${theme.tokens.border}`,
+              ...blinkStyle("elevated"),
+            }}
+          >
+            <div className="text-[9px] uppercase" style={{ color: theme.tokens.secondary, ...blinkStyle("secondary") }}>Band / Section</div>
+            <div className="mt-1 text-xs" style={{ color: muted, ...blinkStyle("textMuted") }}>This area changes immediately as you edit the theme.</div>
           </div>
         </div>
       </div>
