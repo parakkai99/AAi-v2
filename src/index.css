@@ -122,6 +122,26 @@ body, #root {
    ========================================================================= */
 
 /* Page and application surfaces */
+/* Preserve semantic surface hierarchy instead of flattening every legacy card to one color. */
+[data-aai-theme] [class~="bg-[#020914]"],
+[data-aai-theme] [class~="bg-[#020914]/40"],
+[data-aai-theme] [class~="bg-[#020914]/60"] {
+  background-color: var(--aai-bg) !important;
+}
+
+[data-aai-theme] [class~="bg-[#061525]"],
+[data-aai-theme] [class~="bg-[#061525]/60"],
+[data-aai-theme] [class~="bg-[#061525]/70"],
+[data-aai-theme] [class~="bg-[#061525]/80"],
+[data-aai-theme] [class~="bg-[#061525]/90"] {
+  background-color: var(--aai-surface-card, var(--aai-surface)) !important;
+}
+
+[data-aai-theme] [class~="bg-[#0b2238]"],
+[data-aai-theme] [class~="bg-[#0b2238]/80"] {
+  background-color: var(--aai-surface-alt, var(--aai-surface)) !important;
+}
+
 [data-aai-theme] [class*="bg-[#"],
 [data-aai-theme] [class*="bg-slate-"],
 [data-aai-theme] [class*="bg-gray-"],
@@ -167,6 +187,14 @@ body, #root {
 }
 
 /* Text */
+/* Legacy bright headings become theme text; supporting legacy shades become muted text. */
+[data-aai-theme] [class~="text-[#eaf7ff]"],
+[data-aai-theme] [class~="text-[#fff]"],
+[data-aai-theme] [class~="text-white"],
+[data-aai-theme] [class*="text-white/"] {
+  color: var(--aai-text) !important;
+}
+
 [data-aai-theme] [class*="text-[#"],
 [data-aai-theme] [class*="text-slate-"],
 [data-aai-theme] [class*="text-gray-"],
@@ -175,7 +203,7 @@ body, #root {
   color: var(--aai-text-muted) !important;
 }
 
-[data-aai-theme] [class~="text-white"] {
+[data-aai-theme] [class*="text-[#eaf7ff]"] {
   color: var(--aai-text) !important;
 }
 
