@@ -253,6 +253,7 @@ function ThemeTextField({
   value,
   onChange,
   hint,
+  type = "text",
 }: {
   label: string;
   value: string;
