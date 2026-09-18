@@ -6,6 +6,7 @@ const STORAGE_KEY = "aai-solution-admin-config-v1";
 type StoredConfigMap = Record<string, SolutionAdminConfig>;
 
 const DEFAULTS: Record<string, Pick<SolutionAdminConfig, "themeId" | "layoutId">> = {
+  "aai-live": { themeId: "aai-live", layoutId: "aai-live-left" },
   parakkai: { themeId: "aai-live", layoutId: "aai-live-left" },
   ngliving: { themeId: "aai-live", layoutId: "aai-live-left" },
 };
@@ -41,7 +42,7 @@ function createDefaultConfig(solutionId: string): SolutionAdminConfig {
 
   return {
     solutionId: id,
-    name: id === "parakkai" ? "Parakkai" : id === "ngliving" ? "NGLiving" : id,
+    name: id === "aai-live" ? "AAi Live" : id === "parakkai" ? "Parakkai" : id === "ngliving" ? "NGLiving" : id,
     version: 1,
     publishState: "draft",
     updatedAt: new Date().toISOString(),
