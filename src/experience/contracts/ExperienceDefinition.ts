@@ -85,6 +85,7 @@ export interface ExperienceDefinition {
   readonly navigation?: ExperienceNavigationBehaviorDefinition;
 
   readonly themeId?: string;
+  readonly themeOverride?: Readonly<Record<string, unknown>>;
   readonly layoutId?: string;
   readonly compositionId?: string;
   readonly behaviorProfileId?: string;
