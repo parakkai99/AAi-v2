@@ -20,6 +20,7 @@ import { IntentCore } from "./IntentCore";
 import { SolutionRail } from "./SolutionRail";
 import { DomainContextBanner } from "./DomainContextBanner";
 import { UniverseExampleStrip } from "./UniverseExampleStrip";
+import type { UniverseExampleEntry } from "./UniverseExampleStrip";
 import exampleConfig from "@/data/universe/universe-example-strip.json";
 import {
   Play,
@@ -583,7 +584,7 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
       </div>
 
       <UniverseExampleStrip
-        entry={exampleConfig.entries[0]}
+        entry={exampleConfig.entries[0] as UniverseExampleEntry}
         onOpenSolution={(solutionId) => onSelectSolution?.(solutionId)}
         onOpenObjective={(objective) => onOpenIntentCore?.(objective)}
       />
