@@ -14,7 +14,7 @@ export default function SolutionAdminRootPage() {
           Select the solution control plane to configure. The shared AAi framework remains platform-owned.
         </p>
 
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
           <button
             type="button"
             onClick={() => window.location.assign("/solution-admin/parakkai")}
@@ -22,6 +22,15 @@ export default function SolutionAdminRootPage() {
           >
             <div className="text-sm font-semibold">Parakkai</div>
             <div className="mt-1 text-xs text-[#6e91a6]">Temple / living-place solution</div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => window.location.assign("/solution-admin/aai-live")}
+            className="rounded-xl border border-cyan-400/20 bg-[#020914]/60 p-4 text-left hover:border-cyan-400/40"
+          >
+            <div className="text-sm font-semibold">AAi Live</div>
+            <div className="mt-1 text-xs text-[#6e91a6]">ArchitectAny platform experience</div>
           </button>
 
           <button
