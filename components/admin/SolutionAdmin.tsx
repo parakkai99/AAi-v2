@@ -3,7 +3,7 @@ import { ArrowLeft, Bot, CheckCircle2, FileJson, Image, LayoutTemplate, Palette,
 import { experienceLayouts } from '@/src/experience/layout/LayoutRegistry';
 import { experienceThemes } from '@/src/experience/theme/ThemeRegistry';
 import { AssetExplorer } from './AssetExplorer';
-import { ThemeEditor } from './ThemeEditor';
+import { ThemeEditorLiveColor } from './ThemeEditorLiveColor';
 import { getSolutionAdminConfig, publishSolution, saveSolutionAdminConfig } from '@/src/services/solutionAdminService';
 import type { SolutionAdminConfig } from '@/src/contracts/solutionAdmin';
 
@@ -43,6 +43,13 @@ export const SolutionAdmin: React.FC<SolutionAdminProps> = ({ solutionId, onPrev
     setConfig(next);
     setNotice('Solution configuration saved.');
     window.setTimeout(() => setNotice(''), 2500);
+  };
+
+  const saveThemeCopy = (patch: Partial<SolutionAdminConfig>) => {
+    const next = saveSolutionAdminConfig({ ...config, ...patch });
+    setConfig(next);
+    setNotice(`Saved new theme copy: ${next.customThemeName || next.themeId}.`);
+    window.setTimeout(() => setNotice(''), 3000);
   };
 
   const publish = () => {
@@ -124,7 +131,7 @@ export const SolutionAdmin: React.FC<SolutionAdminProps> = ({ solutionId, onPrev
           <main className="space-y-5">
             {activeSection === 'Overview' && <Overview config={config} name={name} theme={selectedTheme.name} layout={selectedLayout.name} onNavigate={setActiveSection} onPublish={publish} />}
             {activeSection === 'Identity' && <Identity solutionId={solutionId} name={name} />}
-            {activeSection === 'Experience' && <Experience config={config} onUpdate={update} onSave={save} onPreview={() => { saveSolutionAdminConfig(config); onPreviewSolution(config); }} />}
+            {activeSection === 'Experience' && <Experience config={config} onUpdate={update} onSave={save} onSaveCopy={saveThemeCopy} onPreview={() => { saveSolutionAdminConfig(config); onPreviewSolution(config); }} />}
             {activeSection === 'Content' && <JsonEditor title="Content" value={config.contentJson} onChange={(value) => update({ contentJson: value })} onSave={save} action="Save Content" />}
             {activeSection === 'Assets' && <AssetExplorer manifestJson={config.assetManifest} onChangeManifest={(value) => update({ assetManifest: value })} onSave={save} />}
             {activeSection === 'JSON / Data' && <JsonEditor title="Solution JSON / Data" value={config.contentJson} onChange={(value) => update({ contentJson: value })} onSave={save} action="Save JSON" onImport={() => fileRef.current?.click()} />}
@@ -193,11 +200,13 @@ function Experience({
   config,
   onUpdate,
   onSave,
+  onSaveCopy,
   onPreview,
 }: {
   config: SolutionAdminConfig;
   onUpdate: (patch: Partial<SolutionAdminConfig>) => void;
   onSave: () => void;
+  onSaveCopy: (patch: Partial<SolutionAdminConfig>) => void;
   onPreview: () => void;
 }) {
   const [openLibraries, setOpenLibraries] = useState<{ theme: boolean; layout: boolean }>({ theme: false, layout: false });
@@ -362,7 +371,7 @@ function Experience({
 
         <div className="min-w-0">
           {activeLibrary === 'theme' ? (
-            <ThemeEditor theme={selectedTheme} config={config} onUpdate={onUpdate} onSave={onSave} onPreview={onPreview} />
+            <ThemeEditorLiveColor theme={selectedTheme} config={config} onUpdate={onUpdate} onSaveCopy={onSaveCopy} onPreview={onPreview} />
           ) : (
             <LayoutDetail layout={selectedLayout} />
           )}
