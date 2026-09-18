@@ -251,26 +251,33 @@ export default function PreviewPage() {
   );
 
   const universeView = (
-    <ExperienceRuntime applicationId={selectedSolutionId ?? "aai-universe"} scope={selectedSolutionId ? "solution" : "universe"} definition={selectedSolutionExperienceDefinition} parentDefinitions={[universeExperienceDefinition]} defaultThemeId="aai-live" defaultLayoutId="aai-live">
-      <ExperienceSurface currentTab={currentTab} onTabChange={(tab) => { setCurrentTab(tab); if (tab === "Universe") navigateTo({ layer: 1 }); }} onHome={() => navigateTo({ layer: 1 })} searchQuery={searchQuery} onSearchChange={setSearchQuery} onSelectSolution={(solutionId) => navigateTo({ layer: 5, solutionId })} onOpenMapModal={(prefill) => { setMapModalPrefill(prefill); setIsMapModalOpen(true); }} selectedSolutionId={selectedSolutionId} activeSolution={activeSolution} domains={domains} subdomains={subdomains} capabilities={capabilities} solutions={solutions} isIntentCoreActive={isIntentCoreActive} intentCoreQuery={intentCoreQuery} onSetIntentCoreQuery={setIntentCoreQuery} navigateTo={navigateTo} />
-    </ExperienceRuntime>
+    <ExperienceSurface currentTab={currentTab} onTabChange={(tab) => { setCurrentTab(tab); if (tab === "Universe") navigateTo({ layer: 1 }); }} onHome={() => navigateTo({ layer: 1 })} searchQuery={searchQuery} onSearchChange={setSearchQuery} onSelectSolution={(solutionId) => navigateTo({ layer: 5, solutionId })} onOpenMapModal={(prefill) => { setMapModalPrefill(prefill); setIsMapModalOpen(true); }} selectedSolutionId={selectedSolutionId} activeSolution={activeSolution} domains={domains} subdomains={subdomains} capabilities={capabilities} solutions={solutions} isIntentCoreActive={isIntentCoreActive} intentCoreQuery={intentCoreQuery} onSetIntentCoreQuery={setIntentCoreQuery} navigateTo={navigateTo} />
   );
 
   return (
-    <div
-      className="font-sans min-h-screen flex flex-col overflow-x-hidden transition-colors duration-300"
-      style={{
-        background: 'var(--aai-bg)',
-        color: 'var(--aai-text)',
-      }}
+    <ExperienceRuntime
+      applicationId="aai-global"
+      scope={selectedSolutionId ? "solution" : "universe"}
+      definition={selectedSolutionExperienceDefinition}
+      parentDefinitions={[universeExperienceDefinition]}
+      defaultThemeId="aai-live"
+      defaultLayoutId="aai-live"
     >
-      {currentTab === "AgentOS" ? (
-        <ErrorBoundary fallbackTitle="Agent OS Command Center"><AgentOSCommandCenter onReturnToUniverse={() => setCurrentTab("Universe")} initialIntentRef={pendingIntentRef} onClearInitialIntentRef={() => setPendingIntentRef(null)} /></ErrorBoundary>
-      ) : currentTab === "Parakkai" || currentTab === "NGLiving" || currentTab === "JiLink" ? applicationView : universeView}
-      <SpatialMapModal isOpen={isMapModalOpen} initialQuery={mapModalPrefill} onClose={() => setIsMapModalOpen(false)} />
-      <LocationPromptModal />
-      <CinematicJourneyOverlay />
-      <CatalogInspector isOpen={isInspectorOpen} onClose={() => setIsInspectorOpen(false)} onSendToAgentOS={(ref) => { setPendingIntentRef(ref); setCurrentTab("AgentOS"); setIsInspectorOpen(false); }} />
-    </div>
+      <div
+        className="font-sans min-h-screen flex flex-col overflow-x-hidden transition-colors duration-300"
+        style={{
+          background: 'var(--aai-bg)',
+          color: 'var(--aai-text)',
+        }}
+      >
+        {currentTab === "AgentOS" ? (
+          <ErrorBoundary fallbackTitle="Agent OS Command Center"><AgentOSCommandCenter onReturnToUniverse={() => setCurrentTab("Universe")} initialIntentRef={pendingIntentRef} onClearInitialIntentRef={() => setPendingIntentRef(null)} /></ErrorBoundary>
+        ) : currentTab === "Parakkai" || currentTab === "NGLiving" || currentTab === "JiLink" ? applicationView : universeView}
+        <SpatialMapModal isOpen={isMapModalOpen} initialQuery={mapModalPrefill} onClose={() => setIsMapModalOpen(false)} />
+        <LocationPromptModal />
+        <CinematicJourneyOverlay />
+        <CatalogInspector isOpen={isInspectorOpen} onClose={() => setIsInspectorOpen(false)} onSendToAgentOS={(ref) => { setPendingIntentRef(ref); setCurrentTab("AgentOS"); setIsInspectorOpen(false); }} />
+      </div>
+    </ExperienceRuntime>
   );
 }
