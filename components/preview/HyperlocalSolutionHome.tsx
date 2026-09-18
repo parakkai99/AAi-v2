@@ -11,7 +11,7 @@
  * - Does not replace or modify the AAi Universe presentation.
  */
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   CheckCircle2,
@@ -29,6 +29,7 @@ import {
   Workflow,
 } from "lucide-react";
 import type { Solution } from "@/src/types";
+import { HyperlocalObjectiveOutcomeMap, type HyperlocalMapNode } from "./HyperlocalObjectiveOutcomeMap";
 
 interface HyperlocalSolutionHomeProps {
   solution: Solution;
@@ -60,6 +61,27 @@ export const HyperlocalSolutionHome: React.FC<HyperlocalSolutionHomeProps> = ({
 }) => {
   const [objective, setObjective] = useState("Plan a local celebration");
   const [activeService, setActiveService] = useState("venue");
+  const [activeNode, setActiveNode] = useState<HyperlocalMapNode>("objective");
+  const objectiveRef = useRef<HTMLInputElement>(null);
+  const servicesRef = useRef<HTMLElement>(null);
+  const journeyRef = useRef<HTMLElement>(null);
+
+  const handleMapNode = (node: HyperlocalMapNode) => {
+    setActiveNode(node);
+
+    if (node === "objective") {
+      objectiveRef.current?.focus();
+      objectiveRef.current?.select();
+      return;
+    }
+
+    if (node === "capabilities" || node === "services" || node === "providers") {
+      servicesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+
+    journeyRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   const serviceText = useMemo(
     () =>
@@ -88,6 +110,11 @@ export const HyperlocalSolutionHome: React.FC<HyperlocalSolutionHomeProps> = ({
             <span>Hyperlocal Marketplace</span>
           </div>
         </div>
+
+        <HyperlocalObjectiveOutcomeMap
+          activeNode={activeNode}
+          onSelectNode={handleMapNode}
+        />
 
         <section className="relative overflow-hidden rounded-3xl border border-[#00dfff]/30 bg-gradient-to-br from-[#05213a] via-[#031526] to-[#020b16] p-5 sm:p-7 lg:p-9 shadow-[0_20px_60px_rgba(0,0,0,0.45)]">
           <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#00dfff]/10 blur-3xl" />
@@ -123,6 +150,7 @@ export const HyperlocalSolutionHome: React.FC<HyperlocalSolutionHomeProps> = ({
                   <div className="flex min-w-0 flex-1 items-center gap-2 rounded-xl border border-[#00dfff]/20 bg-[#031526] px-3">
                     <Search className="h-4 w-4 shrink-0 text-[#00e3fd]" />
                     <input
+                      ref={objectiveRef}
                       value={objective}
                       onChange={(event) => setObjective(event.target.value)}
                       className="min-w-0 flex-1 bg-transparent py-2.5 text-sm text-[#eaf7ff] outline-none placeholder:text-[#5d8197]"
@@ -174,7 +202,7 @@ export const HyperlocalSolutionHome: React.FC<HyperlocalSolutionHomeProps> = ({
           </div>
         </section>
 
-        <section className="rounded-2xl border border-[#00dfff]/20 bg-[#021222]/90 p-4 sm:p-5">
+        <section ref={servicesRef} className="rounded-2xl border border-[#00dfff]/20 bg-[#021222]/90 p-4 sm:p-5">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-2 border-b border-[#00dfff]/15 pb-3">
             <div className="flex items-center gap-2">
               <Workflow className="h-4 w-4 text-[#00dfff]" />
@@ -223,7 +251,7 @@ export const HyperlocalSolutionHome: React.FC<HyperlocalSolutionHomeProps> = ({
           </div>
         </section>
 
-        <section className="rounded-2xl border border-[#00dfff]/20 bg-[#021222]/90 p-4 sm:p-5">
+        <section ref={journeyRef} className="rounded-2xl border border-[#00dfff]/20 bg-[#021222]/90 p-4 sm:p-5">
           <div className="mb-4 flex items-center gap-2 border-b border-[#00dfff]/15 pb-3">
             <ArrowRight className="h-4 w-4 text-[#00dfff]" />
             <h2 className="text-sm font-bold text-[#eaf7ff] sm:text-base">
