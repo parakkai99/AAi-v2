@@ -99,7 +99,7 @@ export const HyperlocalSolutionHome: React.FC<HyperlocalSolutionHomeProps> = ({
             onClick={onBackToUniverse}
             className="inline-flex items-center gap-2 rounded-xl border border-[#00dfff]/30 bg-[#031526]/80 px-3 py-2 font-mono text-[11px] text-[#00dfff] transition hover:border-[#00e3fd] hover:bg-[#04243f] cursor-pointer"
           >
-            ← Back to Solution Universe
+            ← Back to previous layer
           </button>
 
           <div className="flex items-center gap-1.5 rounded-xl border border-[#00dfff]/15 bg-[#021120]/80 px-3 py-2 font-mono text-[10px] text-[#82a5bb]">

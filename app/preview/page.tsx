@@ -33,6 +33,7 @@ import { getSolutionExperienceDefinition } from "@/src/services/solutionAdminSer
 import type { ExperienceDefinition } from "@/src/experience";
 import { useArchitectAny } from "@/src/context/ArchitectAnyContext";
 import { useUniversalNavigation } from "@/src/context/UniversalNavigationContext";
+import { ArrowLeft, ArrowRight, Home } from "lucide-react";
 import { catalogRepository } from "@/src/repositories/catalogRepository";
 import type { DomainItem, SubdomainItem, CapabilityItem, SolutionItem } from "@/src/contracts/catalog";
 import type { Domain, Subdomain, Capability, Solution } from "@/src/types";
@@ -78,15 +79,37 @@ function ExperienceSurface({
   onSetIntentCoreQuery,
   navigateTo,
 }: ExperienceSurfaceProps) {
+  const { currentWaypoint, canGoBack, canGoForward, goBack, goForward, goHome } = useUniversalNavigation();
+
+  const handlePreviousNavigation = async () => {
+    if (canGoBack) await goBack();
+    else await goHome();
+  };
+
+  const handleNextNavigation = async () => {
+    if (canGoForward) await goForward();
+  };
+
   const { layout, definition } = useExperienceRuntime();
 
   const main = (
     <main className="flex-grow flex flex-col relative z-10 w-full overflow-x-hidden">
+      {currentWaypoint.layer >= 2 && currentWaypoint.layer <= 6 && (
+        <div className="hidden md:flex w-full items-center justify-center px-4 py-1">
+          <div className="flex items-center gap-1 rounded-xl border border-[#00dfff]/15 bg-[#02101e]/85 px-1 py-1 shadow-lg backdrop-blur-md">
+            <button type="button" onClick={() => void handlePreviousNavigation()} className="inline-flex items-center gap-1 rounded-lg border border-[#00dfff]/20 px-2.5 py-1 text-[10px] font-mono text-[#9ec5de] transition hover:border-[#00e3fd]/60 hover:text-[#00e3fd]"><ArrowLeft className="h-3 w-3" />Back</button>
+            <button type="button" onClick={() => void goHome()} className="inline-flex items-center gap-1 rounded-lg border border-[#00dfff]/20 px-2.5 py-1 text-[10px] font-mono text-[#9ec5de] transition hover:border-[#00e3fd]/60 hover:text-[#00e3fd]"><Home className="h-3 w-3" />Home</button>
+            <button type="button" onClick={() => void handleNextNavigation()} disabled={!canGoForward} className="inline-flex items-center gap-1 rounded-lg border border-[#00dfff]/20 px-2.5 py-1 text-[10px] font-mono text-[#9ec5de] transition hover:border-[#00e3fd]/60 hover:text-[#00e3fd] disabled:cursor-not-allowed disabled:opacity-30">Forward<ArrowRight className="h-3 w-3" /></button>
+            <span className="px-2 text-[9px] font-mono uppercase tracking-wider text-[#55758a]">L{currentWaypoint.layer}</span>
+          </div>
+        </div>
+      )}
+
       {selectedSolutionId ? (
         selectedSolutionId === "D06.01.01.01.001" && activeSolution ? (
           <HyperlocalSolutionHome
             solution={activeSolution}
-            onBackToUniverse={() => navigateTo({ type: "up-level" })}
+            onBackToUniverse={handlePreviousNavigation}
           />
         ) : (
           <SolutionDetail solutionId={selectedSolutionId} solution={activeSolution} domains={domains} subdomains={subdomains} capabilities={capabilities} onBackToUniverse={() => navigateTo({ type: "up-level" })} />

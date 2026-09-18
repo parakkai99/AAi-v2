@@ -39,6 +39,8 @@ import { DomainContextBanner } from './DomainContextBanner';
 import { NextLevelBundlesPanel } from './NextLevelBundlesPanel';
 import { AboutBusinessWorldPanel } from './AboutBusinessWorldPanel';
 import { ThemeToggle } from '../theme/ThemeToggle';
+import { UniverseExampleStrip } from './UniverseExampleStrip';
+import exampleConfig from '@/data/universe/universe-example-strip.json';
 import { useCinematicNavigation } from '@/src/context/CinematicNavigationContext';
 import { CinematicWaypoint } from '@/src/contracts/cinematic';
 
@@ -725,6 +727,20 @@ export const SolutionRail: React.FC<SolutionRailProps> = ({
            ========================================================================= */}
         {activeLayer === 2 && selectedSubdomain && (
           <div className="flex flex-col gap-6">
+            {/* Featured sample entry: first item in the Hyperlocal L3 capability experience */}
+            {selectedSubdomain.id === "D06.01" && (
+              <div className="mb-3">
+                <UniverseExampleStrip
+                  entry={{
+                    ...(exampleConfig.entries[0] as any),
+                    eyebrow: "TRY SAMPLE",
+                  }}
+                  onOpenSolution={(solutionId) => onSelectSolution(solutionId)}
+                  onOpenObjective={(objective) => setIntent({ category: objective })}
+                />
+              </div>
+            )}
+
             {/* L3 Capability Cards Section (Flowing Vertically and Responsively) */}
             <div className="flex flex-col">
               {/* Header: Title & View Controls */}

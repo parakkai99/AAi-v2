@@ -55,14 +55,14 @@ export const UniverseExampleStrip: React.FC<UniverseExampleStripProps> = ({
   };
 
   return (
-    <div className="flex justify-center px-3 py-1 sm:py-1.5">
+    <div className="flex justify-center px-0 py-0">
       <button
         type="button"
         onClick={handleClick}
-        className="group inline-flex max-w-full items-center gap-2 rounded-xl border border-[#00dfff]/25 bg-[#031526]/70 px-2 py-1 backdrop-blur-md transition-all hover:border-[#00e3fd]/60 hover:bg-[#04243f]/85 hover:shadow-[0_0_18px_rgba(0,227,253,0.16)] cursor-pointer"
+        className="group inline-flex max-w-full items-center gap-2 rounded-xl border border-[#00dfff]/25 bg-[#031526]/70 px-3 py-1.5 backdrop-blur-md transition-all hover:border-[#00e3fd]/60 hover:bg-[#04243f]/85 hover:shadow-[0_0_18px_rgba(0,227,253,0.16)] cursor-pointer"
         aria-label={entry.title}
       >
-        <div className="relative h-7 w-7 shrink-0 overflow-hidden rounded-lg border border-[#00dfff]/20 bg-[#020914]">
+        <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-lg border border-[#00dfff]/20 bg-[#020914]">
           {entry.image ? (
             <img
               src={entry.image}
@@ -75,11 +75,11 @@ export const UniverseExampleStrip: React.FC<UniverseExampleStripProps> = ({
         </div>
 
         <span className="flex min-w-0 items-center gap-1.5 text-left">
-          <span className="font-mono text-[8px] font-bold uppercase tracking-[0.14em] text-[#00e3fd]">
+          <span className="font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-[#00e3fd]">
             {entry.eyebrow}
           </span>
           <span className="hidden h-2.5 w-px bg-[#00dfff]/25 sm:block" />
-          <span className="truncate text-[10px] font-semibold text-[#eaf7ff] group-hover:text-[#00e3fd]">
+          <span className="truncate text-[11px] font-semibold text-[#eaf7ff] group-hover:text-[#00e3fd]">
             {entry.title}
           </span>
         </span>
