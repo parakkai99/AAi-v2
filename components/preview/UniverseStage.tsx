@@ -14,6 +14,7 @@ import solutionsData from "@/data/universe/solutions.json";
 import { Domain, Subdomain, SolutionCapability, Solution } from "@/src/types";
 import type { DomainItem } from "@/src/contracts/catalog";
 import { useArchitectAny } from "@/src/context/ArchitectAnyContext";
+import { useExperienceRuntime } from "@/src/experience/ExperienceRuntime";
 import { UniversePlane } from "./UniversePlane";
 import { DomainNode } from "./DomainNode";
 import { IntentCore } from "./IntentCore";
@@ -46,6 +47,7 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
   searchQuery = "",
 }) => {
   const { intent, setIntent, clearIntent, theme } = useArchitectAny();
+  const { theme: experienceTheme } = useExperienceRuntime();
   const allDomains: Domain[] = (domainsData as unknown as Domain[]) || [];
   const subdomains: Subdomain[] =
     (subdomainsData as unknown as Subdomain[]) || [];
@@ -302,9 +304,9 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
   }
 
   return (
-    <div className={styles.stageWrapper}>
+    <div className={styles.stageWrapper} style={{ background: experienceTheme.background.value, color: experienceTheme.tokens.text }}>
       <div className={styles.threeCanvasContainer}>
-        <UniversePlane activeColor={activeColor} isOrbiting={isOrbiting} />
+        <UniversePlane\n          activeColor={activeColor}\n          isOrbiting={isOrbiting}\n          themePrimary={experienceTheme.tokens.primary}\n          themeSecondary={experienceTheme.tokens.secondary}\n          themeAccent={experienceTheme.tokens.accent}\n        />
       </div>
 
       <div className="sticky top-0 z-40 w-full">
@@ -580,15 +582,15 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
         </div>
       </div>
 
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 z-30">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-3 border-b border-[#00dfff]/20">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 z-30" style={{ color: experienceTheme.tokens.text }}>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-3" style={{ borderBottom: "1px solid var(--aai-border)" }}>
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-[#00dfff]" />
-            <h2 className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-[#eaf7ff]">
+            <h2 className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider" style={{ color: "var(--aai-text)" }}>
               L1 DOMAIN UNIVERSE • ALL {domains.length} BUSINESS WORLDS
             </h2>
           </div>
-          <span className="text-xs font-mono text-[#c3d9ea]">
+          <span className="text-xs font-mono" style={{ color: "var(--aai-text-muted)" }}>
             Click any domain node in the 3D galaxy or select a card below to
             explore capabilities
           </span>
@@ -602,7 +604,7 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
                 key={domain.id}
                 onClick={() => handleSelectDomain(domain)}
                 type="button"
-                className="group relative flex flex-col justify-between p-4 rounded-2xl text-left transition-all duration-300 cursor-pointer bg-[#020d1a]/85 hover:bg-[#031d33] border border-[#00dfff]/20 hover:border-[#00e3fd] hover:shadow-[0_0_20px_rgba(0,227,253,0.3)] hover:-translate-y-1"
+                className="group relative flex flex-col justify-between p-4 rounded-2xl text-left transition-all duration-300 cursor-pointer border hover:-translate-y-1" style={{ background: "color-mix(in srgb, var(--aai-surface) 88%, transparent)", borderColor: "var(--aai-border)", boxShadow: "var(--aai-shadow)" }}
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
@@ -616,19 +618,19 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
                     >
                       {domain.id}
                     </span>
-                    <span className="text-[10px] font-mono text-[#9ec5de] uppercase">
+                    <span className="text-[10px] font-mono uppercase" style={{ color: "var(--aai-text-muted)" }}>
                       L1 Domain
                     </span>
                   </div>
-                  <h3 className="font-semibold text-sm text-[#eaf7ff] group-hover:text-[#00e3fd] transition-colors mb-1.5">
+                  <h3 className="font-semibold text-sm transition-colors mb-1.5" style={{ color: "var(--aai-text)" }}>
                     {domain.name}
                   </h3>
-                  <p className="text-xs text-[#c3d9ea] line-clamp-2 leading-relaxed">
+                  <p className="text-xs line-clamp-2 leading-relaxed" style={{ color: "var(--aai-text-muted)" }}>
                     {domain.description}
                   </p>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-[#00dfff]/15 flex items-center justify-between text-xs font-mono font-semibold text-[#00e3fd]">
+                <div className="mt-4 pt-3 border-t flex items-center justify-between text-xs font-mono font-semibold" style={{ borderColor: "var(--aai-border)", color: "var(--aai-primary)" }}>
                   <span>Explore Capabilities</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
