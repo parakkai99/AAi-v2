@@ -119,9 +119,9 @@ export const UniversePlane: React.FC<UniversePlaneProps> = ({
     const positions = new Float32Array(galaxyParticleCount * 3);
     const colors = new Float32Array(galaxyParticleCount * 3);
 
-    const colorCore = new THREE.Color(0x00e3fd);
-    const colorMid = new THREE.Color(0x76b6ff);
-    const colorOuter = new THREE.Color(0xddb7ff);
+    const colorCore = new THREE.Color(themePrimary);
+    const colorMid = new THREE.Color(themeSecondary);
+    const colorOuter = new THREE.Color(themeAccent);
 
     // Generate two logarithmic spiral arms + core galactic disc
     for (let i = 0; i < galaxyParticleCount; i++) {
