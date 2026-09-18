@@ -57,7 +57,8 @@ export const UniversePlane: React.FC<UniversePlaneProps> = ({
     container.appendChild(renderer.domElement);
 
     // Lights
-    const ambientColor = new THREE.Color(themePrimary);\n    const ambientLight = new THREE.AmbientLight(ambientColor, 2.6);
+    const ambientColor = new THREE.Color(themePrimary);
+    const ambientLight = new THREE.AmbientLight(ambientColor, 2.6);
     scene.add(ambientLight);
 
     const pointLight = new THREE.PointLight(themePrimary, 9, 35);
