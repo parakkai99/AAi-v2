@@ -53,6 +53,45 @@ function createDefaultConfig(solutionId: string): SolutionAdminConfig {
   };
 }
 
+
+
+export interface LiveThemePreview {
+  solutionId: string;
+  themeId: string;
+  themeOverride?: Readonly<Record<string, unknown>>;
+}
+
+const LIVE_THEME_PREVIEW_KEY = "aai-solution-theme-live-preview-v1";
+const LIVE_THEME_CHANNEL = "aai-solution-theme-live-preview";
+
+export function publishLiveThemePreview(preview: LiveThemePreview): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(LIVE_THEME_PREVIEW_KEY, JSON.stringify(preview));
+    if ("BroadcastChannel" in window) {
+      const channel = new BroadcastChannel(LIVE_THEME_CHANNEL);
+      channel.postMessage(preview);
+      channel.close();
+    }
+  } catch {
+    // Live preview is optional; saved solution configuration remains authoritative.
+  }
+}
+
+export function readLiveThemePreview(solutionId: string): LiveThemePreview | undefined {
+  if (typeof window === "undefined") return undefined;
+  try {
+    const raw = window.localStorage.getItem(LIVE_THEME_PREVIEW_KEY);
+    if (!raw) return undefined;
+    const parsed = JSON.parse(raw) as LiveThemePreview;
+    return parsed?.solutionId === normalizeId(solutionId) ? parsed : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+export const LIVE_THEME_PREVIEW_CHANNEL = LIVE_THEME_CHANNEL;
+
 export function getSolutionAdminConfig(solutionId: string): SolutionAdminConfig {
   const id = normalizeId(solutionId);
   const store = readStore();
