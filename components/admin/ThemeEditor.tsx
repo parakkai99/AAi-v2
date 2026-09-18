@@ -276,16 +276,11 @@ function ThemeTextField({
 
 function normalizePickerColor(value: string): string {
   const hex = value.trim();
+
   if (/^#[0-9a-fA-F]{6}$/.test(hex)) return hex.toLowerCase();
+
   if (/^#[0-9a-fA-F]{3}$/.test(hex)) {
     return "#" + hex.slice(1).split("").map((part) => part + part).join("").toLowerCase();
-  }
-
-  const rgb = hex.match(/^rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})/i);
-  if (rgb) {
-    return "#" + [rgb[1], rgb[2], rgb[3]]
-      .map((part) => Math.max(0, Math.min(255, Number(part))).toString(16).padStart(2, "0"))
-      .join("");
   }
 
   return "#000000";
