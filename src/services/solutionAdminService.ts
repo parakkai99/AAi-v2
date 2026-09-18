@@ -103,6 +103,9 @@ export function getSolutionExperienceDefinition(id: string): ExperienceDefinitio
     id: config.solutionId,
     scope: "solution",
     themeId: String(config.themeId || config.theme || "aai-live"),
+    themeOverride: config.themeOverride && typeof config.themeOverride === "object"
+      ? (config.themeOverride as Readonly<Record<string, unknown>>)
+      : undefined,
     layoutId: String(config.layoutId || config.layout || "aai-live"),
     identity: {
       displayName: String(config.name || config.solutionId),
