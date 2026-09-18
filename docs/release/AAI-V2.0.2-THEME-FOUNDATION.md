@@ -21,3 +21,12 @@ Theme selection changes presentation tokens only. It must not change content, na
 ## Next migration boundary
 
 Legacy hard-coded visual values in remaining domain/application components should progressively consume the Experience Runtime tokens. New components must use the theme tokens rather than introducing new hard-coded AAi palette values.
+
+
+## Complete screen application
+
+AAi-V2.0.2 now applies the selected Experience Theme at the global runtime boundary. The active theme controls the document/page background, experience shell and main surface, legacy component backgrounds, cards, text, borders, controls, navigation surfaces, and the Universe visual palette through shared runtime tokens.
+
+Theme selection is stored under the global AAi experience key so the selected theme remains active while navigating between AAi areas and after a normal page reload.
+
+The implementation intentionally does not replace solution structure, artwork assets, SVGs, interaction logic, navigation logic, or business behavior. Legacy color utilities are adapted to the active theme through the global theme bridge while components are progressively migrated to native tokens.
