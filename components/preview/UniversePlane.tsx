@@ -4,11 +4,17 @@ import * as THREE from 'three';
 export interface UniversePlaneProps {
   activeColor?: string;
   isOrbiting?: boolean;
+  themePrimary?: string;
+  themeSecondary?: string;
+  themeAccent?: string;
 }
 
 export const UniversePlane: React.FC<UniversePlaneProps> = ({
   activeColor = '#00e3fd',
   isOrbiting = true,
+  themePrimary = '#00e3fd',
+  themeSecondary = '#76b6ff',
+  themeAccent = '#ddb7ff',
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const activeColorRef = useRef(activeColor);
@@ -51,10 +57,10 @@ export const UniversePlane: React.FC<UniversePlaneProps> = ({
     container.appendChild(renderer.domElement);
 
     // Lights
-    const ambientLight = new THREE.AmbientLight(0x0f1c2e, 3.0);
+    const ambientColor = new THREE.Color(themePrimary);\n    const ambientLight = new THREE.AmbientLight(ambientColor, 2.6);
     scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0x00e3fd, 9, 35);
+    const pointLight = new THREE.PointLight(themePrimary, 9, 35);
     pointLight.position.set(0, 2.5, 0);
     scene.add(pointLight);
 
@@ -74,7 +80,7 @@ export const UniversePlane: React.FC<UniversePlaneProps> = ({
       outerPoints.map((p) => new THREE.Vector3(p.x, 0, p.y)),
     );
     const outerMat = new THREE.LineBasicMaterial({
-      color: 0x00e3fd,
+      color: themePrimary,
       transparent: true,
       opacity: 0.35,
     });
@@ -97,7 +103,7 @@ export const UniversePlane: React.FC<UniversePlaneProps> = ({
       innerPoints.map((p) => new THREE.Vector3(p.x, 0, p.y)),
     );
     const innerMat = new THREE.LineDashedMaterial({
-      color: 0xbdf4ff,
+      color: themeSecondary,
       transparent: true,
       opacity: 0.25,
       dashSize: 0.35,
@@ -172,7 +178,7 @@ export const UniversePlane: React.FC<UniversePlaneProps> = ({
     // Center Core Glowing Disc
     const coreDiscGeo = new THREE.RingGeometry(0.8, 1.6, isMobileViewport ? 32 : 48);
     const coreDiscMat = new THREE.MeshBasicMaterial({
-      color: 0x00e3fd,
+      color: themePrimary,
       transparent: true,
       opacity: 0.18,
       side: THREE.DoubleSide,
@@ -184,7 +190,7 @@ export const UniversePlane: React.FC<UniversePlaneProps> = ({
     // Outer faint galaxy perimeter ring
     const haloRingGeo = new THREE.RingGeometry(13.8, 14.4, isMobileViewport ? 48 : 64);
     const haloRingMat = new THREE.MeshBasicMaterial({
-      color: 0x00e3fd,
+      color: themePrimary,
       transparent: true,
       opacity: 0.08,
       side: THREE.DoubleSide,
@@ -267,7 +273,7 @@ export const UniversePlane: React.FC<UniversePlaneProps> = ({
       haloRingMat.dispose();
       renderer.dispose();
     };
-  }, []);
+  }, [themePrimary, themeSecondary, themeAccent]);
 
   return <div ref={mountRef} className="w-full h-full" />;
 };
