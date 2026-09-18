@@ -55,3 +55,59 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 
   [data-aai-mobile-navigation] { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max(0.75rem, env(safe-area-inset-right)); }
 }
+
+
+/* =========================================================================
+   AAi-V2.0.2 — EXPERIENCE THEME BRIDGE
+   Theme selection must affect the complete AAi experience, not only the
+   selector surface. Legacy AAi palette utilities are redirected to the
+   active Experience Runtime tokens below.
+   ========================================================================= */
+
+body, #root {
+  background: var(--aai-bg, #020914);
+  color: var(--aai-text, #eaf7ff);
+}
+
+[data-aai-experience-shell] {
+  background: var(--aai-bg, #020914);
+  color: var(--aai-text, #eaf7ff);
+}
+
+[data-aai-experience-main] {
+  background: var(--aai-bg, #020914);
+  color: var(--aai-text, #eaf7ff);
+}
+
+/* Legacy foundation surfaces */
+[data-aai-experience-shell] [class~="bg-[#020914]"],
+[data-aai-experience-shell] [class~="bg-[#020a14]"],
+[data-aai-experience-shell] [class~="bg-[#020d1a]"],
+[data-aai-experience-shell] [class~="bg-[#010812]"],
+[data-aai-experience-shell] [class~="bg-[#020d1c]"],
+[data-aai-experience-shell] [class~="bg-[#031d33]"],
+[data-aai-experience-shell] [class~="bg-[#07192c]"],
+[data-aai-experience-shell] [class~="bg-[#031c33]/90"],
+[data-aai-experience-shell] [class~="bg-[#020d1a]/85"] {
+  background-color: var(--aai-surface, var(--aai-bg)) !important;
+}
+
+[data-aai-experience-shell] [class~="text-[#eaf7ff]"],
+[data-aai-experience-shell] [class~="text-[#c3d9ea]"],
+[data-aai-experience-shell] [class~="text-[#9ec5de]"],
+[data-aai-experience-shell] [class~="text-[#6e9bb3]"],
+[data-aai-experience-shell] [class~="text-[#82a5bb]"] {
+  color: var(--aai-text-muted, #9ec5de) !important;
+}
+
+[data-aai-experience-shell] [class~="text-[#00e3fd]"],
+[data-aai-experience-shell] [class~="text-[#00dfff]"] {
+  color: var(--aai-primary, #00e3fd) !important;
+}
+
+[data-aai-experience-shell] [class~="border-[#00e3fd]/20"],
+[data-aai-experience-shell] [class~="border-[#00dfff]/20"],
+[data-aai-experience-shell] [class~="border-[#00dfff]/15"],
+[data-aai-experience-shell] [class~="border-[#00dfff]/30"] {
+  border-color: var(--aai-border, rgba(0,227,253,.22)) !important;
+}
