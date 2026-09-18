@@ -88,8 +88,9 @@ function toOverride(draft: ThemeDraft, theme: ExperienceTheme): Partial<Experien
       rail: draft.rail,
     },
     motionLanguage: {
-      ...(theme.motionLanguage ?? {}),
+      curve: theme.motionLanguage?.curve ?? "cubic-bezier(0.16, 1, 0.3, 1)",
       speed: draft.speed,
+      feel: theme.motionLanguage?.feel ?? "precise",
       durationMs: draft.durationMs,
     },
   };
