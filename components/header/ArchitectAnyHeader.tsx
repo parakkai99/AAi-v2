@@ -63,7 +63,8 @@ export const ArchitectAnyHeader: React.FC<ArchitectAnyHeaderProps> = ({
 
   return (
     <header
-      className={`sticky top-0 left-0 right-0 h-[64px] sm:h-[74px] z-[100] border-b backdrop-blur-2xl shadow-[0_4px_30px_rgba(0,0,0,0.25)] ${className}`}\n      style={{ background: "color-mix(in srgb, var(--aai-bg) 94%, transparent)", borderColor: "var(--aai-border)", color: "var(--aai-text)" }}
+      className={`sticky top-0 left-0 right-0 h-[64px] sm:h-[74px] z-[100] border-b backdrop-blur-2xl shadow-[0_4px_30px_rgba(0,0,0,0.25)] ${className}`}
+      style={{ background: "color-mix(in srgb, var(--aai-bg) 94%, transparent)", borderColor: "var(--aai-border)", color: "var(--aai-text)" }}
       role="banner"
     >
       <div className="flex items-center px-2.5 sm:px-5 lg:px-8 h-full max-w-[1600px] mx-auto gap-1.5 sm:gap-4">
