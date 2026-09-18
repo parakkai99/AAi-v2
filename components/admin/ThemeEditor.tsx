@@ -233,7 +233,7 @@ export function ThemeEditor({ theme, config, onUpdate, onSave, onPreview }: Them
                 <option value="deliberate">Deliberate</option>
               </select>
             </label>
-            <ThemeField
+            <ThemeTextField
               label="Transition Duration (ms)"
               value={String(draft.durationMs)}
               onChange={(v) => updateDraft("durationMs", Math.max(80, Number(v) || 80))}
@@ -258,13 +258,14 @@ function ThemeTextField({
   value: string;
   onChange: (value: string) => void;
   hint?: string;
+  type?: "text" | "number";
 }) {
   return (
     <label className="block">
       <span className="text-[10px] text-[#82a5bb]">{label}</span>
       {hint && <span className="ml-2 text-[9px] text-[#536f84]">{hint}</span>}
       <input
-        type="text"
+        type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="mt-1 w-full rounded-lg border border-white/10 bg-[#020914] px-3 py-2 text-xs font-mono text-[#eaf7ff] outline-none focus:border-cyan-400/50"
