@@ -51,8 +51,8 @@ const DEFAULT_CONFIG: CinematicConfig = {
 const CinematicContext = createContext<CinematicContextValue | null>(null);
 
 const SPEED_TIMINGS: Record<string, { before: number; travelling: number; after: number }> = {
-  cinematic: { before: 300, travelling: 1100, after: 320 },
-  swift: { before: 120, travelling: 520, after: 180 },
+  cinematic: { before: 220, travelling: 720, after: 220 },
+  swift: { before: 70, travelling: 320, after: 110 },
   instant: { before: 50, travelling: 100, after: 80 },
 };
 
