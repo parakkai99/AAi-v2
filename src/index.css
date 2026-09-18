@@ -34,7 +34,7 @@
 
 /* AAi GLOBAL MOBILE EXPERIENCE BASE */
 html, body, #root { width: 100%; min-width: 0; min-height: 100%; margin: 0; }
-html { min-height: 100%; background: var(--aai-bg, #020914); overscroll-behavior-y: none; }
+html { min-height: 100%; background: var(--aai-theme-background, var(--aai-bg, #020914)); overscroll-behavior-y: none; }
 body { min-height: 100dvh; width: 100%; overflow-x: hidden; overflow-y: auto; -webkit-text-size-adjust: 100%; text-rendering: optimizeLegibility; }
 button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 
@@ -65,7 +65,7 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
    ========================================================================= */
 
 body, #root {
-  background: var(--aai-bg, #020914);
+  background: var(--aai-theme-background, var(--aai-bg, #020914));
   color: var(--aai-text, #eaf7ff);
 }
 
