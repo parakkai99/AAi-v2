@@ -15,6 +15,7 @@ import { Header } from "@/components/preview/Header";
 import { UniverseStage } from "@/components/preview/UniverseStage";
 import { IntentCoreHome } from "@/components/preview/IntentCoreHome";
 import { SolutionDetail } from "@/components/preview/SolutionDetail";
+import { HyperlocalSolutionHome } from "@/components/preview/HyperlocalSolutionHome";
 import { Footer } from "@/components/preview/Footer";
 import { SpatialMapModal } from "@/components/map/SpatialMapModal";
 import { LocationPromptModal } from "@/components/location/LocationPromptModal";
@@ -82,7 +83,14 @@ function ExperienceSurface({
   const main = (
     <main className="flex-grow flex flex-col relative z-10 w-full overflow-x-hidden">
       {selectedSolutionId ? (
-        <SolutionDetail solutionId={selectedSolutionId} solution={activeSolution} domains={domains} subdomains={subdomains} capabilities={capabilities} onBackToUniverse={() => navigateTo({ type: "up-level" })} />
+        selectedSolutionId === "D06.01.01.01.001" && activeSolution ? (
+          <HyperlocalSolutionHome
+            solution={activeSolution}
+            onBackToUniverse={() => navigateTo({ type: "up-level" })}
+          />
+        ) : (
+          <SolutionDetail solutionId={selectedSolutionId} solution={activeSolution} domains={domains} subdomains={subdomains} capabilities={capabilities} onBackToUniverse={() => navigateTo({ type: "up-level" })} />
+        )
       ) : isIntentCoreActive ? (
         <IntentCoreHome domains={domains} subdomains={subdomains} capabilities={capabilities} solutions={solutions} initialQuery={intentCoreQuery} onReturnToUniverse={() => navigateTo({ layer: 1 })} onNavigateToDomain={(domainId) => navigateTo({ layer: 2, domainId })} onNavigateToSolution={(solutionId) => navigateTo({ layer: 5, solutionId })} />
       ) : (
