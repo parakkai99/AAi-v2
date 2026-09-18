@@ -1,0 +1,22 @@
+{
+  "version": "AAi-V2.0.1",
+  "id": "universe-example-strip",
+  "status": "active",
+  "presentation": {
+    "imageSize": "tiny",
+    "titleSize": "tiny",
+    "maxItems": 1
+  },
+  "entries": [
+    {
+      "id": "objective-hyperlocal-celebration",
+      "eyebrow": "TRY AN OBJECTIVE",
+      "title": "Plan a local celebration",
+      "image": "/assets/aai-objective-outcome-hero.png",
+      "action": {
+        "type": "solution",
+        "target": "D06.01.01.01.001"
+      }
+    }
+  ]
+}
