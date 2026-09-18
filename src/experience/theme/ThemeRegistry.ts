@@ -107,10 +107,10 @@ export const experienceThemes: ExperienceTheme[] = [
     background: { mode: 'color', value: '#f8fafc' },
     tokens: { background: '#f8fafc', surface: '#ffffff', surfaceAlt: '#f1f5f9', text: '#090d16', textMuted: '#334155', primary: '#0284c7', secondary: '#475569', accent: '#b45309', border: '#cbd5e1', radius: '14px', shadow: '0 4px 20px -2px rgba(15,23,42,.08), 0 2px 6px -1px rgba(15,23,42,.04)', heroOverlay: 'linear-gradient(135deg,rgba(255,255,255,.92),rgba(241,245,249,.82))' },
     motionLanguage: { curve: 'cubic-bezier(0.2, 0.8, 0.2, 1)', speed: 'fast', feel: 'crisp', durationMs: 200 },
-    surfaces: { card: '#ffffff', elevated: '#ffffff', glass: 'rgba(255, 255, 255, 0.96)', rail: '#ffffff' },
+    surfaces: { card: '#ffffff', elevated: '#f8fafc', glass: 'rgba(255,255,255,.96)', rail: '#f1f5f9' },
     elevation: { sm: '0 1px 3px rgba(15,23,42,.08)', md: '0 4px 16px rgba(15,23,42,.09)', lg: '0 10px 30px rgba(15,23,42,.12)', spatialGlow: '0 0 24px rgba(2,132,199,.15)' },
     radii: { sm: '6px', md: '10px', lg: '14px', xl: '18px', pill: '9999px' },
-    componentDefaults: { buttonRadius: '10px', cardBorder: '#cbd5e1', railBackground: '#ffffff' },
+    componentDefaults: { buttonRadius: '10px', cardBorder: '#cbd5e1', railBackground: '#f1f5f9' },
   },
 
   // 4. Nordic Frost — Scandinavian Cool Light
@@ -123,10 +123,10 @@ export const experienceThemes: ExperienceTheme[] = [
     background: { mode: 'gradient', value: 'linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%)' },
     tokens: { background: '#f0f4f8', surface: '#ffffff', surfaceAlt: '#e6edf5', text: '#102a43', textMuted: '#486581', primary: '#0066cc', secondary: '#334e68', accent: '#0284c7', border: '#d9e2ec', radius: '12px', shadow: '0 4px 20px rgba(16,42,67,0.06)', heroOverlay: 'linear-gradient(135deg,rgba(0,102,204,0.04),rgba(2,132,199,0.12))' },
     motionLanguage: { curve: 'cubic-bezier(0.16, 1, 0.3, 1)', speed: 'balanced', feel: 'crisp', durationMs: 240 },
-    surfaces: { card: '#ffffff', elevated: '#ffffff', glass: 'rgba(255, 255, 255, 0.94)', rail: '#f8fafc' },
+    surfaces: { card: '#fbfdff', elevated: '#eef5fb', glass: 'rgba(251,253,255,.96)', rail: '#edf4fa' },
     elevation: { sm: '0 1px 3px rgba(16,42,67,.06)', md: '0 4px 14px rgba(16,42,67,.08)', lg: '0 12px 30px rgba(16,42,67,.12)' },
     radii: { sm: '6px', md: '10px', lg: '12px', xl: '16px', pill: '9999px' },
-    componentDefaults: { buttonRadius: '10px', cardBorder: '#d9e2ec', railBackground: '#f8fafc' },
+    componentDefaults: { buttonRadius: '10px', cardBorder: '#d9e2ec', railBackground: '#edf4fa' },
   },
 
   // 5. Kyoto Zen — Wabi-Sabi Natural Stone
@@ -139,10 +139,10 @@ export const experienceThemes: ExperienceTheme[] = [
     background: { mode: 'gradient', value: 'linear-gradient(135deg, #f7f6f2 0%, #f0ede5 100%)' },
     tokens: { background: '#f7f6f2', surface: '#ffffff', surfaceAlt: '#eeeae0', text: '#23201d', textMuted: '#635e58', primary: '#8a6538', secondary: '#535b4c', accent: '#a16207', border: '#e2ded5', radius: '14px', shadow: '0 4px 20px rgba(35,32,29,0.05)', heroOverlay: 'linear-gradient(135deg,rgba(138,101,56,0.05),rgba(161,98,7,0.12))' },
     motionLanguage: { curve: 'cubic-bezier(0.25, 1, 0.5, 1)', speed: 'deliberate', feel: 'organic', durationMs: 320 },
-    surfaces: { card: '#ffffff', elevated: '#ffffff', glass: 'rgba(255, 255, 255, 0.94)', rail: '#faf9f6' },
+    surfaces: { card: '#fffdf8', elevated: '#f3f0e8', glass: 'rgba(255,253,248,.96)', rail: '#f3f0e8' },
     elevation: { sm: '0 1px 3px rgba(35,32,29,.05)', md: '0 4px 14px rgba(35,32,29,.07)', lg: '0 12px 30px rgba(35,32,29,.1)' },
     radii: { sm: '6px', md: '10px', lg: '14px', xl: '18px', pill: '9999px' },
-    componentDefaults: { buttonRadius: '12px', cardBorder: '#e2ded5', railBackground: '#faf9f6' },
+    componentDefaults: { buttonRadius: '12px', cardBorder: '#e2ded5', railBackground: '#f3f0e8' },
   },
 
   // 6. Editorial Sand — Architectural Atelier
@@ -155,10 +155,10 @@ export const experienceThemes: ExperienceTheme[] = [
     background: { mode: 'gradient', value: 'linear-gradient(135deg, #faf7f2 0%, #f3eee6 100%)' },
     tokens: { background: '#faf7f2', surface: '#ffffff', surfaceAlt: '#eee6da', text: '#1c1917', textMuted: '#665f59', primary: '#b45309', secondary: '#78350f', accent: '#c2410c', border: '#e7dfd3', radius: '12px', shadow: '0 4px 20px rgba(28,25,23,0.06)', heroOverlay: 'linear-gradient(135deg,rgba(180,83,9,0.04),rgba(194,65,12,0.12))' },
     motionLanguage: { curve: 'cubic-bezier(0.16, 1, 0.3, 1)', speed: 'balanced', feel: 'precise', durationMs: 260 },
-    surfaces: { card: '#ffffff', elevated: '#ffffff', glass: 'rgba(255, 255, 255, 0.94)', rail: '#fcfaf7' },
+    surfaces: { card: '#fffdf9', elevated: '#f5eee5', glass: 'rgba(255,253,249,.96)', rail: '#f5eee7' },
     elevation: { sm: '0 1px 3px rgba(28,25,23,.05)', md: '0 4px 14px rgba(28,25,23,.08)', lg: '0 12px 30px rgba(28,25,23,.11)' },
     radii: { sm: '6px', md: '10px', lg: '12px', xl: '16px', pill: '9999px' },
-    componentDefaults: { buttonRadius: '10px', cardBorder: '#e7dfd3', railBackground: '#fcfaf7' },
+    componentDefaults: { buttonRadius: '10px', cardBorder: '#e7dfd3', railBackground: '#f5eee7' },
   },
 
   // 7. Monochrome Studio — Gallery Modernist
@@ -171,10 +171,10 @@ export const experienceThemes: ExperienceTheme[] = [
     background: { mode: 'color', value: '#f4f4f5' },
     tokens: { background: '#f4f4f4', surface: '#ffffff', surfaceAlt: '#e4e4e7', text: '#18181b', textMuted: '#52525b', primary: '#18181b', secondary: '#3f3f46', accent: '#2563eb', border: '#d4d4d8', radius: '10px', shadow: '0 4px 18px rgba(0,0,0,0.06)', heroOverlay: 'linear-gradient(135deg,rgba(24,24,27,0.03),rgba(37,99,235,0.1))' },
     motionLanguage: { curve: 'cubic-bezier(0.2, 0.8, 0.2, 1)', speed: 'fast', feel: 'crisp', durationMs: 190 },
-    surfaces: { card: '#ffffff', elevated: '#ffffff', glass: 'rgba(255, 255, 255, 0.95)', rail: '#fafafa' },
+    surfaces: { card: '#ffffff', elevated: '#ececef', glass: 'rgba(255,255,255,.96)', rail: '#e9e9ec' },
     elevation: { sm: '0 1px 2px rgba(0,0,0,.06)', md: '0 4px 12px rgba(0,0,0,.08)', lg: '0 10px 24px rgba(0,0,0,.1)' },
     radii: { sm: '4px', md: '8px', lg: '10px', xl: '14px', pill: '9999px' },
-    componentDefaults: { buttonRadius: '8px', cardBorder: '#d4d4d8', railBackground: '#fafafa' },
+    componentDefaults: { buttonRadius: '8px', cardBorder: '#d4d4d8', railBackground: '#e9e9ec' },
   },
 
   // 8. Terracotta Sun — Mediterranean Warmth
@@ -187,10 +187,10 @@ export const experienceThemes: ExperienceTheme[] = [
     background: { mode: 'gradient', value: 'linear-gradient(135deg, #fff7f2 0%, #faede5 100%)' },
     tokens: { background: '#fff7f2', surface: '#ffffff', surfaceAlt: '#faeee6', text: '#3f1508', textMuted: '#7c3f2d', primary: '#c2410c', secondary: '#9a3412', accent: '#d97706', border: '#fed7aa', radius: '14px', shadow: '0 4px 22px rgba(194,65,12,0.07)', heroOverlay: 'linear-gradient(135deg,rgba(194,65,12,0.05),rgba(217,119,6,0.15))' },
     motionLanguage: { curve: 'cubic-bezier(0.16, 1, 0.3, 1)', speed: 'balanced', feel: 'expressive', durationMs: 270 },
-    surfaces: { card: '#ffffff', elevated: '#ffffff', glass: 'rgba(255, 255, 255, 0.94)', rail: '#fffaf6' },
+    surfaces: { card: '#fffdfb', elevated: '#fff0e8', glass: 'rgba(255,253,251,.96)', rail: '#fff3eb' },
     elevation: { sm: '0 1px 3px rgba(194,65,12,.06)', md: '0 4px 14px rgba(194,65,12,.08)', lg: '0 12px 30px rgba(194,65,12,.12)' },
     radii: { sm: '6px', md: '10px', lg: '14px', xl: '18px', pill: '9999px' },
-    componentDefaults: { buttonRadius: '12px', cardBorder: '#fed7aa', railBackground: '#fffaf6' },
+    componentDefaults: { buttonRadius: '12px', cardBorder: '#fed7aa', railBackground: '#fff3eb' },
   },
 
   // 9. Coastal Solitude — Ocean Breeze Teal
