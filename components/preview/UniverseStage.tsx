@@ -306,7 +306,13 @@ export const UniverseStage: React.FC<UniverseStageProps> = ({
   return (
     <div className={styles.stageWrapper} style={{ background: experienceTheme.background.value, color: experienceTheme.tokens.text }}>
       <div className={styles.threeCanvasContainer}>
-        <UniversePlane\n          activeColor={activeColor}\n          isOrbiting={isOrbiting}\n          themePrimary={experienceTheme.tokens.primary}\n          themeSecondary={experienceTheme.tokens.secondary}\n          themeAccent={experienceTheme.tokens.accent}\n        />
+        <UniversePlane
+          activeColor={activeColor}
+          isOrbiting={isOrbiting}
+          themePrimary={experienceTheme.tokens.primary}
+          themeSecondary={experienceTheme.tokens.secondary}
+          themeAccent={experienceTheme.tokens.accent}
+        />
       </div>
 
       <div className="sticky top-0 z-40 w-full">
