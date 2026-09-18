@@ -12,6 +12,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, Compass, Cpu, Database, Globe2, Home, Layers, Settings2, SlidersHorizontal, Sparkles, X, Grid2X2 } from "lucide-react";
 import { useArchitectAny } from "@/src/context/ArchitectAnyContext";
 import { ExperienceThemeSelector } from "@/components/theme/ExperienceThemeSelector";
+import { useExperienceRuntime } from "@/src/experience/ExperienceRuntime";
 import { useUniversalNavigation } from "@/src/context/UniversalNavigationContext";
 import type { Domain, Subdomain } from "@/src/types";
 
@@ -37,6 +38,7 @@ export const ContextualNavigationRail = ({
   className = "",
 }: ContextualNavigationRailProps) => {
   const { intent, theme } = useArchitectAny();
+  const { theme: experienceTheme } = useExperienceRuntime();
   const { currentWaypoint, canGoBack, canGoForward, goBack, goForward, goHome } = useUniversalNavigation();
   const isDark = theme === "dark";
   const [isAppStackOpen, setIsAppStackOpen] = useState(false);
@@ -105,7 +107,7 @@ export const ContextualNavigationRail = ({
   };
 
   return (
-    <nav aria-label="AAi navigation rail" className={`fixed left-2 sm:left-4 top-1/2 -translate-y-1/2 z-[90] select-none ${className}`}>
+<nav aria-label="AAi navigation rail" className={`fixed left-2 sm:left-4 top-1/2 -translate-y-1/2 z-[90] select-none ${className}`} style={{ color: experienceTheme.tokens.text }}>
       <div className="flex flex-col items-center gap-2">
         <div className="relative">
           <button
