@@ -59,10 +59,10 @@ export const experienceThemes: ExperienceTheme[] = [
     background: { mode: 'gradient', value: 'linear-gradient(135deg,#ffffff 0%,#ffffff 54%,#f3faf7 100%)', overlay: 'radial-gradient(circle at 55% 18%,rgba(23,140,118,.10),transparent 44%)' },
     tokens: { background: '#ffffff', surface: '#ffffff', surfaceAlt: '#f1f5ed', text: '#10251f', textMuted: '#53655e', primary: '#087f6b', secondary: '#176b5c', accent: '#b38a2e', border: 'rgba(8,127,107,.22)', radius: '14px', shadow: '0 8px 28px rgba(16,37,31,.10)', heroOverlay: 'linear-gradient(135deg,rgba(255,255,255,.94),rgba(237,247,242,.72))' },
     motionLanguage: { curve: 'cubic-bezier(0.2,0.8,0.2,1)', speed: 'balanced', feel: 'crisp', durationMs: 240 },
-    surfaces: { card: '#ffffff', elevated: '#ffffff', glass: 'rgba(255,255,255,.94)', rail: '#f8faf6' },
+    surfaces: { card: '#f7fbf8', elevated: '#edf6f0', glass: 'rgba(247,251,248,.94)', rail: '#f1f7f3' },
     elevation: { sm: '0 1px 3px rgba(16,37,31,.08)', md: '0 5px 16px rgba(16,37,31,.10)', lg: '0 14px 34px rgba(16,37,31,.13)', spatialGlow: '0 0 28px rgba(8,127,107,.14)' },
     radii: { sm: '6px', md: '10px', lg: '14px', xl: '20px', pill: '9999px' },
-    componentDefaults: { buttonRadius: '12px', cardBorder: 'rgba(8,127,107,.20)', railBackground: '#f8faf6' },
+    componentDefaults: { buttonRadius: '12px', cardBorder: 'rgba(8,127,107,.20)', railBackground: '#f1f7f3' },
   },
 
   // 5. Mysore 4 — Palace Artwork Royal Maroon & Turquoise
