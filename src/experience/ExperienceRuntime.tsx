@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { getExperienceTheme } from './theme/ThemeRegistry';
+import { getExperienceTheme, resolveThemeDefinition } from './theme/ThemeRegistry';
 import { getExperienceLayout } from './layout/LayoutRegistry';
 import { resolveExperienceDefinition } from './resolver';
 import type { ExperienceTheme } from './theme/ThemeDefinition';
@@ -92,7 +92,22 @@ export const ExperienceRuntime: React.FC<ExperienceRuntimeProps> = ({
     setLayoutId((current) => current || resolvedLayoutId);
   }, [resolvedLayoutId]);
 
-  const theme = useMemo(() => getExperienceTheme(themeId), [themeId]);
+  // Solution administration is authoritative for solution-scoped presentation.
+  // Universe/global theme selection remains user-driven and persistent.
+  useEffect(() => {
+    if (scope === 'solution' && resolvedThemeId && resolvedThemeId !== themeId) {
+      setThemeId(resolvedThemeId);
+    }
+  }, [scope, resolvedThemeId, themeId]);
+
+  const themeOverride = resolvedDefinition.themeOverride;
+  const theme = useMemo(() => {
+    if (!themeOverride) return getExperienceTheme(themeId);
+    return resolveThemeDefinition(
+      getExperienceTheme(themeId),
+      themeOverride as Partial<ExperienceTheme>,
+    );
+  }, [themeId, themeOverride]);
   const layout = useMemo(() => getExperienceLayout(layoutId), [layoutId]);
 
   useEffect(() => {
