@@ -11,6 +11,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, Compass, Cpu, Database, Globe2, Home, Layers, Settings2, SlidersHorizontal, Sparkles, X, Grid2X2 } from "lucide-react";
 import { useArchitectAny } from "@/src/context/ArchitectAnyContext";
+import { ExperienceThemeSelector } from "@/components/theme/ExperienceThemeSelector";
 import { useUniversalNavigation } from "@/src/context/UniversalNavigationContext";
 import type { Domain, Subdomain } from "@/src/types";
 
@@ -139,6 +140,10 @@ export const ContextualNavigationRail = ({
               </div>
             </div>
           )}
+        </div>
+
+        <div className="relative">
+          <ExperienceThemeSelector variant="rail" />
         </div>
 
         {activeLevel !== "L1" && (
