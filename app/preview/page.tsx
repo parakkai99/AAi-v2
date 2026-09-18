@@ -90,10 +90,10 @@ function ExperienceSurface({
     if (canGoForward) await goForward();
   };
 
-  const { layout, definition } = useExperienceRuntime();
+  const { theme: experienceTheme, layout, definition } = useExperienceRuntime();
 
   const main = (
-    <main className="flex-grow flex flex-col relative z-10 w-full overflow-x-hidden">
+    <main className="flex-grow flex flex-col relative z-10 w-full overflow-x-hidden" style={{ color: experienceTheme.tokens.text }}>
       {currentWaypoint.layer >= 2 && currentWaypoint.layer <= 6 && (
         <div className="hidden md:flex w-full items-center justify-center px-4 py-1">
           <div className="flex items-center gap-1 rounded-xl border border-[#00dfff]/15 bg-[#02101e]/85 px-1 py-1 shadow-lg backdrop-blur-md">
@@ -257,7 +257,13 @@ export default function PreviewPage() {
   );
 
   return (
-    <div className={`font-sans min-h-screen flex flex-col overflow-x-hidden transition-colors duration-300 ${isDark ? "bg-[#020914] text-[#eaf7ff] selection:bg-[#00e3fd] selection:text-[#001f24]" : "bg-[#f1f5f9] text-slate-900 selection:bg-indigo-500 selection:text-white"}`}>
+    <div
+      className="font-sans min-h-screen flex flex-col overflow-x-hidden transition-colors duration-300"
+      style={{
+        background: 'var(--aai-bg)',
+        color: 'var(--aai-text)',
+      }}
+    >
       {currentTab === "AgentOS" ? (
         <ErrorBoundary fallbackTitle="Agent OS Command Center"><AgentOSCommandCenter onReturnToUniverse={() => setCurrentTab("Universe")} initialIntentRef={pendingIntentRef} onClearInitialIntentRef={() => setPendingIntentRef(null)} /></ErrorBoundary>
       ) : currentTab === "Parakkai" || currentTab === "NGLiving" || currentTab === "JiLink" ? applicationView : universeView}
