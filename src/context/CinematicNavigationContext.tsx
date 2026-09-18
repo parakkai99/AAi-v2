@@ -41,7 +41,7 @@ const DEFAULT_CONFIG: CinematicConfig = {
   enabled: true,
   mood: 'CALM',
   style: 'STAR_TRAIL_VOYAGE',
-  speed: 'cinematic',
+  speed: 'swift',
   soundEnabled: false,
   showTelemetryHUD: true,
   allowSkip: true,
@@ -51,8 +51,8 @@ const DEFAULT_CONFIG: CinematicConfig = {
 const CinematicContext = createContext<CinematicContextValue | null>(null);
 
 const SPEED_TIMINGS: Record<string, { before: number; travelling: number; after: number }> = {
-  cinematic: { before: 350, travelling: 1350, after: 420 },
-  swift: { before: 180, travelling: 700, after: 280 },
+  cinematic: { before: 300, travelling: 1100, after: 320 },
+  swift: { before: 120, travelling: 520, after: 180 },
   instant: { before: 50, travelling: 100, after: 80 },
 };
 
@@ -78,7 +78,11 @@ export const CinematicNavigationProvider: React.FC<{ children: React.ReactNode }
         const saved = localStorage.getItem('aai_cinematic_config');
         if (saved) {
           const parsed = JSON.parse(saved);
-          return { ...DEFAULT_CONFIG, ...parsed };
+          const migrated = { ...DEFAULT_CONFIG, ...parsed };
+          // AAi-V2.0.2: keep layer-to-layer navigation responsive by migrating
+          // the former cinematic default to the faster "swift" profile.
+          if (migrated.speed === 'cinematic') migrated.speed = 'swift';
+          return migrated;
         }
       } catch {
         // Use default
