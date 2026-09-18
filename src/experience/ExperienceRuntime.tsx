@@ -89,9 +89,8 @@ export const ExperienceRuntime: React.FC<ExperienceRuntimeProps> = ({
   );
 
   useEffect(() => {
-    setThemeId(resolvedThemeId);
-    setLayoutId(resolvedLayoutId);
-  }, [resolvedThemeId, resolvedLayoutId]);
+    setLayoutId((current) => current || resolvedLayoutId);
+  }, [resolvedLayoutId]);
 
   const theme = useMemo(() => getExperienceTheme(themeId), [themeId]);
   const layout = useMemo(() => getExperienceLayout(layoutId), [layoutId]);
@@ -154,6 +153,8 @@ export const ExperienceRuntime: React.FC<ExperienceRuntimeProps> = ({
     });
 
     root.style.fontFamily = theme.typography.body;
+    root.style.background = theme.background.value;
+    root.style.color = theme.tokens.text;
     root.dataset.aaiTheme = theme.id;
     root.dataset.aaiLayout = layout.id;
     root.dataset.aaiDensity = layout.density ?? 'balanced';
