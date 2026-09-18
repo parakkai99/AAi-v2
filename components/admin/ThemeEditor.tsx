@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Eye, RotateCcw, Save, Sparkles } from "lucide-react";
 import type { ExperienceTheme } from "@/src/experience/theme/ThemeDefinition";
 import type { SolutionAdminConfig } from "@/src/contracts/solutionAdmin";
+import { publishLiveThemePreview } from "@/src/services/solutionAdminService";
 
 type ThemeDraft = {
   name: string;
@@ -117,6 +118,14 @@ export function ThemeEditor({ theme, config, onUpdate, onSave, onPreview }: Them
   }, [theme.id, config.themeOverrideBaseId]);
 
   const override = useMemo(() => toOverride(draft, theme), [draft, theme]);
+
+  useEffect(() => {
+    publishLiveThemePreview({
+      solutionId: String(config.solutionId),
+      themeId: theme.id,
+      themeOverride: override as Readonly<Record<string, unknown>>,
+    });
+  }, [config.solutionId, theme.id, override]);
 
   const updateDraft = <K extends keyof ThemeDraft>(key: K, value: ThemeDraft[K]) => {
     const next = { ...draft, [key]: value };
