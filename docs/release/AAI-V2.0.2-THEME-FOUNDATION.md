@@ -30,3 +30,16 @@ AAi-V2.0.2 now applies the selected Experience Theme at the global runtime bound
 Theme selection is stored under the global AAi experience key so the selected theme remains active while navigating between AAi areas and after a normal page reload.
 
 The implementation intentionally does not replace solution structure, artwork assets, SVGs, interaction logic, navigation logic, or business behavior. Legacy color utilities are adapted to the active theme through the global theme bridge while components are progressively migrated to native tokens.
+
+
+## Solution Theme Editor
+
+Solution Administration → Experience → Theme Library now provides an editable, solution-scoped theme draft. Administrators can edit the theme name, background, surfaces, cards, rail, typography colors, primary/secondary/accent colors, border, overlay and motion timing.
+
+The editor keeps the shared Theme Registry immutable. A solution stores only its theme override and custom name. The Experience Runtime resolves the selected library theme first and then applies the solution override.
+
+### Live preview
+
+The admin editor publishes the current draft through a same-origin live-preview channel. An open solution preview window listens for those draft updates and applies them without a page reload. Save Theme persists the draft to the solution admin configuration; Save & Open Live Experience persists it and opens the full solution preview.
+
+This keeps theme experimentation inside the solution boundary and does not modify shared solution content, images, SVGs, navigation structure or framework components.
