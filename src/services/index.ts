@@ -13,3 +13,9 @@ export * from "./providerSql";
 export * from "./providerAdapters";
 export * from "./documentProviderAdapter";
 export * from "./registerBuiltInProviderAdapters";
+
+export * from "./solutionManifestResolver";
+export * from "./deploymentPlanner";
+export * from "./auditService";
+export * from "./discoveryService";
+export * from "./backendFoundation";
