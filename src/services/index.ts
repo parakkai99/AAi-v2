@@ -12,3 +12,4 @@ export * from "./dataMappingService";
 export * from "./providerSql";
 export * from "./providerAdapters";
 export * from "./documentProviderAdapter";
+export * from "./registerBuiltInProviderAdapters";
