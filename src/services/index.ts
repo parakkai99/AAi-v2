@@ -8,3 +8,7 @@ export * from "./assetResolver";
 export * from "./jsonDefinitionService";
 export * from "./releaseService";
 export * from "./providerAdapterRegistry";
+export * from "./dataMappingService";
+export * from "./providerSql";
+export * from "./providerAdapters";
+export * from "./documentProviderAdapter";
