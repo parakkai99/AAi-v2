@@ -33,7 +33,7 @@ export interface SelectionItem {
 
 export interface SelectionPolicy {
   readonly layer: CatalogLayer;
-  readonly selectable: true;
+  readonly selectable: boolean;
   readonly checkoutEligible: boolean;
   readonly canCompose: boolean;
   readonly requiresDescendantSelection: boolean;
