@@ -61,11 +61,11 @@ export interface ProviderAdapter {
   generatePersistenceArtifacts(
     manifest: PersistenceManifest,
     context: ProviderContext,
-  ): readonly ProviderArtifact[];
+  ): Promise<readonly ProviderArtifact[]>;
   generateAssetArtifacts(
     manifest: AssetManifest,
     context: ProviderContext,
-  ): readonly ProviderArtifact[];
+  ): Promise<readonly ProviderArtifact[]>;
   generateDeploymentArtifacts(
     manifest: DeploymentManifest,
     environment: EnvironmentManifest,
