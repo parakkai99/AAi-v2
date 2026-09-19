@@ -369,3 +369,34 @@ Every implementation prompt must:
 10. STOP after the stage and wait for the next stage.
 
 **Watchdog rule:** Never jump from an incomplete L1–L5 definition directly into L6 implementation. Missing information must be recorded as a gap, not invented.
+
+
+## Backend Resolution Foundation — 2026-09-19
+
+**Status:** IMPLEMENTED — LOCAL VERIFICATION REQUIRED
+
+Added pure backend services with no UI dependency:
+
+- [x] L5 catalog → L5 solution resolver
+- [x] L1-L5 selection policy resolver
+- [x] L5-only checkout eligibility resolver
+- [x] Solution Bag evaluation
+- [x] Multi-L5 composition resolver
+- [x] L5 definition structural validator
+- [x] L6 environment requirement resolver
+- [x] Persistence Manifest resolver
+- [x] Asset Manifest resolver
+- [x] Central backend service exports
+
+Backend service files:
+
+`src/services/l5SolutionResolver.ts`  
+`src/services/selectionResolver.ts`  
+`src/services/compositionResolver.ts`  
+`src/services/definitionValidator.ts`  
+`src/services/environmentResolver.ts`  
+`src/services/persistenceResolver.ts`  
+`src/services/assetResolver.ts`  
+`src/services/index.ts`
+
+**Verification gate:** local `pnpm lint` and `pnpm build` must be run before this stage is marked verified. Physical provider-specific SQL/NoSQL generation and deployment adapters remain L6 implementation work; the provider-neutral manifests and resolution boundary are now established.
