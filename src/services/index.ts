@@ -5,3 +5,6 @@ export * from "./definitionValidator";
 export * from "./environmentResolver";
 export * from "./persistenceResolver";
 export * from "./assetResolver";
+export * from "./jsonDefinitionService";
+export * from "./releaseService";
+export * from "./providerAdapterRegistry";
