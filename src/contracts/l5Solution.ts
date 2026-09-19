@@ -3,172 +3,104 @@
  * CONTRACT: L5-SOLUTION-001
  * Status: ACTIVE / AAi-V2.0.1 freeze
  *
- * L5 is the concrete solution boundary.
- * It is selectable, marketable, composable and checkout-eligible.
- * L1-L4 are possibility/navigation levels; L6 resolves execution.
+ * L5 is the concrete solution boundary:
+ * selectable, marketable, composable and checkout-eligible.
+ * L1-L4 describe the possibility space; L6 resolves execution.
  */
 
-export type L5PricingModel =
-  | "ONE_TIME"
-  | "SUBSCRIPTION"
-  | "USAGE"
-  | "QUOTE"
-  | "HYBRID";
+import type {
+  CommercialDefinition,
+  CustomerJourneyDefinition,
+  PricingModel,
+  PaymentMethod,
+  PaymentMode,
+  CreditUnit,
+  DiscountType
+} from "./commercial";
 
-export type L5PaymentMethod =
-  | "CARD"
-  | "UPI"
-  | "BANK_TRANSFER"
-  | "WALLET"
-  | "CREDIT_BALANCE"
-  | "PAYMENT_LINK"
-  | "INVOICE";
+export type L5PricingModel = PricingModel;
+export type L5PaymentMethod = PaymentMethod;
+export type L5PaymentMode = PaymentMode;
+export type L5CreditUnit = CreditUnit;
+export type L5DiscountType = DiscountType;
 
-export type L5PaymentMode =
-  | "FULL"
-  | "PARTIAL"
-  | "INSTALLMENT"
-  | "SUBSCRIPTION"
-  | "MILESTONE";
+export type L5PriceComponent = import("./commercial").PriceComponent;
+export type L5PricingDefinition = import("./commercial").PricingDefinition;
+export type L5DiscountRule = import("./commercial").DiscountRule;
+export type L5OfferDefinition = import("./commercial").OfferDefinition;
+export type L5CreditDefinition = import("./commercial").CreditDefinition;
+export type L5PaymentDefinition = import("./commercial").PaymentDefinition;
+export type L5QuoteDefinition = import("./commercial").QuoteDefinition;
+export type L5IntentDefinition = import("./commercial").IntentDefinition;
+export type L5ConversationDefinition = import("./commercial").ConversationDefinition;
+export type L5FollowUpDefinition = import("./commercial").FollowUpDefinition;
+export type L5SupportDefinition = import("./commercial").SupportDefinition;
+export type L5LifecycleDefinition = import("./commercial").LifecycleDefinition;
+export type L5CommercialDefinition = CommercialDefinition;
+export type L5CustomerJourneyDefinition = CustomerJourneyDefinition;
 
-export type L5CreditUnit =
-  | "REQUEST"
-  | "ITEM"
-  | "MINUTE"
-  | "GB_MONTH"
-  | "TRANSACTION"
-  | "CUSTOM";
-
-export type L5DiscountType =
-  | "PERCENTAGE"
-  | "FIXED_AMOUNT"
-  | "VOLUME"
-  | "EARLY_PURCHASE"
-  | "LOYALTY"
-  | "COUPON"
-  | "PROMOTIONAL";
-
-export interface L5PriceComponent {
-  readonly componentId: string;
-  readonly name: string;
-  readonly amount: number;
+export interface L5ExperienceRequirements {
+  readonly pageModel: string;
+  readonly mobileFirst: boolean;
+  readonly requiredSections: readonly string[];
+  readonly optionalSections?: readonly string[];
+  readonly navigation?: Readonly<Record<string, unknown>>;
+  readonly mediaRequirements?: readonly string[];
+  readonly themeCompatibility?: readonly string[];
+  readonly themeOverrideAllowed?: boolean;
+  readonly layoutId?: string;
+  readonly animationLevel?: string;
+  readonly responsiveRequirements?: Readonly<Record<string, unknown>>;
+  readonly publicEntry?: Readonly<Record<string, unknown>>;
+  readonly nativeEntry?: Readonly<Record<string, unknown>>;
+  readonly seo?: Readonly<Record<string, unknown>>;
 }
 
-export interface L5PricingDefinition {
-  readonly model: L5PricingModel;
-  readonly currency: string;
-  readonly basePrice?: number;
-  readonly components?: readonly L5PriceComponent[];
-  readonly billingFrequency?: string;
-  readonly minimumCommitment?: string;
-  readonly usagePricing?: Readonly<Record<string, unknown>>;
-  readonly taxMode?: "NONE" | "RUNTIME";
+export interface L5ProviderRequirements {
+  readonly providerTypes?: readonly string[];
+  readonly serviceCategories?: readonly string[];
+  readonly locationRequired?: boolean;
+  readonly verificationRequired?: boolean;
+  readonly providerIdentityRequired?: boolean;
+  readonly externalSourceTypes?: readonly string[];
+  readonly evidenceTypes?: readonly string[];
 }
 
-export interface L5DiscountRule {
-  readonly discountId: string;
-  readonly type: L5DiscountType;
-  readonly value: number;
-  readonly validFrom?: string;
-  readonly validUntil?: string;
-  readonly eligibility?: string;
+export interface L5PersistenceRequirements {
+  readonly entities: readonly string[];
+  readonly relationships?: readonly string[];
+  readonly dataSensitivity?: readonly string[];
+  readonly expectedGrowth?: Readonly<Record<string, unknown>>;
+  readonly retention?: Readonly<Record<string, unknown>>;
 }
 
-export interface L5OfferDefinition {
-  readonly offerId: string;
-  readonly name: string;
-  readonly offerType: string;
-  readonly validFrom?: string;
-  readonly validUntil?: string;
-  readonly eligibility?: Readonly<Record<string, unknown>>;
-  readonly benefits?: readonly string[];
-  readonly pricing?: Readonly<Record<string, unknown>>;
+export interface L5AssetRequirements {
+  readonly assetTypes?: readonly string[];
+  readonly providerPhotoRequired?: boolean;
+  readonly externalVideoReferences?: boolean;
+  readonly optimizationRequired?: boolean;
+  readonly storageClass?: string;
+  readonly publicDeliveryRequired?: boolean;
 }
 
-export interface L5CreditDefinition {
-  readonly creditType: string;
-  readonly unit: L5CreditUnit;
-  readonly included?: number;
-  readonly consumptionRules?: readonly Readonly<Record<string, unknown>>[];
-  readonly expiryPolicy?: Readonly<Record<string, unknown>>;
-  readonly topUpEnabled?: boolean;
+export interface L5IntegrationRequirements {
+  readonly requiredIntegrations?: readonly string[];
+  readonly optionalIntegrations?: readonly string[];
+  readonly inboundEvents?: readonly string[];
+  readonly outboundEvents?: readonly string[];
+  readonly webhookRequirements?: readonly string[];
 }
 
-export interface L5PaymentDefinition {
-  readonly required: boolean;
-  readonly methods?: readonly L5PaymentMethod[];
-  readonly modes?: readonly L5PaymentMode[];
-  readonly refundSupported?: boolean;
-  readonly partialRefundSupported?: boolean;
-}
-
-export interface L5QuoteDefinition {
-  readonly supported: boolean;
-  readonly requiredWhen?: readonly string[];
-  readonly validityDays?: number;
-  readonly approvalRequired?: boolean;
-}
-
-export interface L5IntentDefinition {
-  readonly primary?: readonly string[];
-  readonly keywords?: readonly string[];
-  readonly useCases?: readonly string[];
-  readonly customerProblems?: readonly string[];
-  readonly targetAudience?: readonly string[];
-}
-
-export interface L5ConversationDefinition {
-  readonly enabled?: boolean;
-  readonly channels?: readonly string[];
-  readonly referenceRequired?: boolean;
-}
-
-export interface L5FollowUpDefinition {
-  readonly enabled?: boolean;
-  readonly events?: readonly string[];
-  readonly channels?: readonly string[];
-}
-
-export interface L5SupportDefinition {
-  readonly enabled?: boolean;
-  readonly surfaces?: readonly string[];
-  readonly ticketing?: boolean;
-  readonly chat?: boolean;
-  readonly sla?: boolean;
-  readonly escalation?: boolean;
-  readonly customerFeedback?: boolean;
-}
-
-export interface L5LifecycleDefinition {
-  readonly order?: boolean;
-  readonly subscription?: boolean;
-  readonly onboarding?: boolean;
-  readonly activation?: boolean;
-  readonly usage?: boolean;
-  readonly support?: boolean;
-  readonly followUp?: boolean;
-  readonly renewal?: boolean;
-  readonly upgradeDowngrade?: boolean;
-  readonly cancellation?: boolean;
-  readonly postSale?: boolean;
-  readonly feedback?: boolean;
-}
-
-export interface L5CommercialDefinition {
-  readonly pricing: L5PricingDefinition;
-  readonly discounts?: readonly L5DiscountRule[];
-  readonly offers?: readonly L5OfferDefinition[];
-  readonly credits?: readonly L5CreditDefinition[];
-  readonly payment: L5PaymentDefinition;
-  readonly quote?: L5QuoteDefinition;
-}
-
-export interface L5CustomerJourneyDefinition {
-  readonly intent?: L5IntentDefinition;
-  readonly conversation?: L5ConversationDefinition;
-  readonly followUp?: L5FollowUpDefinition;
-  readonly lifecycle?: L5LifecycleDefinition;
-  readonly support?: L5SupportDefinition;
+export interface L5L6Requirements {
+  readonly runtimeCapabilities?: readonly string[];
+  readonly infrastructureCapabilities?: readonly string[];
+  readonly geography?: Readonly<Record<string, unknown>>;
+  readonly capacity?: Readonly<Record<string, unknown>>;
+  readonly availability?: Readonly<Record<string, unknown>>;
+  readonly security?: Readonly<Record<string, unknown>>;
+  readonly observability?: Readonly<Record<string, unknown>>;
+  readonly backupRecovery?: Readonly<Record<string, unknown>>;
+  readonly updateRollback?: Readonly<Record<string, unknown>>;
 }
 
 export interface L5SelectionDefinition {
@@ -185,22 +117,32 @@ export interface L5SolutionDefinition {
   readonly description: string;
 
   readonly selection: L5SelectionDefinition;
+
+  /**
+   * The commercial/customer model is part of L5, not an L6 inference.
+   */
   readonly commercial: L5CommercialDefinition;
   readonly customerJourney?: L5CustomerJourneyDefinition;
 
   /**
-   * Experience requirements are intentionally referenced rather than
-   * duplicating the ExperienceDefinition contract.
+   * Required experience/design information is present at L5.
    */
-  readonly experienceDefinitionRef?: string;
+  readonly experienceRequirements: L5ExperienceRequirements;
+
+  readonly providerRequirements?: L5ProviderRequirements;
+  readonly persistenceRequirements?: L5PersistenceRequirements;
+  readonly assetRequirements?: L5AssetRequirements;
+  readonly integrationRequirements?: L5IntegrationRequirements;
+  readonly l6Requirements?: L5L6Requirements;
 
   /**
-   * Logical data/persistence requirements. L6 maps these to the target
-   * database or storage implementation.
+   * Optional references connect L5 to reusable AAi definitions without
+   * duplicating their implementation contracts.
    */
+  readonly experienceDefinitionRef?: string;
   readonly persistenceProfileRef?: string;
-
   readonly assetProfileRef?: string;
   readonly integrationProfileRef?: string;
+
   readonly metadata?: Readonly<Record<string, unknown>>;
 }
