@@ -70,5 +70,5 @@ export interface ProviderAdapter {
     manifest: DeploymentManifest,
     environment: EnvironmentManifest,
     context: ProviderContext,
-  ): readonly ProviderArtifact[];
+  ): Promise<readonly ProviderArtifact[]>;
 }
