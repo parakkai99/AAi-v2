@@ -30,6 +30,14 @@ export function checkReleaseCompatibility(
     reasons.push(`Runtime ${runtimeVersion} is above maximum ${maximum}.`);
   }
 
+  if (!release.updateManifest.sha256) {
+    reasons.push("Release SHA-256 is missing.");
+  }
+
+  if (!release.updateManifest.signature || !release.updateManifest.keyId) {
+    reasons.push("Release signature metadata is incomplete.");
+  }
+
   return {
     compatible: reasons.length === 0,
     reasons,
