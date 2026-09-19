@@ -82,5 +82,5 @@ function mapType(type: string, dialect: SqlDialect): string {
 
 function identifier(value: string, dialect: SqlDialect): string {
   const safe = value.trim().replace(/[^a-zA-Z0-9_]/g, "_");
-  return dialect === "POSTGRESQL" ? `"${safe}"` : ``${safe}``;
+  return dialect === "POSTGRESQL" ? `"${safe}"` : `\`${safe}\``;
 }
