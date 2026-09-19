@@ -1,16 +1,23 @@
 /**
  * AAi Canonical Definition Package
  * CONTRACT: DEFINITION-PACKAGE-001
- *
- * This is the portable definition envelope. Runtime persistence and deployment
- * implementations are resolved by L6 and are never hardcoded into L1-L5.
  */
 
 import type { CapabilityCatalogData } from "./catalog";
 import type { L5SolutionDefinition } from "./l5Solution";
 import type { SolutionBag, SelectionContext } from "./selection";
-import type { CompositionManifest, ExperienceManifest, PersistenceManifest, AssetManifest, EnvironmentManifest, RuntimeManifest, DeploymentManifest, UpdateManifest, AuditManifest } from "./manifests";
-import type { DataIntakeDefinition } from "./dataIntake";
+import type {
+  CompositionManifest,
+  ExperienceManifest,
+  PersistenceManifest,
+  AssetManifest,
+  EnvironmentManifest,
+  RuntimeManifest,
+  DeploymentManifest,
+  UpdateManifest,
+  AuditManifest,
+} from "./manifests";
+import type { DataIntakeDefinition, GeneratedCopyMetadata } from "./dataIntake";
 import type { AIPromptDefinition } from "./ai";
 
 export interface AAIControlDefinition {
@@ -19,6 +26,7 @@ export interface AAIControlDefinition {
   readonly aaIVersion: string;
   readonly createdAt: string;
   readonly updatedAt: string;
+  readonly status?: "DRAFT" | "VALIDATED" | "APPROVED" | "PUBLISHED";
 }
 
 export interface AAiDefinitionPackage {
@@ -38,4 +46,5 @@ export interface AAiDefinitionPackage {
   readonly audit?: AuditManifest;
   readonly dataIntake?: DataIntakeDefinition;
   readonly aiPrompts?: readonly AIPromptDefinition[];
+  readonly generatedCopy?: GeneratedCopyMetadata;
 }
