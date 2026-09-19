@@ -62,7 +62,7 @@ export function resolveL5Composition(
   };
 }
 
-function intersect(values: readonly string[][]): string[] {
+function intersect(values: readonly (readonly string[])[]): string[] {
   if (values.length === 0) return [];
   return unique(values[0]).filter((value) =>
     values.every((set) => set.includes(value)),
