@@ -12,3 +12,6 @@ export * from "./validation";
 export * from "./provider";
 export * from "./release";
 export * from "./json";
+export * from "./security";
+export * from "./deployment";
+export * from "./controlPlane";
