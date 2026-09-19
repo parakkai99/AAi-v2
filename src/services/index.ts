@@ -19,3 +19,6 @@ export * from "./deploymentPlanner";
 export * from "./auditService";
 export * from "./discoveryService";
 export * from "./backendFoundation";
+export * from "./selectionStateService";
+export * from "./updatePolicyService";
+export * from "./controlPlaneService";
