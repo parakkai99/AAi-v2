@@ -11,10 +11,10 @@ import type { CanonicalJsonDocument, JsonGenerationResult, JsonParseResult } fro
 import type { GeneratedCopyMetadata } from "../contracts/dataIntake";
 import { validateDefinitionPackage } from "./definitionValidator";
 
-export function generateCanonicalJson(
+export async function generateCanonicalJson(
   definition: AAiDefinitionPackage,
   generatedCopy?: GeneratedCopyMetadata,
-): JsonGenerationResult {
+): Promise<JsonGenerationResult> {
   const document: CanonicalJsonDocument = {
     format: "AAI-DEFINITION",
     schemaVersion: definition.control.schemaVersion,
@@ -31,7 +31,7 @@ export function generateCanonicalJson(
   return {
     document,
     json,
-    contentHash: stableHash(json),
+    contentHash: await sha256(json),
     validation,
   };
 }
@@ -83,11 +83,16 @@ export function parseCanonicalJson(
   }
 }
 
-function stableHash(value: string): string {
-  let hash = 2166136261;
-  for (let index = 0; index < value.length; index += 1) {
-    hash ^= value.charCodeAt(index);
-    hash = Math.imul(hash, 16777619);
+async function sha256(value: string): Promise<string> {
+  const cryptoApi = globalThis.crypto;
+  if (!cryptoApi?.subtle) {
+    throw new Error("Web Crypto SHA-256 is required for canonical JSON hashing.");
   }
-  return (hash >>> 0).toString(16).padStart(8, "0");
+
+  const bytes = new TextEncoder().encode(value);
+  const digest = await cryptoApi.subtle.digest("SHA-256", bytes);
+
+  return Array.from(new Uint8Array(digest))
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("");
 }
