@@ -9,3 +9,6 @@ export * from "./dataIntake";
 export * from "./ai";
 export * from "./definition";
 export * from "./validation";
+export * from "./provider";
+export * from "./release";
+export * from "./json";
