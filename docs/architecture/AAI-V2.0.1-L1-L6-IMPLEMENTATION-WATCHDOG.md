@@ -400,3 +400,52 @@ Backend service files:
 `src/services/index.ts`
 
 **Verification gate:** local `pnpm lint` and `pnpm build` must be run before this stage is marked verified. Physical provider-specific SQL/NoSQL generation and deployment adapters remain L6 implementation work; the provider-neutral manifests and resolution boundary are now established.
+
+
+## Remaining Backend Foundation — 2026-09-19
+
+**Status:** IMPLEMENTED — LOCAL VERIFICATION REQUIRED
+
+The provider-neutral backend foundation now includes:
+
+- [x] Canonical AAi JSON envelope contract
+- [x] Canonical JSON generation/parsing service
+- [x] SHA-256 content hashing for generated JSON/artifacts
+- [x] Explicit source → target data mapping service
+- [x] Provider adapter contract and registry
+- [x] PostgreSQL relational schema artifact adapter
+- [x] MySQL relational schema artifact adapter
+- [x] NoSQL/document persistence-plan adapter
+- [x] Asset artifact planning boundary
+- [x] Deployment artifact planning boundary
+- [x] Release compatibility validation
+- [x] Release integrity metadata checks
+- [x] Rollback plan generation
+- [x] Built-in provider adapter registration
+
+New backend contracts:
+
+`src/contracts/provider.ts`  
+`src/contracts/release.ts`  
+`src/contracts/json.ts`
+
+New backend services:
+
+`src/services/jsonDefinitionService.ts`  
+`src/services/dataMappingService.ts`  
+`src/services/providerSql.ts`  
+`src/services/providerAdapters.ts`  
+`src/services/documentProviderAdapter.ts`  
+`src/services/providerAdapterRegistry.ts`  
+`src/services/registerBuiltInProviderAdapters.ts`  
+`src/services/releaseService.ts`
+
+### Provider boundary rule
+
+AAi core produces provider-neutral manifests. Provider adapters produce deterministic artifacts. Actual credentials, infrastructure provisioning, cloud APIs, SQL execution, CDN uploads, certificate issuance and production deployment remain outside the core definition layer.
+
+### Release boundary rule
+
+Release metadata carries SHA-256, signature, key ID, compatibility and rollback information. Cryptographic signature verification and private-key handling remain in the secure trust/deployment boundary; no private key belongs in the AAi source repository.
+
+**Verification gate:** local `pnpm lint` and `pnpm build` are required before this backend stage is marked verified.
